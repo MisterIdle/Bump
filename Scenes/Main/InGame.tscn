@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://eijl1ptqfcr5"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/CameraManager.cs" id="1_thgj8"]
+[ext_resource type="PackedScene" uid="uid://8eylklkdawba" path="res://Scenes/Trigger.tscn" id="2_jwf2g"]
+[ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
+[ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
+[ext_resource type="PackedScene" uid="uid://bpnv46wqjqrmf" path="res://Scenes/Entity/Enemy/Koops.tscn" id="4_w2gcn"]
+
+[node name="InGame" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("forceEnable", "gameContainer")]
+script = ExtResource("2_yp2vh")
+forceEnable = [NodePath("../GameContainer/Player"), NodePath("../GameContainer/Camera/Trigger")]
+gameContainer = NodePath("../GameContainer")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1080, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(-11, 3)
+polygon = PackedVector2Array(11, 647, 78, 601, 190, 597, 255, 545, 245, 633, 320, 633, 461, 652, 474, 583, 507, 622, 580, 579, 708, 653, 788, 582, 788, 667, 839, 675, 981, 625, 1001, 659, 1091, 647, 1091, 717, 11, 717)
+
+[node name="GameContainer" type="Node2D" parent="."]
+
+[node name="Koops" parent="GameContainer" instance=ExtResource("4_w2gcn")]
+position = Vector2(1207, 319)
+
+[node name="Koops2" parent="GameContainer" instance=ExtResource("4_w2gcn")]
+position = Vector2(1301, 163)
+type = 1
+
+[node name="Koops3" parent="GameContainer" instance=ExtResource("4_w2gcn")]
+position = Vector2(1458, 298)
+
+[node name="Koops4" parent="GameContainer" instance=ExtResource("4_w2gcn")]
+position = Vector2(1591, 412)
+
+[node name="Player" parent="GameContainer" instance=ExtResource("3_l0emo")]
+position = Vector2(235, 236)
+
+[node name="Camera" type="Camera2D" parent="GameContainer"]
+anchor_mode = 0
+script = ExtResource("1_thgj8")
+
+[node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("2_jwf2g")]
