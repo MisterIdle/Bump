@@ -4,53 +4,94 @@ using System;
 public partial class Entity : Movable
 {
     [Export] protected int health = 1;
+    [Export] public bool invulnerability;
+
+    [Export] protected PackedScene popScene;
+
+    [Export] public bool isDeath;
 
     [Export] private float scaleBump = 1.2f;
     [Export] private float scaleDuration = 0.1f;
 
-    protected virtual void TakeDamage()
-    {
-        health--;
-        HitAnimation();
+    private Tween bumpTween;
+    private Vector2 baseScale;
 
-        if (health <= 0)
-        {
-            health = 0;
-            Death();
-        }
+    [Export] protected float fallDeath = 20f;
+    [Export] protected float deathJump = 5f;
+
+    public override void Initiate()
+    {
+        base.Initiate();
+        baseScale = Scale;
     }
 
-    private void HitAnimation()
+    protected override void Update(float pDelta)
     {
-        Tween lTween = CreateTween();
+        base.Update(pDelta);
 
-        lTween.TweenProperty(this, Property.TWEEN_SELF_MODULATE, Colors.Red, 0.1f);
-        lTween.TweenProperty(this, Property.TWEEN_SELF_MODULATE, Colors.White, 0.1f);
+        if (isDeath)
+        {
+            velocity += Vector2.Down * speed * pDelta;
+            RotationDegrees++;
+            return;
+        }
+        else
+            AliveUpdate(pDelta);
+    }
+
+    protected virtual void AliveUpdate(float pDelta) { }
+
+    public virtual void EntityHit()
+    {
+        if (invulnerability) return;
+
+        health--;
+
+        if (health <= 0)
+            EntityDeath();
+    }
+
+    protected virtual void EntityDeath()
+    {
+        velocity = Vector2.Zero;
+
+        isDeath = true;
+        invulnerability = true;
+
+        Particule.Create(popScene, GlobalPosition);
+
+        CollisionLayer = 0;
+        CollisionMask = 0;
+
+        speed = fallDeath;
+
+        DeathBump();
+    }
+
+    private void DeathBump()
+    {
+        velocity.Y = -deathJump;
     }
 
     protected void Bump()
     {
-        Vector2 lBaseScale = Scale;
-        Vector2 lBumpScale = lBaseScale * scaleBump;
+        bumpTween?.Kill();
 
-        Tween lTween = CreateTween();
+        bumpTween = CreateTween();
 
-        lTween.TweenProperty(this, Property.TWEEN_SCALE, lBumpScale, scaleDuration)
+        bumpTween.TweenProperty(this, (string)PropertyName.Scale, baseScale * scaleBump, scaleDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(this, Property.TWEEN_SCALE, lBaseScale, scaleDuration)
+        bumpTween.TweenProperty(this, (string)PropertyName.Scale, baseScale, scaleDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
-    }
-
-    protected void Death()
-    {
-        QueueFree();
     }
 
     protected override void OnCollide(Area2D pArea)
     {
-        TakeDamage();
+        base.OnCollide(pArea);
+
+        if (isDeath) return;
     }
 }

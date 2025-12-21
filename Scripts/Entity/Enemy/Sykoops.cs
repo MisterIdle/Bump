@@ -9,7 +9,7 @@ public partial class Sykoops : ShelledEnemy
         Shoot
     }
 
-    private AttackState lCurrentAttackState = AttackState.Chase;
+    private AttackState currentAttackState = AttackState.Chase;
 
     [ExportGroup("Spike Settings")]
     [Export] private int numSpikes = 5;
@@ -17,7 +17,7 @@ public partial class Sykoops : ShelledEnemy
     [Export] private Node2D spikeContainer;
 
     [ExportGroup("Shooting Settings")]
-    [Export] private Timer shotTimer;
+    private Timer shotTimer;
     [Export] private int chaseDistance = 400;
     [Export] private float fireRate = 3.5f;
     [Export] private float shotPreDelay = 0.5f;
@@ -25,24 +25,27 @@ public partial class Sykoops : ShelledEnemy
 
     private const float LERP_SPEED = 0.05f;
 
-    private List<Spike> lSpikesList = new List<Spike>();
-    private int lLastShotIndex = -1;
+    private List<Spike> spikesList = new List<Spike>();
+    private int lastShotIndex = -1;
 
     public override void Initiate()
     {
         base.Initiate();
 
+        shotTimer = new Timer();
         shotTimer.WaitTime = fireRate;
         shotTimer.Timeout += ActivateRandomSpike;
         shotTimer.Autostart = true;
         shotTimer.Start();
     }
 
-    protected override void Update(float delta)
+    protected override void AliveUpdate(float delta)
     {
-        base.Update(delta);
+        base.AliveUpdate(delta);
 
-        if (lCurrentAttackState == AttackState.Chase)
+        GD.Print(spikesList.Count);
+
+        if (currentAttackState == AttackState.Chase)
             ChasePlayer();
     }
 
@@ -67,7 +70,7 @@ public partial class Sykoops : ShelledEnemy
 
         for (int i = 0; i < numSpikes; i++)
         {
-            if (i < lSpikesList.Count && lSpikesList[i] != null && !lSpikesList[i].isActive)
+            if (i < spikesList.Count && spikesList[i] != null && !spikesList[i].isActive)
                 continue;
 
             float lAngle = lStartAngle + i * lAngleStep;
@@ -76,15 +79,17 @@ public partial class Sykoops : ShelledEnemy
             Spike lSpike = Spike.Create(spikeScene, Player.GetInstance(), lLocalPosition);
             lSpike.Rotation = lAngle;
 
-            if (i < lSpikesList.Count)
-                lSpikesList[i] = lSpike;
+            if (i < spikesList.Count)
+                spikesList[i] = lSpike;
             else
-                lSpikesList.Add(lSpike);
+                spikesList.Add(lSpike);
 
             spikeContainer.AddChild(lSpike);
 
+            lSpike.lifeTimer.Stop();
+
             Tween lTween = CreateTween();
-            lTween.TweenProperty(lSpike, Property.TWEEN_POSITION, lLocalPosition * spikeAdvanceMultiplier, shotPreDelay)
+            lTween.TweenProperty(lSpike, (string)PropertyName.Position, lLocalPosition * spikeAdvanceMultiplier, shotPreDelay)
                   .SetTrans(Tween.TransitionType.Back)
                   .SetEase(Tween.EaseType.InOut);
         }
@@ -92,26 +97,26 @@ public partial class Sykoops : ShelledEnemy
 
     private void ActivateRandomSpike()
     {
-        if (lSpikesList.Count < numSpikes)
+        if (spikesList.Count < numSpikes)
             SpawnSpikes();
 
         int lIndex;
 
         do
         {
-            lIndex = GameManager.rand.RandiRange(0, lSpikesList.Count - 1);
+            lIndex = GameManager.rand.RandiRange(0, spikesList.Count - 1);
         }
-        while (lIndex == lLastShotIndex || lSpikesList[lIndex] == null || lSpikesList[lIndex].isActive);
+        while (lIndex == lastShotIndex || spikesList[lIndex] == null || spikesList[lIndex].isActive);
 
-        lLastShotIndex = lIndex;
+        lastShotIndex = lIndex;
 
-        FireSpike(lSpikesList[lIndex]);
+        FireSpike(spikesList[lIndex]);
     }
 
     private void FireSpike(Spike pSpike)
     {
         Tween lTween = CreateTween();
-        lTween.TweenProperty(pSpike, Property.TWEEN_MODULATE, Colors.Red, shotPreDelay)
+        lTween.TweenProperty(pSpike, (string)PropertyName.Modulate, Colors.Red, shotPreDelay)
               .SetTrans(Tween.TransitionType.Quad)
               .SetEase(Tween.EaseType.InOut);
 
@@ -126,20 +131,32 @@ public partial class Sykoops : ShelledEnemy
         Vector2 lGlobalPosition = pSpike.GlobalPosition;
         float lGlobalRotation = pSpike.GlobalRotation;
 
-        Bump();
-
-        if (pSpike.GetParent() != null)
-            pSpike.GetParent().RemoveChild(pSpike);
-
+        spikeContainer.RemoveChild(pSpike);
         GameManager.GetInstance().AddChild(pSpike);
 
         pSpike.GlobalPosition = lGlobalPosition;
         pSpike.GlobalRotation = lGlobalRotation;
         pSpike.isActive = true;
+        pSpike.lifeTimer.Start();
 
         pSpike.CollisionLayer = 2;
         pSpike.CollisionMask = 1;
 
         SpawnSpikes();
+    }
+
+    public override void EntityHit()
+    {
+        base.EntityHit();
+
+        if (spikesList.Count < numSpikes) return;
+        
+        ActivateRandomSpike();
+    }
+
+    protected override void EntityDeath()
+    {
+        base.EntityDeath();
+        shotTimer.Stop();
     }
 }

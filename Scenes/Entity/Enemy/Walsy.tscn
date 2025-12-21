@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3hgpjemtaphm"]
+[gd_scene load_steps=9 format=3 uid="uid://d3hgpjemtaphm"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Walsy.cs" id="1_hjhdx"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="2_1hute"]
 [ext_resource type="Texture2D" uid="uid://cu3j5vxt81wco" path="res://Sprites/DiamondX.png" id="2_s5w7h"]
 [ext_resource type="Texture2D" uid="uid://bffke6l1ooraw" path="res://Sprites/DiamondThin.png" id="3_qw7w4"]
 [ext_resource type="Texture2D" uid="uid://dx6w20x3suh00" path="res://Sprites/DiamondThinRound.png" id="4_p2oc2"]
+[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Sprites/Circle.png" id="6_0va4b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oltwr"]
 radius = 40.1123
@@ -25,11 +27,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Walsy" type="Area2D" node_paths=PackedStringArray("sprite")]
+[node name="Walsy" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_hjhdx")
-sprite = NodePath("AnimatedSprite2D")
+animatedSpritePath = NodePath("AnimatedSprite2D")
 rotationSpeed = 100.0
+oneShotByHammer = true
+popScene = ExtResource("2_1hute")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oltwr")
@@ -39,3 +43,15 @@ scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_kwmnh")
 animation = &"hit"
 frame_progress = 0.0100636
+
+[node name="Eye" type="Sprite2D" parent="AnimatedSprite2D"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(-40, 0)
+scale = Vector2(0.142441, 0.270375)
+texture = ExtResource("6_0va4b")
+
+[node name="Eye2" type="Sprite2D" parent="AnimatedSprite2D"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(40, 0)
+scale = Vector2(0.142441, 0.270375)
+texture = ExtResource("6_0va4b")

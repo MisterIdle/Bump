@@ -1,14 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1u0rdsgn8dhl"]
+[gd_scene load_steps=9 format=3 uid="uid://c1u0rdsgn8dhl"]
 
 [ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Sprites/Circle.png" id="1_1ykxu"]
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Rushroops.cs" id="1_flvy1"]
 [ext_resource type="PackedScene" uid="uid://c0nfx3v8low78" path="res://Scenes/Projectiles/Klops.tscn" id="2_0cex1"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_yupoy"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_uicja"]
 [ext_resource type="Texture2D" uid="uid://c4wydvoiu7858" path="res://Sprites/Oval.png" id="4_lsr1j"]
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="4_og00s"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_atlxj"]
-size = Vector2(88, 56)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1q67j"]
+radius = 58.3095
 
 [node name="Rushroops" type="Area2D"]
 collision_layer = 2
@@ -18,14 +19,16 @@ rotationSpeed = 0.5
 chargeWait = 6.0
 chargeSpeed = 600.0
 recoilDistance = -150.0
-recoilDuration = 1.2
+recoilDuration = 1.5
 shellPath = NodePath("Shell")
+oneShotByHammer = true
 health = 3
+popScene = ExtResource("3_uicja")
 speed = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)
-shape = SubResource("RectangleShape2D_atlxj")
+shape = SubResource("CircleShape2D_1q67j")
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(-34, 8)
@@ -45,6 +48,7 @@ texture = ExtResource("1_1ykxu")
 position = Vector2(4, -13)
 rotation = 0.166167
 scale = Vector2(1.246, 0.846809)
+endDamageColor = Color(0, 0, 1, 1)
 
 [node name="Wing" parent="Shell" instance=ExtResource("4_og00s")]
 position = Vector2(7.50693, -19.8135)
@@ -57,7 +61,3 @@ rotA = -50.0
 rotB = -10.0
 rotSpeedA = 0.1
 rotSpeedB = 0.1
-
-[node name="ShotTimer" type="Timer" parent="."]
-
-[node name="AttackTimer" type="Timer" parent="."]

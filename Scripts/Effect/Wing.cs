@@ -15,11 +15,11 @@ public partial class Wing : Sprite2D
 
         lTween.SetLoops();
 
-        lTween.TweenProperty(this, Property.TWEEN_ROTATION_DEGREES, rotA, rotSpeedA)
+        lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, rotA, rotSpeedA)
             .SetTrans(Tween.TransitionType.Circ)
             .SetEase(Tween.EaseType.InOut);
 
-        lTween.TweenProperty(this, Property.TWEEN_ROTATION_DEGREES, rotB, rotSpeedB)
+        lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, rotB, rotSpeedB)
             .SetTrans(Tween.TransitionType.Circ)
             .SetEase(Tween.EaseType.InOut);
     }

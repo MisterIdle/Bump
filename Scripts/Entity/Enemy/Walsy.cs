@@ -3,28 +3,46 @@ using System;
 
 public partial class Walsy : Enemy
 {
-    [Export] private AnimatedSprite2D sprite;
+    private AnimatedSprite2D animatedSprite;
+    [Export] private NodePath animatedSpritePath;
+
     [Export] private float rotationSpeed;
 
     public override void Initiate()
     {
         base.Initiate();
 
-        string lAnim = sprite.Animation;
-        health = sprite.SpriteFrames.GetFrameCount(lAnim);
+        animatedSprite = (AnimatedSprite2D)GetNode(animatedSpritePath);
+
+        string lAnim = animatedSprite.Animation;
+        health = animatedSprite.SpriteFrames.GetFrameCount(lAnim);
 
         GD.Print(health);
     }
 
-    protected override void Update(float pDelta)
+    protected override void AliveUpdate(float pDelta)
     {
-        base.Update(pDelta);
+        base.AliveUpdate(pDelta);
         RotationDegrees += rotationSpeed * pDelta;
     }
 
-    protected override void TakeDamage()
+    public override void EntityHit()
     {
-        base.TakeDamage();
-        sprite.Frame++;
+        base.EntityHit();
+
+        animatedSprite.Frame++;
+
+        if (health <= 0)
+            QueueFree();
+
+        Bump();
+        InverseRotation();
+    }
+
+    private void InverseRotation()
+    {
+        Tween lTween = CreateTween();
+
+        lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, RotationDegrees - 15, 0.2f);
     }
 }

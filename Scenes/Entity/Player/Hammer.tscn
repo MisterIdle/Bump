@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5f4s4npvvkep"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Player/Hammer.cs" id="1_80qmo"]
+[ext_resource type="Texture2D" uid="uid://cqhqrt4jhygkf" path="res://Sprites/Rectangle.png" id="1_blo8k"]
+[ext_resource type="Texture2D" uid="uid://m3ptxwi12nrh" path="res://Sprites/SquareRound.png" id="2_xfwcd"]
+[ext_resource type="Texture2D" uid="uid://j4jsgnp5d8pp" path="res://Sprites/Donut.png" id="4_ng06h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sisb5"]
+radius = 11.4018
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iyntb"]
+size = Vector2(110, 176)
+
+[node name="Hammer" type="Area2D" node_paths=PackedStringArray("sprite", "progressBar", "collision")]
+script = ExtResource("1_80qmo")
+sprite = NodePath("Handle")
+progressBar = NodePath("TextureProgressBar")
+collision = NodePath("Handle/Hammer/HammerCollision/CollisionShape2D")
+
+[node name="CollisionWave" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sisb5")
+disabled = true
+
+[node name="Handle" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 0.407843, 0, 1)
+position = Vector2(0, -1)
+rotation = 2.0944
+scale = Vector2(0.046875, 0.511719)
+texture = ExtResource("1_blo8k")
+offset = Vector2(0, -128)
+
+[node name="Hammer" type="Sprite2D" parent="Handle"]
+self_modulate = Color(0.687215, 0.687215, 0.687215, 1)
+position = Vector2(0, -252.092)
+scale = Vector2(10, 0.534351)
+texture = ExtResource("2_xfwcd")
+
+[node name="HammerCollision" type="Area2D" parent="Handle/Hammer"]
+position = Vector2(0, 475.429)
+scale = Vector2(2.13333, 3.65714)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle/Hammer/HammerCollision"]
+position = Vector2(1, -83)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_iyntb")
+disabled = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+visible = false
+offset_left = 44.0
+offset_top = -155.0
+offset_right = 300.0
+offset_bottom = 101.0
+scale = Vector2(0.2, 0.2)
+max_value = 3.0
+step = 0.001
+fill_mode = 4
+texture_under = ExtResource("4_ng06h")
+texture_progress = ExtResource("4_ng06h")

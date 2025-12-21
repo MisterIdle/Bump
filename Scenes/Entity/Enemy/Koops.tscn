@@ -1,21 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpnv46wqjqrmf"]
+[gd_scene load_steps=7 format=3 uid="uid://bpnv46wqjqrmf"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Koops.cs" id="1_8e6h4"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="2_ba4au"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_ew2ps"]
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="4_5sc2o"]
 [ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Sprites/Circle.png" id="6_hsdjc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8xniu"]
-size = Vector2(78, 50)
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xv56"]
+radius = 41.0
 
 [node name="Koops" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_8e6h4")
 shellPath = NodePath("Shell")
+oneShotByHammer = true
+popScene = ExtResource("2_ba4au")
 speed = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_8xniu")
+shape = SubResource("CircleShape2D_7xv56")
 
 [node name="Body" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0.784314, 0.0196078, 1)
@@ -34,5 +37,8 @@ position = Vector2(2, -3)
 rotation = 0.712094
 scale = Vector2(0.946473, 0.852427)
 
-[node name="Wing" parent="." instance=ExtResource("4_5sc2o")]
-position = Vector2(14, -12)
+[node name="Wing" parent="Shell" instance=ExtResource("4_5sc2o")]
+position = Vector2(3.38431, -17.1909)
+rotation = -1.30051
+scale = Vector2(0.106806, 0.0958755)
+skew = 0.0588641

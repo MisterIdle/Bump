@@ -1,28 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://1dl8asfcved8"]
+[gd_scene load_steps=8 format=3 uid="uid://1dl8asfcved8"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Sykoops.cs" id="1_msbn5"]
 [ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Sprites/Circle.png" id="1_u5u3d"]
 [ext_resource type="PackedScene" uid="uid://mt782a2qgaf5" path="res://Scenes/Projectiles/Spike.tscn" id="2_0qrcg"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_l71em"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_g7d3s"]
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="3_utuyu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3yut"]
-size = Vector2(58, 83)
+[sub_resource type="CircleShape2D" id="CircleShape2D_memyj"]
+radius = 55.6529
 
-[node name="Sykoops" type="Area2D" node_paths=PackedStringArray("spikeContainer", "shotTimer")]
+[node name="Sykoops" type="Area2D" node_paths=PackedStringArray("spikeContainer")]
 collision_layer = 2
 script = ExtResource("1_msbn5")
 spikeScene = ExtResource("2_0qrcg")
 spikeContainer = NodePath("Shell/Spike")
-shotTimer = NodePath("ShotTmer")
+chaseDistance = 300
+shellProjectileProtect = true
 shellPath = NodePath("Shell")
-shellProtect = true
 health = 3
+popScene = ExtResource("3_g7d3s")
 speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16.5)
-shape = SubResource("RectangleShape2D_r3yut")
+shape = SubResource("CircleShape2D_memyj")
 
 [node name="Body" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0.611765, 0, 1)
@@ -39,6 +41,7 @@ texture = ExtResource("1_u5u3d")
 [node name="Shell" parent="." instance=ExtResource("2_l71em")]
 position = Vector2(0, -16)
 scale = Vector2(1.35285, 1.13243)
+endDamageColor = Color(0, 0, 0, 1)
 
 [node name="Spike" type="Node2D" parent="Shell"]
 z_index = -1

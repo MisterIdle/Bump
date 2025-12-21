@@ -19,5 +19,4 @@ public partial class Movable : GameObject
 
         Position += lTotalVelocity * pDelta;
     }
-
 }

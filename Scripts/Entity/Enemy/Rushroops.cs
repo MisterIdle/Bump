@@ -12,6 +12,9 @@ public partial class Rushroops : ShelledEnemy
     [Export] private float recoilDistance = -25f;
     [Export] private float recoilDuration = 1f;
 
+    private Timer shotTimer;
+    private Timer chargeTimer;
+
     private Vector2 basePos;
     private Vector2 toPlayer;
 
@@ -22,23 +25,23 @@ public partial class Rushroops : ShelledEnemy
         base.Initiate();
         velocity = Vector2.Left;
 
-        Timer lShotTimer = new Timer();
-        AddChild(lShotTimer);
+        shotTimer = new Timer();
+        AddChild(shotTimer);
 
-        lShotTimer.WaitTime = fireRate;
-        lShotTimer.Autostart = true;
-        lShotTimer.Timeout += Shoot;
+        shotTimer.WaitTime = fireRate;
+        shotTimer.Autostart = true;
+        shotTimer.Timeout += Shoot;
 
-        lShotTimer.Start();
+        shotTimer.Start();
 
-        Timer lAttackTimer = new Timer();
-        AddChild(lAttackTimer);
+        chargeTimer = new Timer();
+        AddChild(chargeTimer);
 
-        lAttackTimer.WaitTime = chargeWait;
-        lAttackTimer.Autostart = true;
-        lAttackTimer.Timeout += () => StartCharge(lAttackTimer, lShotTimer);
-        
-        lAttackTimer.Start();
+        chargeTimer.WaitTime = chargeWait;
+        chargeTimer.Autostart = true;
+        chargeTimer.Timeout += () => StartCharge(chargeTimer, shotTimer);
+
+        chargeTimer.Start();
 
         shell.SetShellColor(Colors.Blue);
     }
@@ -51,9 +54,9 @@ public partial class Rushroops : ShelledEnemy
         Bump();
     }
 
-    protected override void Update(float pDelta)
+    protected override void AliveUpdate(float pDelta)
     {
-        base.Update(pDelta);
+        base.AliveUpdate(pDelta);
 
         toPlayer = Look.DirectionTo(Player.GetInstance(), this);
 
@@ -69,7 +72,7 @@ public partial class Rushroops : ShelledEnemy
         if (!isCharging)
             isCharging = true;
 
-        shellProtect = true;
+        shellProjectileProtect = true;
 
         pAttackTimer.Stop();
 
@@ -84,16 +87,19 @@ public partial class Rushroops : ShelledEnemy
 
         Tween lTween = CreateTween();
 
-        lTween.Parallel().TweenProperty(this, Property.TWEEN_POSITION, lRecoil, recoilDuration)
+        lTween.Parallel().TweenProperty(this, (string)PropertyName.Position, lRecoil, recoilDuration)
              .SetTrans(Tween.TransitionType.Back)
              .SetEase(Tween.EaseType.Out);
 
-        lTween.Parallel().TweenProperty(shell, Property.TWEEN_POSITION, basePos, recoilDuration)
+        lTween.Parallel().TweenProperty(shell, (string)PropertyName.Position, basePos, recoilDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
+    }
 
-        lTween.Parallel().TweenProperty(shell.sprite, Property.TWEEN_SELF_MODULATE, Colors.DarkBlue, recoilDuration)
-            .SetTrans(Tween.TransitionType.Back)
-            .SetEase(Tween.EaseType.Out);
+    protected override void EntityDeath()
+    {
+        base.EntityDeath();
+        shotTimer.Stop();
+        chargeTimer.Stop();
     }
 }

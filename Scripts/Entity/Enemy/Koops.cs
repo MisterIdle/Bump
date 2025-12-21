@@ -30,9 +30,9 @@ public partial class Koops : ShelledEnemy
         }
     }
 
-    protected override void Update(float pDelta)
+    protected override void AliveUpdate(float pDelta)
     {
-        base.Update(pDelta);
+        base.AliveUpdate(pDelta);
 
         switch (type)
         {
@@ -45,5 +45,6 @@ public partial class Koops : ShelledEnemy
                 break;
         }
     }
+
 
 }

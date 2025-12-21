@@ -20,9 +20,4 @@ public partial class Projectiles : Movable
 
         AddChild(lifeTimer);
     }
-
-    protected override void Update(float pDelta)
-    {
-        base.Update(pDelta);
-    }
 }

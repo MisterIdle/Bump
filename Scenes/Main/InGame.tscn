@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://eijl1ptqfcr5"]
+[gd_scene load_steps=6 format=3 uid="uid://eijl1ptqfcr5"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/CameraManager.cs" id="1_thgj8"]
 [ext_resource type="PackedScene" uid="uid://8eylklkdawba" path="res://Scenes/Trigger.tscn" id="2_jwf2g"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
+[ext_resource type="PackedScene" uid="uid://d3hgpjemtaphm" path="res://Scenes/Entity/Enemy/Walsy.tscn" id="5_lo1ea"]
 
 [node name="InGame" type="Node2D"]
 
@@ -23,11 +24,18 @@ polygon = PackedVector2Array(11, 647, 78, 601, 190, 597, 255, 545, 245, 633, 320
 
 [node name="GameContainer" type="Node2D" parent="."]
 
-[node name="Player" parent="GameContainer" instance=ExtResource("3_l0emo")]
-position = Vector2(235, 236)
+[node name="Player" parent="GameContainer" node_paths=PackedStringArray("spawnPoint") instance=ExtResource("3_l0emo")]
+position = Vector2(448, 372)
+spawnPoint = NodePath("../Camera/SpawnPoint")
 
 [node name="Camera" type="Camera2D" parent="GameContainer"]
 anchor_mode = 0
 script = ExtResource("1_thgj8")
 
 [node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("2_jwf2g")]
+
+[node name="SpawnPoint" type="Marker2D" parent="GameContainer/Camera"]
+position = Vector2(128, 321)
+
+[node name="Walsy" parent="." instance=ExtResource("5_lo1ea")]
+position = Vector2(1211, 296)
