@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1u0rdsgn8dhl"]
+
+[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Sprites/Circle.png" id="1_1ykxu"]
+[ext_resource type="Script" path="res://Scripts/Entity/Enemy/Rushroops.cs" id="1_flvy1"]
+[ext_resource type="PackedScene" uid="uid://c0nfx3v8low78" path="res://Scenes/Projectiles/Klops.tscn" id="2_0cex1"]
+[ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_yupoy"]
+[ext_resource type="Texture2D" uid="uid://c4wydvoiu7858" path="res://Sprites/Oval.png" id="4_lsr1j"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="4_og00s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atlxj"]
+size = Vector2(88, 56)
+
+[node name="Rushroops" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_flvy1")
+shotScene = ExtResource("2_0cex1")
+rotationSpeed = 0.5
+chargeWait = 6.0
+chargeSpeed = 600.0
+recoilDistance = -150.0
+recoilDuration = 1.2
+shellPath = NodePath("Shell")
+health = 3
+speed = 50.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_atlxj")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(-34, 8)
+
+[node name="Body" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.552941, 0.372549, 1)
+scale = Vector2(0.313867, 0.147913)
+texture = ExtResource("1_1ykxu")
+
+[node name="Eye" type="Sprite2D" parent="Body"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(-92.3957, -15.1788)
+scale = Vector2(0.0885558, 0.335497)
+texture = ExtResource("1_1ykxu")
+
+[node name="Shell" parent="." instance=ExtResource("2_yupoy")]
+position = Vector2(4, -13)
+rotation = 0.166167
+scale = Vector2(1.246, 0.846809)
+
+[node name="Wing" parent="Shell" instance=ExtResource("4_og00s")]
+position = Vector2(7.50693, -19.8135)
+rotation = -0.917816
+scale = Vector2(0.163236, 0.10465)
+skew = 0.374583
+texture = ExtResource("4_lsr1j")
+offset = Vector2(129.92, 2.43695)
+rotA = -50.0
+rotB = -10.0
+rotSpeedA = 0.1
+rotSpeedB = 0.1
+
+[node name="ShotTimer" type="Timer" parent="."]
+
+[node name="AttackTimer" type="Timer" parent="."]

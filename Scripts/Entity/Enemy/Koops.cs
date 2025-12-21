@@ -1,17 +1,12 @@
 using Godot;
 
-public partial class Koops : Enemy
+public partial class Koops : ShelledEnemy
 {
     private enum TypeEnum
     {
         Green,
         Red
     }
-
-    private float elapsedTime;
-
-    [Export] private float frequency = 1.0f;
-    [Export] private float amplitude = 1.0f;
 
     [Export] private TypeEnum type;
 
@@ -39,19 +34,14 @@ public partial class Koops : Enemy
     {
         base.Update(pDelta);
 
-        elapsedTime += pDelta;
-
-        float lAngleX = Mathf.Sin(elapsedTime * frequency) * amplitude;
-        float lAngleY = Mathf.Cos(elapsedTime * frequency) * amplitude;
-
         switch (type)
         {
             case TypeEnum.Green:
-                velocity.Y = lAngleY * amplitude;
+                velocity.Y = angleY * amplitude;
                 break;
 
             case TypeEnum.Red:
-                velocity.X = lAngleX * amplitude;
+                velocity.X = angleX * amplitude;
                 break;
         }
     }

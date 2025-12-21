@@ -5,34 +5,24 @@ public partial class Projectiles : Movable
 {
     [Export] private int lifeTime = 5;
 
-    [Export] private bool rotation;
-    [Export] private float rotationSpeed;
+    [Export] protected float rotationSpeed;
 
-    public override void _Ready()
-    {
-        Timer lLifeTimer = new Timer();
+    public Timer lifeTimer;
 
-        lLifeTimer.WaitTime = lifeTime;
-        lLifeTimer.Autostart = true;
-        lLifeTimer.Timeout += Destroy;
+    public override void Initiate()
+    {  
+        base.Initiate();
+        lifeTimer = new Timer();
 
-        AddChild(lLifeTimer);
+        lifeTimer.WaitTime = lifeTime;
+        lifeTimer.Autostart = true;
+        lifeTimer.Timeout += QueueFree;
+
+        AddChild(lifeTimer);
     }
 
     protected override void Update(float pDelta)
     {
         base.Update(pDelta);
-
-        if (rotation)
-            RotationDegrees += rotationSpeed * pDelta;
-    }
-
-    private void Destroy()
-    {
-        QueueFree();
-    }
-
-    protected override void OnCollide(Area2D pArea)
-    {
     }
 }

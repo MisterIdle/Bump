@@ -9,7 +9,7 @@ public partial class GameManager : Node
 
     [Export] public Node2D gameContainer;
 
-    public RandomNumberGenerator rand = new RandomNumberGenerator();
+    public static RandomNumberGenerator rand = new RandomNumberGenerator();
 
     private static GameManager instance;
 

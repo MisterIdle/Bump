@@ -1,11 +1,9 @@
 using Godot;
-using System;
-
 public static class Look
 {
-    public static Vector2 DirectionTo(Entity pEntityA, Entity pEntityB)
+    public static Vector2 DirectionTo(Movable pFrom, Movable pTo)
     {
-        return (pEntityA.GlobalPosition - pEntityB.GlobalPosition).Normalized();
+        return (pTo.GlobalPosition - pFrom.GlobalPosition).Normalized();
     }
 
     public static float DistanceTo(Entity pEntityA, Entity pEntityB)
@@ -15,6 +13,8 @@ public static class Look
 
     public static float LookAt(Vector2 pFrom, Vector2 pTo)
     {
-        return (pTo - pFrom).Angle();
+        float lAngle = (pTo - pFrom).Angle();
+
+        return Mathf.RadToDeg(lAngle);
     }
 }

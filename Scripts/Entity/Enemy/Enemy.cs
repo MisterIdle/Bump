@@ -2,12 +2,20 @@ using Godot;
 
 public partial class Enemy : Entity
 {
-    [Export] protected NodePath shellPath;
-    protected Shell shell;
+    protected float elapsedTime;
 
-    public override void _Ready()
+    [Export] protected float frequency = 1.0f;
+    [Export] protected float amplitude = 1.0f;
+
+    protected float angleX;
+    protected float angleY;
+
+    protected override void Update(float pDelta)
     {
-        // Obligatoire sinon shell généraliste, étrange
-        shell = GetNode<Shell>(shellPath);
+        base.Update(pDelta);
+        elapsedTime += pDelta;
+
+        angleX = Mathf.Sin(elapsedTime * frequency) * amplitude;
+        angleY = Mathf.Cos(elapsedTime * frequency) * amplitude;
     }
 }

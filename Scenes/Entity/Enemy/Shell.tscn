@@ -4,14 +4,14 @@
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Shell.cs" id="1_hvwlh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_68iaa"]
-radius = 38.1182
+radius = 2.0
 
 [node name="Shell" type="Area2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 2
 script = ExtResource("1_hvwlh")
 sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_68iaa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

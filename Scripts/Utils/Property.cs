@@ -19,9 +19,10 @@ public static class Property
 
     #region TWEEN
 
-    public static string TWEEN_ROTATION = "rotation_degrees";
+    public static string TWEEN_ROTATION_DEGREES = "rotation_degrees";
     public static string TWEEN_POSITION = "position";
     public const string TWEEN_SCALE = "scale";
+    public const string TWEEN_SELF_MODULATE = "self_modulate";
     public const string TWEEN_MODULATE = "modulate";
 
     #endregion
