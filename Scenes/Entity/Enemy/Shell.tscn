@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfpebwbwcjafa"]
 
-[ext_resource type="Texture2D" uid="uid://cbipth8kk6db2" path="res://Sprites/Moon.png" id="1_00sp0"]
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Shell.cs" id="1_hvwlh"]
+[ext_resource type="Texture2D" uid="uid://cbipth8kk6db2" path="res://Assets/Sprites/Moon.png" id="2_pfi7o"]
 
 [node name="Shell" type="Sprite2D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_hvwlh")
@@ -11,10 +11,10 @@ sprite = NodePath("Base")
 self_modulate = Color(0, 0, 0, 1)
 rotation = -1.5708
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_00sp0")
+texture = ExtResource("2_pfi7o")
 
 [node name="Sous" type="Sprite2D" parent="."]
 position = Vector2(-0.0523074, 12)
 rotation = -1.5708
 scale = Vector2(0.124615, 0.303837)
-texture = ExtResource("1_00sp0")
+texture = ExtResource("2_pfi7o")

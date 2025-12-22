@@ -31,6 +31,12 @@ public partial class ShelledEnemy : Enemy
             return;
         }
 
+        if (pArea is Player lPlayer && lPlayer.invincible)
+        {
+            shell.ShellProtectAnimation();
+            return;
+        }
+
         base.OnCollide(pArea);
         shell.ShellDamageAnimation();
     }

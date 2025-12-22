@@ -1,10 +1,13 @@
 using Godot;
-using System;
 
 public partial class Spike : Projectiles
 {
     private Entity target;
     public bool isActive;
+
+    [Export] private PackedScene popSpikeScene;
+    [Export] public GpuParticles2D particles;
+    [Export] public Sprite2D sprite;
 
     public static Spike Create(PackedScene pScene, Entity pTarget, Vector2 pPos)
     {
@@ -31,11 +34,18 @@ public partial class Spike : Projectiles
         velocity = Vector2.FromAngle(Rotation);
     }
 
+
     protected override void OnCollide(Area2D pArea)
     {
         base.OnCollide(pArea);
 
         if (!isActive) return;
+
         QueueFree();
+    }
+
+    protected override void Dispose(bool pDisposing)
+    {
+        Particule.Create(popSpikeScene, GlobalPosition);
     }
 }

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh4iqwgyl5hjm"]
+
+[ext_resource type="Script" path="res://Scripts/Projectiles/Shot.cs" id="1_23rss"]
+[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="2_icree"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_isf6a"]
+radius = 12.0416
+
+[node name="Shot" type="Area2D"]
+collision_mask = 6
+script = ExtResource("1_23rss")
+speed = 500.0
+affectedByScroll = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_isf6a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("2_icree")

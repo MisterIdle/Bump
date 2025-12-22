@@ -36,8 +36,6 @@ public partial class Shell : Sprite2D
 
     public void ShellDamageAnimation()
     {
-        ownerEnemy.invulnerability = true;
-
         Tween lTween = CreateTween();
 
         sprite.SelfModulate = damageColor;
@@ -47,8 +45,6 @@ public partial class Shell : Sprite2D
         lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation, damageAnimTime);
 
         lTween.TweenProperty(sprite, (string)PropertyName.SelfModulate, endDamageColor, protectAnimTime);
-
-        lTween.Finished += () => ownerEnemy.invulnerability = false;
     }
 
     public void ShellDestructionAnimation()

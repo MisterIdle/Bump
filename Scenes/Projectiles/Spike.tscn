@@ -1,20 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://mt782a2qgaf5"]
+[gd_scene load_steps=8 format=3 uid="uid://mt782a2qgaf5"]
 
-[ext_resource type="Texture2D" uid="uid://qr231lvl1g70" path="res://Sprites/Triangle.png" id="1_h4sdc"]
+[ext_resource type="Texture2D" uid="uid://qr231lvl1g70" path="res://Assets/Sprites/Triangle.png" id="1_h4sdc"]
 [ext_resource type="Script" path="res://Scripts/Projectiles/Spike.cs" id="1_mx0l8"]
+[ext_resource type="PackedScene" uid="uid://bbtcy1qjkpdpw" path="res://Scenes/Effect/PopSpike.tscn" id="2_80lto"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_roco8"]
 
-[node name="Spike" type="Area2D"]
+[sub_resource type="Gradient" id="Gradient_haeuy"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_66d8l"]
+gradient = SubResource("Gradient_haeuy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_44nyb"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+angle_max = 720.0
+gravity = Vector3(-100, 0, 0)
+linear_accel_max = 100.0
+radial_accel_max = 30.0
+scale_min = 2.0
+scale_max = 15.0
+color_ramp = SubResource("GradientTexture1D_66d8l")
+
+[node name="Spike" type="Area2D" node_paths=PackedStringArray("particles", "sprite")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_mx0l8")
-lifeTime = 10
+popSpikeScene = ExtResource("2_80lto")
+particles = NodePath("GPUParticles2D")
+sprite = NodePath("Sprite2D")
 rotationSpeed = 1.0
 speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_roco8")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-10, -5.04871e-29)
+scale = Vector2(1, 1)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_44nyb")
+preprocess = 0.2
+explosiveness = 0.1
+fixed_fps = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.42109e-14, -1.19209e-07)

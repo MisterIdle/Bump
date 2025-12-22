@@ -49,6 +49,9 @@ public partial class Rushroops : ShelledEnemy
     private void Shoot()
     {
         Shot lShot = Shot.Create(shotScene, GlobalPosition, -toPlayer);
+
+        Projectiles.enemyProjectilesList.Add(lShot);
+
         GameManager.GetInstance().gameContainer.AddChild(lShot);
 
         Bump();
@@ -96,7 +99,7 @@ public partial class Rushroops : ShelledEnemy
             .SetEase(Tween.EaseType.Out);
     }
 
-    protected override void EntityDeath()
+    public override void EntityDeath()
     {
         base.EntityDeath();
         shotTimer.Stop();

@@ -1,16 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://ct6reay04483s"]
 
-[ext_resource type="Texture2D" uid="uid://crb25hf5q2jgt" path="res://Sprites/HeartTilt.png" id="1_2ksgm"]
+[ext_resource type="Texture2D" uid="uid://crb25hf5q2jgt" path="res://Assets/Sprites/HeartTilt.png" id="1_tmf12"]
 [ext_resource type="Script" path="res://Scripts/Effect/Wing.cs" id="2_8wydu"]
 
 [node name="Wing" type="Sprite2D"]
 position = Vector2(0, 0.999998)
 rotation = -0.560251
 scale = Vector2(0.0917968, 0.0898438)
-texture = ExtResource("1_2ksgm")
+texture = ExtResource("1_tmf12")
 offset = Vector2(130.723, -133.565)
 script = ExtResource("2_8wydu")
 rotA = 60.0
 rotB = -30.0
-rotSpeedA = 0.3
+rotSpeedA = 0.2
 rotSpeedB = 0.3

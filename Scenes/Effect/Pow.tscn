@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://808ccomvyg1"]
+
+[ext_resource type="Script" path="res://Scripts/Effect/Pow.cs" id="1_1d0vc"]
+[ext_resource type="Texture2D" uid="uid://c7rdl4p71u5av" path="res://Assets/Sprites/Square.png" id="1_2j52u"]
+[ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Font/RetroMario-Regular.otf" id="2_0vks0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuduw"]
+size = Vector2(54, 54)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c1bdh"]
+font = ExtResource("2_0vks0")
+font_size = 110
+
+[node name="Pow" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_1d0vc")
+lifeTime = 0.3
+speed = 250.0
+affectedByScroll = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vuduw")
+
+[node name="Base" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 0.670588, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_2j52u")
+
+[node name="Red" type="Sprite2D" parent="Base"]
+self_modulate = Color(1, 0.266667, 0, 1)
+scale = Vector2(0.78125, 0.820312)
+texture = ExtResource("1_2j52u")
+
+[node name="Back" type="Sprite2D" parent="Base"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(-5.24521e-06, 0)
+scale = Vector2(1.01563, 0.664063)
+texture = ExtResource("1_2j52u")
+
+[node name="Label" type="Label" parent="Base"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -248.0
+offset_top = -213.0
+offset_right = -3.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "POW"
+label_settings = SubResource("LabelSettings_c1bdh")
+horizontal_alignment = 1
+vertical_alignment = 1

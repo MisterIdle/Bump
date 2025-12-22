@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cu8fuy0ur81dn"]
 
 [ext_resource type="Script" path="res://Scripts/Effect/Particule.cs" id="1_lx4wv"]
-[ext_resource type="Texture2D" uid="uid://tivkmyqix2y6" path="res://Sprites/SquareSpike.png" id="1_yqtw8"]
+[ext_resource type="Texture2D" uid="uid://tivkmyqix2y6" path="res://Assets/Sprites/SquareSpike.png" id="1_n57tl"]
 
 [sub_resource type="Gradient" id="Gradient_abm6w"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
@@ -26,7 +26,7 @@ color_ramp = SubResource("GradientTexture1D_02ff0")
 emitting = false
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_dw504")
-texture = ExtResource("1_yqtw8")
+texture = ExtResource("1_n57tl")
 lifetime = 0.2
 one_shot = true
 explosiveness = 1.0

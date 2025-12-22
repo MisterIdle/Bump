@@ -2,7 +2,14 @@ using Godot;
 
 public partial class Hammer : GameObject
 {
-    private enum State { Idle, Charging, Charged, Swing, Cooldown }
+    private enum State { 
+        Idle, 
+        Charging, 
+        Charged, 
+        Swing, 
+        Cooldown 
+    }
+
     private State state;
 
     [ExportGroup("References")]
@@ -33,7 +40,7 @@ public partial class Hammer : GameObject
     [ExportGroup("Misc")]
     [Export] private float hammerHide = 0.2f;
 
-    private Tween tween;
+    private Tween animationTween;
     private Timer animationTimer;
 
     private float chargeTime;
@@ -138,13 +145,13 @@ public partial class Hammer : GameObject
 
         progressBar.TintProgress = Colors.Red;
 
-        Player.GetInstance().invulnerability = true;
-        Player.GetInstance().Dash(attackTime / 2);
+        Player.GetInstance().Dash(attackTime / 2, Vector2.Right, false);
+        Player.GetInstance().invincible = true;
 
-        if (tween != null && tween.IsRunning()) tween.Kill();
+        if (animationTween != null && animationTween.IsRunning()) animationTween.Kill();
 
-        tween = SetRotation(swingRotation, attackTime);
-        tween.Finished += FinishAttack;
+        animationTween = SetRotation(swingRotation, attackTime);
+        animationTween.Finished += FinishAttack;
     }
 
 
@@ -154,7 +161,7 @@ public partial class Hammer : GameObject
         ResetToIdle();
     }
 
-    private void ResetToIdle()
+    public void ResetToIdle()
     {
         chargeTime = 0;
 
@@ -171,24 +178,24 @@ public partial class Hammer : GameObject
         collision.Disabled = true;
         state = State.Cooldown;
         animationTimer.Start();
-        Player.GetInstance().invulnerability = false;
     }
     private void FinishAttackAnimation()
     {
         sprite.Visible = false;
+        Player.GetInstance().invincible = false;
         //particule.Emitting = true;
     }
 
     private Tween SetRotation(float pTarget, float pTime)
     {
-        if (tween != null && tween.IsRunning()) tween.Kill();
+        if (animationTween != null && animationTween.IsRunning()) animationTween.Kill();
 
-        tween = CreateTween();
-        tween.TweenProperty(sprite, (string)PropertyName.RotationDegrees, pTarget, pTime)
+        animationTween = CreateTween();
+        animationTween.TweenProperty(sprite, (string)PropertyName.RotationDegrees, pTarget, pTime)
              .SetEase(Tween.EaseType.InOut)
              .SetTrans(Tween.TransitionType.Back);
 
-        return tween;
+        return animationTween;
     }
 
     private Color LerpColors(Color pColorA, Color ColorB, float pTime)

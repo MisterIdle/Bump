@@ -1,25 +1,16 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class Enemy : Entity
 {
-    protected float elapsedTime;
-
-    [Export] protected float frequency = 1.0f;
-    [Export] protected float amplitude = 1.0f;
-
     [Export] protected bool oneShotByHammer;
 
-    protected float angleX;
-    protected float angleY;
+    public static List<Enemy> enemyList = new List<Enemy>();
 
-    protected override void AliveUpdate(float pDelta)
+    public override void Initiate()
     {
-        base.AliveUpdate(pDelta);
-
-        elapsedTime += pDelta;
-
-        angleX = Mathf.Sin(elapsedTime * frequency) * amplitude;
-        angleY = Mathf.Cos(elapsedTime * frequency) * amplitude;
+        base.Initiate();
+        enemyList.Add(this);
     }
 
     protected override void OnCollide(Area2D pArea)
@@ -29,6 +20,36 @@ public partial class Enemy : Entity
         if (pArea.Owner is Hammer && oneShotByHammer)
             health = 0;
 
-       EntityHit();
+        EntityHit();
     }
+
+    public static List<Enemy> GetEnemiesOnScreen(Vector2 pPos)
+    {
+        List<Enemy> lVisibleEnemies = new List<Enemy>();
+
+        foreach (Enemy lEnemy in enemyList)
+        {
+            if (lEnemy.enable && !lEnemy.isDeath)
+                lVisibleEnemies.Add(lEnemy);
+        }
+
+        for (int i = 0; i < lVisibleEnemies.Count - 1; i++)
+        {
+            for (int j = i + 1; j < lVisibleEnemies.Count; j++)
+            {
+                float lDistanceA = lVisibleEnemies[i].GlobalPosition.DistanceTo(pPos);
+                float lDistanceB = lVisibleEnemies[j].GlobalPosition.DistanceTo(pPos);
+
+                if (lDistanceA > lDistanceB)
+                {
+                    Enemy lTemp = lVisibleEnemies[i];
+                    lVisibleEnemies[i] = lVisibleEnemies[j];
+                    lVisibleEnemies[j] = lTemp;
+                }
+            }
+        }
+
+        return lVisibleEnemies;
+    }
+
 }

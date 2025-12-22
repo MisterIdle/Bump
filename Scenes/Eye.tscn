@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1jhvdwxu63c7"]
 
-[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Sprites/Circle.png" id="1_0dbmq"]
+[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="1_0dbmq"]
 [ext_resource type="Script" path="res://Scripts/Entity/Eye.cs" id="2_tf4pb"]
 
 [node name="Eye" type="Sprite2D" node_paths=PackedStringArray("pupil")]

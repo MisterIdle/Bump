@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://1dl8asfcved8"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Sykoops.cs" id="1_msbn5"]
-[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Sprites/Circle.png" id="1_u5u3d"]
+[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="1_u5u3d"]
 [ext_resource type="PackedScene" uid="uid://mt782a2qgaf5" path="res://Scenes/Projectiles/Spike.tscn" id="2_0qrcg"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_l71em"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_g7d3s"]
@@ -10,11 +10,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_memyj"]
 radius = 55.6529
 
-[node name="Sykoops" type="Area2D" node_paths=PackedStringArray("spikeContainer")]
+[node name="Sykoops" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_msbn5")
 spikeScene = ExtResource("2_0qrcg")
-spikeContainer = NodePath("Shell/Spike")
+spikeContainerPath = NodePath("Shell/Spike")
 chaseDistance = 300
 shellProjectileProtect = true
 shellPath = NodePath("Shell")
@@ -53,5 +53,3 @@ position = Vector2(13.3052, -7.06448)
 rotation = -0.643118
 scale = Vector2(0.0718305, 0.0759105)
 skew = 0.159599
-
-[node name="ShotTmer" type="Timer" parent="."]

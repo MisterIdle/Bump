@@ -1,52 +1,66 @@
-[gd_scene load_steps=10 format=3 uid="uid://tuj17od45vsb"]
+[gd_scene load_steps=11 format=3 uid="uid://tuj17od45vsb"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.cs" id="1_3gwtq"]
+[ext_resource type="PackedScene" uid="uid://bh4iqwgyl5hjm" path="res://Scenes/Projectiles/Shot.tscn" id="2_1sndv"]
 [ext_resource type="PackedScene" uid="uid://bbyj1rwbwqomq" path="res://Scenes/Projectiles/Fireball.tscn" id="2_w6786"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_20icr"]
-[ext_resource type="Texture2D" uid="uid://c7rdl4p71u5av" path="res://Sprites/Square.png" id="3_t6hvo"]
-[ext_resource type="Texture2D" uid="uid://b5qfrysdeql43" path="res://Sprites/SquareCool.png" id="4_v0kij"]
-[ext_resource type="Texture2D" uid="uid://tivkmyqix2y6" path="res://Sprites/SquareSpike.png" id="5_0tx5s"]
+[ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Effect/Pow.tscn" id="4_0ve0x"]
+[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="5_nqk36"]
 [ext_resource type="PackedScene" uid="uid://b5f4s4npvvkep" path="res://Scenes/Entity/Player/Hammer.tscn" id="6_n43dq"]
+[ext_resource type="PackedScene" uid="uid://c1vf6ipddiw6q" path="res://Scenes/Entity/Player/Helmet.tscn" id="7_d7qca"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="8_xbg0g"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_tqit3"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_t6hvo")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_v0kij")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_0tx5s")
-}],
-"loop": false,
-"name": &"level",
-"speed": 1.0
-}]
+[sub_resource type="CircleShape2D" id="CircleShape2D_onibu"]
+radius = 40.5494
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjrp7"]
-size = Vector2(62, 64)
-
-[node name="Player" type="Area2D" node_paths=PackedStringArray("hammer")]
+[node name="Player" type="Area2D" node_paths=PackedStringArray("collision", "muzzle", "sprite", "helmet", "hammer")]
 collision_mask = 6
 script = ExtResource("1_3gwtq")
-shotSpace = 50.0
-shotScene = ExtResource("2_w6786")
+collision = NodePath("CollisionShape2D")
+baseShotSpace = 800.0
+shotScene = ExtResource("2_1sndv")
+fireBallScene = ExtResource("2_w6786")
+muzzle = NodePath("Muzzle")
+powScene = ExtResource("4_0ve0x")
+sprite = NodePath("Sprite")
+helmet = NodePath("Helmet")
 hammer = NodePath("Hammer")
 health = 3
 popScene = ExtResource("3_20icr")
+amplitude = 0.2
 speed = 250.0
 affectedByScroll = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.3, 0.3)
-sprite_frames = SubResource("SpriteFrames_tqit3")
-animation = &"level"
-frame = 2
-frame_progress = 0.301897
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_rjrp7")
+position = Vector2(0.5, 0)
+shape = SubResource("CircleShape2D_onibu")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(0.447059, 0.682353, 0.756863, 1)
+scale = Vector2(0.3, 0.283984)
+texture = ExtResource("5_nqk36")
+
+[node name="Wing" parent="Sprite" instance=ExtResource("8_xbg0g")]
+position = Vector2(-40, 14.0853)
+rotation = -1.5741
+scale = Vector2(0.323246, 0.29948)
+skew = -0.000383258
+rotA = -90.0
+rotB = -175.0
+
+[node name="Eye" type="Sprite2D" parent="Sprite"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(86.6667, -17.6066)
+scale = Vector2(0.186656, 0.274715)
+texture = ExtResource("5_nqk36")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(27, 16)
+
+[node name="Helmet" parent="." instance=ExtResource("7_d7qca")]
+visible = false
+position = Vector2(-10, -24)
+rotation = -0.469151
+scale = Vector2(1.14161, 1)
 
 [node name="Hammer" parent="." instance=ExtResource("6_n43dq")]
