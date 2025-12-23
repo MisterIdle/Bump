@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class GameManager : Node
+public partial class GameManager : Node2D
 {
     [ExportCategory("Scoll")]
     [Export] public float scrollSpeed = 100f;
@@ -15,6 +15,8 @@ public partial class GameManager : Node
     [ExportCategory("Global Score")]
     [Export] public int coin;
     [Export] public int score;
+
+    public Vector2 screenSize;
 
     public static RandomNumberGenerator rand = new RandomNumberGenerator();
 
@@ -37,11 +39,12 @@ public partial class GameManager : Node
             if (!forceEnable[i].enable) forceEnable[i].Initiate();
     }
 
-    public override void _Process(double delta)
+    public override void _Process(double pDelta)
     {
+        screenSize = GetViewportRect().Size + CameraManager.GetInstance().GlobalPosition;
+
         scrollSpeedVelocity = Vector2.Right * scrollSpeed;
     }
-
 
     public void AddCoin()
     {

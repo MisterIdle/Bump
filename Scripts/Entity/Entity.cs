@@ -7,6 +7,8 @@ public partial class Entity : Movable
 
     [Export] protected PackedScene popScene;
 
+    public bool invincible;
+    [Export] protected float invincibleTime = 1f;
     [Export] public bool isDeath;
 
     [Export] protected float frequency = 1.0f;
@@ -14,6 +16,11 @@ public partial class Entity : Movable
 
     [Export] protected float fallDeath = 20f;
     [Export] protected float deathJump = 5f;
+
+    [Export] private float deathRotationSpeed = 60f;
+    [Export] private float deathGravity = 20f;
+
+    protected Timer invincibleTimer;
 
     protected float elapsedTime;
 
@@ -23,6 +30,13 @@ public partial class Entity : Movable
     public override void Initiate()
     {
         base.Initiate();
+
+        invincibleTimer = new Timer();
+
+        invincibleTimer.OneShot = true;
+        invincibleTimer.Timeout += EndInvincible;
+
+        AddChild(invincibleTimer);
     }
 
     protected override void Update(float pDelta)
@@ -31,8 +45,8 @@ public partial class Entity : Movable
 
         if (isDeath)
         {
-            velocity += Vector2.Down * speed * pDelta;
-            RotationDegrees++;
+            velocity += Vector2.Down * deathGravity * pDelta;
+            RotationDegrees += deathRotationSpeed * pDelta;
             return;
         }
         else
@@ -49,6 +63,10 @@ public partial class Entity : Movable
 
     public virtual void EntityHit()
     {
+        if (invincible || isDeath) return;
+
+        GD.Print(Name + " Hit");
+
         health--;
 
         if (health <= 0)
@@ -63,12 +81,22 @@ public partial class Entity : Movable
 
         Particule.Create(popScene, GlobalPosition);
 
-        CollisionLayer = 0;
         CollisionMask = 0;
 
         speed = fallDeath;
 
         DeathBump();
+    }
+
+    protected virtual void StartInvincible(float pDuration)
+    {
+        invincible = true;
+        invincibleTimer.Start(pDuration);
+    }
+
+    protected virtual void EndInvincible()
+    {
+        invincible = false;
     }
 
     private void DeathBump()

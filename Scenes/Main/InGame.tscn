@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://eijl1ptqfcr5"]
+[gd_scene load_steps=8 format=3 uid="uid://eijl1ptqfcr5"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/CameraManager.cs" id="1_thgj8"]
 [ext_resource type="PackedScene" uid="uid://8eylklkdawba" path="res://Scenes/Trigger.tscn" id="2_jwf2g"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
 [ext_resource type="PackedScene" uid="uid://bpnv46wqjqrmf" path="res://Scenes/Entity/Enemy/Koops.tscn" id="5_vhfb6"]
+[ext_resource type="PackedScene" uid="uid://c1u0rdsgn8dhl" path="res://Scenes/Entity/Enemy/Rushroops.tscn" id="7_18w6t"]
+[ext_resource type="PackedScene" uid="uid://1dl8asfcved8" path="res://Scenes/Entity/Enemy/Sykoops.tscn" id="8_sd73a"]
 
 [node name="InGame" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("forceEnable", "gameContainer")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("forceEnable", "gameContainer")]
 script = ExtResource("2_yp2vh")
 forceEnable = [NodePath("../GameContainer/Player"), NodePath("../GameContainer/Camera/Trigger")]
 gameContainer = NodePath("../GameContainer")
@@ -57,5 +59,11 @@ script = ExtResource("1_thgj8")
 
 [node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("2_jwf2g")]
 
-[node name="Koops" parent="GameContainer" instance=ExtResource("5_vhfb6")]
-position = Vector2(2196, 526)
+[node name="Sykoops" parent="." instance=ExtResource("8_sd73a")]
+position = Vector2(2112, 456)
+
+[node name="Koops" parent="." instance=ExtResource("5_vhfb6")]
+position = Vector2(2141, 556)
+
+[node name="Rushroops" parent="." instance=ExtResource("7_18w6t")]
+position = Vector2(2269, 498)

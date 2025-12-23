@@ -16,8 +16,6 @@ public partial class Koops : ShelledEnemy
     {
         base.Initiate();
 
-        velocity = Vector2.Left;
-
         switch (type)
         {
             case TypeEnum.Green:

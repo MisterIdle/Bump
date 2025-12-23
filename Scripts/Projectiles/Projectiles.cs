@@ -6,6 +6,8 @@ public partial class Projectiles : Movable
 {
     [Export] private float lifeTime = 5;
 
+    [Export] protected PackedScene popScene;
+
     [Export] protected float rotationSpeed;
 
     public static List<Projectiles> enemyProjectilesList = new List<Projectiles>();

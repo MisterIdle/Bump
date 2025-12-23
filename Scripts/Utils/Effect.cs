@@ -3,7 +3,6 @@
 public static class Effect
 {
     private static string scale = "scale";
-    private static string position = "position";
     private static string modulate = "modulate";
 
     public static void BumpScale(Node2D pWho, float pScaleBump = 1.2f, float pDuration = 0.1f)

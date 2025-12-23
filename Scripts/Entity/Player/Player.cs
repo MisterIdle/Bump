@@ -15,8 +15,6 @@ public partial class Player : Entity
     [Export] public CollisionShape2D collision;
 
     [ExportCategory("Damage")]
-    [Export] private float invincibleTime = 3f;
-
     [Export] private float alphaNormal = 1f;
     [Export] private float alphaInvincible = 0.1f;
 
@@ -24,12 +22,10 @@ public partial class Player : Entity
 
     [Export] private float flashTime = 0.2f;
 
-    public bool invincible;
-    private Timer invincibleTimer;
     private Tween invincibleTween;
 
     [ExportCategory("Movement")]
-    [Export] private float dashMultiplier = 1.5f;
+    [Export] private float dashMultiplier = 3f;
     private Vector2 dashDirection = Vector2.Right;
     private float backDash = 0.1f;
 
@@ -75,6 +71,8 @@ public partial class Player : Entity
     private float dashSpeed;
     private Timer dashTimer;
 
+    private const int MARGIN = -20;
+
     public override void _Ready()
     {
         if (instance == null) instance = this;
@@ -98,18 +96,26 @@ public partial class Player : Entity
         dashTimer.Timeout += EndDash;
 
         AddChild(dashTimer);
-
-        invincibleTimer = new Timer();
-
-        invincibleTimer.OneShot = true;
-        invincibleTimer.Timeout += EndInvincible;
-
-        AddChild(invincibleTimer);
     }
 
     protected override void AliveUpdate(float delta)
     {
         base.AliveUpdate(delta);
+
+        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
+
+        if (lOut != Vector2.Zero)
+        {
+            Vector2 lDashDir = Vector2.Zero;
+
+            if (lOut.X != 0) lDashDir.X = -lOut.X;
+            if (lOut.Y != 0) lDashDir.Y = -lOut.Y;
+
+            Dash(backDash, lDashDir);
+
+            HitCheckInvincible();
+        }
+
 
         Move(delta);
         hammer.Attack(delta);
@@ -120,6 +126,11 @@ public partial class Player : Entity
         if (Input.IsActionJustPressed(Property.INPUT_SMARTBOMB))
             FirePow();
 
+        if (Input.IsActionJustPressed("ui_up"))
+        {
+            LevelUp(true);
+        }
+
         if (CanFire())
             Fire();
     }
@@ -127,18 +138,18 @@ public partial class Player : Entity
     private void Move(float pDelta)
     {
         if (isDashing)
-            velocity = dashDirection * dashSpeed * pDelta;
+            velocity = dashDirection * dashMultiplier;
         else if (velocity != Vector2.Zero)
             velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN);
         else
             velocity.Y = angleY;
     }
 
-    public void Dash(float pDuration, Vector2 pDirection, bool Opposite = false)
+    public void Dash(float pDuration, Vector2 pDirection, bool pOpposite = false)
     {
         if (isDashing) return;
 
-        dashDirection = Opposite ? (Position - pDirection).Normalized() : pDirection.Normalized();
+        dashDirection = pOpposite ? (Position - pDirection).Normalized() : pDirection.Normalized();
 
         isDashing = true;
         dashSpeed = speed * dashMultiplier;
@@ -236,9 +247,18 @@ public partial class Player : Entity
         Effect.BumpScale(this);
     }
 
+    private void HitCheckInvincible()
+    {
+        if (!invincible)
+        {
+            EntityHit();
+            hammer.ResetToIdle();
+        }
+    }
+
     public override void EntityHit()
     {
-        if (invincible || godMode) return;
+        if (godMode) return;
 
         base.EntityHit();
 
@@ -246,17 +266,15 @@ public partial class Player : Entity
         StartInvincible(invincibleTime);
     }
 
-    private void StartInvincible(float pDuration)
+    protected override void StartInvincible(float pDuration)
     {
-        invincible = true;
+        base.StartInvincible(pDuration);
 
         Effect.FlashEntityColor(this, Colors.Red, flashTime);
         Blink();
-
-        invincibleTimer.Start(pDuration);
     }
 
-    private void EndInvincible()
+    protected override void EndInvincible()
     {
         invincibleTween.Kill();
         invincible = false;
@@ -280,19 +298,10 @@ public partial class Player : Entity
     {
         base.OnCollide(pArea);
 
+        HitCheckInvincible();
+        Dash(backDash, pArea.GlobalPosition, true);
+
         velocity = Vector2.Zero;
-
-        if (invincible)
-        {
-            Dash(backDash, pArea.GlobalPosition, true);
-        }
-        else
-        {
-            Dash(backDash, pArea.GlobalPosition, true);
-            EntityHit();
-
-            hammer.ResetToIdle();
-        }
     }
 
     protected override void Dispose(bool pDisposing)

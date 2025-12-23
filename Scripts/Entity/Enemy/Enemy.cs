@@ -7,10 +7,27 @@ public partial class Enemy : Entity
 
     public static List<Enemy> enemyList = new List<Enemy>();
 
+    private const int MARGIN = 150;
+
+    protected override void Update(float pDelta)
+    {
+        base.Update(pDelta);
+
+        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
+
+        if (lOut != Vector2.Zero) 
+        {
+            health = 0;
+            QueueFree();
+        }
+    }
+
     public override void Initiate()
     {
         base.Initiate();
+
         enemyList.Add(this);
+        velocity = Vector2.Left;
     }
 
     protected override void OnCollide(Area2D pArea)

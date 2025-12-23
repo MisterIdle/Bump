@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceb8ljhl5g73k"]
+
+[ext_resource type="Texture2D" uid="uid://c7rdl4p71u5av" path="res://Assets/Sprites/Square.png" id="1_jvjah"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o7su"]
+size = Vector2(50, 50)
+
+[node name="Obstacle" type="Area2D"]
+z_index = -10
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6o7su")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.67451, 0.443137, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_jvjah")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+self_modulate = Color(0, 0.52549, 0, 1)
+position = Vector2(0, -125)
+scale = Vector2(1, 0.078125)
+texture = ExtResource("1_jvjah")

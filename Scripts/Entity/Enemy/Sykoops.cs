@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 public partial class Sykoops : ShelledEnemy
 {
-    private enum AttackState
+    private enum ChaseState
     {
-        Chase,
-        Shoot
+        Patrolling,
+        Approaching,
+        Chasing,
+        Abandoned
     }
 
-    private AttackState currentAttackState = AttackState.Chase;
+    private ChaseState chaseState = ChaseState.Patrolling;
 
     [ExportGroup("Spike Settings")]
     [Export] private int numSpikes = 5;
@@ -21,16 +23,24 @@ public partial class Sykoops : ShelledEnemy
     [ExportGroup("Shooting Settings")]
     private Timer shotTimer;
     private Tween fireTween;
-    [Export] private int chaseDistance = 400;
+    private Timer behindTimer;
+
+    [Export] private int chaseDistance = 500;
+    [Export] private int approchDistance = 200;
     [Export] private float fireRate = 3.5f;
     [Export] private float shotPreDelay = 0.5f;
     [Export] private float spikeAdvanceMultiplier = 1.3f;
     [Export] public float sizeMultiplier = 1.2f;
 
+    private const float MAX_BEHIND_TIME = 10f;
+
     private const float LERP_SPEED = 0.05f;
+    private const float MARGIN = -75f;
 
     private List<Spike> spikesList = new List<Spike>();
     private int lastShotIndex = -1;
+
+    private float playerDistance;
 
     public override void Initiate()
     {
@@ -39,32 +49,103 @@ public partial class Sykoops : ShelledEnemy
         spikeContainer = (Node2D)GetNode(spikeContainerPath);
 
         shotTimer = new Timer();
+
         shotTimer.WaitTime = fireRate;
         shotTimer.Timeout += ActivateRandomSpike;
-        shotTimer.Autostart = true;
+        shotTimer.Autostart = false;
 
         AddChild(shotTimer);
+
+        behindTimer = new Timer();
+
+        behindTimer.WaitTime = MAX_BEHIND_TIME;
+        behindTimer.OneShot = true;
+        behindTimer.Timeout += BehindStop;
+
+        AddChild(behindTimer);
     }
 
-
-    protected override void AliveUpdate(float delta)
+    protected override void AliveUpdate(float pDelta)
     {
-        base.AliveUpdate(delta);
+        base.AliveUpdate(pDelta);
 
-        if (currentAttackState == AttackState.Chase)
-            ChasePlayer();
+        playerDistance = Utils.DistanceTo(this, Player.GetInstance());
+
+        switch (chaseState)
+        {
+            case ChaseState.Patrolling:
+                velocity.Y = angleY;
+                if (playerDistance <= chaseDistance)
+                {
+                    chaseState = ChaseState.Approaching;
+                    Effect.BumpScale(this);
+                }
+                break;
+
+            case ChaseState.Approaching:
+                ApproachPlayer(pDelta);
+                shotTimer.Start();
+                break;
+
+            case ChaseState.Chasing:
+                ChasePlayer();
+                break;
+
+            case ChaseState.Abandoned:
+                velocity = Vector2.Left;
+                velocity.Y = angleY;
+                break;
+        }
+    }
+
+    private void ApproachPlayer(float delta)
+    {
+        Vector2 lPlayerPos = Player.GetInstance().GlobalPosition;
+        Vector2 lTargetDirection = Utils.DirectionTo(GlobalPosition, lPlayerPos);
+
+        velocity = velocity.Lerp(lTargetDirection, LERP_SPEED);
+
+        if (playerDistance <= approchDistance)
+        {
+            chaseState = ChaseState.Chasing;
+            shotTimer.Start();
+            Effect.BumpScale(this);
+        }
     }
 
     private void ChasePlayer()
     {
-        bool lIsPlayerLeft = Player.GetInstance().GlobalPosition.X < GlobalPosition.X;
-        Scale = new Vector2(lIsPlayerLeft ? 1 : -1, 1);
+        Vector2 lPlayerPos = Player.GetInstance().GlobalPosition;
+        Vector2 lDirectionToPlayer = Utils.DirectionTo(GlobalPosition, lPlayerPos);
+        Vector2 lTargetDirection;
 
-        float lPlayerDistance = Look.DistanceTo(this, Player.GetInstance());
-        Vector2 lPlayerDirection = Look.DirectionTo(this, Player.GetInstance());
+        GD.Print(behindTimer.TimeLeft);
 
-        Vector2 lTargetDirection = (lPlayerDistance >= chaseDistance) ? lPlayerDirection : -lPlayerDirection;
+        bool lPlayerLeft = lPlayerPos.X < GlobalPosition.X;
+        Scale = new Vector2(lPlayerLeft ? 1 : -1, 1);
+
+        if (playerDistance <= chaseDistance)
+            lTargetDirection = -lDirectionToPlayer;
+        else
+            lTargetDirection = lDirectionToPlayer;
+
+        if (!lPlayerLeft)
+        {
+            if (behindTimer.IsStopped())
+                behindTimer.Start();
+        }
+        else
+            behindTimer.Stop();
+
         velocity = velocity.Lerp(lTargetDirection, LERP_SPEED);
+        GlobalPosition = Utils.ClampToScreen(GlobalPosition, MARGIN, MARGIN);
+    }
+
+    private void BehindStop()
+    {
+        chaseState = ChaseState.Abandoned;
+        shotTimer.Stop();
+        Effect.BumpScale(this);
     }
 
     private void SpawnSpikes()
@@ -91,7 +172,6 @@ public partial class Sykoops : ShelledEnemy
                 spikesList.Add(lSpike);
 
             spikeContainer.AddChild(lSpike);
-
             lSpike.lifeTimer.Stop();
 
             Tween lTween = CreateTween();
@@ -103,10 +183,10 @@ public partial class Sykoops : ShelledEnemy
 
     private void ActivateRandomSpike()
     {
+        int lIndex;
+
         if (spikesList.Count < numSpikes)
             SpawnSpikes();
-
-        int lIndex;
 
         do
         {
@@ -122,6 +202,8 @@ public partial class Sykoops : ShelledEnemy
     private void FireSpike(Spike pSpike)
     {
         if (isDeath) return;
+
+        shotTimer.WaitTime = fireRate;
 
         fireTween = CreateTween();
         fireTween.TweenProperty(pSpike.sprite, (string)PropertyName.SelfModulate, Colors.Red, shotPreDelay)
@@ -141,7 +223,6 @@ public partial class Sykoops : ShelledEnemy
         float lGlobalRotation = pSpike.GlobalRotation;
 
         spikeContainer.RemoveChild(pSpike);
-
         GameManager.GetInstance().AddChild(pSpike);
 
         pSpike.GlobalPosition = lGlobalPosition;
@@ -153,10 +234,8 @@ public partial class Sykoops : ShelledEnemy
 
         Projectiles.enemyProjectilesList.Add(pSpike);
 
-        pSpike.CollisionLayer = 2;
-        pSpike.CollisionMask = 1;
-
         pSpike.particles.Emitting = true;
+        pSpike.collision.Disabled = false;
 
         SpawnSpikes();
     }
@@ -164,9 +243,9 @@ public partial class Sykoops : ShelledEnemy
     public override void EntityHit()
     {
         base.EntityHit();
+        StartInvincible(invincibleTime);
 
         if (spikesList.Count < numSpikes) return;
-        
         ActivateRandomSpike();
     }
 

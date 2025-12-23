@@ -44,5 +44,6 @@ public partial class Shot : Projectiles
     {
         base.OnCollide(pArea);
         QueueFree();
+        Particule.Create(popScene, Position);
     }
 }

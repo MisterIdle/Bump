@@ -24,25 +24,26 @@ scale_min = 2.0
 scale_max = 15.0
 color_ramp = SubResource("GradientTexture1D_66d8l")
 
-[node name="Spike" type="Area2D" node_paths=PackedStringArray("particles", "sprite")]
-collision_layer = 0
-collision_mask = 0
+[node name="Spike" type="Area2D" node_paths=PackedStringArray("particles", "sprite", "collision")]
+collision_layer = 2
+collision_mask = 257
 script = ExtResource("1_mx0l8")
-popSpikeScene = ExtResource("2_80lto")
 particles = NodePath("GPUParticles2D")
 sprite = NodePath("Sprite2D")
+collision = NodePath("CollisionShape2D")
+popScene = ExtResource("2_80lto")
 rotationSpeed = 1.0
 speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_roco8")
+disabled = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-10, -5.04871e-29)
 emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_44nyb")
-preprocess = 0.2
 explosiveness = 0.1
 fixed_fps = 10
 

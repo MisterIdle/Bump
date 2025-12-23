@@ -23,7 +23,6 @@ public partial class Rushroops : ShelledEnemy
     public override void Initiate()
     {
         base.Initiate();
-        velocity = Vector2.Left;
 
         shotTimer = new Timer();
         AddChild(shotTimer);
@@ -61,7 +60,7 @@ public partial class Rushroops : ShelledEnemy
     {
         base.AliveUpdate(pDelta);
 
-        toPlayer = Look.DirectionTo(Player.GetInstance(), this);
+        toPlayer = Utils.DirectionTo(Player.GetInstance().GlobalPosition, GlobalPosition);
 
         bool lLeft = RotationDegrees > 90f || RotationDegrees < -90f;
         Scale = new Vector2(1, lLeft ? -1 : 1);

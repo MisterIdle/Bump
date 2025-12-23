@@ -16,8 +16,6 @@ public partial class Walsy : Enemy
 
         string lAnim = animatedSprite.Animation;
         health = animatedSprite.SpriteFrames.GetFrameCount(lAnim);
-
-        GD.Print(health);
     }
 
     protected override void AliveUpdate(float pDelta)

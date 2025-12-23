@@ -13,11 +13,11 @@ public partial class Helmet : Sprite2D
     [Export] private float levelCRotation = 180f;
     [Export] private Vector2 levelCPosition = new Vector2(0, -20);
 
-    public void SetLevel(int level)
+    public void SetLevel(int pLevel)
     {
         Effect.BumpScale(this);
 
-        switch (level)
+        switch (pLevel)
         {
             case 1:
                 Visible = false;

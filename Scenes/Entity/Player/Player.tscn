@@ -27,6 +27,7 @@ helmet = NodePath("Helmet")
 hammer = NodePath("Hammer")
 health = 3
 popScene = ExtResource("3_20icr")
+invincibleTime = 2.0
 amplitude = 0.2
 speed = 250.0
 affectedByScroll = true

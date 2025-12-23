@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://7710phv1wm7k"]
+
+[ext_resource type="Texture2D" uid="uid://tivkmyqix2y6" path="res://Assets/Sprites/SquareSpike.png" id="1_vqluw"]
+[ext_resource type="Script" path="res://Scripts/Effect/Particule.cs" id="2_3o7k7"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_honob"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
+angular_velocity_max = 50.0
+radial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.1
+
+[node name="PopShot" type="GPUParticles2D"]
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_honob")
+texture = ExtResource("1_vqluw")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+script = ExtResource("2_3o7k7")
