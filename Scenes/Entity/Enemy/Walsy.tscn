@@ -29,6 +29,7 @@ animations = [{
 
 [node name="Walsy" type="Area2D"]
 collision_layer = 2
+collision_mask = 257
 script = ExtResource("1_hjhdx")
 animatedSpritePath = NodePath("AnimatedSprite2D")
 rotationSpeed = 100.0

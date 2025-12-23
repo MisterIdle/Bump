@@ -5,13 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://mt782a2qgaf5" path="res://Scenes/Projectiles/Spike.tscn" id="2_0qrcg"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_l71em"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_g7d3s"]
-[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="3_utuyu"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Effect/Wing.tscn" id="3_utuyu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_memyj"]
 radius = 55.6529
 
 [node name="Sykoops" type="Area2D"]
 collision_layer = 2
+collision_mask = 257
 script = ExtResource("1_msbn5")
 spikeScene = ExtResource("2_0qrcg")
 spikeContainerPath = NodePath("Shell/Spike")

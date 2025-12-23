@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://eijl1ptqfcr5"]
+[gd_scene load_steps=6 format=3 uid="uid://eijl1ptqfcr5"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/CameraManager.cs" id="1_thgj8"]
 [ext_resource type="PackedScene" uid="uid://8eylklkdawba" path="res://Scenes/Trigger.tscn" id="2_jwf2g"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
-[ext_resource type="PackedScene" uid="uid://d3hgpjemtaphm" path="res://Scenes/Entity/Enemy/Walsy.tscn" id="5_lo1ea"]
-[ext_resource type="PackedScene" uid="uid://1dl8asfcved8" path="res://Scenes/Entity/Enemy/Sykoops.tscn" id="8_1d86x"]
+[ext_resource type="PackedScene" uid="uid://bpnv46wqjqrmf" path="res://Scenes/Entity/Enemy/Koops.tscn" id="5_vhfb6"]
 
 [node name="InGame" type="Node2D"]
 
@@ -14,19 +13,43 @@ script = ExtResource("2_yp2vh")
 forceEnable = [NodePath("../GameContainer/Player"), NodePath("../GameContainer/Camera/Trigger")]
 gameContainer = NodePath("../GameContainer")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
+visible = false
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(1080, 0)
+[node name="HUD" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Polygon2D" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(-11, 3)
-polygon = PackedVector2Array(11, 647, 78, 601, 190, 597, 255, 545, 245, 633, 320, 633, 461, 652, 474, 583, 507, 622, 580, 579, 708, 653, 788, 582, 788, 667, 839, 675, 981, 625, 1001, 659, 1091, 647, 1091, 717, 11, 717)
+[node name="Label" type="Label" parent="HUD/HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "SALJGREJGJEROIPGERPGJ"
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(1.2, 1.2)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="Background/ParallaxLayer2"]
+color = Color(0.374139, 0.374139, 0.374139, 1)
+polygon = PackedVector2Array(0, 1017, 151, 901, 229, 781, 413, 803, 409, 881, 499, 983, 645, 981, 631, 869, 683, 913, 731, 913, 815, 891, 839, 955, 979, 887, 1011, 1025, 1065, 917, 1137, 977, 1201, 847, 1239, 725, 1445, 747, 1679, 945, 1629, 565, 1763, 751, 1863, 831, 1920, 1017, 1920, 1080, 0, 1080)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="Background/ParallaxLayer"]
+polygon = PackedVector2Array(0, 1017, 247, 973, 259, 827, 372, 814, 419, 969, 641, 1005, 731, 913, 815, 891, 839, 955, 833, 1019, 1045, 1033, 1234, 866, 1779, 826, 1920, 1017, 1920, 1080, 0, 1080)
 
 [node name="GameContainer" type="Node2D" parent="."]
 
 [node name="Player" parent="GameContainer" instance=ExtResource("3_l0emo")]
-position = Vector2(466, 367)
+position = Vector2(371, 550)
 
 [node name="Camera" type="Camera2D" parent="GameContainer"]
 anchor_mode = 0
@@ -34,8 +57,5 @@ script = ExtResource("1_thgj8")
 
 [node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("2_jwf2g")]
 
-[node name="Walsy" parent="." instance=ExtResource("5_lo1ea")]
-position = Vector2(1246, 240)
-
-[node name="Sykoops" parent="." instance=ExtResource("8_1d86x")]
-position = Vector2(1363, 478)
+[node name="Koops" parent="GameContainer" instance=ExtResource("5_vhfb6")]
+position = Vector2(2196, 526)

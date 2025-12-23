@@ -15,6 +15,8 @@ public partial class Helmet : Sprite2D
 
     public void SetLevel(int level)
     {
+        Effect.BumpScale(this);
+
         switch (level)
         {
             case 1:

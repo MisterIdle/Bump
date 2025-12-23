@@ -4,13 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="2_ba4au"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_ew2ps"]
 [ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="3_2lv5s"]
-[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="4_5sc2o"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Effect/Wing.tscn" id="4_5sc2o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7xv56"]
 radius = 41.0
 
 [node name="Koops" type="Area2D"]
 collision_layer = 2
+collision_mask = 257
 script = ExtResource("1_8e6h4")
 shellPath = NodePath("Shell")
 oneShotByHammer = true

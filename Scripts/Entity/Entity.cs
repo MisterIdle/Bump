@@ -9,12 +9,6 @@ public partial class Entity : Movable
 
     [Export] public bool isDeath;
 
-    [Export] private float scaleBump = 1.2f;
-    [Export] private float scaleDuration = 0.1f;
-
-    private Tween bumpTween;
-    private Vector2 baseScale;
-
     [Export] protected float frequency = 1.0f;
     [Export] protected float amplitude = 1.0f;
 
@@ -29,7 +23,6 @@ public partial class Entity : Movable
     public override void Initiate()
     {
         base.Initiate();
-        baseScale = Scale;
     }
 
     protected override void Update(float pDelta)
@@ -82,22 +75,6 @@ public partial class Entity : Movable
     {
         velocity.Y = -deathJump;
     }
-
-    protected void Bump()
-    {
-        bumpTween?.Kill();
-
-        bumpTween = CreateTween();
-
-        bumpTween.TweenProperty(this, (string)PropertyName.Scale, baseScale * scaleBump, scaleDuration)
-            .SetTrans(Tween.TransitionType.Back)
-            .SetEase(Tween.EaseType.Out);
-
-        bumpTween.TweenProperty(this, (string)PropertyName.Scale, baseScale, scaleDuration)
-            .SetTrans(Tween.TransitionType.Back)
-            .SetEase(Tween.EaseType.Out);
-    }
-
 
     protected override void OnCollide(Area2D pArea)
     {

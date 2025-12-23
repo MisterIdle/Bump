@@ -7,6 +7,7 @@
 
 [node name="Fireball" type="Area2D"]
 rotation = true
+collision_layer = 256
 collision_mask = 6
 script = ExtResource("1_tb7fp")
 rotation = true
@@ -18,7 +19,6 @@ affectedByScroll = true
 shape = SubResource("CircleShape2D_3e5f0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_gt1om")
 flip_h = true

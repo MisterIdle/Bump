@@ -13,7 +13,9 @@ public static class Property
     public static string INPUT_SPECIAL = "SPECIAL";
     public static string INPUT_SMARTBOMB = "SMARTBOMB";
     public static string INPUT_SHOT = "SHOT";
+
     public static string INPUT_GOD = "GODMODE";
+    public static string INPUT_RELOAD = "RELOAD";
 
     #endregion
 }

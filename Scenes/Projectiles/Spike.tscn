@@ -39,7 +39,6 @@ shape = SubResource("RectangleShape2D_roco8")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-10, -5.04871e-29)
-scale = Vector2(1, 1)
 emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_44nyb")

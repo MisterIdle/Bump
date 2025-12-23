@@ -2,12 +2,19 @@ using Godot;
 
 public partial class GameManager : Node
 {
+    [ExportCategory("Scoll")]
     [Export] public float scrollSpeed = 100f;
     public static Vector2 scrollSpeedVelocity;
 
+    [ExportCategory("Base enable")]
     [Export] public GameObject[] forceEnable;
 
+    [ExportCategory("Self")]
     [Export] public Node2D gameContainer;
+
+    [ExportCategory("Global Score")]
+    [Export] public int coin;
+    [Export] public int score;
 
     public static RandomNumberGenerator rand = new RandomNumberGenerator();
 
@@ -27,12 +34,25 @@ public partial class GameManager : Node
         else QueueFree();
 
         for (int i = forceEnable.Length - 1; i >= 0; i--)
-            forceEnable[i].Initiate();
+            if (!forceEnable[i].enable) forceEnable[i].Initiate();
     }
 
     public override void _Process(double delta)
     {
         scrollSpeedVelocity = Vector2.Right * scrollSpeed;
+    }
+
+
+    public void AddCoin()
+    {
+        coin++;
+        GD.Print("COIN:" + coin);
+    }
+
+    public void UpdateScore(int pScore) 
+    { 
+        score += pScore;
+        GD.Print("SCORE:" + score);
     }
 
     protected override void Dispose(bool pDisposing)

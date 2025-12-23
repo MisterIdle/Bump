@@ -54,7 +54,7 @@ public partial class Rushroops : ShelledEnemy
 
         GameManager.GetInstance().gameContainer.AddChild(lShot);
 
-        Bump();
+        Effect.BumpScale(this);
     }
 
     protected override void AliveUpdate(float pDelta)
@@ -79,7 +79,7 @@ public partial class Rushroops : ShelledEnemy
 
         pAttackTimer.Stop();
 
-        Bump();
+        Effect.BumpScale(this);
 
         Vector2 lDirection = toPlayer.Normalized();
         Vector2 lRecoil = Position - lDirection * recoilDistance;

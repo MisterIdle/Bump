@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="5_nqk36"]
 [ext_resource type="PackedScene" uid="uid://b5f4s4npvvkep" path="res://Scenes/Entity/Player/Hammer.tscn" id="6_n43dq"]
 [ext_resource type="PackedScene" uid="uid://c1vf6ipddiw6q" path="res://Scenes/Entity/Player/Helmet.tscn" id="7_d7qca"]
-[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="8_xbg0g"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Effect/Wing.tscn" id="7_pcw0n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onibu"]
 radius = 40.5494
@@ -40,19 +40,18 @@ self_modulate = Color(0.447059, 0.682353, 0.756863, 1)
 scale = Vector2(0.3, 0.283984)
 texture = ExtResource("5_nqk36")
 
-[node name="Wing" parent="Sprite" instance=ExtResource("8_xbg0g")]
-position = Vector2(-40, 14.0853)
-rotation = -1.5741
-scale = Vector2(0.323246, 0.29948)
-skew = -0.000383258
-rotA = -90.0
-rotB = -175.0
-
 [node name="Eye" type="Sprite2D" parent="Sprite"]
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(86.6667, -17.6066)
 scale = Vector2(0.186656, 0.274715)
 texture = ExtResource("5_nqk36")
+
+[node name="Wing" parent="." instance=ExtResource("7_pcw0n")]
+position = Vector2(-12, 4)
+rotation = -1.57429
+scale = Vector2(0.0917968, 0.0898439)
+rotA = -90.0
+rotB = -175.0
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(27, 16)

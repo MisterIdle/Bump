@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://xglysqus4mmt"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
+[ext_resource type="PackedScene" uid="uid://eijl1ptqfcr5" path="res://Scenes/Main/InGame.tscn" id="2_ppwvp"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ij506")
+
+[node name="InGame" parent="." instance=ExtResource("2_ppwvp")]

@@ -3,7 +3,7 @@ using System;
 
 public partial class Movable : GameObject
 {
-    [Export] protected float speed;
+    [Export] public float speed;
     [Export] public bool affectedByScroll;
 
     protected Vector2 velocity;

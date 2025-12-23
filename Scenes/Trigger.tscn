@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Utils/Trigger.cs" id="1_2nanp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uks1l"]
-size = Vector2(14, 895)
+size = Vector2(41, 1412.5)
 
 [node name="Trigger" type="Area2D"]
 collision_layer = 32768
@@ -11,5 +11,5 @@ collision_mask = 15
 script = ExtResource("1_2nanp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1127, 355)
+position = Vector2(1973, 533)
 shape = SubResource("RectangleShape2D_uks1l")

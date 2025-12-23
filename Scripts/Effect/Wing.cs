@@ -12,7 +12,6 @@ public partial class Wing : Sprite2D
     public override void _Ready()
     {
         Tween lTween = CreateTween();
-
         lTween.SetLoops();
 
         lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, rotA, rotSpeedA)

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://br6mruwd33f0n"]
+
+[ext_resource type="Texture2D" uid="uid://cbipth8kk6db2" path="res://Assets/Sprites/Moon.png" id="1_j2jn7"]
+[ext_resource type="Texture2D" uid="uid://cqhqrt4jhygkf" path="res://Assets/Sprites/Rectangle.png" id="2_w7feb"]
+
+[node name="Parachute" type="Sprite2D"]
+self_modulate = Color(0, 0.556863, 1, 1)
+position = Vector2(0.233063, -115.948)
+rotation = -1.5708
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_j2jn7")
+offset = Vector2(-62.3693, -0.58266)
+
+[node name="Bar" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-172.369, 26.9173)
+rotation = 1.79769
+scale = Vector2(0.0410155, 0.94224)
+texture = ExtResource("2_w7feb")
+
+[node name="Bar2" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-172.369, -28.0827)
+rotation = 1.3439
+scale = Vector2(0.0410155, 0.94224)
+texture = ExtResource("2_w7feb")

@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_yupoy"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_uicja"]
 [ext_resource type="Texture2D" uid="uid://c4wydvoiu7858" path="res://Assets/Sprites/Oval.png" id="4_lsr1j"]
-[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Enemy/Wing.tscn" id="4_og00s"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Effect/Wing.tscn" id="4_og00s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1q67j"]
 radius = 58.3095
 
 [node name="Rushroops" type="Area2D"]
 collision_layer = 2
+collision_mask = 257
 script = ExtResource("1_flvy1")
 shotScene = ExtResource("2_0cex1")
 rotationSpeed = 0.5

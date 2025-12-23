@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection.Metadata;
 
 public partial class Player : Entity
 {
@@ -21,7 +22,7 @@ public partial class Player : Entity
 
     [Export] private float alphaTweenTime = 0.1f;
 
-    [Export] private float redTweenTime = 0.2f;
+    [Export] private float flashTime = 0.2f;
 
     public bool invincible;
     private Timer invincibleTimer;
@@ -33,15 +34,34 @@ public partial class Player : Entity
     private float backDash = 0.1f;
 
     [ExportCategory("Shot")]
+    [ExportGroup("General")]
     [Export] private float baseShotSpace = 200f;
     [Export] private float shotSpaceLevelDivide = 1.5f;
-
     [Export] private PackedScene shotScene;
     [Export] private PackedScene fireBallScene;
     [Export] private Marker2D muzzle;
 
+    [ExportGroup("Speed")]
+    [Export] private float shotBaseSpeed = 600f;
+    [Export] private float shotSpeedMultiplierLevelB = 1.1f;
+    [Export] private float shotSpeedMultiplierLevelC = 1.3f;
+
+    [ExportGroup("Scale")]
+    [Export] private float shotScaleLevelB = 1.1f;
+    [Export] private float shotScaleLevelC = 1.3f;
+
+    [ExportGroup("Color")]
+    [Export] private Color shotColorLevelB = Colors.Yellow;
+    [Export] private Color shotColorLevelC = Colors.Orange;
+
     [ExportCategory("Pow")]
+    [Export] private int powNum = 1;
     [Export] private PackedScene powScene;
+
+    [ExportCategory("Level")]
+    private int level = 1;
+    private int minLevel = 1;
+    private int maxLevel = 3;
 
     [ExportCategory("Visual")]
     [Export] private Sprite2D sprite;
@@ -54,7 +74,6 @@ public partial class Player : Entity
     private bool isDashing;
     private float dashSpeed;
     private Timer dashTimer;
-    private int level = 1;
 
     public override void _Ready()
     {
@@ -64,14 +83,9 @@ public partial class Player : Entity
             QueueFree();
             return;
         }
-
-        invincibleTimer = new Timer();
-
-        invincibleTimer.OneShot = true;
-        invincibleTimer.Timeout += EndInvincible;
-
-        AddChild(invincibleTimer);
     }
+
+    public Player() : base() { }
 
     public override void Initiate()
     {
@@ -82,7 +96,15 @@ public partial class Player : Entity
         dashTimer = new Timer();
         dashTimer.OneShot = true;
         dashTimer.Timeout += EndDash;
+
         AddChild(dashTimer);
+
+        invincibleTimer = new Timer();
+
+        invincibleTimer.OneShot = true;
+        invincibleTimer.Timeout += EndInvincible;
+
+        AddChild(invincibleTimer);
     }
 
     protected override void AliveUpdate(float delta)
@@ -91,12 +113,6 @@ public partial class Player : Entity
 
         Move(delta);
         hammer.Attack(delta);
-
-        // DEBUG
-        if (Input.IsActionJustPressed("ui_up"))
-            ChangeLevel(true);
-        if (Input.IsActionJustPressed("ui_down"))
-            ChangeLevel(false);
 
         if (Input.IsActionJustPressed(Property.INPUT_GOD))
             ToggleGodMode();
@@ -129,8 +145,6 @@ public partial class Player : Entity
         dashTimer.Start(pDuration);
     }
 
-
-
     private void EndDash()
     {
         isDashing = false;
@@ -138,14 +152,14 @@ public partial class Player : Entity
 
     private bool CanFire()
     {
-        if (!Input.IsActionPressed(Property.INPUT_SHOT))
+        if (!Input.IsActionPressed(Property.INPUT_SHOT) || hammer.isActif)
             return false;
 
         if (!IsInstanceValid(lastShot))
             return true;
 
-        float lCurrentShotSpace = baseShotSpace / (level * shotSpaceLevelDivide);
-        return lastShot.Position.X - Position.X > lCurrentShotSpace;
+        float lShotSpace = baseShotSpace / (level * shotSpaceLevelDivide);
+        return Math.Abs(lastShot.Position.X - Position.X) > lShotSpace;
     }
 
     private void FirePow()
@@ -156,26 +170,48 @@ public partial class Player : Entity
 
     private void Fire()
     {
+        Shot lShot;
+
         switch (level)
         {
             case 1:
+                lShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right, 0.1f);
+                lShot.SetSpeed(shotBaseSpeed);
+                break;
+
             case 2:
-                lastShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right);
+                lShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right, 0.05f);
+                lShot.SetVisualParameters(shotColorLevelB, shotScaleLevelB);
+                lShot.SetSpeed(shotBaseSpeed * shotSpeedMultiplierLevelB);
                 break;
+
             case 3:
-                lastShot = Shot.Create(fireBallScene, muzzle.GlobalPosition, Vector2.Right);
+                lShot = Shot.Create(fireBallScene, muzzle.GlobalPosition, Vector2.Right);
+                lShot.SetVisualParameters(shotColorLevelC, shotScaleLevelC);
+                lShot.SetSpeed(shotBaseSpeed * shotSpeedMultiplierLevelC);
                 break;
+
+            default:
+                throw new InvalidOperationException();
         }
 
-        GameManager.GetInstance().gameContainer.AddChild(lastShot);
-        Bump();
+        Effect.BumpScale(this);
+
+        GameManager.GetInstance().gameContainer.AddChild(lShot);
+        lastShot = lShot;
     }
 
-    private void ChangeLevel(bool pUp)
+    public void LevelUp(bool pUp)
     {
         level += pUp ? 1 : -1;
-        level = Math.Clamp(level, 1, 3);
+        level = Mathf.Clamp(level, minLevel, maxLevel);
+
+        if (level == maxLevel)
+            AddHealth();
+
         helmet.SetLevel(level);
+
+        Effect.BumpScale(this);
     }
 
     private void ToggleGodMode()
@@ -185,11 +221,28 @@ public partial class Player : Entity
         GD.Print("GOD MODE: " + godMode);
     }
 
+    public void AddHealth()
+    {
+        health++;
+        GD.Print("HEALTH:" + health);
+        Effect.FlashEntityColor(sprite, Colors.Green);
+        Effect.BumpScale(this);
+    }
+
+    public void AddPow()
+    {
+        powNum++;
+        GD.Print("POW:" + powNum);
+        Effect.BumpScale(this);
+    }
+
     public override void EntityHit()
     {
         if (invincible || godMode) return;
 
         base.EntityHit();
+
+        LevelUp(false);
         StartInvincible(invincibleTime);
     }
 
@@ -197,7 +250,7 @@ public partial class Player : Entity
     {
         invincible = true;
 
-        Flash();
+        Effect.FlashEntityColor(this, Colors.Red, flashTime);
         Blink();
 
         invincibleTimer.Start(pDuration);
@@ -207,19 +260,6 @@ public partial class Player : Entity
     {
         invincibleTween.Kill();
         invincible = false;
-    }
-
-    private void Flash()
-    {
-        invincibleTween = CreateTween();
-
-        invincibleTween.TweenProperty(sprite, (string)PropertyName.Modulate, Colors.Red, redTweenTime)
-            .SetTrans(Tween.TransitionType.Sine)
-            .SetEase(Tween.EaseType.InOut);
-
-        invincibleTween.TweenProperty(sprite, (string)PropertyName.Modulate, Colors.White, redTweenTime)
-            .SetTrans(Tween.TransitionType.Sine)
-            .SetEase(Tween.EaseType.InOut);
     }
 
     private void Blink()
@@ -253,5 +293,11 @@ public partial class Player : Entity
 
             hammer.ResetToIdle();
         }
+    }
+
+    protected override void Dispose(bool pDisposing)
+    {
+        instance = null;
+        base.Dispose(pDisposing);
     }
 }
