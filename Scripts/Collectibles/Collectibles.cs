@@ -17,11 +17,24 @@ public partial class Collectibles : Movable
         if (parachutePath != null) 
             parachute = (Sprite2D)GetNode(parachutePath);
 
+        Effect.BumpScale(this);
+
         velocity = Vector2.Down;
     }
 
+    public static Collectibles Create(PackedScene pScene, Vector2 pPos)
+    {
+        Collectibles Collectible = (Collectibles)pScene.Instantiate();
 
-    public void StartParachuteEffect(float pRotation = 8f, float pDuration = 1f, float pHeightOffset = 0.1f)
+        Collectible.Position = pPos;
+        GameManager.GetInstance().gameContainer.AddChild(Collectible);
+
+        Collectible.Initiate();
+
+        return Collectible;
+    }
+
+    public void StartParachuteEffect(float pRotation = 8f, float pDuration = 1f)
     {
         parachuteTween?.Kill();
         parachuteTween = CreateTween();

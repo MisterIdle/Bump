@@ -113,6 +113,7 @@ public partial class Hammer : GameObject
                 chargeTime += pDelta;
                 progressBar.TintProgress = LerpColors(Colors.Red, Colors.Orange, chargeTime);
 
+
                 if (chargeTime >= maxChargeTime)
                     FullyCharged();
 
@@ -158,6 +159,8 @@ public partial class Hammer : GameObject
         progressBar.Visible = true;
         sprite.Visible = true;
 
+        Effect.SquashStretch(Player.GetInstance().sprite, false, false, 0.9f);
+
         state = State.Charging;
         SetRotation(startChargeRotation, maxChargeTime - chargeTweenTime);
         Effect.BumpScale(sprite);
@@ -177,6 +180,8 @@ public partial class Hammer : GameObject
     {
         state = State.Swing;
 
+        Effect.SquashStretch(Player.GetInstance().sprite, false);
+
         collision.Disabled = false;
 
         progressBar.TintProgress = Colors.Red;
@@ -191,7 +196,6 @@ public partial class Hammer : GameObject
         if (lAttackForce < swingRotations.Length)
             animationTween = SetRotation(swingRotations[lAttackForce], attackTime * attackForce);
 
-        // Force final appliquer ici
         attackForce = attackForceMultiply * (int)chargeTime;
         GD.Print(attackForce);
 
@@ -213,7 +217,6 @@ public partial class Hammer : GameObject
     {
         sprite.Visible = false;
         Player.GetInstance().invincible = false;
-        sprite.Scale = baseScale;
     }
 
     private void EndCooldown()
@@ -224,6 +227,7 @@ public partial class Hammer : GameObject
 
     public void ResetToIdle()
     {
+        SetScale(1, 0);
         chargeTime = 0;
 
         progressBar.Visible = false;

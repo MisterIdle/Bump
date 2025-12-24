@@ -8,10 +8,11 @@
 size = Vector2(20, 151)
 
 [node name="PowCollectible" type="Area2D"]
+z_index = 2
 collision_layer = 8
 script = ExtResource("1_o1hps")
 parachutePath = NodePath("Parachute")
-speed = 50.0
+speed = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -65.5)

@@ -50,12 +50,14 @@ public static class Effect
             .SetTrans(Tween.TransitionType.Back);
     }
 
-    public static void Squash(Node2D pWho, bool pOnX, float pSquashScale = 0.4f, float pStretchScale = 1.2f, float pDuration = 0.2f)
+    public static Tween SquashStretch(Node2D pWho, bool pOnX, bool pStaySquashed = false, float pSquashScale = 0.4f, float pStretchScale = 1.2f, float pDuration = 0.2f)
     {
-        if (pWho == null) return;
-
         Tween lTween = pWho.CreateTween();
+
+        // Si spam le rend tout petit biug chelou
         Vector2 lBaseScale = pWho.Scale;
+
+        GD.Print(lBaseScale);
 
         Vector2 lSquash = lBaseScale;
         Vector2 lStretch = lBaseScale;
@@ -75,12 +77,17 @@ public static class Effect
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(pWho, scale, lStretch, pDuration)
-            .SetTrans(Tween.TransitionType.Back)
-            .SetEase(Tween.EaseType.Out);
+        if (!pStaySquashed)
+        {
+            lTween.TweenProperty(pWho, scale, lStretch, pDuration)
+                .SetTrans(Tween.TransitionType.Back)
+                .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(pWho, scale, lBaseScale, pDuration)
-            .SetTrans(Tween.TransitionType.Back)
-            .SetEase(Tween.EaseType.Out);
+            lTween.TweenProperty(pWho, scale, lBaseScale, pDuration)
+                .SetTrans(Tween.TransitionType.Back)
+                .SetEase(Tween.EaseType.Out);
+        }
+
+        return lTween;
     }
 }

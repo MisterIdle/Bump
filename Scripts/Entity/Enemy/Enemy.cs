@@ -40,20 +40,9 @@ public partial class Enemy : Entity
         }
     }
 
-    protected override void OnCollide(Area2D pArea)
+    public override void EntityDeath()
     {
-        base.OnCollide(pArea);
-
-        if (pArea.Owner is Hammer)
-        {
-            EntityHit(Hammer.GetInstance().attackForce);
-
-            Camera.Shake(2, 0.2f, 1, 2);
-            Time.SlowMotion(0.1f, 0.2f);
-            Effect.Squash(this, false);
-        }
-
-        EntityHit();
+        base.EntityDeath();
     }
 
     public static List<Enemy> GetEnemiesOnScreen(Vector2 pPos)
@@ -83,6 +72,28 @@ public partial class Enemy : Entity
         }
 
         return lVisibleEnemies;
+    }
+
+    protected override void OnCollide(Area2D pArea)
+    {
+        base.OnCollide(pArea);
+
+        if (pArea.Owner is Hammer)
+        {
+            EntityHit(Hammer.GetInstance().attackForce);
+
+            Camera.Shake(2, 0.2f, 1, 2);
+            Time.SlowMotion(0.1f, 0.2f);
+            Effect.SquashStretch(this, false);
+        }
+
+        EntityHit();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        enemyList.Remove(this);
     }
 
 }

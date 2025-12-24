@@ -31,9 +31,10 @@ script = ExtResource("1_mx0l8")
 particles = NodePath("GPUParticles2D")
 sprite = NodePath("Sprite2D")
 collision = NodePath("CollisionShape2D")
+lifeTime = 15.0
 popScene = ExtResource("2_80lto")
-rotationSpeed = 1.0
-speed = 200.0
+rotationSpeed = 0.5
+speed = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_roco8")

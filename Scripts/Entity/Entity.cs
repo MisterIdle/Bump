@@ -78,15 +78,18 @@ public partial class Entity : Movable
     public virtual void EntityDeath()
     {
         velocity = Vector2.Zero;
-
         isDeath = true;
+        speed = fallDeath;
+        CallDeferred(MethodName.CallDeath);
+    }
 
-        Particule.Create(popScene, GlobalPosition);
-
+    private void CallDeath()
+    {
         CollisionMask = 0;
         CollisionLayer = 0;
 
-        speed = fallDeath;
+        GameManager.CreateRandomCollectibles(GlobalPosition);
+        Particule.Create(popScene, GlobalPosition);
 
         DeathBump();
     }

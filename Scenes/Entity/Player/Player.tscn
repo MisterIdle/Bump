@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://tuj17od45vsb"]
+[gd_scene load_steps=15 format=3 uid="uid://tuj17od45vsb"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.cs" id="1_3gwtq"]
 [ext_resource type="PackedScene" uid="uid://bh4iqwgyl5hjm" path="res://Scenes/Projectiles/Shot.tscn" id="2_1sndv"]
@@ -6,12 +6,29 @@
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_20icr"]
 [ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Effect/Pow.tscn" id="4_0ve0x"]
 [ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="5_nqk36"]
+[ext_resource type="Texture2D" uid="uid://bffke6l1ooraw" path="res://Assets/Sprites/DiamondThin.png" id="6_8yp1t"]
 [ext_resource type="PackedScene" uid="uid://b5f4s4npvvkep" path="res://Scenes/Entity/Player/Hammer.tscn" id="6_n43dq"]
 [ext_resource type="PackedScene" uid="uid://c1vf6ipddiw6q" path="res://Scenes/Entity/Player/Helmet.tscn" id="7_d7qca"]
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Effect/Wing.tscn" id="7_pcw0n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onibu"]
 radius = 40.5494
+
+[sub_resource type="Gradient" id="Gradient_tomav"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_onhn4"]
+gradient = SubResource("Gradient_tomav")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7u7gg"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 20.07
+angular_velocity_max = 100.0
+gravity = Vector3(-90, 0, 0)
+scale_min = 0.05
+scale_max = 0.05
+color_ramp = SubResource("GradientTexture1D_onhn4")
 
 [node name="Player" type="Area2D" node_paths=PackedStringArray("collision", "muzzle", "sprite", "helmet", "hammer")]
 collision_mask = 6
@@ -23,7 +40,7 @@ fireBallScene = ExtResource("2_w6786")
 muzzle = NodePath("Muzzle")
 powScene = ExtResource("4_0ve0x")
 sprite = NodePath("Sprite")
-helmet = NodePath("Helmet")
+helmet = NodePath("Sprite/Helmet")
 hammer = NodePath("Hammer")
 health = 3
 popScene = ExtResource("3_20icr")
@@ -36,6 +53,13 @@ affectedByScroll = true
 position = Vector2(0.5, 0)
 shape = SubResource("CircleShape2D_onibu")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-19, -3)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_7u7gg")
+texture = ExtResource("6_8yp1t")
+lifetime = 2.0
+
 [node name="Sprite" type="Sprite2D" parent="."]
 self_modulate = Color(0.447059, 0.682353, 0.756863, 1)
 scale = Vector2(0.3, 0.283984)
@@ -47,6 +71,13 @@ position = Vector2(86.6667, -17.6066)
 scale = Vector2(0.186656, 0.274715)
 texture = ExtResource("5_nqk36")
 
+[node name="Helmet" parent="Sprite" instance=ExtResource("7_d7qca")]
+visible = false
+position = Vector2(-33.3333, -84.5118)
+rotation = -0.491632
+scale = Vector2(3.85021, 3.48372)
+skew = 0.0442445
+
 [node name="Wing" parent="." instance=ExtResource("7_pcw0n")]
 position = Vector2(-12, 4)
 rotation = -1.57429
@@ -56,11 +87,5 @@ rotB = -175.0
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(27, 16)
-
-[node name="Helmet" parent="." instance=ExtResource("7_d7qca")]
-visible = false
-position = Vector2(-10, -24)
-rotation = -0.469151
-scale = Vector2(1.14161, 1)
 
 [node name="Hammer" parent="." instance=ExtResource("6_n43dq")]

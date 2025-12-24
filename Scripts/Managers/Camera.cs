@@ -34,14 +34,17 @@ public partial class Camera : Camera2D
         int pSteps = Mathf.Max(1, (int)(pTime / pStep));
         float pStepDuration = pStep;
 
+
         Tween lTween = pSelf.CreateTween();
 
         for (int i = 0; i < pSteps; i++)
         {
+            float lTime = 1f - (float)i / (pSteps - 1);
+
             Vector2 offset = new Vector2(
                 GameManager.rand.RandfRange(-pX, pX),
                 GameManager.rand.RandfRange(-pY, pY)
-            ) * pForce;
+            ) * pForce * lTime;
 
             lTween.TweenProperty(pSelf, (string)PropertyName.Offset, offset, pStepDuration)
                   .SetTrans(Tween.TransitionType.Sine)
@@ -51,9 +54,11 @@ public partial class Camera : Camera2D
         lTween.TweenProperty(pSelf, (string)PropertyName.Offset, Vector2.Zero, pStepDuration)
               .SetTrans(Tween.TransitionType.Sine)
               .SetEase(Tween.EaseType.InOut);
-
-        GD.Print("camera shake");
     }
 
-
+    protected override void Dispose(bool pDisposing)
+    {
+        instance = null;
+        base.Dispose(pDisposing);
+    }
 }

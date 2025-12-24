@@ -34,7 +34,6 @@ public partial class Sykoops : ShelledEnemy
 
     private const float MAX_BEHIND_TIME = 10f;
 
-    private const float LERP_SPEED = 0.05f;
     private const float MARGIN = -75f;
 
     private List<Spike> spikesList = new List<Spike>();
@@ -69,10 +68,10 @@ public partial class Sykoops : ShelledEnemy
     {
         base.AliveUpdate(pDelta);
 
+
         switch (chaseState)
         {
             case ChaseState.Patrolling:
-                velocity.Y = angleY;
                 if (globalPlayerDistance <= playerDistance)
                 {
                     chaseState = ChaseState.Approaching;
@@ -94,6 +93,8 @@ public partial class Sykoops : ShelledEnemy
                 velocity.Y = angleY;
                 break;
         }
+
+        velocity.Y = angleX;
     }
 
     private void ApproachPlayer(float delta)
@@ -101,7 +102,7 @@ public partial class Sykoops : ShelledEnemy
         Vector2 lPlayerPos = Player.GetInstance().GlobalPosition;
         Vector2 lTargetDirection = Utils.DirectionTo(GlobalPosition, lPlayerPos);
 
-        velocity = velocity.Lerp(lTargetDirection, LERP_SPEED);
+        velocity = lTargetDirection;
 
         if (globalPlayerDistance <= approchDistance)
         {
@@ -125,6 +126,8 @@ public partial class Sykoops : ShelledEnemy
         else
             lTargetDirection = lDirectionToPlayer;
 
+        velocity = lTargetDirection;
+
         if (!lPlayerLeft)
         {
             if (behindTimer.IsStopped())
@@ -133,7 +136,6 @@ public partial class Sykoops : ShelledEnemy
         else
             behindTimer.Stop();
 
-        velocity = velocity.Lerp(lTargetDirection, LERP_SPEED);
         GlobalPosition = Utils.ClampToScreen(GlobalPosition, MARGIN, MARGIN);
     }
 

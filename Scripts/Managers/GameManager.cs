@@ -9,6 +9,9 @@ public partial class GameManager : Node2D
     [ExportCategory("Base enable")]
     [Export] public GameObject[] forceEnable;
 
+    [ExportCategory("Collectibles")]
+    [Export] public PackedScene[] collectibleScenes;
+
     [ExportCategory("Self")]
     [Export] public Node2D gameContainer;
 
@@ -17,6 +20,7 @@ public partial class GameManager : Node2D
     [Export] public int score;
 
     public Vector2 screenSize;
+    public Vector2 screenSizeCenterX;
 
     public static RandomNumberGenerator rand = new RandomNumberGenerator();
 
@@ -41,9 +45,20 @@ public partial class GameManager : Node2D
 
     public override void _Process(double pDelta)
     {
-        screenSize = GetViewportRect().Size + Camera.GetInstance().GlobalPosition;
+        Vector2 lViewportSize = GetViewportRect().Size;
+        Vector2 lCameraPos = Camera.GetInstance().GlobalPosition;
+
+        screenSize = lViewportSize + lCameraPos;
+        screenSizeCenterX = new Vector2(lCameraPos.X + (lViewportSize.X / 2), 0);
 
         scrollSpeedVelocity = Vector2.Right * scrollSpeed;
+    }
+
+    public static void CreateRandomCollectibles(Vector2 pPos)
+    {
+        GameManager lSelf = GetInstance();
+        int lRandomIndex = rand.RandiRange(0, lSelf.collectibleScenes.Length - 1);
+        Collectibles.Create(lSelf.collectibleScenes[lRandomIndex], pPos);
     }
 
     public void AddCoin()

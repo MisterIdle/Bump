@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Reflection.Metadata;
 
 public partial class Player : Entity
 {
@@ -60,7 +59,7 @@ public partial class Player : Entity
     private int maxLevel = 3;
 
     [ExportCategory("Visual")]
-    [Export] private Sprite2D sprite;
+    [Export] public Sprite2D sprite;
     [Export] private Helmet helmet;
 
     [ExportCategory("Weapon")]
@@ -124,12 +123,7 @@ public partial class Player : Entity
             ToggleGodMode();
 
         if (Input.IsActionJustPressed(Property.INPUT_SMARTBOMB))
-            FirePow();
-
-        if (Input.IsActionJustPressed("ui_up"))
-        {
-            LevelUp(true);
-        }
+            Bomb();
 
         if (CanFire())
             Fire();
@@ -173,9 +167,9 @@ public partial class Player : Entity
         return Math.Abs(lastShot.Position.X - Position.X) > lShotSpace;
     }
 
-    private void FirePow()
+    private void Bomb()
     {
-        Pow lPow = Pow.Create(powScene, muzzle.GlobalPosition, Vector2.Right);
+        Pow lPow = Pow.Create(powScene, Vector2.Right);
         GameManager.GetInstance().gameContainer.AddChild(lPow);
     }
 
@@ -222,6 +216,7 @@ public partial class Player : Entity
 
         helmet.SetLevel(level);
 
+        Time.SlowMotion(0.1f, 0.1f);
         Effect.BumpScale(this);
     }
 
@@ -238,6 +233,7 @@ public partial class Player : Entity
         GD.Print("HEALTH:" + health);
         Effect.FlashColor(sprite, Colors.Green);
         Effect.BumpScale(this);
+        Time.SlowMotion(0.1f, 0.1f);
     }
 
     public void AddPow()
@@ -245,6 +241,7 @@ public partial class Player : Entity
         powNum++;
         GD.Print("POW:" + powNum);
         Effect.BumpScale(this);
+        Time.SlowMotion(0.1f, 0.1f);
     }
 
     private void HitCheckInvincible()

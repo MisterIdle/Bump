@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://808ccomvyg1"]
+[gd_scene load_steps=7 format=3 uid="uid://808ccomvyg1"]
 
 [ext_resource type="Script" path="res://Scripts/Effect/Pow.cs" id="1_1d0vc"]
 [ext_resource type="Texture2D" uid="uid://c7rdl4p71u5av" path="res://Assets/Sprites/Square.png" id="1_2j52u"]
 [ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Font/RetroMario-Regular.otf" id="2_0vks0"]
+[ext_resource type="PackedScene" uid="uid://bhnuaia2dpuey" path="res://Scenes/Effect/Big.tscn" id="2_7ay6i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vuduw"]
 size = Vector2(54, 54)
@@ -15,9 +16,7 @@ font_size = 110
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_1d0vc")
-lifeTime = 0.3
-speed = 250.0
-affectedByScroll = true
+pop = ExtResource("2_7ay6i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vuduw")

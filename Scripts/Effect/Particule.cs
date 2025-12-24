@@ -14,8 +14,8 @@ public partial class Particule : GpuParticles2D
         Particule lParticule = (Particule)pScene.Instantiate();
 
         lParticule.Position = pPos;
+        GameManager.GetInstance().gameContainer.AddChild(lParticule);
 
-        GameManager.GetInstance().AddChild(lParticule);
         return lParticule;
     }
 }
