@@ -7,7 +7,7 @@ public partial class Rushroops : ShelledEnemy
     [Export] private float fireRate = 1.5f;
     [Export] private float rotationSpeed = 5f;
 
-    [Export] private float chargeWait = 7f;
+    [Export] private float chargeWait = 15f;
     [Export] private float chargeSpeed = 300f;
     [Export] private float recoilDistance = -25f;
     [Export] private float recoilDuration = 1f;

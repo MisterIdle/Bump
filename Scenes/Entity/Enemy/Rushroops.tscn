@@ -17,13 +17,11 @@ collision_mask = 257
 script = ExtResource("1_flvy1")
 shotScene = ExtResource("2_0cex1")
 rotationSpeed = 0.5
-chargeWait = 6.0
 chargeSpeed = 600.0
 recoilDistance = -150.0
 recoilDuration = 1.5
 shellPath = NodePath("Shell")
-oneShotByHammer = true
-health = 3
+health = 9
 popScene = ExtResource("3_uicja")
 speed = 50.0
 
@@ -46,10 +44,9 @@ scale = Vector2(0.0885558, 0.335497)
 texture = ExtResource("1_1ykxu")
 
 [node name="Shell" parent="." instance=ExtResource("2_yupoy")]
-position = Vector2(4, -13)
+position = Vector2(8, -25)
 rotation = 0.166167
-scale = Vector2(1.246, 0.846809)
-endDamageColor = Color(0, 0, 1, 1)
+scale = Vector2(0.11977, 0.0997317)
 
 [node name="Wing" parent="Shell" instance=ExtResource("4_og00s")]
 position = Vector2(7.50693, -19.8135)

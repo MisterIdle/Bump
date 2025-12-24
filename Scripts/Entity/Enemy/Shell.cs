@@ -2,13 +2,7 @@ using Godot;
 
 public partial class Shell : Sprite2D
 {
-    [Export] public Sprite2D sprite;
     public ShelledEnemy ownerEnemy;
-
-    [Export] public Color defaultColor = Colors.White;
-    [Export] public Color damageColor = Colors.DarkRed;
-    [Export] public Color endDamageColor = Colors.White;
-    [Export] public Color deathColor = Colors.Gray;
 
     private float baseShellRotation = 0f;
     [Export] public float protectAnimAngle = 20f;
@@ -16,15 +10,31 @@ public partial class Shell : Sprite2D
     [Export] public float damageAnimAngle = 10f;
     [Export] public float damageAnimTime = 0.05f;
 
+    private ShaderMaterial material;
+    private const string COLOR_CONST = "New";
+
+    private Color baseColor;
+
+
     public override void _Ready()
     {
+        material = (ShaderMaterial)Material.Duplicate();
+        Material = material;
+
         baseShellRotation = RotationDegrees;
     }
 
-    public void SetShellColor(Color color)
+    public void SetShellColor(Color pColor)
     {
-        sprite.SelfModulate = color;
+        baseColor = pColor;
+        material.SetShaderParameter(COLOR_CONST, pColor);
     }
+
+    public void ChangeShellColor(Color pColor)
+    {
+        material.SetShaderParameter(COLOR_CONST, pColor);
+    }
+
 
     public void ShellProtectAnimation()
     {
@@ -38,20 +48,18 @@ public partial class Shell : Sprite2D
     {
         Tween lTween = CreateTween();
 
-        sprite.SelfModulate = damageColor;
+        ChangeShellColor(Colors.Red);
 
         lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation + damageAnimAngle, damageAnimTime);
         lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation - damageAnimAngle, damageAnimTime);
         lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation, damageAnimTime);
 
-        lTween.TweenProperty(sprite, (string)PropertyName.SelfModulate, endDamageColor, protectAnimTime);
+        lTween.Finished += () => ChangeShellColor(baseColor);
     }
 
     public void ShellDestructionAnimation()
     {
         Tween lTween = CreateTween();
-
-        sprite.SelfModulate = deathColor;
 
         lTween.Parallel().TweenProperty(this, (string)PropertyName.Position + ":y", Position.Y * 2f, 0.2f)
               .SetTrans(Tween.TransitionType.Sine)
@@ -62,10 +70,6 @@ public partial class Shell : Sprite2D
     
     private void ShellDisable()
     {
-        Tween lTween = CreateTween();
-
-        lTween.Parallel().TweenProperty(sprite, (string)PropertyName.SelfModulate, deathColor, 0.1f)
-            .SetTrans(Tween.TransitionType.Sine)
-            .SetEase(Tween.EaseType.Out);
+        ChangeShellColor(Colors.Gray);
     }
 }

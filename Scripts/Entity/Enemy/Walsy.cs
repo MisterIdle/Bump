@@ -24,9 +24,9 @@ public partial class Walsy : Enemy
         RotationDegrees += rotationSpeed * pDelta;
     }
 
-    public override void EntityHit()
+    public override void EntityHit(int pDamage)
     {
-        base.EntityHit();
+        base.EntityHit(pDamage);
 
         animatedSprite.Frame++;
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256mm"
+   height="256mm"
+   viewBox="0 0 256 256"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="ShellKoops.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.50835204"
+     inkscape:cx="155.40412"
+     inkscape:cy="545.88155"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="2552"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 128 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="256 : 128 : 1"
+       inkscape:persp3d-origin="128 : 85.333333 : 1"
+       id="perspective6" />
+  </defs>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#b2b2b2;fill-opacity:1;stroke:#000000;stroke-width:2.009;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="path32"
+       sodipodi:type="arc"
+       sodipodi:cx="131.20259"
+       sodipodi:cy="137.66426"
+       sodipodi:rx="121.11709"
+       sodipodi:ry="91.18"
+       sodipodi:start="2.9026017"
+       sodipodi:end="0.4877001"
+       sodipodi:open="true"
+       sodipodi:arc-type="arc"
+       d="M 13.527973,159.24861 A 121.11709,91.18 0 0 1 70.984146,58.552795 121.11709,91.18 0 0 1 215.43543,72.14607 121.11709,91.18 0 0 1 238.19899,180.39079" />
+    <path
+       style="fill:#ffffff;stroke:#000000;stroke-width:2.14234;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="m 4.2684605,149.72929 c 20.6541555,7.9779 58.4309645,-3.36348 98.0687895,-3.65873 54.80188,-0.40822 113.83125,10.08512 142.11213,30.09586 21.9347,15.52035 -0.17557,47.50672 -7.2512,49.74499 C 163.69386,182.86353 94.612102,168.4052 13.373864,196.40486 -0.56028056,186.72342 3.3200781,164.45067 4.2684605,149.72929 Z"
+       id="path33"
+       sodipodi:nodetypes="cssccc" />
+  </g>
+</svg>

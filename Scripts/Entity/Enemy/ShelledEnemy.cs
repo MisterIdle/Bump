@@ -15,9 +15,9 @@ public partial class ShelledEnemy : Enemy
         shell.ownerEnemy = this;
     }
 
-    public override void EntityHit() 
+    public override void EntityHit(int pDamage) 
     {
-        base.EntityHit();
+        base.EntityHit(pDamage);
 
         if (health <= 0)
             shell.ShellDestructionAnimation();

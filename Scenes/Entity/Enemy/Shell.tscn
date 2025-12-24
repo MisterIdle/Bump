@@ -1,20 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfpebwbwcjafa"]
+[gd_scene load_steps=5 format=3 uid="uid://dfpebwbwcjafa"]
 
+[ext_resource type="Texture2D" uid="uid://c6ns4bgbevoij" path="res://Assets/Sprites/ShellKoops.svg" id="1_c5mnq"]
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Shell.cs" id="1_hvwlh"]
-[ext_resource type="Texture2D" uid="uid://cbipth8kk6db2" path="res://Assets/Sprites/Moon.png" id="2_pfi7o"]
+[ext_resource type="Shader" uid="uid://bne3w1ms8y0g6" path="res://Assets/Shader/ColorShell.tres" id="1_jhus8"]
 
-[node name="Shell" type="Sprite2D" node_paths=PackedStringArray("sprite")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yte05"]
+shader = ExtResource("1_jhus8")
+shader_parameter/New = Color(0.698039, 0.698039, 0.698039, 1)
+shader_parameter/Seuil = 0.1
+
+[node name="Shell" type="Sprite2D"]
+material = SubResource("ShaderMaterial_yte05")
+texture = ExtResource("1_c5mnq")
 script = ExtResource("1_hvwlh")
-sprite = NodePath("Base")
-
-[node name="Base" type="Sprite2D" parent="."]
-self_modulate = Color(0, 0, 0, 1)
-rotation = -1.5708
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_pfi7o")
-
-[node name="Sous" type="Sprite2D" parent="."]
-position = Vector2(-0.0523074, 12)
-rotation = -1.5708
-scale = Vector2(0.124615, 0.303837)
-texture = ExtResource("2_pfi7o")

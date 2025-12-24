@@ -6,7 +6,7 @@
 [node name="Wing" type="Sprite2D"]
 position = Vector2(0, 0.999998)
 rotation = -0.560251
-scale = Vector2(0.0917968, 0.0898438)
+scale = Vector2(0.09, 0.09)
 texture = ExtResource("1_e528r")
 offset = Vector2(130.723, -133.565)
 script = ExtResource("2_pjk2r")

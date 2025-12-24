@@ -21,7 +21,7 @@ public static class Utils
     public static Vector2 OutOfBoundAxes(Vector2 pPos, float pMarginX = 0, float pMarginY = 0)
     {
         Vector2 lAxes = Vector2.Zero;
-        Vector2 lCamPos = CameraManager.GetInstance().Position;
+        Vector2 lCamPos = Camera.GetInstance().Position;
         Vector2 lScreenSize = GameManager.GetInstance().GetViewportRect().Size;
 
         if (pPos.X < lCamPos.X - pMarginX)
@@ -39,7 +39,7 @@ public static class Utils
 
     public static Vector2 ClampToScreen(Vector2 pPos, float pMarginX = 0, float pMarginY = 0)
     {
-        Vector2 lCamPos = CameraManager.GetInstance().Position;
+        Vector2 lCamPos = Camera.GetInstance().Position;
         Vector2 lScreenSize = GameManager.GetInstance().GetViewportRect().Size;
 
         float lClampX = Mathf.Clamp(pPos.X, lCamPos.X - pMarginX, lCamPos.X + lScreenSize.X + pMarginX);

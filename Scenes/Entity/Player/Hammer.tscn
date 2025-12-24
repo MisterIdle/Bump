@@ -17,6 +17,7 @@ script = ExtResource("1_80qmo")
 sprite = NodePath("Handle")
 progressBar = NodePath("TextureProgressBar")
 collision = NodePath("Handle/Hammer/HammerCollision/CollisionShape2D")
+swingRotations = PackedFloat32Array(120, 320, 480)
 
 [node name="CollisionWave" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_sisb5")

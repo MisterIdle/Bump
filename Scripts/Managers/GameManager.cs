@@ -41,7 +41,7 @@ public partial class GameManager : Node2D
 
     public override void _Process(double pDelta)
     {
-        screenSize = GetViewportRect().Size + CameraManager.GetInstance().GlobalPosition;
+        screenSize = GetViewportRect().Size + Camera.GetInstance().GlobalPosition;
 
         scrollSpeedVelocity = Vector2.Right * scrollSpeed;
     }

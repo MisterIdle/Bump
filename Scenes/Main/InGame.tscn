@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://eijl1ptqfcr5"]
+[gd_scene load_steps=6 format=3 uid="uid://eijl1ptqfcr5"]
 
-[ext_resource type="Script" path="res://Scripts/Managers/CameraManager.cs" id="1_thgj8"]
 [ext_resource type="PackedScene" uid="uid://8eylklkdawba" path="res://Scenes/Trigger.tscn" id="2_jwf2g"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
+[ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="3_066wh"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
-[ext_resource type="PackedScene" uid="uid://bpnv46wqjqrmf" path="res://Scenes/Entity/Enemy/Koops.tscn" id="5_vhfb6"]
-[ext_resource type="PackedScene" uid="uid://c1u0rdsgn8dhl" path="res://Scenes/Entity/Enemy/Rushroops.tscn" id="7_18w6t"]
-[ext_resource type="PackedScene" uid="uid://1dl8asfcved8" path="res://Scenes/Entity/Enemy/Sykoops.tscn" id="8_sd73a"]
+[ext_resource type="PackedScene" uid="uid://d3hgpjemtaphm" path="res://Scenes/Entity/Enemy/Walsy.tscn" id="5_scfi4"]
 
 [node name="InGame" type="Node2D"]
 
@@ -38,32 +36,49 @@ text = "SALJGREJGJEROIPGERPGJ"
 motion_scale = Vector2(1.2, 1.2)
 motion_mirroring = Vector2(1920, 0)
 
-[node name="Polygon2D" type="Polygon2D" parent="Background/ParallaxLayer2"]
-color = Color(0.374139, 0.374139, 0.374139, 1)
-polygon = PackedVector2Array(0, 1017, 151, 901, 229, 781, 413, 803, 409, 881, 499, 983, 645, 981, 631, 869, 683, 913, 731, 913, 815, 891, 839, 955, 979, 887, 1011, 1025, 1065, 917, 1137, 977, 1201, 847, 1239, 725, 1445, 747, 1679, 945, 1629, 565, 1763, 751, 1863, 831, 1920, 1017, 1920, 1080, 0, 1080)
-
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
 motion_mirroring = Vector2(1920, 0)
-
-[node name="Polygon2D" type="Polygon2D" parent="Background/ParallaxLayer"]
-polygon = PackedVector2Array(0, 1017, 247, 973, 259, 827, 372, 814, 419, 969, 641, 1005, 731, 913, 815, 891, 839, 955, 833, 1019, 1045, 1033, 1234, 866, 1779, 826, 1920, 1017, 1920, 1080, 0, 1080)
 
 [node name="GameContainer" type="Node2D" parent="."]
 
 [node name="Player" parent="GameContainer" instance=ExtResource("3_l0emo")]
-position = Vector2(371, 550)
+position = Vector2(287, 419)
 
 [node name="Camera" type="Camera2D" parent="GameContainer"]
 anchor_mode = 0
-script = ExtResource("1_thgj8")
+script = ExtResource("3_066wh")
 
 [node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("2_jwf2g")]
 
-[node name="Sykoops" parent="." instance=ExtResource("8_sd73a")]
-position = Vector2(2112, 456)
+[node name="Walsy2" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2313, 354)
 
-[node name="Koops" parent="." instance=ExtResource("5_vhfb6")]
-position = Vector2(2141, 556)
+[node name="Walsy3" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2428, 276)
 
-[node name="Rushroops" parent="." instance=ExtResource("7_18w6t")]
-position = Vector2(2269, 498)
+[node name="Walsy4" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2556, 344)
+
+[node name="Walsy5" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2437, 396)
+
+[node name="Walsy9" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2445, 513)
+
+[node name="Walsy10" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2550, 450)
+
+[node name="Walsy11" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2662, 408)
+
+[node name="Walsy12" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2665, 510)
+
+[node name="Walsy6" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2566, 578)
+
+[node name="Walsy7" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2450, 636)
+
+[node name="Walsy8" parent="." instance=ExtResource("5_scfi4")]
+position = Vector2(2317, 574)

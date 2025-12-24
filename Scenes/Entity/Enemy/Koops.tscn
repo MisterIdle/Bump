@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Effect/Wing.tscn" id="4_5sc2o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7xv56"]
-radius = 41.0
+radius = 34.0147
 
 [node name="Koops" type="Area2D"]
 collision_layer = 2
@@ -23,8 +23,8 @@ shape = SubResource("CircleShape2D_7xv56")
 
 [node name="Body" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0.784314, 0.0196078, 1)
-position = Vector2(0, 1)
-scale = Vector2(0.286719, 0.186914)
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(0.244922, 0.186914)
 texture = ExtResource("3_2lv5s")
 
 [node name="Eye" type="Sprite2D" parent="Body"]
@@ -34,12 +34,11 @@ scale = Vector2(0.0885558, 0.297104)
 texture = ExtResource("3_2lv5s")
 
 [node name="Shell" parent="." instance=ExtResource("2_ew2ps")]
-position = Vector2(2, -3)
-rotation = 0.712094
-scale = Vector2(0.946473, 0.852427)
+position = Vector2(10, -26)
+rotation = 0.20944
+scale = Vector2(0.1, 0.1)
 
-[node name="Wing" parent="Shell" instance=ExtResource("4_5sc2o")]
-position = Vector2(3.38431, -17.1909)
-rotation = -1.30051
-scale = Vector2(0.106806, 0.0958755)
+[node name="Wing" parent="." instance=ExtResource("4_5sc2o")]
+position = Vector2(14, -27)
+rotation = -1.09107
 skew = 0.0588641

@@ -9,16 +9,18 @@ public static class Effect
     {
         Tween lTween = pWho.CreateTween();
 
-        lTween.TweenProperty(pWho, scale, pWho.Scale * pScaleBump, pDuration)
+        Vector2 pBaseScale = pWho.Scale;
+
+        lTween.TweenProperty(pWho, scale, pBaseScale * pScaleBump, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(pWho, scale, Vector2.One, pDuration)
+        lTween.TweenProperty(pWho, scale, pBaseScale, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
     }
 
-    public static Tween FlashEntityColor(Node2D pWho, Color pColor, float pDuration = 0.1f)
+    public static Tween FlashColor(Node2D pWho, Color pColor, float pDuration = 0.1f)
     {
         Tween lTween = pWho.CreateTween();
 
@@ -46,5 +48,39 @@ public static class Effect
         lTween.TweenProperty(pWho, scale, pWho.Scale, pDuration)
             .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Back);
+    }
+
+    public static void Squash(Node2D pWho, bool pOnX, float pSquashScale = 0.4f, float pStretchScale = 1.2f, float pDuration = 0.2f)
+    {
+        if (pWho == null) return;
+
+        Tween lTween = pWho.CreateTween();
+        Vector2 lBaseScale = pWho.Scale;
+
+        Vector2 lSquash = lBaseScale;
+        Vector2 lStretch = lBaseScale;
+
+        if (pOnX)
+        {
+            lSquash.X *= pSquashScale;
+            lStretch.X *= pStretchScale;
+        }
+        else
+        {
+            lSquash.Y *= pSquashScale;
+            lStretch.Y *= pStretchScale;
+        }
+
+        lTween.TweenProperty(pWho, scale, lSquash, pDuration)
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+
+        lTween.TweenProperty(pWho, scale, lStretch, pDuration)
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+
+        lTween.TweenProperty(pWho, scale, lBaseScale, pDuration)
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
     }
 }

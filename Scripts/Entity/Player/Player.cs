@@ -98,9 +98,9 @@ public partial class Player : Entity
         AddChild(dashTimer);
     }
 
-    protected override void AliveUpdate(float delta)
+    protected override void AliveUpdate(float pDelta)
     {
-        base.AliveUpdate(delta);
+        base.AliveUpdate(pDelta);
 
         Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
 
@@ -117,8 +117,8 @@ public partial class Player : Entity
         }
 
 
-        Move(delta);
-        hammer.Attack(delta);
+        Move(pDelta);
+        hammer.Attack(pDelta);
 
         if (Input.IsActionJustPressed(Property.INPUT_GOD))
             ToggleGodMode();
@@ -236,7 +236,7 @@ public partial class Player : Entity
     {
         health++;
         GD.Print("HEALTH:" + health);
-        Effect.FlashEntityColor(sprite, Colors.Green);
+        Effect.FlashColor(sprite, Colors.Green);
         Effect.BumpScale(this);
     }
 
@@ -256,11 +256,11 @@ public partial class Player : Entity
         }
     }
 
-    public override void EntityHit()
+    public override void EntityHit(int pDamage = 1)
     {
         if (godMode) return;
 
-        base.EntityHit();
+        base.EntityHit(pDamage);
 
         LevelUp(false);
         StartInvincible(invincibleTime);
@@ -270,7 +270,7 @@ public partial class Player : Entity
     {
         base.StartInvincible(pDuration);
 
-        Effect.FlashEntityColor(this, Colors.Red, flashTime);
+        Effect.FlashColor(this, Colors.Red, flashTime);
         Blink();
     }
 

@@ -46,11 +46,11 @@ public partial class Entity : Movable
         if (isDeath)
         {
             velocity += Vector2.Down * deathGravity * pDelta;
-            RotationDegrees += deathRotationSpeed * pDelta;
+            RotationDegrees += deathRotationSpeed * Time.GetDelta(pDelta);
             return;
         }
         else
-            AliveUpdate(pDelta);
+            AliveUpdate(Time.GetDelta(pDelta));
     }
 
     protected virtual void AliveUpdate(float pDelta) 
@@ -61,13 +61,15 @@ public partial class Entity : Movable
         angleY = Mathf.Cos(elapsedTime * frequency) * amplitude;
     }
 
-    public virtual void EntityHit()
+    public virtual void EntityHit(int pDamage = 1)
     {
         if (invincible || isDeath) return;
 
         GD.Print(Name + " Hit");
 
-        health--;
+        health -= pDamage;
+
+        GD.Print(Name + "Hit: " + pDamage);
 
         if (health <= 0)
             EntityDeath();
@@ -82,6 +84,7 @@ public partial class Entity : Movable
         Particule.Create(popScene, GlobalPosition);
 
         CollisionMask = 0;
+        CollisionLayer = 0;
 
         speed = fallDeath;
 
@@ -102,12 +105,5 @@ public partial class Entity : Movable
     private void DeathBump()
     {
         velocity.Y = -deathJump;
-    }
-
-    protected override void OnCollide(Area2D pArea)
-    {
-        base.OnCollide(pArea);
-
-        if (isDeath) return;
     }
 }

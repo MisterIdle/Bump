@@ -40,8 +40,6 @@ public partial class Sykoops : ShelledEnemy
     private List<Spike> spikesList = new List<Spike>();
     private int lastShotIndex = -1;
 
-    private float playerDistance;
-
     public override void Initiate()
     {
         base.Initiate();
@@ -63,19 +61,19 @@ public partial class Sykoops : ShelledEnemy
         behindTimer.Timeout += BehindStop;
 
         AddChild(behindTimer);
+
+        shell.SetShellColor(Colors.Black);
     }
 
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
 
-        playerDistance = Utils.DistanceTo(this, Player.GetInstance());
-
         switch (chaseState)
         {
             case ChaseState.Patrolling:
                 velocity.Y = angleY;
-                if (playerDistance <= chaseDistance)
+                if (globalPlayerDistance <= playerDistance)
                 {
                     chaseState = ChaseState.Approaching;
                     Effect.BumpScale(this);
@@ -105,7 +103,7 @@ public partial class Sykoops : ShelledEnemy
 
         velocity = velocity.Lerp(lTargetDirection, LERP_SPEED);
 
-        if (playerDistance <= approchDistance)
+        if (globalPlayerDistance <= approchDistance)
         {
             chaseState = ChaseState.Chasing;
             shotTimer.Start();
@@ -119,12 +117,10 @@ public partial class Sykoops : ShelledEnemy
         Vector2 lDirectionToPlayer = Utils.DirectionTo(GlobalPosition, lPlayerPos);
         Vector2 lTargetDirection;
 
-        GD.Print(behindTimer.TimeLeft);
-
         bool lPlayerLeft = lPlayerPos.X < GlobalPosition.X;
         Scale = new Vector2(lPlayerLeft ? 1 : -1, 1);
 
-        if (playerDistance <= chaseDistance)
+        if (globalPlayerDistance <= chaseDistance)
             lTargetDirection = -lDirectionToPlayer;
         else
             lTargetDirection = lDirectionToPlayer;
@@ -240,9 +236,9 @@ public partial class Sykoops : ShelledEnemy
         SpawnSpikes();
     }
 
-    public override void EntityHit()
+    public override void EntityHit(int pDamage)
     {
-        base.EntityHit();
+        base.EntityHit(pDamage);
         StartInvincible(invincibleTime);
 
         if (spikesList.Count < numSpikes) return;

@@ -3,24 +3,14 @@ using System.Collections.Generic;
 
 public partial class Enemy : Entity
 {
-    [Export] protected bool oneShotByHammer;
+    [Export] protected int playerDistance = 600;
+
+    protected float globalPlayerDistance;
+    private bool playerSeen = false;
 
     public static List<Enemy> enemyList = new List<Enemy>();
 
     private const int MARGIN = 150;
-
-    protected override void Update(float pDelta)
-    {
-        base.Update(pDelta);
-
-        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
-
-        if (lOut != Vector2.Zero) 
-        {
-            health = 0;
-            QueueFree();
-        }
-    }
 
     public override void Initiate()
     {
@@ -30,12 +20,38 @@ public partial class Enemy : Entity
         velocity = Vector2.Left;
     }
 
+    protected override void Update(float pDelta)
+    {
+        base.Update(pDelta);
+
+        globalPlayerDistance = Utils.DistanceTo(this, Player.GetInstance());
+
+        if (globalPlayerDistance <= playerDistance && !playerSeen)
+        {
+            Effect.BumpScale(this);
+            playerSeen = true;
+        }
+
+        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
+        if (lOut != Vector2.Zero)
+        {
+            health = 0;
+            QueueFree();
+        }
+    }
+
     protected override void OnCollide(Area2D pArea)
     {
         base.OnCollide(pArea);
 
-        if (pArea.Owner is Hammer && oneShotByHammer)
-            health = 0;
+        if (pArea.Owner is Hammer)
+        {
+            EntityHit(Hammer.GetInstance().attackForce);
+
+            Camera.Shake(2, 0.2f, 1, 2);
+            Time.SlowMotion(0.1f, 0.2f);
+            Effect.Squash(this, false);
+        }
 
         EntityHit();
     }
