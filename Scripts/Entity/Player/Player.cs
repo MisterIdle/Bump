@@ -51,7 +51,11 @@ public partial class Player : Entity
     [Export] private PackedScene powScene;
 
     [ExportCategory("Level")]
-    private int level = 1;
+    [Export] private Color levelAColor;
+    [Export] private Color levelBColor;
+    [Export] private Color levelCColor;
+
+    public int level = 1;
     private int minLevel = 1;
     private int maxLevel = 3;
 
@@ -66,6 +70,7 @@ public partial class Player : Entity
     private Timer dashTimer;
 
     private const int MARGIN = -20;
+
 
     public override void _Ready()
     {
@@ -229,12 +234,15 @@ public partial class Player : Entity
         switch (level)
         {
             case 1:
+                sprite.SelfModulate = levelAColor;
                 break;
 
             case 2:
+                sprite.SelfModulate = levelBColor;
                 break;
 
             case 3:
+                sprite.SelfModulate = levelCColor;
                 break;
 
             default:

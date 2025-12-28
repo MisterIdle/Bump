@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="3_066wh"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
 [ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/Misc/Parallax.tscn" id="5_ah2fi"]
-[ext_resource type="PackedScene" uid="uid://do2aw1mr5kjlj" path="res://Scenes/Collectibles/UpgradeCollectible.tscn" id="5_e1xkj"]
+[ext_resource type="PackedScene" uid="uid://do2aw1mr5kjlj" path="res://Scenes/Collectibles/FlowerCollectible.tscn" id="5_e1xkj"]
 [ext_resource type="PackedScene" uid="uid://b37b3k3mvq3nd" path="res://Scenes/Collectibles/HeartCollectible.tscn" id="6_1mnsm"]
 [ext_resource type="PackedScene" uid="uid://4wsw7s3qogxl" path="res://Scenes/Collectibles/PowCollectible.tscn" id="7_l18qb"]
 
@@ -62,9 +62,3 @@ anchor_mode = 0
 script = ExtResource("3_066wh")
 
 [node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("2_jwf2g")]
-
-[node name="PowCollectible" parent="." instance=ExtResource("7_l18qb")]
-position = Vector2(2005, 623)
-animationSec = 5.0
-speed = 50.0
-affectedByScroll = true

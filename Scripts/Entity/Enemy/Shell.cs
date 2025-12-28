@@ -13,7 +13,6 @@ public partial class Shell : Sprite2D
 
     private Color baseColor;
 
-
     public override void _Ready()
     {
         material = (ShaderMaterial)Material.Duplicate();

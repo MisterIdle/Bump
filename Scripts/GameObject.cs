@@ -16,7 +16,7 @@ public partial class GameObject : Area2D
 
         baseScale = Scale;
 
-        if (sprite != null)
+        if (sprite != null && IsInstanceValid(sprite))
             baseSpriteScale = sprite.Scale;
 
         GD.Print(Name + " base: " + baseSpriteScale);

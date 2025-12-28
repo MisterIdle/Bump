@@ -60,6 +60,9 @@ fireBallScene = ExtResource("2_w6786")
 nose = NodePath("Sprite/Nose")
 muzzle = NodePath("Muzzle")
 powScene = ExtResource("4_0ve0x")
+levelAColor = Color(0.903883, 0.815625, 0.505521, 1)
+levelBColor = Color(0.898039, 0.643137, 0.415686, 1)
+levelCColor = Color(0.984129, 0.571491, 0.543701, 1)
 hammer = NodePath("Hammer")
 pall = NodePath("Sprite/Stick/Pall")
 health = 3
@@ -111,7 +114,6 @@ scale = Vector2(0.476026, 0.625861)
 texture = ExtResource("6_1xct8")
 
 [node name="Nose" type="Sprite2D" parent="Sprite"]
-self_modulate = Color(1, 0.856638, 0.67569, 1)
 position = Vector2(205, 1.90735e-06)
 scale = Vector2(0.425114, 0.37959)
 texture = ExtResource("6_1xct8")
