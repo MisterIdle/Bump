@@ -1,27 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://b37b3k3mvq3nd"]
+[gd_scene load_steps=4 format=3 uid="uid://b37b3k3mvq3nd"]
 
 [ext_resource type="Script" path="res://Scripts/Collectibles/HeartCollectible.cs" id="1_n4ui2"]
-[ext_resource type="Texture2D" uid="uid://bep0gpj67poki" path="res://Assets/Sprites/Heart.png" id="1_wndk1"]
-[ext_resource type="PackedScene" uid="uid://br6mruwd33f0n" path="res://Scenes/Collectibles/Parachute.tscn" id="2_aufn4"]
+[ext_resource type="PackedScene" uid="uid://dihh2tvaur1gt" path="res://Scenes/Collectibles/Bubble.tscn" id="3_0qswq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5n7x7"]
-size = Vector2(20, 152)
+[sub_resource type="CircleShape2D" id="CircleShape2D_hdhoy"]
+radius = 55.0818
 
-[node name="HeartCollectible" type="Area2D"]
+[node name="HeartCollectible" type="Area2D" node_paths=PackedStringArray("sprite")]
 z_index = 2
 collision_layer = 8
 script = ExtResource("1_n4ui2")
-parachutePath = NodePath("Parachute")
 speed = 100.0
+sprite = NodePath("Sprite")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="Bubble" parent="." instance=ExtResource("3_0qswq")]
+scale = Vector2(0.2, 0.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -66)
-shape = SubResource("RectangleShape2D_5n7x7")
-
-[node name="Heart" type="Sprite2D" parent="."]
-self_modulate = Color(1, 0.313726, 0, 1)
-position = Vector2(2.98023e-08, -2.28882e-05)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("1_wndk1")
-
-[node name="Parachute" parent="." instance=ExtResource("2_aufn4")]
+visible = false
+shape = SubResource("CircleShape2D_hdhoy")

@@ -33,7 +33,7 @@ public partial class Walsy : Enemy
         if (health <= 0)
             QueueFree();
 
-        Effect.BumpScale(this);
+        Effect.BumpScale(this, baseScale);
         InverseRotation();
     }
 

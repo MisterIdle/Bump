@@ -1,25 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://do2aw1mr5kjlj"]
+[gd_scene load_steps=3 format=3 uid="uid://do2aw1mr5kjlj"]
 
 [ext_resource type="Script" path="res://Scripts/Collectibles/UpgradeCollectible.cs" id="1_yqe1q"]
-[ext_resource type="PackedScene" uid="uid://c1vf6ipddiw6q" path="res://Scenes/Entity/Player/Helmet.tscn" id="3_6cq4t"]
-[ext_resource type="PackedScene" uid="uid://br6mruwd33f0n" path="res://Scenes/Collectibles/Parachute.tscn" id="3_s3jkt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pw1y3"]
-size = Vector2(20, 148)
+[sub_resource type="CircleShape2D" id="CircleShape2D_0bttl"]
 
-[node name="UpgradeCollectible" type="Area2D"]
+[node name="UpgradeCollectible" type="Area2D" node_paths=PackedStringArray("sprite")]
 z_index = 2
 collision_layer = 8
 script = ExtResource("1_yqe1q")
-parachutePath = NodePath("Parachute")
 speed = 100.0
+sprite = NodePath("Sprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -64)
-shape = SubResource("RectangleShape2D_pw1y3")
+shape = SubResource("CircleShape2D_0bttl")
 
-[node name="Parachute" parent="." instance=ExtResource("3_s3jkt")]
-position = Vector2(0, -113)
-
-[node name="Helmet" parent="." instance=ExtResource("3_6cq4t")]
-scale = Vector2(0.5, 0.5)
+[node name="Sprite" type="Sprite2D" parent="."]

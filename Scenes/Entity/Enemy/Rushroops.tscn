@@ -1,61 +1,66 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1u0rdsgn8dhl"]
+[gd_scene load_steps=11 format=3 uid="uid://c1u0rdsgn8dhl"]
 
-[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="1_1ykxu"]
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Rushroops.cs" id="1_flvy1"]
 [ext_resource type="PackedScene" uid="uid://c0nfx3v8low78" path="res://Scenes/Projectiles/Klops.tscn" id="2_0cex1"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_yupoy"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_uicja"]
-[ext_resource type="Texture2D" uid="uid://c4wydvoiu7858" path="res://Assets/Sprites/Oval.png" id="4_lsr1j"]
-[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Effect/Wing.tscn" id="4_og00s"]
+[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="4_iq1nb"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Misc/Wing.tscn" id="4_og00s"]
+[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Misc/Eye.tscn" id="5_or5ip"]
+[ext_resource type="Texture2D" uid="uid://b4qvr8v83bkpl" path="res://Assets/Sprites/RushroopsShell.svg" id="6_e4aot"]
+[ext_resource type="Texture2D" uid="uid://c7qylpeql6dhh" path="res://Assets/Sprites/WingB.svg" id="9_wvkay"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1q67j"]
-radius = 58.3095
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4a4u"]
+size = Vector2(83, 103)
 
-[node name="Rushroops" type="Area2D"]
+[node name="Rushroops" type="Area2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_flvy1")
 shotScene = ExtResource("2_0cex1")
 rotationSpeed = 0.5
-chargeSpeed = 600.0
-recoilDistance = -150.0
-recoilDuration = 1.5
+chargeWait = 7.0
+chargeSpeed = 800.0
+recoilDistance = 150.0
+recoilDuration = 1.2
+basePosShell = Vector2(0, -10)
 shellPath = NodePath("Shell")
+wingPath = NodePath("Shell/Wing")
+facePlayer = true
+direction = 2
 health = 9
 popScene = ExtResource("3_uicja")
 speed = 50.0
+sprite = NodePath("Sprite")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -12)
-shape = SubResource("CircleShape2D_1q67j")
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0.988235, 0.592157, 0.0627451, 1)
+position = Vector2(2, 5)
+scale = Vector2(0.274702, 0.131609)
+texture = ExtResource("4_iq1nb")
 
-[node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(-34, 8)
-
-[node name="Body" type="Sprite2D" parent="."]
-self_modulate = Color(1, 0.552941, 0.372549, 1)
-scale = Vector2(0.313867, 0.147913)
-texture = ExtResource("1_1ykxu")
-
-[node name="Eye" type="Sprite2D" parent="Body"]
-self_modulate = Color(0, 0, 0, 1)
-position = Vector2(-92.3957, -15.1788)
-scale = Vector2(0.0885558, 0.335497)
-texture = ExtResource("1_1ykxu")
+[node name="Eye" parent="Sprite" instance=ExtResource("5_or5ip")]
+position = Vector2(-141.972, -22.7948)
+scale = Vector2(0.432008, 0.109267)
 
 [node name="Shell" parent="." instance=ExtResource("2_yupoy")]
-position = Vector2(8, -25)
-rotation = 0.166167
-scale = Vector2(0.11977, 0.0997317)
+position = Vector2(6.43327, -39)
+scale = Vector2(0.370111, 0.29972)
+texture = ExtResource("6_e4aot")
 
 [node name="Wing" parent="Shell" instance=ExtResource("4_og00s")]
-position = Vector2(7.50693, -19.8135)
-rotation = -0.917816
-scale = Vector2(0.163236, 0.10465)
-skew = 0.374583
-texture = ExtResource("4_lsr1j")
-offset = Vector2(129.92, 2.43695)
-rotA = -50.0
-rotB = -10.0
-rotSpeedA = 0.1
-rotSpeedB = 0.1
+position = Vector2(-5.53231, 33.0003)
+scale = Vector2(0.524748, 0.54312)
+texture = ExtResource("9_wvkay")
+offset = Vector2(214.269, -218.063)
+skewDown = 70.0
+baseDurationDown = 0.6
+baseDurationUp = 0.3
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(-56, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -15.5)
+shape = SubResource("RectangleShape2D_u4a4u")

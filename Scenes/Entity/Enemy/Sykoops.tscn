@@ -1,16 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://1dl8asfcved8"]
+[gd_scene load_steps=11 format=3 uid="uid://1dl8asfcved8"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Sykoops.cs" id="1_msbn5"]
-[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="1_u5u3d"]
 [ext_resource type="PackedScene" uid="uid://mt782a2qgaf5" path="res://Scenes/Projectiles/Spike.tscn" id="2_0qrcg"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_l71em"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_g7d3s"]
-[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Effect/Wing.tscn" id="3_utuyu"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Misc/Wing.tscn" id="3_utuyu"]
+[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="4_ocaem"]
+[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Misc/Eye.tscn" id="5_d3ihu"]
+[ext_resource type="Texture2D" uid="uid://dmjeu3nvnmh05" path="res://Assets/Sprites/SykoopsShell.svg" id="6_oub12"]
+[ext_resource type="Texture2D" uid="uid://cay1l5qagqn4h" path="res://Assets/Sprites/WingC.svg" id="9_5svoe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_memyj"]
 radius = 55.6529
 
-[node name="Sykoops" type="Area2D"]
+[node name="Sykoops" type="Area2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_msbn5")
@@ -18,41 +21,46 @@ spikeScene = ExtResource("2_0qrcg")
 spikeContainerPath = NodePath("Shell/Spike")
 chaseDistance = 400
 approchDistance = 300
+sizeMultiplier = 3.0
 shellProjectileProtect = true
 shellPath = NodePath("Shell")
+wingPath = NodePath("Shell/Wing")
+facePlayer = true
+direction = 2
 health = 9
 popScene = ExtResource("3_g7d3s")
-amplitude = 0.3
 speed = 250.0
 affectedByScroll = true
+amplitude = 0.3
+sprite = NodePath("Sprite")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -16.5)
-shape = SubResource("CircleShape2D_memyj")
+[node name="Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.321569, 0, 1)
+position = Vector2(9.53674e-07, 0)
+scale = Vector2(0.208368, 0.177956)
+texture = ExtResource("4_ocaem")
 
-[node name="Body" type="Sprite2D" parent="."]
-self_modulate = Color(1, 0.611765, 0, 1)
-position = Vector2(4.76837e-07, -4.76837e-07)
-scale = Vector2(0.283887, 0.171582)
-texture = ExtResource("1_u5u3d")
-
-[node name="Eye" type="Sprite2D" parent="Body"]
-self_modulate = Color(0, 0, 0, 1)
-position = Vector2(-88.0633, 11.6562)
-scale = Vector2(0.101347, 0.297104)
-texture = ExtResource("1_u5u3d")
+[node name="Eye" parent="Sprite" instance=ExtResource("5_d3ihu")]
+position = Vector2(-124.779, 39.3356)
+scale = Vector2(0.3, 0.159774)
 
 [node name="Shell" parent="." instance=ExtResource("2_l71em")]
-position = Vector2(0, -28)
-scale = Vector2(0.1, 0.092)
+position = Vector2(2, -34)
+scale = Vector2(0.3, 0.263)
+texture = ExtResource("6_oub12")
 
 [node name="Wing" parent="Shell" instance=ExtResource("3_utuyu")]
-position = Vector2(13.3052, -7.06448)
-rotation = -0.643118
-scale = Vector2(0.0718305, 0.0759105)
-skew = 0.159599
+position = Vector2(50, 30.4183)
+scale = Vector2(0.582274, 0.363588)
+texture = ExtResource("9_5svoe")
+offset = Vector2(228.257, -194.012)
 
 [node name="Spike" type="Node2D" parent="Shell"]
 z_index = -1
-position = Vector2(0, 153.575)
-scale = Vector2(7.99793, 9.59847)
+position = Vector2(-6.66667, 129.278)
+scale = Vector2(7.99793, 9.59848)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_memyj")

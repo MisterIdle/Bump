@@ -6,19 +6,26 @@ public partial class Spike : Projectiles
     public bool isActive;
 
     [Export] public GpuParticles2D particles;
-    [Export] public Sprite2D sprite;
     [Export] public CollisionShape2D collision;
+
+    public override void Initiate()
+    {
+        velocity = Vector2.Zero;
+        base.Initiate();
+    }
 
     public static Spike Create(PackedScene pScene, Entity pTarget, Vector2 pPos)
     {
         Spike lSpike = (Spike)pScene.Instantiate();
 
         lSpike.Position = pPos;
+
         lSpike.target = pTarget;
 
         lSpike.Initiate();
 
         return lSpike;
+
     }
 
     protected override void Update(float pDelta)

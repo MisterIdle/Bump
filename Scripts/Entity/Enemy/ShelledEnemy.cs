@@ -5,14 +5,49 @@ public partial class ShelledEnemy : Enemy
     [Export] public bool shellProjectileProtect;
 
     protected Shell shell;
+    protected Wing wing;
+
     [Export] private NodePath shellPath;
+    [Export] private NodePath wingPath;
+
+    protected Vector2 playerDirection;
+    protected Vector2 playerPos;
+
+    [Export] protected bool facePlayer;
+    protected bool faceLeft;
 
     public override void Initiate()
     {
         base.Initiate();
 
         shell = (Shell)GetNode(shellPath);
-        shell.ownerEnemy = this;
+        wing = (Wing)GetNode(wingPath);
+    }
+
+    protected override void AliveUpdate(float pDelta)
+    {
+        base.AliveUpdate(pDelta);
+
+        playerPos = Player.GetInstance().GlobalPosition;
+        playerDirection = Utils.DirectionTo(GlobalPosition, playerPos);
+
+        if (facePlayer)
+        {
+            bool lFaceLeft = playerDirection.X < 0;
+
+            if (lFaceLeft != faceLeft)
+            {
+                faceLeft = lFaceLeft;
+                Flip(faceLeft);
+            }
+        }
+    }
+
+    protected void Flip(bool pFaceLeft)
+    {
+        Scale = new Vector2(Mathf.Abs(Scale.X) * (pFaceLeft ? 1 : -1), Scale.Y);
+        baseScale = Scale;
+        Effect.SquashStretch(this, baseScale, true);
     }
 
     public override void EntityHit(int pDamage) 
@@ -20,7 +55,10 @@ public partial class ShelledEnemy : Enemy
         base.EntityHit(pDamage);
 
         if (health <= 0)
+        {
             shell.ShellDestructionAnimation();
+            wing.SetSpeedDouble(true);
+        }
     }
 
     protected override void OnCollide(Area2D pArea)

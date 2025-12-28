@@ -2,8 +2,6 @@ using Godot;
 
 public partial class Shell : Sprite2D
 {
-    public ShelledEnemy ownerEnemy;
-
     private float baseShellRotation = 0f;
     [Export] public float protectAnimAngle = 20f;
     [Export] public float protectAnimTime = 0.1f;

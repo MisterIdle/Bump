@@ -17,9 +17,9 @@ public partial class Hammer : GameObject
     public bool isActif;
 
     [ExportGroup("References")]
-    [Export] private Sprite2D sprite;
     [Export] private TextureProgressBar progressBar;
     [Export] private CollisionShape2D collision;
+    private Player player;
 
     [ExportGroup("Charge")]
     [Export] private float maxChargeTime = 1f;
@@ -54,7 +54,6 @@ public partial class Hammer : GameObject
 
     private float chargeTime;
     private float attackTime;
-    private Vector2 baseScale;
 
     private static Hammer instance;
 
@@ -93,6 +92,11 @@ public partial class Hammer : GameObject
         AddChild(animationTimer);
 
         SetRotation(idleRotation, maxChargeTime);
+    }
+
+    public void SetPlayer(Player pPlayer)
+    {
+        player = pPlayer;
     }
 
     public void Attack(float pDelta)
@@ -159,11 +163,11 @@ public partial class Hammer : GameObject
         progressBar.Visible = true;
         sprite.Visible = true;
 
-        Effect.SquashStretch(Player.GetInstance().sprite, false, false, 0.9f);
-
         state = State.Charging;
+
+        Effect.SquashStretch(player.sprite, player.baseSpriteScale, false);
         SetRotation(startChargeRotation, maxChargeTime - chargeTweenTime);
-        Effect.BumpScale(sprite);
+        Effect.BumpScale(sprite, baseSpriteScale);
     }
 
     private void FullyCharged()
@@ -180,14 +184,14 @@ public partial class Hammer : GameObject
     {
         state = State.Swing;
 
-        Effect.SquashStretch(Player.GetInstance().sprite, false);
+        Effect.SquashStretch(player.sprite, player.baseSpriteScale, false);
 
         collision.Disabled = false;
 
         progressBar.TintProgress = Colors.Red;
 
-        Player.GetInstance().Dash(dashDistance * attackForce, Vector2.Right, false);
-        Player.GetInstance().invincible = true;
+        player.Dash(dashDistance * attackForce, Vector2.Right, false);
+        player.invincible = true;
 
         Effect.BumpHUD(progressBar, 1.1f);
         animationTween?.Kill();
@@ -207,7 +211,7 @@ public partial class Hammer : GameObject
         isActif = false;
         collision.Disabled = true;
 
-        Effect.BumpScale(sprite);
+        Effect.BumpScale(sprite, baseSpriteScale);
 
         state = State.Cooldown;
         animationTimer.Start();
@@ -216,7 +220,7 @@ public partial class Hammer : GameObject
     private void FinishAttackAnimation()
     {
         sprite.Visible = false;
-        Player.GetInstance().invincible = false;
+        player.invincible = false;
     }
 
     private void EndCooldown()
@@ -232,6 +236,7 @@ public partial class Hammer : GameObject
 
         progressBar.Visible = false;
         sprite.Visible = false;
+        isActif = false;
 
         state = State.Idle;
         SetRotation(idleRotation, 0);

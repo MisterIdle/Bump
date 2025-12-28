@@ -17,7 +17,6 @@ public partial class Enemy : Entity
         base.Initiate();
 
         enemyList.Add(this);
-        velocity = Vector2.Left;
     }
 
     protected override void Update(float pDelta)
@@ -28,7 +27,7 @@ public partial class Enemy : Entity
 
         if (globalPlayerDistance <= playerDistance && !playerSeen)
         {
-            Effect.BumpScale(this);
+            Effect.BumpScale(this, baseScale);
             playerSeen = true;
         }
 
@@ -38,11 +37,6 @@ public partial class Enemy : Entity
             health = 0;
             QueueFree();
         }
-    }
-
-    public override void EntityDeath()
-    {
-        base.EntityDeath();
     }
 
     public static List<Enemy> GetEnemiesOnScreen(Vector2 pPos)
@@ -84,7 +78,7 @@ public partial class Enemy : Entity
 
             Camera.Shake(2, 0.2f, 1, 2);
             Time.SlowMotion(0.1f, 0.2f);
-            Effect.SquashStretch(this, false);
+            Effect.SquashStretch(this, baseScale, false, false, 0.4f);
         }
 
         EntityHit();

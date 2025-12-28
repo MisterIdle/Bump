@@ -3,40 +3,43 @@ using System;
 
 public partial class Entity : Movable
 {
+    public enum MoveDirection
+    {
+        Left,
+        Right
+    }
+
+    [ExportCategory("Direction")]
+    [Export] public MoveDirection direction;
+
+    [ExportCategory("Alive")]
     [Export] public int health = 1;
-
-    [Export] protected PackedScene popScene;
-
-    public bool invincible;
     [Export] protected float invincibleTime = 1f;
+    public bool invincible;
+
+    [ExportCategory("Death")]
     [Export] public bool isDeath;
-
-    [Export] protected float frequency = 1.0f;
-    [Export] protected float amplitude = 1.0f;
-
     [Export] protected float fallDeath = 20f;
     [Export] protected float deathJump = 5f;
-
     [Export] private float deathRotationSpeed = 60f;
     [Export] private float deathGravity = 20f;
 
+    [ExportCategory("Visual")]
+    [Export] protected PackedScene popScene;
+
     protected Timer invincibleTimer;
-
-    protected float elapsedTime;
-
-    protected float angleX;
-    protected float angleY;
 
     public override void Initiate()
     {
         base.Initiate();
 
         invincibleTimer = new Timer();
-
         invincibleTimer.OneShot = true;
         invincibleTimer.Timeout += EndInvincible;
 
         AddChild(invincibleTimer);
+
+        velocity = GetDirectionVector();
     }
 
     protected override void Update(float pDelta)
@@ -53,13 +56,7 @@ public partial class Entity : Movable
             AliveUpdate(Time.GetDelta(pDelta));
     }
 
-    protected virtual void AliveUpdate(float pDelta) 
-    {
-        elapsedTime += pDelta;
-
-        angleX = Mathf.Sin(elapsedTime * frequency) * amplitude;
-        angleY = Mathf.Cos(elapsedTime * frequency) * amplitude;
-    }
+    protected virtual void AliveUpdate(float pDelta) { }
 
     public virtual void EntityHit(int pDamage = 1)
     {
@@ -80,6 +77,7 @@ public partial class Entity : Movable
         velocity = Vector2.Zero;
         isDeath = true;
         speed = fallDeath;
+
         CallDeferred(MethodName.CallDeath);
     }
 
@@ -108,5 +106,22 @@ public partial class Entity : Movable
     private void DeathBump()
     {
         velocity.Y = -deathJump;
+    }
+
+    private Vector2 GetDirectionVector()
+    {
+        switch (direction)
+        {
+            case MoveDirection.Left:
+                velocity = Vector2.Left;
+                break;
+            case MoveDirection.Right:
+                velocity = Vector2.Right;
+                break;
+            default:
+                break;
+        }
+
+        return velocity;
     }
 }

@@ -10,8 +10,6 @@ public partial class Koops : ShelledEnemy
 
     [Export] private TypeEnum type;
 
-    private Vector2 baseDirection;
-
     public override void Initiate()
     {
         base.Initiate();
@@ -43,6 +41,4 @@ public partial class Koops : ShelledEnemy
                 break;
         }
     }
-
-
 }

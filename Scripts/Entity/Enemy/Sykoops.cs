@@ -31,6 +31,7 @@ public partial class Sykoops : ShelledEnemy
     [Export] private float shotPreDelay = 0.5f;
     [Export] private float spikeAdvanceMultiplier = 1.3f;
     [Export] public float sizeMultiplier = 1.2f;
+    private bool haveAbandoned;
 
     private const float MAX_BEHIND_TIME = 10f;
 
@@ -68,14 +69,13 @@ public partial class Sykoops : ShelledEnemy
     {
         base.AliveUpdate(pDelta);
 
-
         switch (chaseState)
         {
             case ChaseState.Patrolling:
                 if (globalPlayerDistance <= playerDistance)
                 {
                     chaseState = ChaseState.Approaching;
-                    Effect.BumpScale(this);
+                    Effect.BumpScale(this, baseScale);
                 }
                 break;
 
@@ -89,8 +89,8 @@ public partial class Sykoops : ShelledEnemy
                 break;
 
             case ChaseState.Abandoned:
-                velocity = Vector2.Left;
-                velocity.Y = angleY;
+                if (!haveAbandoned)
+                    Abandonned();
                 break;
         }
 
@@ -99,36 +99,31 @@ public partial class Sykoops : ShelledEnemy
 
     private void ApproachPlayer(float delta)
     {
-        Vector2 lPlayerPos = Player.GetInstance().GlobalPosition;
-        Vector2 lTargetDirection = Utils.DirectionTo(GlobalPosition, lPlayerPos);
-
-        velocity = lTargetDirection;
+        velocity = playerDirection;
 
         if (globalPlayerDistance <= approchDistance)
         {
             chaseState = ChaseState.Chasing;
             shotTimer.Start();
-            Effect.BumpScale(this);
+            Effect.BumpScale(this, baseScale);
+            wing.SetSpeedDouble(true);
         }
     }
 
     private void ChasePlayer()
     {
-        Vector2 lPlayerPos = Player.GetInstance().GlobalPosition;
-        Vector2 lDirectionToPlayer = Utils.DirectionTo(GlobalPosition, lPlayerPos);
         Vector2 lTargetDirection;
 
-        bool lPlayerLeft = lPlayerPos.X < GlobalPosition.X;
-        Scale = new Vector2(lPlayerLeft ? 1 : -1, 1);
-
         if (globalPlayerDistance <= chaseDistance)
-            lTargetDirection = -lDirectionToPlayer;
+            lTargetDirection = -playerDirection;
         else
-            lTargetDirection = lDirectionToPlayer;
+            lTargetDirection = playerDirection;
 
         velocity = lTargetDirection;
 
-        if (!lPlayerLeft)
+        GD.Print(behindTimer.TimeLeft);
+
+        if (!faceLeft)
         {
             if (behindTimer.IsStopped())
                 behindTimer.Start();
@@ -141,14 +136,23 @@ public partial class Sykoops : ShelledEnemy
 
     private void BehindStop()
     {
+        wing.SetSpeedDouble(false);
         chaseState = ChaseState.Abandoned;
         shotTimer.Stop();
-        Effect.BumpScale(this);
+    }
+
+    private void Abandonned()
+    {
+        haveAbandoned = true;
+        facePlayer = false;
+        Flip(true);
+        velocity = Vector2.Left;
+        velocity.Y = angleY;
     }
 
     private void SpawnSpikes()
     {
-        int lRadius = 50;
+        int lRadius = 25;
         float lStartAngle = -Mathf.Pi / 6;
         float lEndAngle = 5 * -Mathf.Pi / 6;
         float lAngleStep = (lEndAngle - lStartAngle) / (numSpikes - 1);
@@ -200,41 +204,41 @@ public partial class Sykoops : ShelledEnemy
     private void FireSpike(Spike pSpike)
     {
         if (isDeath) return;
-
+    
         shotTimer.WaitTime = fireRate;
-
+    
         fireTween = CreateTween();
         fireTween.TweenProperty(pSpike.sprite, (string)PropertyName.SelfModulate, Colors.Red, shotPreDelay)
               .SetTrans(Tween.TransitionType.Quad)
               .SetEase(Tween.EaseType.InOut);
-
+    
         fireTween.Finished += () => LaunchSpike(pSpike);
     }
-
+    
     private void LaunchSpike(Spike pSpike)
     {
         if (pSpike.isActive) return;
-
+    
         pSpike.isActive = true;
-
+    
         Vector2 lGlobalPosition = pSpike.GlobalPosition;
         float lGlobalRotation = pSpike.GlobalRotation;
-
+    
         spikeContainer.RemoveChild(pSpike);
         GameManager.GetInstance().AddChild(pSpike);
-
+    
         pSpike.GlobalPosition = lGlobalPosition;
         pSpike.GlobalRotation = lGlobalRotation;
         pSpike.lifeTimer.Start();
-
+    
         Tween lTween = CreateTween();
         lTween.TweenProperty(pSpike, (string)PropertyName.Scale, pSpike.Scale * sizeMultiplier, 0.5f);
-
+    
         Projectiles.enemyProjectilesList.Add(pSpike);
-
+    
         pSpike.particles.Emitting = true;
         pSpike.collision.Disabled = false;
-
+    
         SpawnSpikes();
     }
 

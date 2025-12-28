@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://mt782a2qgaf5"]
 
-[ext_resource type="Texture2D" uid="uid://qr231lvl1g70" path="res://Assets/Sprites/Triangle.png" id="1_h4sdc"]
 [ext_resource type="Script" path="res://Scripts/Projectiles/Spike.cs" id="1_mx0l8"]
-[ext_resource type="PackedScene" uid="uid://bbtcy1qjkpdpw" path="res://Scenes/Effect/PopSpike.tscn" id="2_80lto"]
+[ext_resource type="PackedScene" uid="uid://7710phv1wm7k" path="res://Scenes/Effect/PopShot.tscn" id="2_jkt41"]
+[ext_resource type="Texture2D" uid="uid://degjrhvteie7t" path="res://Assets/Sprites/Spike.svg" id="3_pnn4c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_roco8"]
 
@@ -24,17 +24,17 @@ scale_min = 2.0
 scale_max = 15.0
 color_ramp = SubResource("GradientTexture1D_66d8l")
 
-[node name="Spike" type="Area2D" node_paths=PackedStringArray("particles", "sprite", "collision")]
+[node name="Spike" type="Area2D" node_paths=PackedStringArray("particles", "collision", "sprite")]
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_mx0l8")
 particles = NodePath("GPUParticles2D")
-sprite = NodePath("Sprite2D")
 collision = NodePath("CollisionShape2D")
 lifeTime = 15.0
-popScene = ExtResource("2_80lto")
+popScene = ExtResource("2_jkt41")
 rotationSpeed = 0.5
 speed = 400.0
+sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_roco8")
@@ -49,7 +49,7 @@ explosiveness = 0.1
 fixed_fps = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1.42109e-14, -1.19209e-07)
+position = Vector2(0, -9.53674e-07)
 rotation = -1.5708
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_h4sdc")
+scale = Vector2(0.029, 0.05)
+texture = ExtResource("3_pnn4c")

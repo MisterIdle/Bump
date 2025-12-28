@@ -1,19 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://eijl1ptqfcr5"]
+[gd_scene load_steps=10 format=3 uid="uid://eijl1ptqfcr5"]
 
 [ext_resource type="PackedScene" uid="uid://8eylklkdawba" path="res://Scenes/Trigger.tscn" id="2_jwf2g"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
 [ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="3_066wh"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
+[ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/Misc/Parallax.tscn" id="5_ah2fi"]
 [ext_resource type="PackedScene" uid="uid://do2aw1mr5kjlj" path="res://Scenes/Collectibles/UpgradeCollectible.tscn" id="5_e1xkj"]
 [ext_resource type="PackedScene" uid="uid://b37b3k3mvq3nd" path="res://Scenes/Collectibles/HeartCollectible.tscn" id="6_1mnsm"]
 [ext_resource type="PackedScene" uid="uid://4wsw7s3qogxl" path="res://Scenes/Collectibles/PowCollectible.tscn" id="7_l18qb"]
 
+[sub_resource type="Environment" id="Environment_3xr6m"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.1
+glow_bloom = 0.1
+fog_light_energy = 16.0
+fog_sun_scatter = 1.0
+fog_density = 1.0
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 1.2
+
 [node name="InGame" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3xr6m")
 
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("forceEnable", "gameContainer")]
 script = ExtResource("2_yp2vh")
-scrollSpeed = 150.0
-forceEnable = [NodePath("../GameContainer/Player"), NodePath("../GameContainer/Camera/Trigger")]
+forceEnable = [NodePath("../GameContainer/Player")]
 collectibleScenes = Array[PackedScene]([ExtResource("6_1mnsm"), ExtResource("7_l18qb"), ExtResource("5_e1xkj")])
 gameContainer = NodePath("../GameContainer")
 
@@ -34,26 +49,13 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "SALJGREJGJEROIPGERPGJ"
 
-[node name="Background" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Polygon2D" type="Polygon2D" parent="Background/ParallaxLayer"]
-color = Color(0.89059, 0.89059, 0.89059, 1)
-polygon = PackedVector2Array(1, 1081, 1, 1012, 74, 892, 335, 735, 415, 906, 529, 821, 548, 902, 623, 926, 744, 823, 890, 868, 983, 966, 1178, 1019, 1331, 842, 1475, 970, 1645, 838, 1725, 932, 1826.21, 974.042, 1920, 1013, 1920, 1081)
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
-motion_scale = Vector2(1.2, 1.2)
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Polygon2D" type="Polygon2D" parent="Background/ParallaxLayer2"]
-polygon = PackedVector2Array(1, 1081, 1, 1012, 339, 864, 453, 1012, 557, 925, 588, 999, 699, 946, 864, 931, 953, 953, 947, 1035, 1088, 911, 1158, 997, 1260, 926, 1306, 997, 1494, 946, 1599, 961, 1654, 893, 1656, 972, 1920, 1013, 1920, 1081)
+[node name="Background" parent="." instance=ExtResource("5_ah2fi")]
 
 [node name="GameContainer" type="Node2D" parent="."]
 
 [node name="Player" parent="GameContainer" instance=ExtResource("3_l0emo")]
-position = Vector2(287, 419)
+z_as_relative = false
+position = Vector2(492, 526)
 
 [node name="Camera" type="Camera2D" parent="GameContainer"]
 anchor_mode = 0
@@ -61,8 +63,8 @@ script = ExtResource("3_066wh")
 
 [node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("2_jwf2g")]
 
-[node name="UpgradeCollectible" parent="." instance=ExtResource("5_e1xkj")]
-position = Vector2(2184, 472)
-
-[node name="UpgradeCollectible2" parent="." instance=ExtResource("5_e1xkj")]
-position = Vector2(2398, 475)
+[node name="PowCollectible" parent="." instance=ExtResource("7_l18qb")]
+position = Vector2(2005, 623)
+animationSec = 5.0
+speed = 50.0
+affectedByScroll = true

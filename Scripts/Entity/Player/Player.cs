@@ -26,7 +26,7 @@ public partial class Player : Entity
     [ExportCategory("Movement")]
     [Export] private float dashMultiplier = 3f;
     private Vector2 dashDirection = Vector2.Right;
-    private float backDash = 0.1f;
+    [Export] private float backDash = 0.2f;
 
     [ExportCategory("Shot")]
     [ExportGroup("General")]
@@ -34,6 +34,7 @@ public partial class Player : Entity
     [Export] private float shotSpaceLevelDivide = 1.5f;
     [Export] private PackedScene shotScene;
     [Export] private PackedScene fireBallScene;
+    [Export] private Sprite2D nose;
     [Export] private Marker2D muzzle;
 
     [ExportGroup("Speed")]
@@ -45,10 +46,6 @@ public partial class Player : Entity
     [Export] private float shotScaleLevelB = 1.1f;
     [Export] private float shotScaleLevelC = 1.3f;
 
-    [ExportGroup("Color")]
-    [Export] private Color shotColorLevelB = Colors.Yellow;
-    [Export] private Color shotColorLevelC = Colors.Orange;
-
     [ExportCategory("Pow")]
     [Export] private int powNum = 1;
     [Export] private PackedScene powScene;
@@ -58,12 +55,10 @@ public partial class Player : Entity
     private int minLevel = 1;
     private int maxLevel = 3;
 
-    [ExportCategory("Visual")]
-    [Export] public Sprite2D sprite;
-    [Export] private Helmet helmet;
-
-    [ExportCategory("Weapon")]
+    [ExportCategory("Special Feature")]
     [Export] private Hammer hammer;
+
+    [Export] private AnimatedSprite2D pall;
 
     private Shot lastShot;
     private bool isDashing;
@@ -88,36 +83,35 @@ public partial class Player : Entity
     {
         base.Initiate();
 
-        hammer.Initiate();
-
         dashTimer = new Timer();
+
         dashTimer.OneShot = true;
         dashTimer.Timeout += EndDash;
 
         AddChild(dashTimer);
+
+        pall.Play();
+
+        hammer.Initiate();
+        hammer.SetPlayer(this);
+
+        UpdateLevelParameters();
     }
 
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
 
-        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
-
-        if (lOut != Vector2.Zero)
-        {
-            Vector2 lDashDir = Vector2.Zero;
-
-            if (lOut.X != 0) lDashDir.X = -lOut.X;
-            if (lOut.Y != 0) lDashDir.Y = -lOut.Y;
-
-            Dash(backDash, lDashDir);
-
-            HitCheckInvincible();
-        }
-
-
         Move(pDelta);
+        OutOfBound();
+
         hammer.Attack(pDelta);
+
+        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_UP))
+            LevelUp(true);
+
+        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_DOWN))
+            LevelUp(false);
 
         if (Input.IsActionJustPressed(Property.INPUT_GOD))
             ToggleGodMode();
@@ -137,6 +131,23 @@ public partial class Player : Entity
             velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN);
         else
             velocity.Y = angleY;
+    }
+
+    private void OutOfBound()
+    {
+        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
+
+        if (lOut != Vector2.Zero)
+        {
+            Vector2 lDashDir = Vector2.Zero;
+
+            if (lOut.X != 0) lDashDir.X = -lOut.X;
+            if (lOut.Y != 0) lDashDir.Y = -lOut.Y;
+
+            Dash(backDash, lDashDir);
+
+            HitCheckInvincible();
+        }
     }
 
     public void Dash(float pDuration, Vector2 pDirection, bool pOpposite = false)
@@ -164,12 +175,12 @@ public partial class Player : Entity
             return true;
 
         float lShotSpace = baseShotSpace / (level * shotSpaceLevelDivide);
-        return Math.Abs(lastShot.Position.X - Position.X) > lShotSpace;
+        return lastShot.Position.X - Position.X > lShotSpace;
     }
 
     private void Bomb()
     {
-        Pow lPow = Pow.Create(powScene, Vector2.Right);
+        Pow lPow = Pow.Create(powScene);
         GameManager.GetInstance().gameContainer.AddChild(lPow);
     }
 
@@ -181,26 +192,22 @@ public partial class Player : Entity
         {
             case 1:
                 lShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right, 0.1f);
-                lShot.SetSpeed(shotBaseSpeed);
                 break;
 
             case 2:
                 lShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right, 0.05f);
-                lShot.SetVisualParameters(shotColorLevelB, shotScaleLevelB);
-                lShot.SetSpeed(shotBaseSpeed * shotSpeedMultiplierLevelB);
                 break;
 
             case 3:
                 lShot = Shot.Create(fireBallScene, muzzle.GlobalPosition, Vector2.Right);
-                lShot.SetVisualParameters(shotColorLevelC, shotScaleLevelC);
-                lShot.SetSpeed(shotBaseSpeed * shotSpeedMultiplierLevelC);
                 break;
 
             default:
                 throw new InvalidOperationException();
         }
 
-        Effect.BumpScale(this);
+        Effect.BumpScale(this, baseScale);
+        Effect.SquashStretch(this, baseScale, true, false, 0.8f, 1f);
 
         GameManager.GetInstance().gameContainer.AddChild(lShot);
         lastShot = lShot;
@@ -211,14 +218,30 @@ public partial class Player : Entity
         level += pUp ? 1 : -1;
         level = Mathf.Clamp(level, minLevel, maxLevel);
 
-        if (level == maxLevel)
-            AddHealth();
-
-        helmet.SetLevel(level);
+        UpdateLevelParameters();
 
         Time.SlowMotion(0.1f, 0.1f);
-        Effect.BumpScale(this);
+        Effect.BumpScale(this, baseScale);
     }
+
+    private void UpdateLevelParameters()
+    {
+        switch (level)
+        {
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                break;
+
+            default:
+                break;
+        }
+    }
+
 
     private void ToggleGodMode()
     {
@@ -232,7 +255,7 @@ public partial class Player : Entity
         health++;
         GD.Print("HEALTH:" + health);
         Effect.FlashColor(sprite, Colors.Green);
-        Effect.BumpScale(this);
+        Effect.BumpScale(this, baseScale);
         Time.SlowMotion(0.1f, 0.1f);
     }
 
@@ -240,7 +263,7 @@ public partial class Player : Entity
     {
         powNum++;
         GD.Print("POW:" + powNum);
-        Effect.BumpScale(this);
+        Effect.BumpScale(this, baseScale);
         Time.SlowMotion(0.1f, 0.1f);
     }
 

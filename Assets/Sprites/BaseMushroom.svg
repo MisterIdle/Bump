@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128mm"
+   height="128mm"
+   viewBox="0 0 128 128"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="Health.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#000000"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4378367"
+     inkscape:cx="159.96253"
+     inkscape:cy="236.11861"
+     inkscape:window-width="2560"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true"
+     showgrid="false">
+    <inkscape:grid
+       id="grid1"
+       units="mm"
+       originx="0"
+       originy="0"
+       spacingx="0.99999997"
+       spacingy="0.99999997"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="65.56422,46.334574"
+       end_point="65.56422,81.2974"
+       center_point="65.56422,63.815987"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="free"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+  </defs>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-opacity:1"
+       id="path2"
+       cx="64"
+       cy="64"
+       rx="55.976963"
+       ry="32.308868" />
+    <ellipse
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-opacity:1"
+       id="path5"
+       cx="64"
+       cy="64"
+       rx="14.077136"
+       ry="25.394053" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-opacity:1"
+       id="ellipse5"
+       inkscape:path-effect="#path-effect1"
+       sodipodi:type="arc"
+       sodipodi:cx="24.896841"
+       sodipodi:cy="63.815987"
+       sodipodi:rx="11.225"
+       sodipodi:ry="17.481413"
+       d="m 36.121841,63.815987 c 0,9.654717 -5.025603,17.481413 -11.225,17.481413 -6.199396,0 -11.225,-7.826696 -11.225,-17.481413 0,-9.654718 5.025604,-17.481413 11.225,-17.481413 6.199397,0 11.225,7.826695 11.225,17.481413 z m 58.884758,0 c 0,9.654717 5.025601,17.481413 11.225001,17.481413 6.1994,0 11.225,-7.826696 11.225,-17.481413 0,-9.654718 -5.0256,-17.481413 -11.225,-17.481413 -6.1994,0 -11.225001,7.826695 -11.225001,17.481413 z"
+       transform="translate(-1.56422,0.18401337)" />
+  </g>
+</svg>

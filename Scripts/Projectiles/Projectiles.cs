@@ -26,6 +26,11 @@ public partial class Projectiles : Movable
         AddChild(lifeTimer);
     }
 
+    protected override void Update(float pDelta)
+    {
+        base.Update(pDelta);
+    }
+
     public static List<Projectiles> GetEnemiesProjectilesOnScreen(Vector2 pPos)
     {
         List<Projectiles> lVisibleProjectiles = new List<Projectiles>();

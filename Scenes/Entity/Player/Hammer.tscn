@@ -1,66 +1,84 @@
 [gd_scene load_steps=8 format=3 uid="uid://b5f4s4npvvkep"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Hammer.cs" id="1_80qmo"]
-[ext_resource type="Texture2D" uid="uid://cqhqrt4jhygkf" path="res://Assets/Sprites/Rectangle.png" id="2_06ru1"]
-[ext_resource type="Texture2D" uid="uid://c6youuydonwap" path="res://Assets/Sprites/Circle.png" id="3_fmv5a"]
-[ext_resource type="Texture2D" uid="uid://m3ptxwi12nrh" path="res://Assets/Sprites/SquareRound.png" id="4_d1gk5"]
-[ext_resource type="Texture2D" uid="uid://j4jsgnp5d8pp" path="res://Assets/Sprites/Donut.png" id="5_ivqb3"]
+[ext_resource type="Texture2D" uid="uid://chijx5hb0iwny" path="res://Assets/Sprites/StickHammer.svg" id="2_f834b"]
+[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="3_5tcai"]
+[ext_resource type="Texture2D" uid="uid://sp2m78ssnpch" path="res://Assets/Sprites/BaseHammer.svg" id="3_pvjp7"]
+[ext_resource type="Texture2D" uid="uid://b8jvfwynwltxi" path="res://Assets/Sprites/Progress.svg" id="5_adeor"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sisb5"]
 radius = 11.4018
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iyntb"]
-size = Vector2(110, 176)
+size = Vector2(221.461, 158.578)
 
-[node name="Hammer" type="Area2D" node_paths=PackedStringArray("sprite", "progressBar", "collision")]
+[node name="Hammer" type="Area2D" node_paths=PackedStringArray("progressBar", "collision", "sprite")]
 script = ExtResource("1_80qmo")
-sprite = NodePath("Handle")
 progressBar = NodePath("TextureProgressBar")
-collision = NodePath("Handle/Hammer/HammerCollision/CollisionShape2D")
+collision = NodePath("Stick/Hammer/HammerCollision/CollisionShape2D")
 swingRotations = PackedFloat32Array(120, 320, 480)
+sprite = NodePath("Stick")
 
 [node name="CollisionWave" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_sisb5")
 disabled = true
 
-[node name="Handle" type="Sprite2D" parent="."]
+[node name="Stick" type="Sprite2D" parent="."]
 visible = false
-self_modulate = Color(1, 0.407843, 0, 1)
-position = Vector2(0, -1)
+self_modulate = Color(1, 0.587438, 0.34091, 1)
+position = Vector2(-0.215406, -1.83105e-05)
 rotation = 2.0944
-scale = Vector2(0.046875, 0.511719)
-texture = ExtResource("2_06ru1")
-offset = Vector2(0, -128)
+scale = Vector2(0.34218, 0.6)
+texture = ExtResource("2_f834b")
+offset = Vector2(-0.344202, -242.029)
 
-[node name="Hand" type="Sprite2D" parent="Handle"]
-position = Vector2(-2.29998, -47.2653)
-scale = Vector2(1.75531, 0.166191)
-texture = ExtResource("3_fmv5a")
+[node name="Hand" type="Sprite2D" parent="Stick"]
+position = Vector2(-18.9477, -65.3824)
+scale = Vector2(0.204571, 0.116667)
+texture = ExtResource("3_5tcai")
 
-[node name="Hammer" type="Sprite2D" parent="Handle"]
-self_modulate = Color(0.687215, 0.687215, 0.687215, 1)
-position = Vector2(0, -252.092)
-scale = Vector2(10, 0.534351)
-texture = ExtResource("4_d1gk5")
+[node name="Hand2" type="Sprite2D" parent="Stick"]
+position = Vector2(12.7548, -122.747)
+scale = Vector2(0.171161, 0.116667)
+texture = ExtResource("3_5tcai")
 
-[node name="HammerCollision" type="Area2D" parent="Handle/Hammer"]
-position = Vector2(0, 475.429)
+[node name="Yellow" type="Sprite2D" parent="Stick"]
+self_modulate = Color(1, 1, 0, 1)
+position = Vector2(1.57691, -268.44)
+scale = Vector2(0.22647, 0.0327743)
+texture = ExtResource("3_5tcai")
+
+[node name="Yellow2" type="Sprite2D" parent="Stick"]
+self_modulate = Color(1, 1, 0, 1)
+position = Vector2(-8.55576, -451.781)
+scale = Vector2(0.22647, 0.0327743)
+texture = ExtResource("3_5tcai")
+
+[node name="Hammer" type="Sprite2D" parent="Stick"]
+self_modulate = Color(0.95158, 0.95158, 0.95158, 1)
+position = Vector2(0.629509, -360)
+scale = Vector2(1.46122, 0.833333)
+texture = ExtResource("3_pvjp7")
+
+[node name="HammerCollision" type="Area2D" parent="Stick/Hammer"]
+position = Vector2(-2.37824, 432.627)
 scale = Vector2(2.13333, 3.65714)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle/Hammer/HammerCollision"]
-position = Vector2(1, -83)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stick/Hammer/HammerCollision"]
+visible = false
+position = Vector2(0.999997, -91.711)
 shape = SubResource("RectangleShape2D_iyntb")
 disabled = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 visible = false
-offset_left = 30.0
-offset_top = -123.0
-offset_right = 286.0
-offset_bottom = 133.0
-scale = Vector2(0.2, 0.2)
+offset_left = 49.0
+offset_top = -151.0
+offset_right = 529.0
+offset_bottom = 329.0
+scale = Vector2(0.12, 0.12)
 max_value = 3.0
 step = 0.001
 fill_mode = 4
-texture_under = ExtResource("5_ivqb3")
-texture_progress = ExtResource("5_ivqb3")
+texture_under = ExtResource("5_adeor")
+texture_progress = ExtResource("5_adeor")

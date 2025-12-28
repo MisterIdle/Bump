@@ -8,6 +8,9 @@ public partial class Pow : GameObject
     [Export] private float scaleMultiplier = 20f;
     [Export] private float killDelay = 0.01f;
 
+    [Export] private float entranceOvershoot = -50f;
+    [Export] private float entranceXOffsetTarget = 250f;
+    [Export] private float minSpawnOffset = 100f; // Hors écran
     [Export] private PackedScene pop;
 
     private List<Enemy> enemyList;
@@ -15,58 +18,56 @@ public partial class Pow : GameObject
     private int index;
 
     private Vector2 targetPosition;
-    private Vector2 baseScale;
 
     public override void _Ready()
     {
         StartEntranceAnimation();
-        baseScale = Scale;
     }
 
-    public static Pow Create(PackedScene pScene, Vector2 pPos)
+    public static Pow Create(PackedScene pScene)
     {
         Pow lPow = (Pow)pScene.Instantiate();
 
-        Vector2 centerPos = GameManager.GetInstance().screenSizeCenterX;
-        lPow.Position = new Vector2(centerPos.X, 10);
+        Vector2 screenCenter = GameManager.GetInstance().screenSizeCenterX;
 
-        lPow.targetPosition = new Vector2(centerPos.X + 80, 500);
+        float spawnY = (GameManager.rand.Randf() < 0.5f) ? -lPow.minSpawnOffset : GameManager.GetInstance().screenSize.Y + lPow.minSpawnOffset;
+        float spawnX = screenCenter.X;
+
+        lPow.Position = new Vector2(spawnX, spawnY);
+
+        float targetY = GameManager.GetInstance().screenSize.Y / 2;
+        lPow.targetPosition = new Vector2(screenCenter.X + lPow.entranceXOffsetTarget, targetY);
 
         lPow.Initiate();
 
         return lPow;
     }
 
+
+
     private void StartEntranceAnimation()
     {
-        RotationDegrees = 0;
-
         Tween lTween = CreateTween();
 
-        lTween.SetParallel(true);
+        Vector2 overshootPos = targetPosition + new Vector2(0, entranceOvershoot);
+        lTween.TweenProperty(this, (string)PropertyName.Position, overshootPos, dropDuration * 0.7f)
+              .SetTrans(Tween.TransitionType.Sine)
+              .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(this, (string)PropertyName.Position, targetPosition, dropDuration)
-            .SetTrans(Tween.TransitionType.Bounce)
-            .SetEase(Tween.EaseType.Out);
-
-        lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, 360, dropDuration)
-            .SetTrans(Tween.TransitionType.Expo)
-            .SetEase(Tween.EaseType.Out);
-
-        lTween.TweenProperty(this, "scale", Scale * 4, dropDuration * 0.8f);
-
-        lTween.SetParallel(false);
+        lTween.TweenProperty(this, (string)PropertyName.Position, targetPosition, dropDuration * 0.3f)
+              .SetTrans(Tween.TransitionType.Bounce)
+              .SetEase(Tween.EaseType.In);
 
         lTween.Finished += PostExplosion;
     }
 
     private void PostExplosion()
     {
-        Tween lTween = Effect.SquashStretch(this, false, true);
+        Tween lTween = Effect.SquashStretch(sprite, baseSpriteScale, false, true, 0.5f);
 
         Effect.FlashColor(this, Colors.Red);
-        Camera.Shake(25, 1f);
-        Time.SlowMotion(0.1f, 0.2f);
+        Camera.Shake(35, 1.2f);
+        Time.SlowMotion(0.08f, 0.25f);
 
         Particule.Create(pop, Position);
 

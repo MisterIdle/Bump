@@ -1,25 +1,25 @@
 [gd_scene load_steps=5 format=3 uid="uid://4wsw7s3qogxl"]
 
 [ext_resource type="Script" path="res://Scripts/Collectibles/PowCollectible.cs" id="1_o1hps"]
-[ext_resource type="PackedScene" uid="uid://br6mruwd33f0n" path="res://Scenes/Collectibles/Parachute.tscn" id="2_3tldx"]
-[ext_resource type="Texture2D" uid="uid://c7rdl4p71u5av" path="res://Assets/Sprites/Square.png" id="3_iwam0"]
+[ext_resource type="Texture2D" uid="uid://cgn8qpndmx1dl" path="res://Assets/Sprites/Pow.svg" id="2_catpc"]
+[ext_resource type="PackedScene" uid="uid://dihh2tvaur1gt" path="res://Scenes/Collectibles/Bubble.tscn" id="3_vltsb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmgtw"]
-size = Vector2(20, 151)
+[sub_resource type="CircleShape2D" id="CircleShape2D_iob1c"]
+radius = 54.0093
 
-[node name="PowCollectible" type="Area2D"]
+[node name="PowCollectible" type="Area2D" node_paths=PackedStringArray("sprite")]
 z_index = 2
 collision_layer = 8
 script = ExtResource("1_o1hps")
-parachutePath = NodePath("Parachute")
 speed = 100.0
+sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -65.5)
-shape = SubResource("RectangleShape2D_vmgtw")
-
-[node name="Parachute" parent="." instance=ExtResource("2_3tldx")]
+shape = SubResource("CircleShape2D_iob1c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_iwam0")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_catpc")
+
+[node name="Bubble" parent="." instance=ExtResource("3_vltsb")]
+scale = Vector2(0.3, 0.285)

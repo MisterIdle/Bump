@@ -11,12 +11,10 @@ public partial class Rushroops : ShelledEnemy
     [Export] private float chargeSpeed = 300f;
     [Export] private float recoilDistance = -25f;
     [Export] private float recoilDuration = 1f;
+    [Export] private Vector2 basePosShell;
 
     private Timer shotTimer;
     private Timer chargeTimer;
-
-    private Vector2 basePos;
-    private Vector2 toPlayer;
 
     private bool isCharging = false;
 
@@ -47,23 +45,18 @@ public partial class Rushroops : ShelledEnemy
 
     private void Shoot()
     {
-        Shot lShot = Shot.Create(shotScene, GlobalPosition, -toPlayer);
+        Shot lShot = Shot.Create(shotScene, GlobalPosition, playerDirection);
 
         Projectiles.enemyProjectilesList.Add(lShot);
 
         GameManager.GetInstance().gameContainer.AddChild(lShot);
 
-        Effect.BumpScale(this);
+        Effect.BumpScale(this, baseScale);
     }
 
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
-
-        toPlayer = Utils.DirectionTo(Player.GetInstance().GlobalPosition, GlobalPosition);
-
-        bool lLeft = RotationDegrees > 90f || RotationDegrees < -90f;
-        Scale = new Vector2(1, lLeft ? -1 : 1);
 
         if (!isCharging)
             velocity = new Vector2(angleX, angleY);
@@ -75,17 +68,19 @@ public partial class Rushroops : ShelledEnemy
             isCharging = true;
 
         shellProjectileProtect = true;
+        facePlayer = false;
 
         pAttackTimer.Stop();
 
-        Effect.BumpScale(this);
+        wing.SetSpeedDouble(true);
 
-        Vector2 lDirection = toPlayer.Normalized();
+        Effect.SquashStretch(this, baseScale, false);
+
+        Vector2 lDirection = playerDirection.Normalized();
         Vector2 lRecoil = Position - lDirection * recoilDistance;
 
-        speed = -chargeSpeed;
+        speed = chargeSpeed;
         velocity = lDirection;
-        Rotation = toPlayer.Angle();
 
         Tween lTween = CreateTween();
 
@@ -93,7 +88,7 @@ public partial class Rushroops : ShelledEnemy
              .SetTrans(Tween.TransitionType.Back)
              .SetEase(Tween.EaseType.Out);
 
-        lTween.Parallel().TweenProperty(shell, (string)PropertyName.Position, basePos, recoilDuration)
+        lTween.Parallel().TweenProperty(shell, (string)PropertyName.Position, basePosShell, recoilDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
     }

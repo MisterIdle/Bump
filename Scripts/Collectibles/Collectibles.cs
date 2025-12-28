@@ -4,59 +4,54 @@ using System;
 public partial class Collectibles : Movable
 {
     private float finalAlpha = 0;
-
-    private Sprite2D parachute;
-    [Export] private NodePath parachutePath;
-
-    private Tween parachuteTween;
+    private float rotationSpeed = 20f;
+    [Export] private float animationSec = 2f;
+    private Timer animationTimer;
 
     public override void Initiate()
     {
         base.Initiate();
+        velocity = Vector2.Left;
+        Effect.BumpScale(this, baseScale);
 
-        if (parachutePath != null) 
-            parachute = (Sprite2D)GetNode(parachutePath);
+        animationTimer = new Timer();
 
-        Effect.BumpScale(this);
+        animationTimer.WaitTime = animationSec;
+        animationTimer.OneShot = false;
+        animationTimer.Autostart = true;
+        animationTimer.Timeout += PlayAnimation;
 
-        velocity = Vector2.Down;
+        AddChild(animationTimer);
     }
 
     public static Collectibles Create(PackedScene pScene, Vector2 pPos)
     {
-        Collectibles Collectible = (Collectibles)pScene.Instantiate();
+        Collectibles collectible = (Collectibles)pScene.Instantiate();
+        collectible.Position = pPos;
 
-        Collectible.Position = pPos;
-        GameManager.GetInstance().gameContainer.AddChild(Collectible);
+        GameManager.GetInstance().gameContainer.AddChild(collectible);
+        collectible.Initiate();
 
-        Collectible.Initiate();
-
-        return Collectible;
+        return collectible;
     }
 
-    public void StartParachuteEffect(float pRotation = 8f, float pDuration = 1f)
+    protected override void Update(float pDelta)
     {
-        parachuteTween?.Kill();
-        parachuteTween = CreateTween();
-        parachuteTween.SetLoops(0);
+        base.Update(pDelta);
+        velocity.Y = angleY;
 
-        parachuteTween
-            .TweenProperty(this, (string)PropertyName.RotationDegrees, pRotation, pDuration)
-            .SetTrans(Tween.TransitionType.Sine)
-            .SetEase(Tween.EaseType.InOut);
+        RotationDegrees += rotationSpeed * pDelta;
+    }
 
-        parachuteTween
-            .TweenProperty(this, (string)PropertyName.RotationDegrees, -pRotation, pDuration)
-            .SetTrans(Tween.TransitionType.Sine)
-            .SetEase(Tween.EaseType.InOut);
+    private void PlayAnimation()
+    {
+        Effect.SquashStretch(this, baseScale, false);
+        Effect.BumpScale(this, baseScale);
     }
 
     public void Recolt(float pHeight = 30f, float pDuration = 0.2f)
     {
         CollisionMask = 0;
-
-        if (parachute != null)
-            parachute.Visible = false;
 
         Tween lTween = CreateTween();
 

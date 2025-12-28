@@ -3,7 +3,7 @@ using Godot;
 public partial class GameManager : Node2D
 {
     [ExportCategory("Scoll")]
-    [Export] public float scrollSpeed = 100f;
+    [Export] public float scrollSpeed = 250f;
     public static Vector2 scrollSpeedVelocity;
 
     [ExportCategory("Base enable")]

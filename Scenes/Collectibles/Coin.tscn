@@ -1,9 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddhas35kn3ovi"]
 
-[ext_resource type="Texture2D" uid="uid://iha3e8bjkheb" path="res://Assets/Sprites/Hexagone.png" id="1_4hyht"]
 [ext_resource type="Script" path="res://Scripts/Collectibles/Coin.cs" id="1_jbjdg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mnqh6"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f1vjb"]
 
 [node name="Coin" type="Area2D"]
 collision_layer = 8
@@ -17,11 +18,11 @@ self_modulate = Color(1, 0.788235, 0, 1)
 position = Vector2(-0.12, 0)
 rotation = 1.5708
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_4hyht")
+texture = SubResource("CompressedTexture2D_f1vjb")
 
 [node name="Intern" type="Sprite2D" parent="Base"]
 self_modulate = Color(1, 0.870588, 0.803922, 1)
 position = Vector2(-5.96046e-08, -1.5)
 rotation = 1.5708
 scale = Vector2(0.486294, 0.668724)
-texture = ExtResource("1_4hyht")
+texture = SubResource("CompressedTexture2D_f1vjb")

@@ -15,21 +15,13 @@ public partial class Shot : Projectiles
     public static Shot Create(PackedScene pScene, Vector2 pPos, Vector2 pWay, float pAngle = 0)
     {
         Shot lShot = (Shot)pScene.Instantiate();
+
         lShot.Position = pPos;
         lShot.SetInitialMovement(pAngle, pWay);
+
         lShot.Initiate();
+
         return lShot;
-    }
-
-    public void SetVisualParameters(Color color, float scale)
-    {
-        Modulate = color;
-        Scale = Vector2.One * scale;
-    }
-
-    public void SetSpeed(float pSpeed)
-    {
-        speed = pSpeed;
     }
 
     private void SetInitialMovement(float pAngle, Vector2 pWay)

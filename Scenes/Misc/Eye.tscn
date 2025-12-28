@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bev6b38a5whed"]
+
+[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="1_6rmbf"]
+
+[node name="Eye" type="Sprite2D"]
+self_modulate = Color(0, 0, 0, 1)
+rotation = 1.5708
+scale = Vector2(0.3, 0.192)
+texture = ExtResource("1_6rmbf")

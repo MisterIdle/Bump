@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct6reay04483s"]
+
+[ext_resource type="Script" path="res://Scripts/Effect/Wing.cs" id="2_pjk2r"]
+
+[node name="Wing" type="Sprite2D"]
+position = Vector2(-4.76837e-07, 1.19209e-07)
+scale = Vector2(0.2, 0.2)
+offset = Vector2(-0.730606, -58.0627)
+script = ExtResource("2_pjk2r")
