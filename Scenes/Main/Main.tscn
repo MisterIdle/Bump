@@ -1,9 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://xglysqus4mmt"]
+[gd_scene load_steps=6 format=3 uid="uid://xglysqus4mmt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
+[ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/Misc/Parallax.tscn" id="2_ajko8"]
 [ext_resource type="PackedScene" uid="uid://eijl1ptqfcr5" path="res://Scenes/Main/InGame.tscn" id="2_ppwvp"]
+[ext_resource type="PackedScene" uid="uid://cynte0cuc32cd" path="res://Scenes/Main/MainMenu.tscn" id="2_yviav"]
+
+[sub_resource type="Environment" id="Environment_k772t"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.1
+glow_bloom = 0.1
+fog_light_energy = 16.0
+fog_sun_scatter = 1.0
+fog_density = 1.0
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 1.2
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ij506")
+mainMenuScene = ExtResource("2_yviav")
+gameScene = ExtResource("2_ppwvp")
 
-[node name="InGame" parent="." instance=ExtResource("2_ppwvp")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k772t")
+
+[node name="Background" parent="." instance=ExtResource("2_ajko8")]

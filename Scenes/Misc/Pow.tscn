@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Effect/Pow.cs" id="1_1d0vc"]
 [ext_resource type="PackedScene" uid="uid://bhnuaia2dpuey" path="res://Scenes/Effect/Big.tscn" id="2_7ay6i"]
-[ext_resource type="Texture2D" uid="uid://cgn8qpndmx1dl" path="res://Assets/Sprites/Pow.svg" id="3_v8jas"]
+[ext_resource type="Texture2D" uid="uid://ey818jhxedis" path="res://Assets/Sprites/Pow.svg" id="3_v8jas"]
 [ext_resource type="PackedScene" uid="uid://dihh2tvaur1gt" path="res://Scenes/Collectibles/Bubble.tscn" id="4_jo7to"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vuduw"]

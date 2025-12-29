@@ -5,7 +5,7 @@ public static class Effect
     private static string scale = "scale";
     private static string modulate = "modulate";
 
-    public static void BumpScale(Node2D pWho, Vector2 pBaseScale,  float pScaleBump = 1.2f, float pDuration = 0.1f)
+    public static Tween BumpScale(Node2D pWho, Vector2 pBaseScale, float pScaleBump = 1.2f, float pDuration = 0.1f)
     {
         pWho.Scale = pBaseScale;
 
@@ -18,6 +18,8 @@ public static class Effect
         lTween.TweenProperty(pWho, scale, pBaseScale, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
+
+        return lTween;
     }
 
     public static Tween FlashColor(Node2D pWho, Color pColor, float pDuration = 0.1f)
@@ -35,11 +37,13 @@ public static class Effect
         return lTween;
     }
 
-    public static void BumpHUD(Control pWho, float pScaleBump = 1.2f, float pDuration = 0.1f)
+    public static void BumpHUD(Control pWho, Vector2 pBaseScale, float pScaleBump = 1.2f, float pDuration = 0.1f)
     {
         if (pWho == null) return;
 
         Tween lTween = pWho.CreateTween();
+
+        pWho.Scale = pBaseScale;
 
         lTween.TweenProperty(pWho, scale, pWho.Scale * pScaleBump, pDuration)
             .SetEase(Tween.EaseType.Out)

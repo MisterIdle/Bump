@@ -71,6 +71,8 @@ public partial class Rushroops : ShelledEnemy
         facePlayer = false;
 
         pAttackTimer.Stop();
+        shotTimer.Stop();
+        chargeTimer.Stop();
 
         wing.SetSpeedDouble(true);
 
@@ -95,7 +97,7 @@ public partial class Rushroops : ShelledEnemy
 
     public override void EntityDeath()
     {
-        base.EntityDeath();
+        EntityDeath();
         shotTimer.Stop();
         chargeTimer.Stop();
     }

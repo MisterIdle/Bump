@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ltgeidgvsfd7"
-path="res://.godot/imported/BaseMushroom.svg-7e6e82d9e0273af7e3cb4e0bc4217f6a.ctex"
+uid="uid://dsqii3nras2tl"
+path="res://.godot/imported/Mystery.svg-164e207a261c2e5ef68cf6c806391197.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/BaseMushroom.svg"
-dest_files=["res://.godot/imported/BaseMushroom.svg-7e6e82d9e0273af7e3cb4e0bc4217f6a.ctex"]
+source_file="res://Assets/Sprites/Mystery.svg"
+dest_files=["res://.godot/imported/Mystery.svg-164e207a261c2e5ef68cf6c806391197.ctex"]
 
 [params]
 

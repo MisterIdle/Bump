@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://faq425cxomdm"
-path="res://.godot/imported/RetroMario-Regular.otf-7274bec8c6fe69796aa666abf910322f.fontdata"
+uid="uid://co6qux707qf00"
+path="res://.godot/imported/Magic Red.otf-60e8ccde2b6c9c5d7b9a975c20426939.fontdata"
 
 [deps]
 
-source_file="res://Assets/Font/RetroMario-Regular.otf"
-dest_files=["res://.godot/imported/RetroMario-Regular.otf-7274bec8c6fe69796aa666abf910322f.fontdata"]
+source_file="res://Assets/Visual/Magic Red.otf"
+dest_files=["res://.godot/imported/Magic Red.otf-60e8ccde2b6c9c5d7b9a975c20426939.fontdata"]
 
 [params]
 

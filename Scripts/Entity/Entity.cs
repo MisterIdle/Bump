@@ -78,16 +78,10 @@ public partial class Entity : Movable
         isDeath = true;
         speed = fallDeath;
 
-        CallDeferred(MethodName.CallDeath);
-    }
-
-    private void CallDeath()
-    {
         CollisionMask = 0;
         CollisionLayer = 0;
 
-        GameManager.CreateRandomCollectibles(GlobalPosition);
-        Particule.Create(popScene, GlobalPosition);
+        //Particule.Create(popScene, GlobalPosition);
 
         DeathBump();
     }

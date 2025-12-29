@@ -24,17 +24,6 @@ public partial class Collectibles : Movable
         AddChild(animationTimer);
     }
 
-    public static Collectibles Create(PackedScene pScene, Vector2 pPos)
-    {
-        Collectibles collectible = (Collectibles)pScene.Instantiate();
-        collectible.Position = pPos;
-
-        GameManager.GetInstance().gameContainer.AddChild(collectible);
-        collectible.Initiate();
-
-        return collectible;
-    }
-
     protected override void Update(float pDelta)
     {
         base.Update(pDelta);
@@ -52,6 +41,8 @@ public partial class Collectibles : Movable
     public void Recolt(float pHeight = 30f, float pDuration = 0.2f)
     {
         CollisionMask = 0;
+
+        HUD.GetInstance().CreateBubbleScore(Position, score);
 
         Tween lTween = CreateTween();
 

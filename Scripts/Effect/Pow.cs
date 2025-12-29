@@ -10,7 +10,7 @@ public partial class Pow : GameObject
 
     [Export] private float entranceOvershoot = -50f;
     [Export] private float entranceXOffsetTarget = 250f;
-    [Export] private float minSpawnOffset = 100f; // Hors écran
+    [Export] private float minSpawnOffset = 100f;
     [Export] private PackedScene pop;
 
     private List<Enemy> enemyList;
@@ -42,8 +42,6 @@ public partial class Pow : GameObject
 
         return lPow;
     }
-
-
 
     private void StartEntranceAnimation()
     {
@@ -98,21 +96,30 @@ public partial class Pow : GameObject
 
     private void KillNextEnemy()
     {
-        if (enemyList == null || index >= enemyList.Count)
+        if (enemyList == null)
         {
             QueueFree();
             return;
         }
 
-        Enemy lEnemy = enemyList[index];
+        while (index < enemyList.Count)
+        {
+            Enemy lEnemy = enemyList[index];
+            index++;
 
-        lEnemy.health = 0;
-        lEnemy.EntityHit();
+            if (IsInstanceValid(lEnemy))
+            {
+                lEnemy.health = 0;
+                lEnemy.EntityHit();
 
-        index++;
+                Tween lTween = CreateTween();
+                lTween.TweenCallback(Callable.From(KillNextEnemy))
+                      .SetDelay(killDelay);
+                return;
+            }
+        }
 
-        Tween lTween = CreateTween();
-        lTween.TweenCallback(Callable.From(KillNextEnemy))
-              .SetDelay(killDelay);
+        QueueFree();
     }
+
 }

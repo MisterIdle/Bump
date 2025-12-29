@@ -3,11 +3,62 @@ using System;
 
 public partial class SceneManager : Node
 {
-    [Export] private PackedScene scene1;
-
-    public override void _Process(double delta)
+    private static SceneManager instance;
+    public static SceneManager GetInstance()
     {
-        if (Input.IsActionJustPressed(Property.INPUT_RELOAD))
-            GetTree().ReloadCurrentScene();
+        return instance;
+    }
+
+    public enum SceneType
+    {
+        MainMenu,
+        Game
+    }
+
+    [Export] private PackedScene mainMenuScene;
+    [Export] private PackedScene gameScene;
+
+    private Node currentScene;
+
+    public override void _Ready()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            QueueFree();
+            return;
+        }
+
+        SwitchScene(SceneType.MainMenu);
+    }
+
+    public void SwitchScene(SceneType pSceneType)
+    {
+        PackedScene targetScene;
+
+        switch (pSceneType)
+        {
+            case SceneType.MainMenu:
+                targetScene = mainMenuScene;
+                break;
+            case SceneType.Game:
+                targetScene = gameScene;
+                break;
+            default:
+                GD.PrintErr("SceneType inconnu !");
+                return;
+        }
+
+        if (currentScene != null)
+        {
+            RemoveChild(currentScene);
+            currentScene.QueueFree();
+        }
+
+        currentScene = targetScene.Instantiate();
+        AddChild(currentScene);
     }
 }

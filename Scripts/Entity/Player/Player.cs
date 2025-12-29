@@ -9,6 +9,8 @@ public partial class Player : Entity
         return instance;
     }
 
+    private int maxHealth = 5;
+
     [ExportCategory("God Mode")]
     [Export] public bool godMode;
     [Export] public CollisionShape2D collision;
@@ -49,12 +51,13 @@ public partial class Player : Entity
     [ExportCategory("Pow")]
     [Export] private int powNum = 1;
     [Export] private PackedScene powScene;
+    private int minPow = 1;
+    private int maxPow = 3;
 
     [ExportCategory("Level")]
     [Export] private Color levelAColor;
     [Export] private Color levelBColor;
     [Export] private Color levelCColor;
-
     public int level = 1;
     private int minLevel = 1;
     private int maxLevel = 3;
@@ -100,6 +103,8 @@ public partial class Player : Entity
         hammer.Initiate();
         hammer.SetPlayer(this);
 
+        HUD.GetInstance().UpdateHealth(health);
+        HUD.GetInstance().UpdatePow(powNum);
         UpdateLevelParameters();
     }
 
@@ -112,11 +117,30 @@ public partial class Player : Entity
 
         hammer.Attack(pDelta);
 
+        #region DEBUG
         if (Input.IsActionJustPressed(Property.INPUT_LEVEL_UP))
             LevelUp(true);
 
         if (Input.IsActionJustPressed(Property.INPUT_LEVEL_DOWN))
             LevelUp(false);
+
+        if (Input.IsActionJustPressed(Property.INPUT_POW_UP))
+            AddPow();
+
+        if (Input.IsActionJustPressed(Property.INPUT_POW_DOWN))
+        {
+            powNum--;
+            HUD.GetInstance().UpdatePow(powNum);
+        }
+
+        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_UP))
+            AddHealth();
+
+        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_DOWN))
+            HitCheckInvincible();
+
+        #endregion
+
 
         if (Input.IsActionJustPressed(Property.INPUT_GOD))
             ToggleGodMode();
@@ -185,8 +209,15 @@ public partial class Player : Entity
 
     private void Bomb()
     {
+        if (powNum <= 0) return;
+
         Pow lPow = Pow.Create(powScene);
         GameManager.GetInstance().gameContainer.AddChild(lPow);
+
+        if(!godMode)
+            powNum--;
+
+        HUD.GetInstance().UpdatePow(powNum);
     }
 
     private void Fire()
@@ -211,8 +242,8 @@ public partial class Player : Entity
                 throw new InvalidOperationException();
         }
 
-        Effect.BumpScale(this, baseScale);
-        Effect.SquashStretch(this, baseScale, true, false, 0.8f, 1f);
+        Effect.BumpScale(sprite, baseSpriteScale);
+        Effect.SquashStretch(sprite, baseSpriteScale, true, false, 0.8f, 1f);
 
         GameManager.GetInstance().gameContainer.AddChild(lShot);
         lastShot = lShot;
@@ -256,11 +287,19 @@ public partial class Player : Entity
         godMode = !godMode;
         collision.Disabled = godMode;
         GD.Print("GOD MODE: " + godMode);
+
+        Modulate = godMode ? Colors.Gold : Colors.White;
+
+        HUD.GetInstance().SetGodMode(godMode);
     }
 
     public void AddHealth()
     {
-        health++;
+        if (health >= maxHealth) return;
+
+        health = Mathf.Min(health + 1, maxHealth);
+        HUD.GetInstance().UpdateHealth(health);
+
         GD.Print("HEALTH:" + health);
         Effect.FlashColor(sprite, Colors.Green);
         Effect.BumpScale(this, baseScale);
@@ -269,7 +308,11 @@ public partial class Player : Entity
 
     public void AddPow()
     {
-        powNum++;
+        if (powNum >= maxPow) return;
+
+        powNum = Mathf.Min(powNum + 1, maxPow);
+        HUD.GetInstance().UpdatePow(powNum);
+
         GD.Print("POW:" + powNum);
         Effect.BumpScale(this, baseScale);
         Time.SlowMotion(0.1f, 0.1f);
@@ -291,6 +334,8 @@ public partial class Player : Entity
         base.EntityHit(pDamage);
 
         LevelUp(false);
+
+        HUD.GetInstance().UpdateHealth(health);
         StartInvincible(invincibleTime);
     }
 

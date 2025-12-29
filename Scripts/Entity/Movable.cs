@@ -2,6 +2,8 @@ using Godot;
 
 public partial class Movable : GameObject
 {
+    [Export] protected int score = 1000;
+
     [ExportCategory("Speed")]
     [Export] public float speed;
     [Export] public bool affectedByScroll;

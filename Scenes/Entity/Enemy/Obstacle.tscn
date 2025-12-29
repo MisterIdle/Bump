@@ -6,13 +6,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_58xe7"]
 size = Vector2(128, 128)
 
-[node name="Obstacle" type="Area2D" node_paths=PackedStringArray("Collision", "Visual", "Patch")]
+[node name="Obstacle" type="Area2D"]
 z_index = -10
 collision_layer = 4
 script = ExtResource("1_wo6if")
-Collision = NodePath("CollisionShape2D")
-Visual = NodePath("Node2D")
-Patch = NodePath("Node2D/NinePatchRect")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.5)

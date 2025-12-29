@@ -25,6 +25,17 @@ public partial class FlowerCollectible : Collectibles
         material.SetShaderParameter(COLOR_CONST, sharedColor);
     }
 
+    public static FlowerCollectible Create(PackedScene pScene, Vector2 pPos)
+    {
+        FlowerCollectible collectible = (FlowerCollectible)pScene.Instantiate();
+        collectible.Position = pPos;
+
+        GameManager.GetInstance().gameContainer.AddChild(collectible);
+        collectible.Initiate();
+
+        return collectible;
+    }
+
     protected override void OnCollide(Area2D pArea)
     {
         base.OnCollide(pArea);

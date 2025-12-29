@@ -17,6 +17,12 @@ public static class Property
     public static string INPUT_LEVEL_UP = "LEVELUP";
     public static string INPUT_LEVEL_DOWN = "LEVELDOWN";
 
+    public static string INPUT_POW_DOWN = "POWDOWN";
+    public static string INPUT_POW_UP = "POWUP";
+
+    public static string INPUT_HEALTH_DOWN = "HEALTHDOWN";
+    public static string INPUT_HEALTH_UP = "HEALTHUP";
+
     public static string INPUT_GOD = "GODMODE";
     public static string INPUT_RELOAD = "RELOAD";
 

@@ -11,9 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://chijx5hb0iwny" path="res://Assets/Sprites/StickHammer.svg" id="10_qbv15"]
 [ext_resource type="Texture2D" uid="uid://pfbacar5ib3v" path="res://Assets/Sprites/Palll1.svg" id="11_7k1x7"]
 [ext_resource type="Texture2D" uid="uid://x0tb8vshaev6" path="res://Assets/Sprites/Palll2.svg" id="12_rlrdl"]
+[ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Visual/RetroMario-Regular.otf" id="13_3fptg"]
 [ext_resource type="Texture2D" uid="uid://31vh4twefb6a" path="res://Assets/Sprites/Palll3.svg" id="13_awf0n"]
 [ext_resource type="Texture2D" uid="uid://cp6ulypumawqu" path="res://Assets/Sprites/Palll4.svg" id="14_1w5s4"]
-[ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Font/RetroMario-Regular.otf" id="14_ba442"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p48nk"]
 
@@ -42,7 +42,7 @@ animations = [{
 }]
 
 [sub_resource type="LabelSettings" id="LabelSettings_c0y2u"]
-font = ExtResource("14_ba442")
+font = ExtResource("13_3fptg")
 font_size = 1490
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onibu"]
@@ -57,37 +57,37 @@ collision = NodePath("CollisionShape2D")
 baseShotSpace = 1500.0
 shotScene = ExtResource("2_1sndv")
 fireBallScene = ExtResource("2_w6786")
-nose = NodePath("Sprite/Nose")
+nose = NodePath("Propyot/Nose")
 muzzle = NodePath("Muzzle")
 powScene = ExtResource("4_0ve0x")
 levelAColor = Color(0.903883, 0.815625, 0.505521, 1)
 levelBColor = Color(0.898039, 0.643137, 0.415686, 1)
 levelCColor = Color(0.984129, 0.571491, 0.543701, 1)
 hammer = NodePath("Hammer")
-pall = NodePath("Sprite/Stick/Pall")
+pall = NodePath("Propyot/Stick/Pall")
 health = 3
 invincibleTime = 2.0
 popScene = ExtResource("3_20icr")
 speed = 250.0
 affectedByScroll = true
 amplitude = 0.2
-sprite = NodePath("Sprite")
+sprite = NodePath("Propyot")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Propyot" type="Sprite2D" parent="."]
 self_modulate = Color(0.898039, 0.643137, 0.415686, 1)
 material = SubResource("ShaderMaterial_b28bx")
 position = Vector2(0, -4.76837e-07)
 scale = Vector2(0.2, 0.171)
 texture = ExtResource("6_1xct8")
 
-[node name="Stick" type="Sprite2D" parent="Sprite"]
+[node name="Stick" type="Sprite2D" parent="Propyot"]
 self_modulate = Color(0.678431, 0.415686, 0.239216, 1)
 z_index = -1
 position = Vector2(-5.85247, -268.769)
 scale = Vector2(1.17257, 0.647289)
 texture = ExtResource("10_qbv15")
 
-[node name="Pall" type="AnimatedSprite2D" parent="Sprite/Stick"]
+[node name="Pall" type="AnimatedSprite2D" parent="Propyot/Stick"]
 material = SubResource("ShaderMaterial_nus37")
 position = Vector2(-3.03382e-05, -187.234)
 scale = Vector2(4.45737, 1.18446)
@@ -95,30 +95,30 @@ sprite_frames = SubResource("SpriteFrames_w2oku")
 animation = &"fly"
 frame_progress = 0.499092
 
-[node name="Sprite2D" type="Sprite2D" parent="Sprite/Stick"]
+[node name="Sprite2D" type="Sprite2D" parent="Propyot/Stick"]
 modulate = Color(0.678431, 0.415686, 0.239216, 1)
 position = Vector2(-3.05176e-05, -225.572)
 scale = Vector2(0.128758, 0.248945)
 texture = ExtResource("6_1xct8")
 
-[node name="Eye" parent="Sprite" instance=ExtResource("8_xd46q")]
+[node name="Eye" parent="Propyot" instance=ExtResource("8_xd46q")]
 self_modulate = Color(1, 1, 1, 1)
 position = Vector2(99.492, -133.601)
 scale = Vector2(0.368513, 0.222311)
 
-[node name="Subeye" type="Sprite2D" parent="Sprite/Eye"]
+[node name="Subeye" type="Sprite2D" parent="Propyot/Eye"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(0, -98.0411)
 rotation = -1.5708
 scale = Vector2(0.476026, 0.625861)
 texture = ExtResource("6_1xct8")
 
-[node name="Nose" type="Sprite2D" parent="Sprite"]
+[node name="Nose" type="Sprite2D" parent="Propyot"]
 position = Vector2(205, 1.90735e-06)
 scale = Vector2(0.425114, 0.37959)
 texture = ExtResource("6_1xct8")
 
-[node name="Label" type="Label" parent="Sprite"]
+[node name="Label" type="Label" parent="Propyot"]
 anchors_preset = -1
 anchor_left = 0.321
 anchor_top = 0.319

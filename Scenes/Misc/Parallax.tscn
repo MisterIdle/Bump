@@ -1,24 +1,18 @@
 [gd_scene load_steps=18 format=3 uid="uid://dqrqjbxsydh3h"]
 
+[ext_resource type="Script" path="res://Scripts/Effect/Biome.cs" id="1_1e1ru"]
 [ext_resource type="Texture2D" uid="uid://bxfstxfe7810l" path="res://Assets/Sprites/Pliiar.svg" id="1_7pveb"]
 [ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="1_8bawd"]
 [ext_resource type="Texture2D" uid="uid://c01k8dltwfsov" path="res://Assets/Sprites/Cloud2.svg" id="1_wvi84"]
 [ext_resource type="Texture2D" uid="uid://bjxslnaao1p7m" path="res://Assets/Sprites/Pliiar2.svg" id="1_xxge3"]
-[ext_resource type="Texture2D" uid="uid://bec1v2vxu01qv" path="res://Assets/Sprites/Pliiar3.svg" id="3_b51iw"]
+[ext_resource type="Texture2D" uid="uid://bc4b332utdrr6" path="res://Assets/Background/BaseBackground.tres" id="2_l1edh"]
+[ext_resource type="Texture2D" uid="uid://n8m0k0lsm63f" path="res://Assets/Background/MainMenuBackground.tres" id="2_xhf8x"]
 [ext_resource type="Shader" uid="uid://bne3w1ms8y0g6" path="res://Assets/Shader/ColorSwap.tres" id="4_u20jj"]
 [ext_resource type="Script" path="res://Scripts/Effect/UpDown.cs" id="5_22u1i"]
 [ext_resource type="Texture2D" uid="uid://cbvttxmxltkqy" path="res://Assets/Sprites/Cloud3.svg" id="5_vjew8"]
 
-[sub_resource type="Gradient" id="Gradient_5wp5q"]
-colors = PackedColorArray(0, 0.418807, 0.674955, 1, 0.779291, 0.779291, 0.779291, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4hdue"]
-gradient = SubResource("Gradient_5wp5q")
-fill_from = Vector2(0.594017, 0.649573)
-fill_to = Vector2(0.602564, 1)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n0kl1"]
-texture = SubResource("GradientTexture2D_4hdue")
+texture = ExtResource("2_l1edh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4wsax"]
 shader = ExtResource("1_8bawd")
@@ -53,6 +47,15 @@ shader_parameter/Seuil = 0.1
 
 [node name="Background" type="ParallaxBackground"]
 
+[node name="Background" type="Control" parent="." node_paths=PackedStringArray("panel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_1e1ru")
+GradientMainMenu = ExtResource("2_xhf8x")
+panel = NodePath("../Panel")
+
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +66,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_n0kl1")
 
 [node name="Middle" type="ParallaxLayer" parent="."]
 z_index = 4096
-motion_scale = Vector2(0.9, 0.9)
+motion_scale = Vector2(0.4, 0.4)
 motion_mirroring = Vector2(1920, 0)
 
 [node name="Cloud6" type="Sprite2D" parent="Middle"]
@@ -74,11 +77,11 @@ scale = Vector2(0.616736, 0.509297)
 texture = ExtResource("5_vjew8")
 script = ExtResource("5_22u1i")
 amplitude = 1.0
-speed = 5.0
+speed = 0.5
 
 [node name="Middle4" type="ParallaxLayer" parent="."]
 z_index = 4096
-motion_scale = Vector2(0.5, 0.5)
+motion_scale = Vector2(0.2, 0.2)
 motion_mirroring = Vector2(1920, 0)
 
 [node name="Cloud4" type="Sprite2D" parent="Middle4"]
@@ -88,8 +91,7 @@ position = Vector2(540, 1031)
 scale = Vector2(0.616736, 0.509297)
 texture = ExtResource("5_vjew8")
 script = ExtResource("5_22u1i")
-amplitude = 90.0
-speed = 0.5
+speed = 0.3
 
 [node name="PillarMiddle" type="ParallaxLayer" parent="."]
 z_index = 4096
@@ -114,12 +116,12 @@ speed = 0.1
 
 [node name="Pliiar3" type="Sprite2D" parent="PillarMiddle"]
 material = SubResource("ShaderMaterial_ikq34")
-position = Vector2(1013, 922)
+position = Vector2(1111, 915)
 rotation = -0.0698132
 scale = Vector2(0.640831, 0.617825)
-texture = ExtResource("3_b51iw")
+texture = ExtResource("1_xxge3")
 script = ExtResource("5_22u1i")
-speed = 0.05
+speed = 0.2
 
 [node name="PillarMiddle2" type="ParallaxLayer" parent="."]
 z_index = 4096
@@ -132,6 +134,7 @@ position = Vector2(1814, 904)
 rotation = -0.207694
 scale = Vector2(0.640831, 0.617825)
 texture = ExtResource("1_xxge3")
+flip_h = true
 script = ExtResource("5_22u1i")
 speed = 0.2
 
@@ -184,7 +187,7 @@ texture = ExtResource("1_wvi84")
 flip_h = true
 
 [node name="Panel2" type="Panel" parent="."]
-modulate = Color(1, 1, 1, 0.262745)
+modulate = Color(1, 1, 1, 0.392157)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

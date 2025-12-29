@@ -115,7 +115,7 @@ public partial class Hammer : GameObject
 
             case State.Charging:
                 chargeTime += pDelta;
-                progressBar.TintProgress = LerpColors(Colors.Red, Colors.Orange, chargeTime);
+                progressBar.TintProgress = LerpColors(Colors.OrangeRed, Colors.Orange, chargeTime);
 
 
                 if (chargeTime >= maxChargeTime)
@@ -135,10 +135,10 @@ public partial class Hammer : GameObject
                 switch (attackForce)
                 {
                     case 1:
-                        progressBar.TintProgress = LerpColors(Colors.Orange, Colors.Green, chargeTime / maxChargedTime);
+                        progressBar.TintProgress = LerpColors(Colors.Orange, Colors.GreenYellow, chargeTime / maxChargedTime);
                         break;
                     case 2:
-                        progressBar.TintProgress = LerpColors(Colors.Green, Colors.DarkGreen, chargeTime / maxChargedTime);
+                        progressBar.TintProgress = LerpColors(Colors.GreenYellow, Colors.Green, chargeTime / maxChargedTime);
                         break;
                 }
 
@@ -174,7 +174,7 @@ public partial class Hammer : GameObject
     {
         state = State.Charged;
 
-        Effect.BumpHUD(progressBar, 1.1f);
+        Effect.BumpHUD(progressBar, progressBar.Scale, 1.1f);
 
         SetRotation(chargedRotation, chargedTweenTime);
         SetScale(scaleCharged, scaleTime);
@@ -188,12 +188,12 @@ public partial class Hammer : GameObject
 
         collision.Disabled = false;
 
-        progressBar.TintProgress = Colors.Red;
+        progressBar.TintProgress = Colors.OrangeRed;
 
         player.Dash(dashDistance * attackForce, Vector2.Right, false);
         player.invincible = true;
 
-        Effect.BumpHUD(progressBar, 1.1f);
+        Effect.BumpHUD(progressBar, progressBar.Scale, 1.1f);
         animationTween?.Kill();
 
         int lAttackForce = attackForce - 1;

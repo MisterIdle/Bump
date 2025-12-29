@@ -2,7 +2,7 @@ using Godot;
 
 public partial class GameManager : Node2D
 {
-    [ExportCategory("Scoll")]
+    [ExportCategory("Scroll")]
     [Export] public float scrollSpeed = 250f;
     public static Vector2 scrollSpeedVelocity;
 
@@ -10,7 +10,8 @@ public partial class GameManager : Node2D
     [Export] public GameObject[] forceEnable;
 
     [ExportCategory("Collectibles")]
-    [Export] public PackedScene[] collectibleScenes;
+    [Export] public PackedScene healthScene;
+    [Export] public int healthPercent = 20;
 
     [ExportCategory("Self")]
     [Export] public Node2D gameContainer;
@@ -54,23 +55,24 @@ public partial class GameManager : Node2D
         scrollSpeedVelocity = Vector2.Right * scrollSpeed;
     }
 
-    public static void CreateRandomCollectibles(Vector2 pPos)
+    public static void CreateHealthCollectible(Vector2 pPos)
     {
         GameManager lSelf = GetInstance();
-        int lRandomIndex = rand.RandiRange(0, lSelf.collectibleScenes.Length - 1);
-        Collectibles.Create(lSelf.collectibleScenes[lRandomIndex], pPos);
+        lSelf.CallDeferred(nameof(CallCreateHealthCollectible), pPos);
+    }
+
+    private void CallCreateHealthCollectible(Vector2 pPos)
+    {
+        int lChance = rand.RandiRange(0, 100);
+
+        if (lChance < healthPercent)
+            HeartCollectible.Create(healthScene, pPos);
     }
 
     public void AddCoin()
     {
         coin++;
         GD.Print("COIN:" + coin);
-    }
-
-    public void UpdateScore(int pScore) 
-    { 
-        score += pScore;
-        GD.Print("SCORE:" + score);
     }
 
     protected override void Dispose(bool pDisposing)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bec1v2vxu01qv"
-path="res://.godot/imported/Pliiar3.svg-e5b7da0c2721856dde3599bebeb6966b.ctex"
+uid="uid://cjrrk3drhu6t2"
+path="res://.godot/imported/Usa.png-301e5b683d6b729ac56663e2d41f96d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Pliiar3.svg"
-dest_files=["res://.godot/imported/Pliiar3.svg-e5b7da0c2721856dde3599bebeb6966b.ctex"]
+source_file="res://Assets/Sprites/Usa.png"
+dest_files=["res://.godot/imported/Usa.png-301e5b683d6b729ac56663e2d41f96d4.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

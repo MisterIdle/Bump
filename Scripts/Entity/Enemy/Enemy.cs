@@ -4,13 +4,14 @@ using System.Collections.Generic;
 public partial class Enemy : Entity
 {
     [Export] protected int playerDistance = 600;
+    [Export] protected int hammerScore = 1000;
 
     protected float globalPlayerDistance;
     private bool playerSeen = false;
 
     public static List<Enemy> enemyList = new List<Enemy>();
 
-    private const int MARGIN = 150;
+    private const int MARGIN = 350;
 
     public override void Initiate()
     {
@@ -72,6 +73,8 @@ public partial class Enemy : Entity
     {
         base.OnCollide(pArea);
 
+        bool killedByHammer = false;
+
         if (pArea.Owner is Hammer)
         {
             EntityHit(Hammer.GetInstance().attackForce);
@@ -79,10 +82,34 @@ public partial class Enemy : Entity
             Camera.Shake(2, 0.2f, 1, 2);
             Time.SlowMotion(0.1f, 0.2f);
             Effect.SquashStretch(this, baseScale, false, false, 0.4f);
+
+            if (health <= 0)
+                killedByHammer = true;
+        }
+        else
+        {
+            EntityHit();
         }
 
-        EntityHit();
+        if (health <= 0)
+        {
+            EntityDeath(killedByHammer);
+        }
     }
+
+    public void EntityDeath(bool pKilledByHammer = false)
+    {
+        base.EntityDeath();
+
+        GameManager.CreateHealthCollectible(GlobalPosition);
+
+        if (pKilledByHammer)
+            Particule.Create(popScene, GlobalPosition);
+
+        int lFinalScore = pKilledByHammer ? score + hammerScore : score;
+        HUD.GetInstance().CreateBubbleScore(Position, lFinalScore);
+    }
+
 
     protected override void Dispose(bool disposing)
     {
