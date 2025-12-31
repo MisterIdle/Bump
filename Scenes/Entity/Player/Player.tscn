@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://tuj17od45vsb"]
+[gd_scene load_steps=22 format=3 uid="uid://tuj17od45vsb"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.cs" id="1_3gwtq"]
 [ext_resource type="PackedScene" uid="uid://bh4iqwgyl5hjm" path="res://Scenes/Projectiles/Shot.tscn" id="2_1sndv"]
+[ext_resource type="PackedScene" uid="uid://chlkbc1trkddg" path="res://Scenes/Effect/BigPlayer.tscn" id="2_4m44y"]
 [ext_resource type="PackedScene" uid="uid://cgyguuakuyjb2" path="res://Scenes/Projectiles/Fireball.tscn" id="2_w6786"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_20icr"]
 [ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Misc/Pow.tscn" id="4_0ve0x"]
@@ -48,23 +49,24 @@ font_size = 1490
 [sub_resource type="CircleShape2D" id="CircleShape2D_onibu"]
 radius = 40.5494
 
-[node name="Player" type="Area2D" node_paths=PackedStringArray("collision", "nose", "muzzle", "hammer", "pall", "sprite")]
+[node name="Player" type="Area2D" node_paths=PackedStringArray("collision", "pall", "nose", "muzzle", "hammer", "sprite")]
 z_index = 100
 material = SubResource("ShaderMaterial_p48nk")
 collision_mask = 6
 script = ExtResource("1_3gwtq")
 collision = NodePath("CollisionShape2D")
-baseShotSpace = 1500.0
-shotScene = ExtResource("2_1sndv")
-fireBallScene = ExtResource("2_w6786")
+pall = NodePath("Propyot/Stick/Pall")
 nose = NodePath("Propyot/Nose")
 muzzle = NodePath("Muzzle")
-powScene = ExtResource("4_0ve0x")
+hammer = NodePath("Hammer")
 levelAColor = Color(0.903883, 0.815625, 0.505521, 1)
 levelBColor = Color(0.898039, 0.643137, 0.415686, 1)
 levelCColor = Color(0.984129, 0.571491, 0.543701, 1)
-hammer = NodePath("Hammer")
-pall = NodePath("Propyot/Stick/Pall")
+shotScene = ExtResource("2_1sndv")
+fireBallScene = ExtResource("2_w6786")
+baseShotSpace = 1500.0
+powScene = ExtResource("4_0ve0x")
+popPlayerDeath = ExtResource("2_4m44y")
 health = 3
 invincibleTime = 2.0
 popScene = ExtResource("3_20icr")

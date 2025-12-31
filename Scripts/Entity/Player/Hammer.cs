@@ -3,7 +3,7 @@ using System;
 
 public partial class Hammer : GameObject
 {
-    private enum State
+    public enum State
     {
         Idle,
         Charging,
@@ -12,8 +12,7 @@ public partial class Hammer : GameObject
         Cooldown
     }
 
-    private State state;
-
+    public State currentState;
     public bool isActif;
 
     [ExportGroup("References")]
@@ -78,11 +77,11 @@ public partial class Hammer : GameObject
         enable = false;
 
         baseScale = sprite.Scale;
-
-        state = State.Idle;
+        currentState = State.Idle;
         attackTime = baseAttackTime;
 
         animationTween = CreateTween();
+        animationTween.Kill();
 
         animationTimer = new Timer();
         animationTimer.WaitTime = hammerHide;
@@ -101,12 +100,17 @@ public partial class Hammer : GameObject
 
     public void Attack(float pDelta)
     {
+        if (animationTween != null && animationTween.IsValid())
+        {
+            animationTween.CustomStep(pDelta);
+        }
+
         progressBar.Value = chargeTime;
 
-        if (chargeTime <= 0) 
+        if (chargeTime <= 0)
             chargeTime = 0;
 
-        switch (state)
+        switch (currentState)
         {
             case State.Idle:
                 if (Input.IsActionJustPressed(Property.INPUT_SPECIAL))
@@ -117,19 +121,16 @@ public partial class Hammer : GameObject
                 chargeTime += pDelta;
                 progressBar.TintProgress = LerpColors(Colors.OrangeRed, Colors.Orange, chargeTime);
 
-
                 if (chargeTime >= maxChargeTime)
                     FullyCharged();
 
                 if (Input.IsActionJustReleased(Property.INPUT_SPECIAL))
                     ResetToIdle();
-
                 break;
 
             case State.Charged:
                 chargeTime += pDelta;
                 attackTime += attackTimeGrowth * pDelta;
-
                 attackForce = (int)chargeTime;
 
                 switch (attackForce)
@@ -146,10 +147,8 @@ public partial class Hammer : GameObject
                     StartSwing();
                 break;
 
-
             case State.Cooldown:
                 chargeTime -= pDelta;
-
                 if (chargeTime <= 0f)
                     EndCooldown();
                 break;
@@ -159,11 +158,9 @@ public partial class Hammer : GameObject
     private void StartCharging()
     {
         isActif = true;
-
         progressBar.Visible = true;
         sprite.Visible = true;
-
-        state = State.Charging;
+        currentState = State.Charging;
 
         Effect.SquashStretch(player.sprite, player.baseSpriteScale, false);
         SetRotation(startChargeRotation, maxChargeTime - chargeTweenTime);
@@ -172,28 +169,24 @@ public partial class Hammer : GameObject
 
     private void FullyCharged()
     {
-        state = State.Charged;
-
+        currentState = State.Charged;
         Effect.BumpHUD(progressBar, progressBar.Scale, 1.1f);
-
         SetRotation(chargedRotation, chargedTweenTime);
         SetScale(scaleCharged, scaleTime);
     }
 
     private void StartSwing()
     {
-        state = State.Swing;
-
+        currentState = State.Swing;
         Effect.SquashStretch(player.sprite, player.baseSpriteScale, false);
-
         collision.Disabled = false;
-
         progressBar.TintProgress = Colors.OrangeRed;
 
         player.Dash(dashDistance * attackForce, Vector2.Right, false);
         player.invincible = true;
 
         Effect.BumpHUD(progressBar, progressBar.Scale, 1.1f);
+
         animationTween?.Kill();
 
         int lAttackForce = attackForce - 1;
@@ -201,7 +194,6 @@ public partial class Hammer : GameObject
             animationTween = SetRotation(swingRotations[lAttackForce], attackTime * attackForce);
 
         attackForce = attackForceMultiply * (int)chargeTime;
-        GD.Print(attackForce);
 
         animationTween.Finished += FinishAttack;
     }
@@ -210,10 +202,8 @@ public partial class Hammer : GameObject
     {
         isActif = false;
         collision.Disabled = true;
-
         Effect.BumpScale(sprite, baseSpriteScale);
-
-        state = State.Cooldown;
+        currentState = State.Cooldown;
         animationTimer.Start();
     }
 
@@ -233,12 +223,10 @@ public partial class Hammer : GameObject
     {
         SetScale(1, 0);
         chargeTime = 0;
-
         progressBar.Visible = false;
         sprite.Visible = false;
         isActif = false;
-
-        state = State.Idle;
+        currentState = State.Idle;
         SetRotation(idleRotation, 0);
     }
 
@@ -248,8 +236,10 @@ public partial class Hammer : GameObject
 
         animationTween = CreateTween();
         animationTween.TweenProperty(sprite, (string)PropertyName.RotationDegrees, pTarget, pTime)
-             .SetEase(Tween.EaseType.InOut)
-             .SetTrans(Tween.TransitionType.Back);
+              .SetEase(Tween.EaseType.InOut)
+              .SetTrans(Tween.TransitionType.Back);
+
+        animationTween.Pause();
 
         return animationTween;
     }
@@ -257,10 +247,9 @@ public partial class Hammer : GameObject
     private void SetScale(float pScale, float pTime)
     {
         Tween lTween = CreateTween();
-
         lTween.TweenProperty(sprite, (string)PropertyName.Scale, baseScale * pScale, pTime)
-             .SetEase(Tween.EaseType.InOut)
-             .SetTrans(Tween.TransitionType.Back);
+              .SetEase(Tween.EaseType.InOut)
+              .SetTrans(Tween.TransitionType.Back);
     }
 
     private Color LerpColors(Color pColorA, Color ColorB, float pTime)

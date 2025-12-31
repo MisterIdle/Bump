@@ -40,15 +40,15 @@ public static class Effect
     public static void BumpHUD(Control pWho, Vector2 pBaseScale, float pScaleBump = 1.2f, float pDuration = 0.1f)
     {
         if (pWho == null) return;
-
+    
         Tween lTween = pWho.CreateTween();
-
+    
         pWho.Scale = pBaseScale;
-
+    
         lTween.TweenProperty(pWho, scale, pWho.Scale * pScaleBump, pDuration)
             .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Back);
-
+    
         lTween.TweenProperty(pWho, scale, pWho.Scale, pDuration)
             .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Back);

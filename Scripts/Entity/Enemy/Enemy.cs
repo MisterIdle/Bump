@@ -80,7 +80,7 @@ public partial class Enemy : Entity
             EntityHit(Hammer.GetInstance().attackForce);
 
             Camera.Shake(2, 0.2f, 1, 2);
-            Time.SlowMotion(0.1f, 0.2f);
+            Time.SlowMotion();
             Effect.SquashStretch(this, baseScale, false, false, 0.4f);
 
             if (health <= 0)

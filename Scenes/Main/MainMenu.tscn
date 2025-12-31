@@ -1,12 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cynte0cuc32cd"]
+[gd_scene load_steps=8 format=3 uid="uid://cynte0cuc32cd"]
 
 [ext_resource type="Script" path="res://Scripts/UI/MainMenu.cs" id="1_guh47"]
-[ext_resource type="AudioStream" uid="uid://bps0jljpcjomi" path="res://Scenes/Misc/sound.wav" id="2_6ybu1"]
+[ext_resource type="Script" path="res://Scripts/UI/MenuManager.cs" id="2_5e3ba"]
 [ext_resource type="LabelSettings" uid="uid://dmesrhypouudo" path="res://Assets/Visual/HUDText.tres" id="2_f3x5k"]
 [ext_resource type="Theme" uid="uid://bevkcx1prmt5q" path="res://Assets/Visual/Theme.tres" id="3_oyk4t"]
-[ext_resource type="Texture2D" uid="uid://du7dhp8gt5irs" path="res://Assets/Sprites/france.png" id="4_y5y7y"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_2nl0e"]
+[ext_resource type="PackedScene" uid="uid://nxhubg31nl61" path="res://Scenes/Main/Options.tscn" id="4_d6x6p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uepul"]
 bg_color = Color(1, 0.262745, 0.180392, 1)
@@ -14,205 +12,117 @@ bg_color = Color(1, 0.262745, 0.180392, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oli1o"]
 bg_color = Color(1, 0.261999, 0.181151, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hmx5y"]
-load_path = "res://.godot/imported/Usa.png-301e5b683d6b729ac56663e2d41f96d4.ctex"
-
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "optionButton", "creditsButton", "quitButton", "franceButton", "englishButton", "backButton", "pivotPoint", "originalLabel")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -5.0
-offset_right = -5.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_guh47")
-startButton = NodePath("Menu/HBoxContainer/Start")
-optionButton = NodePath("Menu/HBoxContainer/Option")
-creditsButton = NodePath("Menu/HBoxContainer/VBoxContainer/Credits")
-quitButton = NodePath("Menu/HBoxContainer/VBoxContainer/Quit")
-franceButton = NodePath("Menu/HBoxContainer2/VBoxContainer3/VBoxContainer/France")
-englishButton = NodePath("Menu/HBoxContainer2/VBoxContainer3/VBoxContainer/USA")
-backButton = NodePath("Menu/HBoxContainer2/Back")
-pivotPoint = NodePath("Menu")
-originalLabel = NodePath("Name")
-hoverSound = ExtResource("2_6ybu1")
-clickSound = ExtResource("2_6ybu1")
-letterSpacing = 1.5
-hoverScale = 1.02
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="MainMenu" type="CanvasLayer"]
 
 [node name="Name" type="Label" parent="."]
-layout_mode = 0
-offset_left = 236.0
 offset_top = 57.0
-offset_right = 1820.0
+offset_right = 1920.0
 offset_bottom = 297.0
 text = "Bump"
 label_settings = ExtResource("2_f3x5k")
 horizontal_alignment = 1
 
-[node name="Menu" type="Control" parent="."]
+[node name="MenuManager" type="Control" parent="." node_paths=PackedStringArray("pivot", "optionsMenu", "stop")]
+layout_mode = 3
 anchors_preset = 0
-offset_left = 1012.0
-offset_top = 1238.0
-offset_right = 1052.0
-offset_bottom = 1278.0
+offset_left = 988.0
+offset_top = 1202.0
+offset_right = 1028.0
+offset_bottom = 1242.0
+script = ExtResource("2_5e3ba")
+pivot = NodePath("Pivot")
+optionsMenu = NodePath("Pivot/Options")
+stop = NodePath("Pivot/Stop")
 
-[node name="HBoxContainer" type="VBoxContainer" parent="Menu"]
-layout_mode = 0
-offset_left = -398.0
-offset_top = -685.0
-offset_right = 432.0
-offset_bottom = -235.0
+[node name="Pivot" type="Marker2D" parent="MenuManager"]
+position = Vector2(0, -50)
+
+[node name="Menu" type="VBoxContainer" parent="MenuManager/Pivot" node_paths=PackedStringArray("menuManager", "Title", "startButton", "optionButton", "creditsButton", "quitButton")]
+offset_left = -415.0
+offset_top = -745.0
+offset_right = 415.0
+offset_bottom = -135.0
 pivot_offset = Vector2(415, 225)
 theme_override_constants/separation = 30
 alignment = 1
+script = ExtResource("1_guh47")
+menuManager = NodePath("../..")
+Title = NodePath("../../../Name")
+startButton = NodePath("Start")
+optionButton = NodePath("Option")
+creditsButton = NodePath("VBoxContainer/Credits")
+quitButton = NodePath("VBoxContainer/Quit")
+introLetterSpeed = 0.3
+letterSpacing = 1.5
 
-[node name="Start" type="Button" parent="Menu/HBoxContainer"]
+[node name="Start" type="Button" parent="MenuManager/Pivot/Menu"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../VBoxContainer/Quit")
 focus_next = NodePath("../Option")
 focus_previous = NodePath("../VBoxContainer/Quit")
 theme = ExtResource("3_oyk4t")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_2nl0e")
 text = "ID_START"
 vertical_icon_alignment = 0
 
-[node name="Option" type="Button" parent="Menu/HBoxContainer"]
+[node name="Option" type="Button" parent="MenuManager/Pivot/Menu"]
 layout_mode = 2
 focus_next = NodePath("../VBoxContainer/Credits")
 focus_previous = NodePath("../Start")
 theme = ExtResource("3_oyk4t")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_2nl0e")
 text = "ID_OPTION"
 vertical_icon_alignment = 0
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Menu/HBoxContainer"]
+[node name="Option2" type="Button" parent="MenuManager/Pivot/Menu"]
+layout_mode = 2
+focus_next = NodePath("../VBoxContainer/Credits")
+focus_previous = NodePath("../Start")
+theme = ExtResource("3_oyk4t")
+text = "ID_HELP"
+vertical_icon_alignment = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MenuManager/Pivot/Menu"]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="Credits" type="Button" parent="Menu/HBoxContainer/VBoxContainer"]
+[node name="Credits" type="Button" parent="MenuManager/Pivot/Menu/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath("../Quit")
 focus_neighbor_bottom = NodePath("../../Start")
 focus_next = NodePath("../Quit")
 focus_previous = NodePath(".")
 theme = ExtResource("3_oyk4t")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_2nl0e")
 text = "ID_CREDITS"
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="Quit" type="Button" parent="Menu/HBoxContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="MenuManager/Pivot/Menu/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+focus_neighbor_right = NodePath("../Credits")
 focus_neighbor_bottom = NodePath("../../Start")
 focus_next = NodePath("../../Start")
 focus_previous = NodePath("../Credits")
 theme = ExtResource("3_oyk4t")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_uepul")
 theme_override_styles/focus = SubResource("StyleBoxFlat_oli1o")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_2nl0e")
 text = "ID_QUIT"
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="Menu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -208.0
-offset_top = 339.0
-offset_right = 388.0
-offset_bottom = 992.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 3.14159
-pivot_offset = Vector2(275, 300)
-theme_override_constants/separation = 50
-alignment = 1
+[node name="Options" parent="MenuManager/Pivot" node_paths=PackedStringArray("manager") instance=ExtResource("4_d6x6p")]
+offset_left = -415.0
+offset_top = 110.0
+offset_right = 415.0
+offset_bottom = 803.0
+pivot_offset = Vector2(415, 346)
+manager = NodePath("../..")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Menu/HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="Menu/HBoxContainer2/VBoxContainer2"]
-layout_mode = 2
-theme = ExtResource("3_oyk4t")
-text = "ID_AUDIO"
-horizontal_alignment = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Menu/HBoxContainer2/VBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="Music" type="Label" parent="Menu/HBoxContainer2/VBoxContainer2/VBoxContainer2"]
-layout_mode = 2
-theme = ExtResource("3_oyk4t")
-text = "ID_MUSIC_OPTION"
-
-[node name="HSlider" type="HSlider" parent="Menu/HBoxContainer2/VBoxContainer2/VBoxContainer2"]
-custom_minimum_size = Vector2(350, 0)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="Menu/HBoxContainer2/VBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="Audio" type="Label" parent="Menu/HBoxContainer2/VBoxContainer2/VBoxContainer3"]
-layout_mode = 2
-theme = ExtResource("3_oyk4t")
-text = "ID_AUDIO_OPTION"
-
-[node name="HSlider" type="HSlider" parent="Menu/HBoxContainer2/VBoxContainer2/VBoxContainer3"]
-custom_minimum_size = Vector2(350, 0)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="Menu/HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="LanguageLabel" type="Label" parent="Menu/HBoxContainer2/VBoxContainer3"]
-layout_mode = 2
-theme = ExtResource("3_oyk4t")
-text = "ID_LANG"
-horizontal_alignment = 1
-
-[node name="VBoxContainer" type="HBoxContainer" parent="Menu/HBoxContainer2/VBoxContainer3"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="France" type="Button" parent="Menu/HBoxContainer2/VBoxContainer3/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/icon_max_width = 150
-icon = ExtResource("4_y5y7y")
-flat = true
-
-[node name="USA" type="Button" parent="Menu/HBoxContainer2/VBoxContainer3/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/icon_max_width = 150
-icon = SubResource("CompressedTexture2D_hmx5y")
-flat = true
-
-[node name="Back" type="Button" parent="Menu/HBoxContainer2"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-focus_neighbor_bottom = NodePath("../VBoxContainer2/VBoxContainer2/HSlider")
-theme = ExtResource("3_oyk4t")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_2nl0e")
-text = "ID_BACK"
+[node name="Stop" type="ColorRect" parent="MenuManager/Pivot"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_left = -988.0
+offset_top = -1202.0
+offset_right = 937.0
+offset_bottom = -122.0

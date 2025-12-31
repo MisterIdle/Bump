@@ -3,81 +3,113 @@ using System;
 
 public partial class Player : Entity
 {
+    public enum State
+    {
+        Spawn,
+        Normal,
+        Dash,
+        Knockback,
+        Dead
+    }
+
     private static Player instance;
+
+    [ExportCategory("Components")]
+    [Export] public CollisionShape2D collision;
+    [Export] private AnimatedSprite2D pall;
+    [Export] private Sprite2D nose;
+    [Export] private Marker2D muzzle;
+    [Export] private Hammer hammer;
+
+    [ExportCategory("Stats")]
+    [Export] private int maxHealth = 5;
+    [Export] private bool godMode;
+    [Export] private float flashTime = 0.2f;
+
+    [ExportCategory("Visuals")]
+    [ExportGroup("Alpha")]
+    [Export] private float alphaNormal = 1f;
+    [Export] private float alphaInvincible = 0.1f;
+    [Export] private float alphaTweenTime = 0.1f;
+
+    [ExportCategory("Spawn Animation")]
+    [Export] private float dropDuration = 1.0f;
+    [Export] private float entranceOvershoot = 20f; // Un petit dépassement pour l'effet élastique
+    [Export] private float minSpawnOffset = 100f;   // Distance hors écran
+
+    [ExportGroup("Spawn Wave Effect")]
+    [Export] private float spawnWaveAmplitude = 5f;      // Déplacement Y local du sprite
+    [Export] private float spawnRotationAmplitude = 10f; // Rotation en degrés
+    [Export] private float spawnWaveDuration = 0.2f;     // Vitesse de l'oscillation (plus rapide que le menu)
+
+    [ExportGroup("Colors")]
+    [Export] private Color levelAColor;
+    [Export] private Color levelBColor;
+    [Export] private Color levelCColor;
+
+    [ExportCategory("Movement")]
+    [Export] private float dashMultiplier = 3f;
+    [Export] private float backDash = 0.2f;
+
+    [ExportCategory("Combat")]
+    [ExportGroup("Shooting")]
+    [Export] private PackedScene shotScene;
+    [Export] private PackedScene fireBallScene;
+    [Export] private float baseShotSpace = 200f;
+    [Export] private float shotSpaceLevelDivide = 1.5f;
+    [Export] private float shotBaseSpeed = 600f;
+    [Export] private float shotSpeedMultiplierLevelB = 1.1f;
+    [Export] private float shotSpeedMultiplierLevelC = 1.3f;
+    [Export] private float shotScaleLevelB = 1.1f;
+    [Export] private float shotScaleLevelC = 1.3f;
+
+    [ExportGroup("PowerUps")]
+    [Export] private int powNum = 1;
+    [Export] private PackedScene powScene;
+
+    [ExportGroup("Death")]
+    [Export] private PackedScene popPlayerDeath;
+    [Export] private float deathSlowMoScale = 0.5f;
+    [Export] private float deathTimerDuration = 3f;
+
+    public int level = 1;
+    public State currentState;
+
+    private int minPow = 1;
+    private int maxPow = 3;
+    private int minLevel = 1;
+    private int maxLevel = 3;
+
+    private bool isOutSide;
+    private float dashSpeed;
+    private Vector2 dashDirection = Vector2.Right;
+    private Vector2 finalSpawnPosition;
+
+    private Tween invincibleTween;
+    private Tween spawnTween;
+    private Tween wobbleTween;
+    private Shot lastShot;
+    private Timer movementTimer;
+
+    private const int MARGIN = 50;
+
+    private Vector2 targetPosition;
+
     public static Player GetInstance()
     {
         return instance;
     }
 
-    private int maxHealth = 5;
-
-    [ExportCategory("God Mode")]
-    [Export] public bool godMode;
-    [Export] public CollisionShape2D collision;
-
-    [ExportCategory("Damage")]
-    [Export] private float alphaNormal = 1f;
-    [Export] private float alphaInvincible = 0.1f;
-
-    [Export] private float alphaTweenTime = 0.1f;
-
-    [Export] private float flashTime = 0.2f;
-
-    private Tween invincibleTween;
-
-    [ExportCategory("Movement")]
-    [Export] private float dashMultiplier = 3f;
-    private Vector2 dashDirection = Vector2.Right;
-    [Export] private float backDash = 0.2f;
-
-    [ExportCategory("Shot")]
-    [ExportGroup("General")]
-    [Export] private float baseShotSpace = 200f;
-    [Export] private float shotSpaceLevelDivide = 1.5f;
-    [Export] private PackedScene shotScene;
-    [Export] private PackedScene fireBallScene;
-    [Export] private Sprite2D nose;
-    [Export] private Marker2D muzzle;
-
-    [ExportGroup("Speed")]
-    [Export] private float shotBaseSpeed = 600f;
-    [Export] private float shotSpeedMultiplierLevelB = 1.1f;
-    [Export] private float shotSpeedMultiplierLevelC = 1.3f;
-
-    [ExportGroup("Scale")]
-    [Export] private float shotScaleLevelB = 1.1f;
-    [Export] private float shotScaleLevelC = 1.3f;
-
-    [ExportCategory("Pow")]
-    [Export] private int powNum = 1;
-    [Export] private PackedScene powScene;
-    private int minPow = 1;
-    private int maxPow = 3;
-
-    [ExportCategory("Level")]
-    [Export] private Color levelAColor;
-    [Export] private Color levelBColor;
-    [Export] private Color levelCColor;
-    public int level = 1;
-    private int minLevel = 1;
-    private int maxLevel = 3;
-
-    [ExportCategory("Special Feature")]
-    [Export] private Hammer hammer;
-
-    [Export] private AnimatedSprite2D pall;
-
-    private Shot lastShot;
-    private bool isDashing;
-    private float dashSpeed;
-    private Timer dashTimer;
-
-    private const int MARGIN = -20;
-
+    public Player() : base()
+    {
+    }
 
     public override void _Ready()
     {
-        if (instance == null) instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
         else
         {
             QueueFree();
@@ -85,62 +117,273 @@ public partial class Player : Entity
         }
     }
 
-    public Player() : base() { }
-
     public override void Initiate()
     {
         base.Initiate();
+        currentState = State.Spawn;
 
-        dashTimer = new Timer();
+        finalSpawnPosition = Position;
 
-        dashTimer.OneShot = true;
-        dashTimer.Timeout += EndDash;
+        Position = new Vector2(finalSpawnPosition.X, -minSpawnOffset);
 
-        AddChild(dashTimer);
+        movementTimer = new Timer();
+        movementTimer.OneShot = true;
+        movementTimer.Timeout += OnMovementTimerTimeout;
+        AddChild(movementTimer);
 
         pall.Play();
-
         hammer.Initiate();
         hammer.SetPlayer(this);
 
         HUD.GetInstance().UpdateHealth(health);
         HUD.GetInstance().UpdatePow(powNum);
         UpdateLevelParameters();
+
+        AnimatedSpawn();
+    }
+
+    protected override void Update(float pDelta)
+    {
+        base.Update(pDelta);
+        OutOfBound();
     }
 
     protected override void AliveUpdate(float pDelta)
     {
+        if (currentState == State.Spawn)
+            return;
+
         base.AliveUpdate(pDelta);
-
         Move(pDelta);
-        OutOfBound();
-
         hammer.Attack(pDelta);
+        HandleDebugInput();
+        HandleGameInput();
+    }
 
-        #region DEBUG
-        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_UP))
-            LevelUp(true);
+    private void AnimatedSpawn()
+    {
+        if (spawnTween != null) spawnTween.Kill();
+        spawnTween = CreateTween();
 
-        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_DOWN))
-            LevelUp(false);
+        Vector2 overshootPos = finalSpawnPosition + new Vector2(0, entranceOvershoot);
 
-        if (Input.IsActionJustPressed(Property.INPUT_POW_UP))
-            AddPow();
+        spawnTween.TweenProperty(this, "position", overshootPos, dropDuration * 0.7f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.Out);
 
-        if (Input.IsActionJustPressed(Property.INPUT_POW_DOWN))
+        spawnTween.TweenProperty(this, "position", finalSpawnPosition, dropDuration * 0.3f)
+            .SetTrans(Tween.TransitionType.Bounce)
+            .SetEase(Tween.EaseType.In);
+
+        spawnTween.Finished += OnSpawnFinished;
+
+        StartSpawnWobble();
+    }
+
+    private void StartSpawnWobble()
+    {
+        sprite.Position = Vector2.Zero;
+        sprite.Rotation = 0;
+
+        wobbleTween = CreateTween();
+        wobbleTween.SetLoops();
+
+        wobbleTween.TweenProperty(sprite, "position:y", -spawnWaveAmplitude, spawnWaveDuration * 0.5f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
+
+        wobbleTween.Parallel().TweenProperty(sprite, "rotation_degrees", spawnRotationAmplitude, spawnWaveDuration * 0.5f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
+
+        wobbleTween.Chain().TweenProperty(sprite, "position:y", spawnWaveAmplitude, spawnWaveDuration * 0.5f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
+
+        wobbleTween.Parallel().TweenProperty(sprite, "rotation_degrees", -spawnRotationAmplitude, spawnWaveDuration * 0.5f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
+    }
+
+    public void AnimatedDespawn(float pDuration)
+    {
+        if (currentState == State.Dead)
+            return;
+
+        currentState = State.Spawn;
+
+        wobbleTween?.Kill();
+        movementTimer?.Stop();
+
+        sprite.Position = Vector2.Zero;
+        sprite.Rotation = 0;
+
+        if (spawnTween != null) spawnTween.Kill();
+        spawnTween = CreateTween();
+
+        spawnTween.TweenProperty(this, "position:y", finalSpawnPosition.Y + entranceOvershoot, pDuration * 0.3f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.Out);
+
+        spawnTween.Chain().TweenProperty(this, "position:y", -minSpawnOffset, pDuration * 0.7f)
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.In);
+    }
+
+    private void OnSpawnFinished()
+    {
+        wobbleTween?.Kill();
+
+        Tween resetTween = CreateTween();
+        resetTween.SetParallel(true);
+        resetTween.TweenProperty(sprite, "position", Vector2.Zero, 0.1f);
+        resetTween.TweenProperty(sprite, "rotation", 0f, 0.1f);
+
+        currentState = State.Normal;
+        EndInvincible();
+    }
+
+    public override void EntityHit(int pDamage = 1)
+    {
+        if (godMode || currentState == State.Spawn)
+            return;
+
+        base.EntityHit(pDamage);
+
+        if (health <= 0)
+            SetDeadState();
+
+        LevelUp(false);
+        HUD.GetInstance().UpdateHealth(health);
+        StartInvincible(invincibleTime);
+    }
+
+    private void SetDeadState()
+    {
+        currentState = State.Dead;
+
+        invincibleTween?.Kill();
+        spawnTween?.Kill();
+
+        sprite.Modulate = Colors.White;
+        movementTimer.Stop();
+        velocity = Vector2.Zero;
+    }
+
+    private void TriggerGameOverSequence()
+    {
+        isOutSide = true;
+        Particule.Create(popPlayerDeath, GlobalPosition);
+
+        Timer lTimer = new Timer();
+        lTimer.WaitTime = deathTimerDuration;
+        Time.SlowMotion(deathSlowMoScale, (int)deathTimerDuration);
+
+        AddChild(lTimer);
+        lTimer.Timeout += AfterDeath;
+        lTimer.Start();
+    }
+
+    private void AfterDeath()
+    {
+        StateMenu.GetInstance().OpenMenu(StateMenu.MenuState.GameOver);
+    }
+
+    private void OutOfBound()
+    {
+        if (currentState == State.Spawn)
+            return;
+
+        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
+
+        if (lOut == Vector2.Zero)
+            return;
+
+        if (currentState == State.Dead)
         {
-            powNum--;
-            HUD.GetInstance().UpdatePow(powNum);
+            if (!isOutSide && lOut.Y > 0)
+            {
+                isOutSide = true;
+                TriggerGameOverSequence();
+            }
+            return;
         }
 
-        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_UP))
-            AddHealth();
+        Vector2 lKnockbackDir = Vector2.Zero;
 
-        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_DOWN))
-            HitCheckInvincible();
+        if (lOut.X != 0)
+            lKnockbackDir.X = -lOut.X;
 
-        #endregion
+        if (lOut.Y != 0)
+            lKnockbackDir.Y = -lOut.Y;
 
+        ApplyKnockback(backDash, lKnockbackDir);
+        HitCheckInvincible();
+    }
+
+    private void Move(float pDelta)
+    {
+        if (currentState == State.Dash || currentState == State.Knockback)
+        {
+            velocity = dashDirection * dashMultiplier;
+        }
+        else if (velocity != Vector2.Zero)
+        {
+            velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN);
+        }
+        else
+        {
+            velocity.Y = angleY;
+        }
+    }
+
+    public void Dash(float pDuration, Vector2 pDirection, bool pOpposite = false)
+    {
+        if (currentState != State.Normal)
+        {
+            return;
+        }
+
+        dashDirection = pOpposite ? (Position - pDirection).Normalized() : pDirection.Normalized();
+        currentState = State.Dash;
+        dashSpeed = speed * dashMultiplier;
+        movementTimer.Start(pDuration);
+    }
+
+    public void ApplyKnockback(float pDuration, Vector2 pDirection)
+    {
+        if (currentState == State.Spawn)
+            return;
+
+        dashDirection = pDirection.Normalized();
+        currentState = State.Knockback;
+        movementTimer.Start(pDuration);
+    }
+
+    private void OnMovementTimerTimeout()
+    {
+        if (currentState == State.Dash || currentState == State.Knockback)
+        {
+            currentState = State.Normal;
+        }
+    }
+
+    protected override void OnCollide(Area2D pArea)
+    {
+        base.OnCollide(pArea);
+
+        HitCheckInvincible();
+
+        Vector2 lDirection = (Position - pArea.GlobalPosition).Normalized();
+        ApplyKnockback(backDash, lDirection);
+
+        velocity = Vector2.Zero;
+    }
+
+    private void HandleGameInput()
+    {
+        if (currentState == State.Knockback)
+            return;
 
         if (Input.IsActionJustPressed(Property.INPUT_GOD))
             ToggleGodMode();
@@ -150,49 +393,6 @@ public partial class Player : Entity
 
         if (CanFire())
             Fire();
-    }
-
-    private void Move(float pDelta)
-    {
-        if (isDashing)
-            velocity = dashDirection * dashMultiplier;
-        else if (velocity != Vector2.Zero)
-            velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN);
-        else
-            velocity.Y = angleY;
-    }
-
-    private void OutOfBound()
-    {
-        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
-
-        if (lOut != Vector2.Zero)
-        {
-            Vector2 lDashDir = Vector2.Zero;
-
-            if (lOut.X != 0) lDashDir.X = -lOut.X;
-            if (lOut.Y != 0) lDashDir.Y = -lOut.Y;
-
-            Dash(backDash, lDashDir);
-
-            HitCheckInvincible();
-        }
-    }
-
-    public void Dash(float pDuration, Vector2 pDirection, bool pOpposite = false)
-    {
-        if (isDashing) return;
-
-        dashDirection = pOpposite ? (Position - pDirection).Normalized() : pDirection.Normalized();
-
-        isDashing = true;
-        dashSpeed = speed * dashMultiplier;
-        dashTimer.Start(pDuration);
-    }
-
-    private void EndDash()
-    {
-        isDashing = false;
     }
 
     private bool CanFire()
@@ -207,19 +407,6 @@ public partial class Player : Entity
         return lastShot.Position.X - Position.X > lShotSpace;
     }
 
-    private void Bomb()
-    {
-        if (powNum <= 0) return;
-
-        Pow lPow = Pow.Create(powScene);
-        GameManager.GetInstance().gameContainer.AddChild(lPow);
-
-        if(!godMode)
-            powNum--;
-
-        HUD.GetInstance().UpdatePow(powNum);
-    }
-
     private void Fire()
     {
         Shot lShot;
@@ -229,15 +416,12 @@ public partial class Player : Entity
             case 1:
                 lShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right, 0.1f);
                 break;
-
             case 2:
                 lShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right, 0.05f);
                 break;
-
             case 3:
                 lShot = Shot.Create(fireBallScene, muzzle.GlobalPosition, Vector2.Right);
                 break;
-
             default:
                 throw new InvalidOperationException();
         }
@@ -249,14 +433,31 @@ public partial class Player : Entity
         lastShot = lShot;
     }
 
+    private void Bomb()
+    {
+        if (powNum <= 0)
+        {
+            return;
+        }
+
+        Pow lPow = Pow.Create(powScene);
+        GameManager.GetInstance().gameContainer.AddChild(lPow);
+
+        if (!godMode)
+        {
+            powNum--;
+        }
+
+        HUD.GetInstance().UpdatePow(powNum);
+    }
+
     public void LevelUp(bool pUp)
     {
         level += pUp ? 1 : -1;
         level = Mathf.Clamp(level, minLevel, maxLevel);
 
         UpdateLevelParameters();
-
-        Time.SlowMotion(0.1f, 0.1f);
+        Time.SlowMotion();
         Effect.BumpScale(this, baseScale);
     }
 
@@ -267,20 +468,39 @@ public partial class Player : Entity
             case 1:
                 sprite.SelfModulate = levelAColor;
                 break;
-
             case 2:
                 sprite.SelfModulate = levelBColor;
                 break;
-
             case 3:
                 sprite.SelfModulate = levelCColor;
-                break;
-
-            default:
                 break;
         }
     }
 
+    public void AddHealth()
+    {
+        if (health >= maxHealth)
+            return;
+
+        health = Mathf.Min(health + 1, maxHealth);
+        HUD.GetInstance().UpdateHealth(health);
+        GD.Print("HEALTH:" + health);
+        Effect.FlashColor(sprite, Colors.Green);
+        Effect.BumpScale(this, baseScale);
+        Time.SlowMotion();
+    }
+
+    public void AddPow()
+    {
+        if (powNum >= maxPow)
+            return;
+
+        powNum = Mathf.Min(powNum + 1, maxPow);
+        HUD.GetInstance().UpdatePow(powNum);
+        GD.Print("POW:" + powNum);
+        Effect.BumpScale(this, baseScale);
+        Time.SlowMotion();
+    }
 
     private void ToggleGodMode()
     {
@@ -293,31 +513,6 @@ public partial class Player : Entity
         HUD.GetInstance().SetGodMode(godMode);
     }
 
-    public void AddHealth()
-    {
-        if (health >= maxHealth) return;
-
-        health = Mathf.Min(health + 1, maxHealth);
-        HUD.GetInstance().UpdateHealth(health);
-
-        GD.Print("HEALTH:" + health);
-        Effect.FlashColor(sprite, Colors.Green);
-        Effect.BumpScale(this, baseScale);
-        Time.SlowMotion(0.1f, 0.1f);
-    }
-
-    public void AddPow()
-    {
-        if (powNum >= maxPow) return;
-
-        powNum = Mathf.Min(powNum + 1, maxPow);
-        HUD.GetInstance().UpdatePow(powNum);
-
-        GD.Print("POW:" + powNum);
-        Effect.BumpScale(this, baseScale);
-        Time.SlowMotion(0.1f, 0.1f);
-    }
-
     private void HitCheckInvincible()
     {
         if (!invincible)
@@ -327,54 +522,75 @@ public partial class Player : Entity
         }
     }
 
-    public override void EntityHit(int pDamage = 1)
-    {
-        if (godMode) return;
-
-        base.EntityHit(pDamage);
-
-        LevelUp(false);
-
-        HUD.GetInstance().UpdateHealth(health);
-        StartInvincible(invincibleTime);
-    }
-
     protected override void StartInvincible(float pDuration)
     {
         base.StartInvincible(pDuration);
-
         Effect.FlashColor(this, Colors.Red, flashTime);
         Blink();
     }
 
     protected override void EndInvincible()
     {
-        invincibleTween.Kill();
+        if (invincibleTween != null)
+        {
+            invincibleTween.Kill();
+        }
+
         invincible = false;
+        sprite.Modulate = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, alphaNormal);
     }
 
     private void Blink()
     {
-        invincibleTween = CreateTween();
-        invincibleTween.SetLoops(0);
+        if (invincibleTween != null)
+        {
+            invincibleTween.Kill();
+        }
 
-        invincibleTween.TweenProperty(sprite, (string)PropertyName.Modulate + ":a", alphaInvincible, alphaTweenTime)
+        invincibleTween = CreateTween();
+        invincibleTween.SetLoops();
+
+        invincibleTween.TweenProperty(sprite, "modulate:a", alphaInvincible, alphaTweenTime)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
 
-        invincibleTween.TweenProperty(sprite, (string)PropertyName.Modulate + ":a", alphaNormal, alphaTweenTime)
+        invincibleTween.TweenProperty(sprite, "modulate:a", alphaNormal, alphaTweenTime)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
     }
 
-    protected override void OnCollide(Area2D pArea)
+    private void HandleDebugInput()
     {
-        base.OnCollide(pArea);
+        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_UP))
+        {
+            LevelUp(true);
+        }
 
-        HitCheckInvincible();
-        Dash(backDash, pArea.GlobalPosition, true);
+        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_DOWN))
+        {
+            LevelUp(false);
+        }
 
-        velocity = Vector2.Zero;
+        if (Input.IsActionJustPressed(Property.INPUT_POW_UP))
+        {
+            AddPow();
+        }
+
+        if (Input.IsActionJustPressed(Property.INPUT_POW_DOWN))
+        {
+            powNum--;
+            HUD.GetInstance().UpdatePow(powNum);
+        }
+
+        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_UP))
+        {
+            AddHealth();
+        }
+
+        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_DOWN))
+        {
+            HitCheckInvincible();
+        }
     }
 
     protected override void Dispose(bool pDisposing)

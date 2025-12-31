@@ -36,9 +36,12 @@ public partial class GameManager : Node2D
 
     public override void _Ready()
     {
-        if (instance == null)
-            instance = this;
-        else QueueFree();
+        if (instance == null) instance = this;
+        else
+        {
+            QueueFree();
+            return;
+        }
 
         for (int i = forceEnable.Length - 1; i >= 0; i--)
             if (!forceEnable[i].enable) forceEnable[i].Initiate();

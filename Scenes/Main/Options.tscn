@@ -1,0 +1,144 @@
+[gd_scene load_steps=7 format=3 uid="uid://nxhubg31nl61"]
+
+[ext_resource type="Script" path="res://Scripts/UI/OptionsMenu.cs" id="1_vcxgg"]
+[ext_resource type="Theme" uid="uid://bevkcx1prmt5q" path="res://Assets/Visual/Theme.tres" id="2_valoo"]
+[ext_resource type="Texture2D" uid="uid://du7dhp8gt5irs" path="res://Assets/Sprites/france.png" id="3_vxtqc"]
+[ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="4_0u70f"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hmx5y"]
+load_path = "res://.godot/imported/Usa.png-301e5b683d6b729ac56663e2d41f96d4.ctex"
+
+[sub_resource type="LabelSettings" id="LabelSettings_u8uke"]
+font = ExtResource("4_0u70f")
+font_size = 30
+
+[node name="Options" type="VBoxContainer" node_paths=PackedStringArray("backButton", "franceButton", "englishButton", "fullscreenCheck", "vsyncCheck")]
+offset_right = 493.0
+offset_bottom = 693.0
+rotation = 3.14159
+theme_override_constants/separation = 50
+alignment = 1
+script = ExtResource("1_vcxgg")
+backButton = NodePath("Back")
+franceButton = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer3/VBoxContainer/France")
+englishButton = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer3/VBoxContainer/USA")
+fullscreenCheck = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer4/VBoxContainer/CheckBox")
+vsyncCheck = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer4/VBoxContainer2/CheckBox")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_valoo")
+text = "ID_AUDIO"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Music" type="Label" parent="VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_valoo")
+text = "ID_MUSIC_OPTION"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer2/VBoxContainer2"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Audio" type="Label" parent="VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("2_valoo")
+text = "ID_AUDIO_OPTION"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer2/VBoxContainer3"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="LanguageLabel" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("2_valoo")
+text = "ID_LANG"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer2/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="France" type="Button" parent="VBoxContainer2/HBoxContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/icon_max_width = 150
+icon = ExtResource("3_vxtqc")
+flat = true
+
+[node name="USA" type="Button" parent="VBoxContainer2/HBoxContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/icon_max_width = 150
+icon = SubResource("CompressedTexture2D_hmx5y")
+flat = true
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 2
+
+[node name="LanguageLabel" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme = ExtResource("2_valoo")
+text = "ID_SCREEN"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer2/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Fullscreen" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer4/VBoxContainer"]
+layout_mode = 2
+text = "ID_FULLSCREEN"
+label_settings = SubResource("LabelSettings_u8uke")
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer2/HBoxContainer/VBoxContainer4/VBoxContainer"]
+custom_minimum_size = Vector2(19.4, 0)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="VBoxContainer2/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Fullscreen" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer4/VBoxContainer2"]
+layout_mode = 2
+text = "ID_VSYNC"
+label_settings = SubResource("LabelSettings_u8uke")
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer2/HBoxContainer/VBoxContainer4/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="."]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../VBoxContainer2/VBoxContainer2/HSlider")
+theme = ExtResource("2_valoo")
+text = "ID_BACK"

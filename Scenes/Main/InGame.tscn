@@ -22,7 +22,13 @@ gameContainer = NodePath("../GameContainer")
 
 [node name="Player" parent="GameContainer" instance=ExtResource("3_l0emo")]
 z_as_relative = false
-position = Vector2(173, 509)
+position = Vector2(955, 546)
+dropDuration = 2.0
+entranceOvershoot = -5.0
+minSpawnOffset = 200.0
+spawnRotationAmplitude = 3.0
+spawnWaveDuration = 0.8
+health = 1
 
 [node name="Camera" type="Camera2D" parent="GameContainer"]
 anchor_mode = 0

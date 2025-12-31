@@ -23,6 +23,7 @@ scale_max = 0.2
 color_ramp = SubResource("GradientTexture1D_02ff0")
 
 [node name="Pop" type="GPUParticles2D"]
+process_mode = 1
 emitting = false
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_dw504")

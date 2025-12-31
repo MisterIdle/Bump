@@ -23,17 +23,17 @@ public static class Utils
         Vector2 lAxes = Vector2.Zero;
         Vector2 lCamPos = Camera.GetInstance().Position;
         Vector2 lScreenSize = GameManager.GetInstance().GetViewportRect().Size;
-
+    
         if (pPos.X < lCamPos.X - pMarginX)
             lAxes.X = -1;
         else if (pPos.X > lCamPos.X + lScreenSize.X + pMarginX)
             lAxes.X = 1;
-
+    
         if (pPos.Y < lCamPos.Y - pMarginY)
             lAxes.Y = -1;
         else if (pPos.Y > lCamPos.Y + lScreenSize.Y + pMarginY)
             lAxes.Y = 1;
-
+    
         return lAxes;
     }
 

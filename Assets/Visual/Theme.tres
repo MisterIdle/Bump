@@ -69,13 +69,14 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [resource]
+default_base_scale = 0.2
 default_font = ExtResource("1_ef7of")
 default_font_size = 50
 Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_focus_color = Color(0.109804, 0.109804, 0.109804, 1)
-Button/colors/font_hover_color = Color(0.109804, 0.109804, 0.109804, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-Button/colors/font_pressed_color = Color(0.109804, 0.109804, 0.109804, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
 Button/constants/h_separation = 0
 Button/constants/icon_max_width = 105
 Button/constants/outline_size = 0

@@ -27,6 +27,7 @@ scale_max = 0.2
 color_ramp = SubResource("GradientTexture1D_w2iwy")
 
 [node name="Big" type="GPUParticles2D"]
+process_mode = 1
 emitting = false
 amount = 80
 process_material = SubResource("ParticleProcessMaterial_40r7s")

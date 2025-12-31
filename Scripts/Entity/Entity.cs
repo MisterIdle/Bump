@@ -81,8 +81,6 @@ public partial class Entity : Movable
         CollisionMask = 0;
         CollisionLayer = 0;
 
-        //Particule.Create(popScene, GlobalPosition);
-
         DeathBump();
     }
 

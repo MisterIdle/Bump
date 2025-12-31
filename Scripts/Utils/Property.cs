@@ -14,6 +14,9 @@ public static class Property
     public static string INPUT_SMARTBOMB = "SMARTBOMB";
     public static string INPUT_SHOT = "SHOT";
 
+    public static string INPUT_UI_BACK = "BACK";
+    public static string INPUT_UI_PAUSE = "PAUSE";
+
     public static string INPUT_LEVEL_UP = "LEVELUP";
     public static string INPUT_LEVEL_DOWN = "LEVELDOWN";
 
@@ -25,6 +28,7 @@ public static class Property
 
     public static string INPUT_GOD = "GODMODE";
     public static string INPUT_RELOAD = "RELOAD";
+    public static string INPUT_DEBUG = "DEBUG";
 
     #endregion
 }

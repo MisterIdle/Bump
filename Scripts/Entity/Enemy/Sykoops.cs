@@ -121,8 +121,6 @@ public partial class Sykoops : ShelledEnemy
 
         velocity = lTargetDirection;
 
-        GD.Print(behindTimer.TimeLeft);
-
         if (!faceLeft)
         {
             if (behindTimer.IsStopped())
@@ -225,7 +223,7 @@ public partial class Sykoops : ShelledEnemy
         float lGlobalRotation = pSpike.GlobalRotation;
     
         spikeContainer.RemoveChild(pSpike);
-        GameManager.GetInstance().AddChild(pSpike);
+        GameManager.GetInstance().gameContainer.AddChild(pSpike);
     
         pSpike.GlobalPosition = lGlobalPosition;
         pSpike.GlobalRotation = lGlobalRotation;

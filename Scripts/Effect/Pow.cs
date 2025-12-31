@@ -65,7 +65,7 @@ public partial class Pow : GameObject
 
         Effect.FlashColor(this, Colors.Red);
         Camera.Shake(35, 1.2f);
-        Time.SlowMotion(0.08f, 0.25f);
+        Time.SlowMotion();
 
         Particule.Create(pop, Position);
 

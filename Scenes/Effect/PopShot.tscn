@@ -21,6 +21,7 @@ scale_max = 0.2
 color_ramp = SubResource("GradientTexture1D_uphe6")
 
 [node name="PopShot" type="GPUParticles2D"]
+process_mode = 1
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_honob")

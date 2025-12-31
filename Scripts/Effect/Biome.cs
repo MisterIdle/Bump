@@ -101,4 +101,10 @@ public partial class Biome : Control
             lStylebox.Texture = baseTexture;
         }
     }
+
+    protected override void Dispose(bool pDisposing)
+    {
+        instance = null;
+        base.Dispose(pDisposing);
+    }
 }

@@ -4,40 +4,42 @@ using System;
 public static class Time
 {
     private static float targetTimeScale = 1f;
-    private static float currentTimeScale = 1f;
+    public static float currentTimeScale = 1f;
     private static float lerpSpeed = 5f;
+    private static float maxFrameTime = 0.05f;
 
     private static Timer slowMotionTimer = null;
 
     public static float GetDelta(float pDelta)
     {
         Update(pDelta);
-        return pDelta * currentTimeScale;
+        float safeDelta = Mathf.Min(pDelta, maxFrameTime);
+        return safeDelta * currentTimeScale;
     }
 
-    public static void Update(float delta)
+    public static void Update(float pDelta)
     {
-        currentTimeScale = Mathf.Lerp(currentTimeScale, targetTimeScale, lerpSpeed * delta);
+        currentTimeScale = Mathf.Lerp(currentTimeScale, targetTimeScale, lerpSpeed * pDelta);
     }
 
-    public static void SlowMotion(float pTime, float pDuration = 0f)
+    public static void SlowMotion(float pTime = 0.2f, float pDuration = 0.1f)
     {
         targetTimeScale = Mathf.Clamp(pTime, 0f, 1f);
 
-        if (pDuration > 0f)
-        {
-            if (slowMotionTimer == null)
-            {
-                slowMotionTimer = new Timer();
-                slowMotionTimer.OneShot = true;
-                slowMotionTimer.Timeout += ResetTimeScale;
-                GameManager.GetInstance().AddChild(slowMotionTimer);
-            }
+        Timer lTimer = new Timer();
 
-            slowMotionTimer.WaitTime = pDuration;
-            slowMotionTimer.Start();
-        }
+        lTimer.OneShot = true;
+        lTimer.WaitTime = pDuration;
+        lTimer.Timeout += () =>
+        {
+            ResetTimeScale();
+            lTimer.QueueFree();
+        };
+
+        GameManager.GetInstance().AddChild(lTimer);
+        lTimer.Start();
     }
+
 
     public static void ResetTimeScale()
     {
