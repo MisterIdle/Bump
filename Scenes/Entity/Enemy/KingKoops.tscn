@@ -1,0 +1,89 @@
+[gd_scene load_steps=14 format=3 uid="uid://d2jsnu1okwcj1"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Enemy/KingKoops.cs" id="1_pujo4"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="2_3do05"]
+[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="2_f62ti"]
+[ext_resource type="PackedScene" uid="uid://c6edobewh573n" path="res://Scenes/Projectiles/FastSpike.tscn" id="2_gjopy"]
+[ext_resource type="Texture2D" uid="uid://dxxryf6kj1q33" path="res://Assets/Sprites/KingKoopsHeadOpen.svg" id="4_4c5se"]
+[ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="4_nei0q"]
+[ext_resource type="Shader" uid="uid://bne3w1ms8y0g6" path="res://Assets/Shader/ColorSwap.tres" id="5_0q22y"]
+[ext_resource type="Texture2D" uid="uid://qxf57u6hdqtj" path="res://Assets/Sprites/KingKoopsShell.svg" id="6_ksqgl"]
+[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Misc/Eye.tscn" id="9_ktwk4"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Misc/Wing.tscn" id="10_khp5o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6oho"]
+size = Vector2(386, 244)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fe7lk"]
+shader = ExtResource("5_0q22y")
+shader_parameter/New = Color(0.988235, 0.788235, 0.0627451, 1)
+shader_parameter/Seuil = 0.1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_527un"]
+size = Vector2(172, 170)
+
+[node name="KingKoops" type="Area2D" node_paths=PackedStringArray("head", "spriteHead", "spikeContainer", "sprite")]
+collision_layer = 2
+collision_mask = 257
+script = ExtResource("1_pujo4")
+head = NodePath("Head")
+spriteHead = NodePath("Head/HeadSprite")
+dashSpeed = 25.0
+numSpikes = 10
+spikeScene = ExtResource("2_gjopy")
+spikeContainer = NodePath("Shell/SpikeContainer")
+headRetractedScale = Vector2(0, 0)
+shellRetractedPos = Vector2(0, -50)
+shellOutsidePos = Vector2(0, -120)
+shellOutsideRot = 25.0
+shellPath = NodePath("Shell")
+wingPath = NodePath("Shell/Wing")
+health = 5
+popScene = ExtResource("2_3do05")
+speed = 50.0
+affectedByScroll = true
+sprite = NodePath("Sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -30)
+shape = SubResource("RectangleShape2D_y6oho")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0.988235, 0.788235, 0.0627451, 1)
+position = Vector2(0, -3.8147e-06)
+scale = Vector2(0.741736, 0.350844)
+texture = ExtResource("2_f62ti")
+
+[node name="Head" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 257
+
+[node name="HeadSprite" type="Sprite2D" parent="Head"]
+material = SubResource("ShaderMaterial_fe7lk")
+position = Vector2(-31, -1)
+scale = Vector2(0.46405, 0.440393)
+texture = ExtResource("4_4c5se")
+offset = Vector2(-483.333, 11.8724)
+
+[node name="Eye" parent="Head/HeadSprite" instance=ExtResource("9_ktwk4")]
+position = Vector2(-780.089, -115.806)
+scale = Vector2(0.215688, 0.123592)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+position = Vector2(-365, -1)
+shape = SubResource("RectangleShape2D_527un")
+
+[node name="Shell" parent="." instance=ExtResource("4_nei0q")]
+position = Vector2(0, -46)
+scale = Vector2(0.890909, 0.849595)
+texture = ExtResource("6_ksqgl")
+
+[node name="Wing" parent="Shell" instance=ExtResource("10_khp5o")]
+position = Vector2(124.592, -24.7177)
+scale = Vector2(0.22449, 0.235406)
+
+[node name="SpikeContainer" type="Node2D" parent="Shell"]
+z_index = -1
+position = Vector2(0, 54.1434)
+
+[connection signal="area_entered" from="Head" to="." method="OnHeadCollide"]

@@ -33,11 +33,11 @@ public partial class Koops : ShelledEnemy
         switch (type)
         {
             case TypeEnum.Green:
-                velocity.Y = angleY * amplitude;
+                velocity.Y = angleY;
                 break;
 
             case TypeEnum.Red:
-                velocity.X = angleX * amplitude;
+                velocity.X = angleX;
                 break;
         }
     }

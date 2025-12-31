@@ -30,5 +30,12 @@ public static class Property
     public static string INPUT_RELOAD = "RELOAD";
     public static string INPUT_DEBUG = "DEBUG";
 
+    public static string INPUT_BOSSNORMAL = "BOSSNORMAL";
+    public static string INPUT_BOSSPROTECTED = "BOSSPROTECTED";
+
+    public static string INPUT_PHASEA = "PHASEA";
+    public static string INPUT_PHASEB = "PHASEB";
+    public static string INPUT_PHASEC = "PHASEC";
+
     #endregion
 }

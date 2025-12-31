@@ -43,13 +43,6 @@ public partial class ShelledEnemy : Enemy
         }
     }
 
-    protected void Flip(bool pFaceLeft)
-    {
-        Scale = new Vector2(Mathf.Abs(Scale.X) * (pFaceLeft ? 1 : -1), Scale.Y);
-        baseScale = Scale;
-        Effect.SquashStretch(this, baseScale, true);
-    }
-
     public override void EntityHit(int pDamage) 
     {
         base.EntityHit(pDamage);

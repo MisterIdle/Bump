@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static TickEvent;
 
 public partial class Player : Entity
 {
@@ -34,13 +35,13 @@ public partial class Player : Entity
 
     [ExportCategory("Spawn Animation")]
     [Export] private float dropDuration = 1.0f;
-    [Export] private float entranceOvershoot = 20f; // Un petit dépassement pour l'effet élastique
-    [Export] private float minSpawnOffset = 100f;   // Distance hors écran
+    [Export] private float entranceOvershoot = 20f;
+    [Export] private float minSpawnOffset = 100f;
 
     [ExportGroup("Spawn Wave Effect")]
-    [Export] private float spawnWaveAmplitude = 5f;      // Déplacement Y local du sprite
-    [Export] private float spawnRotationAmplitude = 10f; // Rotation en degrés
-    [Export] private float spawnWaveDuration = 0.2f;     // Vitesse de l'oscillation (plus rapide que le menu)
+    [Export] private float spawnWaveAmplitude = 5f;
+    [Export] private float spawnRotationAmplitude = 10f;
+    [Export] private float spawnWaveDuration = 0.2f;
 
     [ExportGroup("Colors")]
     [Export] private Color levelAColor;
@@ -100,9 +101,7 @@ public partial class Player : Entity
         return instance;
     }
 
-    public Player() : base()
-    {
-    }
+    public Player() : base() { }
 
     public override void _Ready()
     {
@@ -140,6 +139,11 @@ public partial class Player : Entity
         UpdateLevelParameters();
 
         AnimatedSpawn();
+    }
+
+    private void OnTickEventBeatDetected(BeatType type)
+    {
+        Fire();
     }
 
     protected override void Update(float pDelta)
@@ -321,20 +325,18 @@ public partial class Player : Entity
         HitCheckInvincible();
     }
 
+    bool isFlipped = false;
+
     private void Move(float pDelta)
     {
         if (currentState == State.Dash || currentState == State.Knockback)
-        {
             velocity = dashDirection * dashMultiplier;
-        }
+
         else if (velocity != Vector2.Zero)
-        {
             velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN);
-        }
+
         else
-        {
             velocity.Y = angleY;
-        }
     }
 
     public void Dash(float pDuration, Vector2 pDirection, bool pOpposite = false)

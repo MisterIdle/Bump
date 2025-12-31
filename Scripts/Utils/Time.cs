@@ -8,8 +8,6 @@ public static class Time
     private static float lerpSpeed = 5f;
     private static float maxFrameTime = 0.05f;
 
-    private static Timer slowMotionTimer = null;
-
     public static float GetDelta(float pDelta)
     {
         Update(pDelta);

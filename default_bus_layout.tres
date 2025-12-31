@@ -1,0 +1,25 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://d1gm2fvmt05td"]
+
+[sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_tc86e"]
+resource_name = "SpectrumAnalyzer"
+
+[sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_w8rxv"]
+resource_name = "SpectrumAnalyzer"
+
+[resource]
+bus/1/name = &"TickAttack"
+bus/1/solo = false
+bus/1/mute = true
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_tc86e")
+bus/1/effect/0/enabled = true
+bus/2/name = &"TickShoot"
+bus/2/solo = false
+bus/2/mute = true
+bus/2/bypass_fx = false
+bus/2/volume_db = -0.130497
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_w8rxv")
+bus/2/effect/0/enabled = true

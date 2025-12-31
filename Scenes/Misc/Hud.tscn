@@ -137,6 +137,7 @@ text = "GOD MODE"
 label_settings = SubResource("LabelSettings_on232")
 
 [node name="MenuManager" type="Control" parent="." node_paths=PackedStringArray("pivot", "optionsMenu", "stop")]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 991.0

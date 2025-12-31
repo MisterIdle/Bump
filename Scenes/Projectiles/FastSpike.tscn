@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6edobewh573n"]
+
+[ext_resource type="Script" path="res://Scripts/Projectiles/Spike.cs" id="1_jtmv1"]
+[ext_resource type="PackedScene" uid="uid://7710phv1wm7k" path="res://Scenes/Effect/PopShot.tscn" id="2_13woq"]
+[ext_resource type="Texture2D" uid="uid://degjrhvteie7t" path="res://Assets/Sprites/Spike.svg" id="3_gjybp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_roco8"]
+
+[sub_resource type="Gradient" id="Gradient_haeuy"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_66d8l"]
+gradient = SubResource("Gradient_haeuy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_44nyb"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+angle_max = 720.0
+gravity = Vector3(-100, 0, 0)
+linear_accel_max = 100.0
+radial_accel_max = 30.0
+scale_min = 2.0
+scale_max = 15.0
+color_ramp = SubResource("GradientTexture1D_66d8l")
+
+[node name="Spike" type="Area2D" node_paths=PackedStringArray("particles", "collision", "sprite")]
+process_mode = 1
+collision_layer = 2
+collision_mask = 257
+script = ExtResource("1_jtmv1")
+particles = NodePath("GPUParticles2D")
+collision = NodePath("CollisionShape2D")
+lifeTime = 10.0
+popScene = ExtResource("2_13woq")
+rotationSpeed = 1.0
+speed = 800.0
+sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_roco8")
+disabled = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-10, -5.04871e-29)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_44nyb")
+explosiveness = 0.1
+fixed_fps = 10
+visibility_rect = Rect2(-1000, -1000, 2000, 2000)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.779291, 0.779291, 0.779291, 1)
+rotation = -1.5708
+scale = Vector2(0.0709289, 0.137471)
+texture = ExtResource("3_gjybp")
