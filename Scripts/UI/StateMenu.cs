@@ -18,16 +18,23 @@ public partial class StateMenu : Control
 
     [Export] private MenuManager manager;
     [Export] private Panel panel;
-
     [Export] private Label titleLabel;
 
+    [ExportCategory("Buttons")]
     [Export] private Button resumeButton;
     [Export] private Button restartButton;
     [Export] private Button optionButton;
     [Export] private Button mainMenuButton;
 
+    [ExportCategory("Background Settings")]
+    [Export] public Color pauseColor = new Color(1, 1, 1, 1);
+    // Note : Garde l'alpha à 1 ici, l'opacité est gérée par le Tween
+    [Export] public Color gameOverColor = new Color(0, 0, 0, 1);
+    [Export] public Color victoryColor = new Color(1, 1, 1, 1);
+
     private Tween currentTween;
     private MenuState currentState = MenuState.Pause;
+    private Color currentTargetColor;
 
     public override void _Ready()
     {
@@ -41,7 +48,11 @@ public partial class StateMenu : Control
         ProcessMode = ProcessModeEnum.Always;
 
         Visible = false;
+
+        // CORRECTION : On utilise Modulate pour la transparence, pas SelfModulate
         panel.Modulate = new Color(1, 1, 1, 0);
+        // On s'assure que SelfModulate est neutre au départ
+        panel.SelfModulate = Colors.White;
 
         optionButton.Pressed += OnOptionPressed;
         resumeButton.Pressed += OnResume;
@@ -91,18 +102,27 @@ public partial class StateMenu : Control
                 titleLabel.Text = "UI_PAUSE";
                 resumeButton.Visible = true;
                 restartButton.Visible = true;
+                optionButton.Visible = true;
+                mainMenuButton.Visible = true;
+                currentTargetColor = pauseColor;
                 break;
 
             case MenuState.GameOver:
                 titleLabel.Text = "UI_GAMEOVER";
                 resumeButton.Visible = false;
                 restartButton.Visible = true;
+                optionButton.Visible = false;
+                mainMenuButton.Visible = true;
+                currentTargetColor = gameOverColor;
                 break;
 
             case MenuState.Victory:
                 titleLabel.Text = "UI_VICTORY";
                 resumeButton.Visible = false;
                 restartButton.Visible = true;
+                optionButton.Visible = false;
+                mainMenuButton.Visible = true;
+                currentTargetColor = victoryColor;
                 break;
         }
     }
@@ -115,7 +135,6 @@ public partial class StateMenu : Control
     public void OnResume()
     {
         if (currentState != MenuState.Pause) return;
-
         PlayCloseAnimation();
     }
 
@@ -137,8 +156,11 @@ public partial class StateMenu : Control
         currentTween = CreateTween();
         currentTween.SetParallel(true);
 
+        panel.SelfModulate = currentTargetColor;
+
         panel.Modulate = new Color(1, 1, 1, 0);
-        currentTween.TweenProperty(panel, "modulate:a", 1.0f, 0.3f)
+
+        currentTween.TweenProperty(panel, "modulate:a", 1.0f, 0.4f)
             .SetEase(Tween.EaseType.Out);
 
         float lCurrentDelay = 0.15f;
@@ -146,10 +168,8 @@ public partial class StateMenu : Control
 
         currentTween.Finished += () =>
         {
-            if (resumeButton.Visible)
-                resumeButton.GrabFocus();
-            else
-                restartButton.GrabFocus();
+            if (resumeButton.Visible) resumeButton.GrabFocus();
+            else restartButton.GrabFocus();
         };
     }
 
@@ -162,7 +182,7 @@ public partial class StateMenu : Control
                 if (!lButton.Visible) continue;
 
                 lButton.Modulate = new Color(1, 1, 1, 0);
-                lButton.Scale = new Vector2(0f, 0f);
+                lButton.Scale = Vector2.Zero;
                 lButton.PivotOffset = lButton.Size / 2;
 
                 pTween.TweenProperty(lButton, "modulate:a", 1f, 0.2f)

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://degjrhvteie7t" path="res://Assets/Sprites/Spike.svg" id="3_gjybp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_roco8"]
+size = Vector2(64, 68)
 
 [sub_resource type="Gradient" id="Gradient_haeuy"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
@@ -52,6 +53,7 @@ visibility_rect = Rect2(-1000, -1000, 2000, 2000)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.779291, 0.779291, 0.779291, 1)
+position = Vector2(0, -2.27374e-13)
 rotation = -1.5708
-scale = Vector2(0.0709289, 0.137471)
+scale = Vector2(0.134498, 0.195936)
 texture = ExtResource("3_gjybp")

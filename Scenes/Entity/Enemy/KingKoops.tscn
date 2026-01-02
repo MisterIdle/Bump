@@ -1,13 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2jsnu1okwcj1"]
+[gd_scene load_steps=20 format=3 uid="uid://d2jsnu1okwcj1"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/KingKoops.cs" id="1_pujo4"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="2_3do05"]
 [ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="2_f62ti"]
 [ext_resource type="PackedScene" uid="uid://c6edobewh573n" path="res://Scenes/Projectiles/FastSpike.tscn" id="2_gjopy"]
+[ext_resource type="Script" path="res://Scripts/Utils/TickEvent.cs" id="4_2skir"]
 [ext_resource type="Texture2D" uid="uid://dxxryf6kj1q33" path="res://Assets/Sprites/KingKoopsHeadOpen.svg" id="4_4c5se"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="4_nei0q"]
+[ext_resource type="AudioStream" uid="uid://2eaxaqkn3j7g" path="res://Audio/TickTracks/TickMove.ogg" id="4_tmtwa"]
 [ext_resource type="Shader" uid="uid://bne3w1ms8y0g6" path="res://Assets/Shader/ColorSwap.tres" id="5_0q22y"]
+[ext_resource type="AudioStream" uid="uid://7breqb5ux3ix" path="res://Audio/TickTracks/TickShoot.ogg" id="5_pekxw"]
 [ext_resource type="Texture2D" uid="uid://qxf57u6hdqtj" path="res://Assets/Sprites/KingKoopsShell.svg" id="6_ksqgl"]
+[ext_resource type="AudioStream" uid="uid://8e2fmfxuo2ss" path="res://Audio/TickTracks/TickDash.ogg" id="6_vapoo"]
+[ext_resource type="AudioStream" uid="uid://ciynouqd46de4" path="res://Audio/TickTracks/TickReload.ogg" id="7_585f4"]
+[ext_resource type="AudioStream" uid="uid://b0367itw0krr1" path="res://Audio/Music/boss_loop.wav" id="9_kk6q5"]
 [ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Misc/Eye.tscn" id="9_ktwk4"]
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Misc/Wing.tscn" id="10_khp5o"]
 
@@ -22,27 +28,57 @@ shader_parameter/Seuil = 0.1
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_527un"]
 size = Vector2(172, 170)
 
-[node name="KingKoops" type="Area2D" node_paths=PackedStringArray("head", "spriteHead", "spikeContainer", "sprite")]
+[node name="KingKoops" type="Area2D" node_paths=PackedStringArray("head", "spriteHead", "musicSync", "spikeContainer", "sprite")]
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_pujo4")
 head = NodePath("Head")
 spriteHead = NodePath("Head/HeadSprite")
-dashSpeed = 25.0
-numSpikes = 10
-spikeScene = ExtResource("2_gjopy")
+musicSync = NodePath("Music")
 spikeContainer = NodePath("Shell/SpikeContainer")
+spikeScene = ExtResource("2_gjopy")
+introDuration = 2.5
+dashSpeed = 10.0
+returnSpeed = 30.0
+dashDuration = 0.7
+numSpikes = 10
 headRetractedScale = Vector2(0, 0)
+headOutsidePos = Vector2(0, 0)
 shellRetractedPos = Vector2(0, -50)
 shellOutsidePos = Vector2(0, -120)
-shellOutsideRot = 25.0
+shellOutsideRot = 15.0
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
-health = 5
+hammerScore = 10000
+health = 100
 popScene = ExtResource("2_3do05")
+score = 15000
 speed = 50.0
 affectedByScroll = true
+amplitude = 5.0
 sprite = NodePath("Sprite")
+
+[node name="Music" type="Node2D" parent="."]
+script = ExtResource("4_2skir")
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("5_pekxw")
+bus = &"TickShoot"
+
+[node name="Dash" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("6_vapoo")
+bus = &"TickDash"
+
+[node name="Reload" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("7_585f4")
+bus = &"TickReload"
+
+[node name="Move" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("4_tmtwa")
+bus = &"TickMove"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("9_kk6q5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -30)
@@ -55,6 +91,7 @@ scale = Vector2(0.741736, 0.350844)
 texture = ExtResource("2_f62ti")
 
 [node name="Head" type="Area2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
 collision_layer = 2
 collision_mask = 257
 
@@ -74,7 +111,7 @@ position = Vector2(-365, -1)
 shape = SubResource("RectangleShape2D_527un")
 
 [node name="Shell" parent="." instance=ExtResource("4_nei0q")]
-position = Vector2(0, -46)
+position = Vector2(1, -46)
 scale = Vector2(0.890909, 0.849595)
 texture = ExtResource("6_ksqgl")
 
@@ -85,5 +122,3 @@ scale = Vector2(0.22449, 0.235406)
 [node name="SpikeContainer" type="Node2D" parent="Shell"]
 z_index = -1
 position = Vector2(0, 54.1434)
-
-[connection signal="area_entered" from="Head" to="." method="OnHeadCollide"]

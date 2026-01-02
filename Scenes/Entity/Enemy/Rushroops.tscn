@@ -27,11 +27,11 @@ basePosShell = Vector2(0, -10)
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
 facePlayer = true
-score = 5000
 hammerScore = 2000
 direction = 2
 health = 9
 popScene = ExtResource("3_uicja")
+score = 5000
 speed = 50.0
 sprite = NodePath("Sprite")
 

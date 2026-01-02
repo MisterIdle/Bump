@@ -74,15 +74,30 @@ public partial class Pow : GameObject
 
     private void StartExplosionSequence()
     {
+        // On récupère les listes
         enemyList = Enemy.GetEnemiesOnScreen(GlobalPosition);
         projectilesList = Projectiles.GetEnemiesProjectilesOnScreen(GlobalPosition);
 
+        // --- CORRECTION DU CRASH ICI ---
         if (projectilesList != null)
         {
             for (int i = projectilesList.Count - 1; i >= 0; i--)
             {
-                if (IsInstanceValid(projectilesList[i]))
-                    projectilesList[i].Destory();
+                // On copie la référence locale pour éviter les accès multiples au tableau
+                var proj = projectilesList[i];
+
+                // On utilise GodotObject.IsInstanceValid (plus robuste que null check)
+                if (IsInstanceValid(proj))
+                {
+                    // Au lieu d'appeler Destory() directement qui trigger QueueFree() tout de suite...
+                    // On vérifie d'abord si l'objet n'est pas DEJA en train d'être free
+                    if (!proj.IsQueuedForDeletion())
+                    {
+                        // Si ta méthode Destory fait juste QueueFree + particules, 
+                        // appelle-la. Sinon, pour éviter le crash 100%, utilise:
+                        proj.Destory();
+                    }
+                }
             }
         }
 
@@ -96,30 +111,45 @@ public partial class Pow : GameObject
 
     private void KillNextEnemy()
     {
-        if (enemyList == null)
+        // Sécurité : si la liste est devenue null ou vide entre temps
+        if (enemyList == null || index >= enemyList.Count)
         {
             QueueFree();
             return;
         }
 
+        // On boucle jusqu'à trouver un ennemi valide pour éviter de bloquer sur un ennemi déjà mort
         while (index < enemyList.Count)
         {
             Enemy lEnemy = enemyList[index];
-            index++;
+            index++; // On incrémente tout de suite pour le prochain appel
 
             if (IsInstanceValid(lEnemy))
             {
-                lEnemy.health = 0;
-                lEnemy.EntityHit();
+                // Gestion du Boss
+                if (lEnemy is KingKoops)
+                {
+                    // Le Boss prend des dégâts mais NE MEURT PAS forcément.
+                    // IMPORTANT : On ne le retire pas de la liste manuellement ici,
+                    // et comme on a fait index++, la boucle continuera vers les autres ennemis.
+                    lEnemy.EntityHit(20);
+                }
+                else
+                {
+                    // Ennemi normal : Mort instantanée
+                    lEnemy.health = 0;
+                    lEnemy.EntityHit();
+                }
 
+                // On relance la boucle pour le suivant avec un délai
                 Tween lTween = CreateTween();
                 lTween.TweenCallback(Callable.From(KillNextEnemy))
                       .SetDelay(killDelay);
-                return;
+                return; // On sort pour attendre le Tween
             }
         }
 
+        // Si on a fini la liste
         QueueFree();
     }
-
 }

@@ -32,7 +32,6 @@ public partial class Shell : Sprite2D
         material.SetShaderParameter(COLOR_CONST, pColor);
     }
 
-
     public void ShellProtectAnimation()
     {
         Tween lTween = CreateTween();
@@ -58,7 +57,7 @@ public partial class Shell : Sprite2D
     {
         Tween lTween = CreateTween();
 
-        lTween.Parallel().TweenProperty(this, (string)PropertyName.Position + ":y", Position.Y * 2f, 0.2f)
+        lTween.Parallel().TweenProperty(this, (string)PropertyName.Position + ":y", Position.Y * 0.5f, 0.2f)
               .SetTrans(Tween.TransitionType.Sine)
               .SetEase(Tween.EaseType.Out);
 

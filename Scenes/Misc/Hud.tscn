@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://y0p204y3sd1g"]
+[gd_scene load_steps=15 format=3 uid="uid://y0p204y3sd1g"]
 
 [ext_resource type="Script" path="res://Scripts/UI/HUD.cs" id="1_f47f8"]
 [ext_resource type="PackedScene" uid="uid://y53encm32pb5" path="res://Scenes/Misc/BubbleScore.tscn" id="2_hb6nc"]
@@ -14,6 +14,14 @@
 font = ExtResource("6_3phhd")
 font_size = 75
 
+[sub_resource type="LabelSettings" id="LabelSettings_vgvdy"]
+font = ExtResource("6_3phhd")
+font_size = 30
+
+[sub_resource type="Theme" id="Theme_jta2v"]
+default_font = ExtResource("6_3phhd")
+default_font_size = 25
+
 [sub_resource type="LabelSettings" id="LabelSettings_on232"]
 font = ExtResource("6_3phhd")
 font_size = 50
@@ -26,7 +34,7 @@ font_size = 150
 
 [node name="HUD" type="CanvasLayer"]
 
-[node name="HUD" type="Control" parent="." node_paths=PackedStringArray("HealthContainer", "PowContainer", "scoreLabel", "godmodeLabel")]
+[node name="HUD" type="Control" parent="." node_paths=PackedStringArray("HealthContainer", "PowContainer", "scoreLabel", "godmodeLabel", "bossLabel", "bossTextureBar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,6 +48,8 @@ PowContainer = NodePath("Pow")
 scoreLabel = NodePath("Score")
 godmodeLabel = NodePath("GodMode")
 popScaleFactor = 1.2
+bossLabel = NodePath("Boss/BossLife")
+bossTextureBar = NodePath("Boss/TextureProgressBar")
 
 [node name="Health" type="HBoxContainer" parent="HUD"]
 layout_mode = 0
@@ -126,6 +136,25 @@ label_settings = SubResource("LabelSettings_hdyii")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Boss" type="VBoxContainer" parent="HUD"]
+offset_left = 548.0
+offset_top = 123.0
+offset_right = 1377.0
+offset_bottom = 199.0
+alignment = 1
+
+[node name="BossLife" type="Label" parent="HUD/Boss"]
+layout_mode = 2
+text = "KING KOOPS"
+label_settings = SubResource("LabelSettings_vgvdy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar" type="ProgressBar" parent="HUD/Boss"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+theme = SubResource("Theme_jta2v")
+
 [node name="GodMode" type="Label" parent="HUD"]
 visible = false
 layout_mode = 0
@@ -137,7 +166,6 @@ text = "GOD MODE"
 label_settings = SubResource("LabelSettings_on232")
 
 [node name="MenuManager" type="Control" parent="." node_paths=PackedStringArray("pivot", "optionsMenu", "stop")]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 991.0
@@ -187,9 +215,11 @@ manager = NodePath("../..")
 panel = NodePath("../../Panel")
 titleLabel = NodePath("../../Panel/Label")
 resumeButton = NodePath("VBoxContainer/Resume")
-restartButton = NodePath("VBoxContainer2/Restart")
+restartButton = NodePath("VBoxContainer/Restart")
 optionButton = NodePath("VBoxContainer/Option")
-mainMenuButton = NodePath("VBoxContainer2/MainMenu")
+mainMenuButton = NodePath("VBoxContainer/MainMenu")
+pauseColor = Color(0, 0, 0, 1)
+gameOverColor = Color(0.877346, 4.06705e-06, 1.92523e-07, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuManager/Pivot/StateMenu"]
 layout_mode = 2
@@ -197,7 +227,7 @@ theme_override_constants/separation = 30
 
 [node name="Resume" type="Button" parent="MenuManager/Pivot/StateMenu/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../VBoxContainer2/MainMenu")
+focus_neighbor_top = NodePath("../MainMenu")
 focus_next = NodePath("../Option")
 theme = ExtResource("6_vixm6")
 text = "ID_RESUME"
@@ -210,21 +240,17 @@ theme = ExtResource("6_vixm6")
 text = "ID_OPTION"
 vertical_icon_alignment = 0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MenuManager/Pivot/StateMenu"]
+[node name="Restart" type="Button" parent="MenuManager/Pivot/StateMenu/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 50
-
-[node name="Restart" type="Button" parent="MenuManager/Pivot/StateMenu/VBoxContainer2"]
-layout_mode = 2
-focus_next = NodePath("../../VBoxContainer/Option")
+focus_next = NodePath("../Option")
 theme = ExtResource("6_vixm6")
 text = "ID_RESTART"
 vertical_icon_alignment = 0
 
-[node name="MainMenu" type="Button" parent="MenuManager/Pivot/StateMenu/VBoxContainer2"]
+[node name="MainMenu" type="Button" parent="MenuManager/Pivot/StateMenu/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../VBoxContainer/Resume")
-focus_previous = NodePath("../../VBoxContainer/Resume")
+focus_neighbor_bottom = NodePath("../Resume")
+focus_previous = NodePath("../Resume")
 theme = ExtResource("6_vixm6")
 text = "ID_MAIN_MENU"
 vertical_icon_alignment = 0

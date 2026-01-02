@@ -20,7 +20,6 @@ public partial class Enemy : Entity
         enemyList.Add(this);
     }
 
-
     protected override void Update(float pDelta)
     {
         base.Update(pDelta);

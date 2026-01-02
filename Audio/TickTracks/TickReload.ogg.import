@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bu6mfb2qllhsq"
+uid="uid://ciynouqd46de4"
 path="res://.godot/imported/TickReload.ogg-7a3e8cc7d30cf4bfa15d2621a7276613.oggvorbisstr"
 
 [deps]
@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/TickReload.ogg-7a3e8cc7d30cf4bfa15d2621a72766
 [params]
 
 loop=false
-loop_offset=0.0
-bpm=0.0
+loop_offset=0
+bpm=0
 beat_count=0
 bar_beats=4

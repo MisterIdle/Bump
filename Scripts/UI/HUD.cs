@@ -1,4 +1,3 @@
-
 using Godot;
 using System;
 
@@ -21,6 +20,7 @@ public partial class HUD : Control
     [ExportCategory("Colors")]
     [Export] public Color activeColor = new Color(1, 1, 1, 1.0f);
     [Export] public Color inactiveColor = new Color(1, 1, 1, 0.2f);
+    [Export] public Color bossDamageColor = new Color(1, 0.2f, 0.2f, 1.0f);
 
     [ExportCategory("Animation Settings")]
     [Export(PropertyHint.Range, "0.1, 2.0")]
@@ -32,8 +32,13 @@ public partial class HUD : Control
     [Export(PropertyHint.Range, "0.1, 5.0")]
     public float scoreCountDuration = 0.5f;
 
+    [ExportCategory("Boss UI")]
+    [Export] private Label bossLabel;
+    [Export] private ProgressBar bossTextureBar;
+
     private Vector2 originalScale;
     private float originalY;
+    private float bossBarOriginalX;
 
     public override void _Ready()
     {
@@ -47,7 +52,57 @@ public partial class HUD : Control
         originalScale = scoreLabel.Scale;
         originalY = Position.Y;
 
+        // On sauvegarde la position X de la barre du boss pour le tremblement
+        if (bossTextureBar != null)
+        {
+            bossBarOriginalX = bossTextureBar.Position.X;
+            bossTextureBar.Modulate = new Color(1, 1, 1, 0);
+        }
+
+        if (bossLabel != null)
+        {
+            bossLabel.Modulate = new Color(1, 1, 1, 0);
+        }
+
         PlayEntranceAnimation();
+    }
+
+    public void SetupBossBattle(int pMaxHealth)
+    {
+        if (bossTextureBar == null) return;
+
+        bossTextureBar.MaxValue = pMaxHealth;
+        bossTextureBar.Value = 0;
+
+        Tween lTween = CreateTween();
+        
+        lTween.TweenProperty(bossTextureBar, "modulate:a", 1.0f, 0.5f);
+        
+        if (bossLabel != null)
+        {
+            lTween.Parallel().TweenProperty(bossLabel, "modulate:a", 1.0f, 0.5f);
+        }
+
+        lTween.Chain().TweenProperty(bossTextureBar, "value", pMaxHealth, 1.2f)
+            .SetTrans(Tween.TransitionType.Cubic)
+            .SetEase(Tween.EaseType.Out);
+    }
+
+    public void UpdateBossHealth(int pCurrentHealth)
+    {
+        if (bossTextureBar == null) return;
+
+        Tween lTween = CreateTween();
+        lTween.SetParallel(true);
+
+        lTween.TweenProperty(bossTextureBar, "value", pCurrentHealth, 0.4f)
+            .SetTrans(Tween.TransitionType.Elastic)
+            .SetEase(Tween.EaseType.Out);
+
+        bossTextureBar.Modulate = bossDamageColor;
+        lTween.TweenProperty(bossTextureBar, "modulate", new Color(1, 1, 1, 1), 0.3f);
+
+        Effect.BumpHUD(bossTextureBar, originalScale);
     }
 
     public BubbleScore CreateBubbleScore(Vector2 pPos, int pScore)
@@ -86,16 +141,13 @@ public partial class HUD : Control
 
     public void PlayEntranceAnimation()
     {
-        // 1. Préparation : On cache tout et on décale vers le haut
-        Modulate = new Color(1, 1, 1, 0); // Transparent
-        Position = new Vector2(Position.X, originalY - 50); // Décalé vers le haut
+        Modulate = new Color(1, 1, 1, 0); 
+        Position = new Vector2(Position.X, originalY - 50);
 
-        // Reset des échelles pour l'effet "Pop"
         HealthContainer.Scale = Vector2.Zero;
         PowContainer.Scale = Vector2.Zero;
         scoreLabel.Scale = Vector2.Zero;
 
-        // 2. Le Tween global du HUD (Descente + Fade In)
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
 
@@ -104,18 +156,14 @@ public partial class HUD : Control
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        // 3. Apparition en cascade des éléments (Stagger effect)
-        // Health (Direct)
         lTween.TweenProperty(HealthContainer, "scale", Vector2.One, 0.4f)
             .SetDelay(0.1f)
             .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
 
-        // Score (Un peu après)
         lTween.TweenProperty(scoreLabel, "scale", originalScale, 0.4f)
             .SetDelay(0.2f)
             .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
 
-        // Pow (En dernier)
         lTween.TweenProperty(PowContainer, "scale", Vector2.One, 0.4f)
             .SetDelay(0.3f)
             .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
@@ -126,7 +174,6 @@ public partial class HUD : Control
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
 
-        // Tout le HUD remonte et disparait
         lTween.TweenProperty(this, "position:y", originalY - 150, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.In);

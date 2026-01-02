@@ -141,11 +141,6 @@ public partial class Player : Entity
         AnimatedSpawn();
     }
 
-    private void OnTickEventBeatDetected(BeatType type)
-    {
-        Fire();
-    }
-
     protected override void Update(float pDelta)
     {
         base.Update(pDelta);
