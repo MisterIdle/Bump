@@ -43,7 +43,7 @@ public partial class Shell : Sprite2D
 
     public void ShellProtectAnimation()
     {
-        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion, 2.5f);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion, 3.5f);
 
         Tween lTween = CreateTween();
         lTween.TweenProperty(this, "rotation_degrees", baseShellRotation + protectAnimAngle, protectAnimTime);

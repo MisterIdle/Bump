@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dqax61yn7lfom"]
 
 [ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="1_71g3b"]
-[ext_resource type="Script" path="res://Scenes/LevelDesign/Credits.cs" id="1_oseug"]
+[ext_resource type="Script" path="res://Scripts/UI/Credits.cs" id="1_hopoi"]
 [ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Visual/RetroMario-Regular.otf" id="2_cqljr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8wtr6"]
@@ -60,7 +60,7 @@ anchor_bottom = 1.0
 offset_top = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_oseug")
+script = ExtResource("1_hopoi")
 
 [node name="Master" type="VBoxContainer" parent="."]
 layout_mode = 0

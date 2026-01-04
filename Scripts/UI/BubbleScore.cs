@@ -4,13 +4,28 @@ using System;
 public partial class BubbleScore : Node2D
 {
     public int score;
+
+    [ExportGroup("Nodes")]
     [Export] private Label label;
+
+    [ExportGroup("Settings")]
+    [Export] private float animationDuration = 1.0f;
+    [Export] private float minRiseDistance = -150.0f;
+    [Export] private float maxRiseDistance = -250.0f;
+    [Export] private float maxRotationRange = 15.0f;
+    [Export] private Vector2 offsetRange = new Vector2(20f, 10f);
 
     public override void _Ready()
     {
-        base._Ready();
+        Vector2 lOffset = new Vector2(
+            GameManager.rand.RandfRange(-offsetRange.X, offsetRange.X),
+            GameManager.rand.RandfRange(-offsetRange.Y, offsetRange.Y)
+        );
 
-        label.Text = score.ToString();
+        Position += lOffset;
+
+        if (label != null)
+            label.Text = score.ToString();
 
         AnimateFloatingText();
     }
@@ -21,12 +36,16 @@ public partial class BubbleScore : Node2D
 
         Tween lTween = CreateTween();
 
-        lTween.TweenProperty(this, (string)PropertyName.Position + ":y", -150.0f, 1.0f)
+        RotationDegrees = GameManager.rand.RandfRange(-maxRotationRange, maxRotationRange);
+
+        float lRandomRise = GameManager.rand.RandfRange(minRiseDistance, maxRiseDistance);
+
+        lTween.TweenProperty(this, (string)PropertyName.Position + ":y", lRandomRise, animationDuration)
              .AsRelative()
              .SetTrans(Tween.TransitionType.Cubic)
              .SetEase(Tween.EaseType.Out);
 
-        lTween.Parallel().TweenProperty(this, (string)PropertyName.Modulate, new Color(0,0,0,0), 1.0f)
+        lTween.Parallel().TweenProperty(this, (string)PropertyName.Modulate, new Color(1, 1, 1, 0), animationDuration)
              .SetTrans(Tween.TransitionType.Cubic)
              .SetEase(Tween.EaseType.In);
 

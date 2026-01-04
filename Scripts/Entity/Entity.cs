@@ -65,9 +65,6 @@ public partial class Entity : Movable
         AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion);
 
         health -= pDamage;
-
-        if (health <= 0)
-            EntityDeath();
     }
 
     public virtual void EntityDeath()

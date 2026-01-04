@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfni7fkt81l55"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Enemy/Normal/Firebar.cs" id="1_bvk1m"]
+[ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="2_e4u5i"]
+[ext_resource type="Texture2D" uid="uid://dlqsadwi6sql2" path="res://Assets/Sprites/Square.svg" id="3_0apq1"]
+[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="4_5bt0r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8psp"]
+size = Vector2(44, 388.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uydp6"]
+shader = ExtResource("2_e4u5i")
+shader_parameter/Frequency = 10.65
+shader_parameter/Speed = 20.0
+shader_parameter/Amplitude = 0.03
+
+[node name="Firebar" type="Area2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 2
+script = ExtResource("1_bvk1m")
+sprite = NodePath("Base")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -170.75)
+shape = SubResource("RectangleShape2D_r8psp")
+
+[node name="Base" type="Sprite2D" parent="."]
+self_modulate = Color(0.817521, 0.817521, 0.817521, 1)
+material = SubResource("ShaderMaterial_uydp6")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_0apq1")
+
+[node name="FireballBar8" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(-2.40741e-35, -51)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar9" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(2.86986e-42, -98)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar10" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(0, -147)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar11" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(-0.219999, -194.22)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar12" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(-0.219999, -241.22)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar13" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(-0.219999, -290.22)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar14" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(-0.219999, -194.22)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar15" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(-0.219999, -241.22)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar16" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(-0.219999, -290.22)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")
+
+[node name="FireballBar17" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.396078, 0.227451, 1)
+material = SubResource("ShaderMaterial_uydp6")
+position = Vector2(-1.06581e-14, -337)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_5bt0r")

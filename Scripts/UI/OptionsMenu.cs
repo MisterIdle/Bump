@@ -11,6 +11,10 @@ public partial class OptionsMenu : MenuBase
     [Export] private CheckBox fullscreenCheck;
     [Export] private CheckBox vsyncCheck;
 
+    [ExportGroup("Audio Settings")]
+    [Export] private HSlider musicSlider;
+    [Export] private HSlider sfxSlider;
+
     public override void _Ready()
     {
         backButton.Pressed += OnBackPressed;
@@ -18,6 +22,7 @@ public partial class OptionsMenu : MenuBase
         englishButton.Pressed += () => ChangeLocale("en");
 
         SetupVideoSettings();
+        SetupAudioSettings();
     }
 
     public override void OnEnter()
@@ -48,6 +53,40 @@ public partial class OptionsMenu : MenuBase
         bool isVsync = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
         vsyncCheck.ButtonPressed = isVsync;
         vsyncCheck.Toggled += OnVsyncToggled;
+    }
+
+    private void SetupAudioSettings()
+    {
+        musicSlider.Value = GetBusVolumeLinear("Music");
+        sfxSlider.Value = GetBusVolumeLinear("SFX");
+
+        musicSlider.ValueChanged += (value) => OnVolumeSliderChanged(value, "Music");
+        sfxSlider.ValueChanged += (value) => OnVolumeSliderChanged(value, "SFX");
+    }
+
+    private void OnVolumeSliderChanged(double value, string busName)
+    {
+        float lDB = (float)Mathf.LinearToDb(value);
+        int lIndex = AudioServer.GetBusIndex(busName);
+
+        if (lIndex != -1)
+        {
+            AudioServer.SetBusVolumeDb(lIndex, lDB);
+            AudioServer.SetBusMute(lIndex, value <= musicSlider.MinValue);
+        }
+
+        if (busName == "SFX")
+            AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+    }
+
+    private float GetBusVolumeLinear(string busName)
+    {
+        int busIndex = AudioServer.GetBusIndex(busName);
+        if (busIndex != -1)
+        {
+            return (float)Mathf.DbToLinear(AudioServer.GetBusVolumeDb(busIndex));
+        }
+        return 1.0f;
     }
 
     private void OnFullscreenToggled(bool pIsCheck)

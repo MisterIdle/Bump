@@ -12,7 +12,7 @@ load_path = "res://.godot/imported/Usa.png-301e5b683d6b729ac56663e2d41f96d4.ctex
 font = ExtResource("4_0u70f")
 font_size = 30
 
-[node name="Options" type="Control" node_paths=PackedStringArray("backButton", "franceButton", "englishButton", "fullscreenCheck", "vsyncCheck")]
+[node name="Options" type="Control" node_paths=PackedStringArray("backButton", "franceButton", "englishButton", "fullscreenCheck", "vsyncCheck", "musicSlider", "sfxSlider")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1373.0
@@ -24,6 +24,8 @@ franceButton = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer3/VBoxContain
 englishButton = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer3/VBoxContainer/USA")
 fullscreenCheck = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer4/VBoxContainer/CheckBox")
 vsyncCheck = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer4/VBoxContainer2/CheckBox")
+musicSlider = NodePath("VBoxContainer2/VBoxContainer2/HSlider")
+sfxSlider = NodePath("VBoxContainer2/VBoxContainer3/HSlider")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -54,6 +56,9 @@ custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_vertical = 4
 focus_neighbor_top = NodePath("../../Back")
+max_value = 1.0
+step = 0.01
+value = 0.5
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer2"]
 layout_mode = 2
@@ -69,6 +74,9 @@ text = "ID_AUDIO_OPTION"
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 0.5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2"]
 layout_mode = 2

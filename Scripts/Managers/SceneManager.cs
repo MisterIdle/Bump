@@ -130,7 +130,7 @@ public partial class SceneManager : Node
         AddChild(timer);
 
         Projectiles.ClearAll();
-        Enemy.ClearAll(true);
+        Enemy.ClearAll(true, true);
 
         timer.Timeout += () =>
         {

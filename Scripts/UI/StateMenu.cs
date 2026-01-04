@@ -130,7 +130,7 @@ public partial class StateMenu : MenuBase
             SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.Game);
         };
 
-        //AudioManager.GetInstance().StopMusic();
+        AudioManager.GetInstance().StopMusic();
     }
 
     public void OnMainMenu()

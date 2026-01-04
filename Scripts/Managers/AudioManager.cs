@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class AudioManager : Node
 {
@@ -8,33 +7,29 @@ public partial class AudioManager : Node
     public enum AudioType
     {
         None,
-
-        // Player
         PlayerShoot,
         PlayerExplosion,
         PlayerLostLife,
-
-        // Hammer Spécifique
         HammerCharge,
         HammerSwing,
-
-        // PowerUps
         PowerUpPow,
         PowerLife,
-
-        // Enemies
         EnemyExplosion,
         EnemyShoot,
-
-        // Boss
         BossShoot,
         BossPreExplosion,
         BossExplosion,
-
-        // UI
         UIClic,
         UIPause,
         UIStart
+    }
+
+    public enum MusicType
+    {
+        None,
+        Menu,
+        Level,
+        Boss
     }
 
     [ExportGroup("Player")]
@@ -64,6 +59,13 @@ public partial class AudioManager : Node
     [Export] private AudioStream uiPause;
     [Export] private AudioStream uiStart;
 
+    [ExportGroup("Music")]
+    [Export] private AudioStream uiMusic;
+    [Export] private AudioStream levelMusic;
+    [Export] private AudioStream bossMusic;
+
+    private AudioStreamPlayer musicPlayer;
+
     public override void _Ready()
     {
         if (instance == null)
@@ -74,7 +76,14 @@ public partial class AudioManager : Node
         else
         {
             QueueFree();
+            return;
         }
+
+        musicPlayer = new AudioStreamPlayer();
+        musicPlayer.Bus = "Music";
+        AddChild(musicPlayer);
+
+        musicPlayer.Finished += OnMusicFinished;
     }
 
     public static AudioManager GetInstance()
@@ -82,11 +91,11 @@ public partial class AudioManager : Node
         return instance;
     }
 
-    public void Play(AudioType pType, float pPitchVariance = 0f)
+    public void Play(AudioType pType, float pPitch = 1.0f)
     {
         AudioStream lStream = ResolveStream(pType);
         if (lStream != null)
-            PlayStream(lStream, pPitchVariance);
+            PlayStream(lStream, pPitch);
     }
 
     public AudioStream GetStream(AudioType pType)
@@ -130,19 +139,71 @@ public partial class AudioManager : Node
         return null;
     }
 
-    private void PlayStream(AudioStream pStream, float pPitchVariance)
+    private void PlayStream(AudioStream pStream, float pPitch)
     {
-        var lPlayer = new AudioStreamPlayer();
-        lPlayer.Stream = pStream;
-        lPlayer.Bus = "SFX";
+        AudioStreamPlayer lAudio = new AudioStreamPlayer();
+        lAudio.Stream = pStream;
+        lAudio.Bus = "SFX";
 
-        if (pPitchVariance > 0)
+        if (pPitch <= 0f) pPitch = 1.0f;
+
+        lAudio.PitchScale = pPitch;
+
+        lAudio.Finished += lAudio.QueueFree;
+        AddChild(lAudio);
+        lAudio.Play();
+    }
+
+    public void PlayMusic(MusicType pType, float pFadeTime = 0.0f)
+    {
+        AudioStream lNewStream = ResolveMusic(pType);
+
+        if (musicPlayer.Stream == lNewStream && musicPlayer.Playing) return;
+
+        Tween lTween = CreateTween();
+
+        lTween.TweenProperty(musicPlayer, (string)AudioStreamPlayer.PropertyName.VolumeDb, -80.0f, pFadeTime / 2)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.In);
+
+        lTween.TweenCallback(Callable.From(() =>
         {
-            lPlayer.PitchScale = pPitchVariance;
-        }
+            musicPlayer.Stop();
+            musicPlayer.Stream = lNewStream;
+            if (lNewStream != null)
+            {
+                musicPlayer.VolumeDb = -80.0f;
+                musicPlayer.Play();
+            }
+        }));
 
-        lPlayer.Finished += lPlayer.QueueFree;
-        AddChild(lPlayer);
-        lPlayer.Play();
+        if (lNewStream != null)
+        {
+            lTween.TweenProperty(musicPlayer, (string)AudioStreamPlayer.PropertyName.VolumeDb, 0.0f, pFadeTime / 2)
+                .SetTrans(Tween.TransitionType.Sine)
+                .SetEase(Tween.EaseType.Out);
+        }
+    }
+
+    public void StopMusic(float pFadeTime = 1f)
+    {
+        PlayMusic(MusicType.None, pFadeTime);
+    }
+
+    private void OnMusicFinished()
+    {
+        if (musicPlayer.Stream != null)
+            musicPlayer.Play();
+    }
+
+    private AudioStream ResolveMusic(MusicType pType)
+    {
+        switch (pType)
+        {
+            case MusicType.Menu: return uiMusic;
+            case MusicType.Level: return levelMusic;
+            case MusicType.Boss: return bossMusic;
+            default: return null;
+        }
     }
 }

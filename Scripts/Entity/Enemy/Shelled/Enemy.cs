@@ -16,7 +16,7 @@ public partial class Enemy : Entity
 
     [Export] private float squashStretchDuration = 0.4f;
 
-    private int bossClearDamage = 20;
+    private int bossDamage = 20;
     private int clearAllDamage = 9999;
 
     protected float globalPlayerDistance;
@@ -45,7 +45,7 @@ public partial class Enemy : Entity
     {
         base.OnCollide(pArea);
 
-        bool killedByHammer = false;
+        bool lKilledByHammer = false;
 
         if (pArea.Owner is Hammer)
         {
@@ -57,7 +57,7 @@ public partial class Enemy : Entity
             Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
 
             if (health <= 0)
-                killedByHammer = true;
+                lKilledByHammer = true;
         }
         else
         {
@@ -65,7 +65,7 @@ public partial class Enemy : Entity
         }
 
         if (health <= 0)
-            EntityDeath(killedByHammer);
+            EntityDeath(lKilledByHammer);
     }
 
     public void EntityDeath(bool pKilledByHammer = false)
@@ -81,11 +81,12 @@ public partial class Enemy : Entity
         if (pKilledByHammer)
             Particule.Create(popScene, GlobalPosition);
 
-        int finalScore = pKilledByHammer ? score + hammerScore : score;
-        HUD.GetInstance().CreateBubbleScore(Position, finalScore);
+        int lFinalScore = pKilledByHammer ? score + hammerScore : score;
+
+        HUD.GetInstance().CreateBubbleScore(Position, lFinalScore);
     }
 
-    public static void ClearAll(bool pBossOneShot)
+    public static void ClearAll(bool pBossOneShot, bool pTotalClear)
     {
         for (int i = enemyList.Count - 1; i >= 0; i--)
         {
@@ -95,10 +96,16 @@ public partial class Enemy : Entity
 
             if (IsInstanceValid(enemy))
             {
+                if (pTotalClear)
+                {
+                    enemy.QueueFree();
+                    continue;
+                }
+
                 if (enemy is KingKoops && !pBossOneShot)
                 {
-                    enemy.EntityHit(enemy.bossClearDamage);
-                    return;
+                    enemy.EntityHit(enemy.bossDamage);
+                    continue;
                 }
 
                 enemy.health = 0;

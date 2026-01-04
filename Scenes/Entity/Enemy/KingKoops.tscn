@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d2jsnu1okwcj1"]
+[gd_scene load_steps=22 format=3 uid="uid://d2jsnu1okwcj1"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Shelled/KingKoops.cs" id="1_pujo4"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_3do05"]
@@ -16,7 +16,6 @@
 [ext_resource type="AudioStream" uid="uid://8e2fmfxuo2ss" path="res://Audio/TickTracks/TickDash.ogg" id="6_vapoo"]
 [ext_resource type="AudioStream" uid="uid://ciynouqd46de4" path="res://Audio/TickTracks/TickReload.ogg" id="7_585f4"]
 [ext_resource type="AudioStream" uid="uid://clo53qm775ol8" path="res://Audio/TickTracks/TickPhase.ogg" id="9_2v8kc"]
-[ext_resource type="AudioStream" uid="uid://b0367itw0krr1" path="res://Audio/Music/boss_loop.wav" id="9_kk6q5"]
 [ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="9_ktwk4"]
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Accessory/Wing.tscn" id="10_khp5o"]
 
@@ -89,9 +88,6 @@ bus = &"TickMove"
 stream = ExtResource("9_2v8kc")
 volume_db = 24.0
 bus = &"TickPhase"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource("9_kk6q5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -30)

@@ -71,7 +71,7 @@ public partial class Pow : GameObject
     private void StartExplosionSequence()
     {
         Projectiles.ClearAll();
-        Enemy.ClearAll(false);
+        Enemy.ClearAll(false, false);
         QueueFree();
     }
 

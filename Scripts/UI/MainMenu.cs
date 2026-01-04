@@ -9,7 +9,6 @@ public partial class MainMenu : MenuBase
     [ExportSubgroup("Buttons")]
     [Export] private Button startButton;
     [Export] private Button optionButton;
-    [Export] private Button helpButton;
     [Export] private Button creditsButton;
     [Export] private Button quitButton;
 
@@ -46,7 +45,7 @@ public partial class MainMenu : MenuBase
 
         startButton.GrabFocus();
 
-        //AudioManager.GetInstance().PlayMusic(AudioManager.GetInstance().uiLoop);
+        AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.Menu);
     }
 
     public override void OnExit()
@@ -72,7 +71,7 @@ public partial class MainMenu : MenuBase
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.None);
         SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.Game);
-        //AudioManager.GetInstance().StopMusic();
+        AudioManager.GetInstance().StopMusic();
     }
 
     private void OnCreditsPressed()

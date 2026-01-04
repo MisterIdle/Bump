@@ -20,6 +20,8 @@ public partial class GameObject : Area2D
             baseSpriteScale = sprite.Scale;
 
         enable = true;
+
+        GD.Print(Name + " enable");
     }
 
     public override void _Process(double pDelta)

@@ -70,11 +70,6 @@ public partial class Player : Entity
     [Export] private float deathSlowMoScale = 0.5f;
     [Export] private float deathTimerDuration = 3f;
 
-    [ExportGroup("Audio")]
-    [Export] private AudioStream[] playerShoot;
-    [Export] private AudioStream playerDeath;
-    [Export] private AudioStream loseLife;
-
     public int level = 1;
     public State currentState;
 
@@ -244,7 +239,7 @@ public partial class Player : Entity
         EndInvincible();
 
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
-        //AudioManager.GetInstance().PlayMusic(AudioManager.GetInstance().levelLoop);
+        AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.Level);
     }
 
     public override void EntityHit(int pDamage = 1)
@@ -448,9 +443,7 @@ public partial class Player : Entity
         GameManager.GetInstance().gameContainer.AddChild(lPow);
 
         if (!godMode)
-        {
             powNum--;
-        }
 
         HUD.GetInstance().UpdatePow(powNum);
     }

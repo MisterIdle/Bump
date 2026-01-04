@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://xglysqus4mmt"]
+[gd_scene load_steps=40 format=3 uid="uid://xglysqus4mmt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
 [ext_resource type="LabelSettings" uid="uid://dmesrhypouudo" path="res://Assets/Visual/HUDText.tres" id="2_430wl"]
@@ -31,6 +31,9 @@
 [ext_resource type="AudioStream" uid="uid://cwguc2lhrrbxw" path="res://Assets/Audio/SFX/ui_click.wav" id="26_v13uv"]
 [ext_resource type="AudioStream" uid="uid://d2x41fq71qcqb" path="res://Assets/Audio/SFX/ui_pause.wav" id="27_87nak"]
 [ext_resource type="AudioStream" uid="uid://rn2727nnkexi" path="res://Assets/Audio/SFX/ui_start.wav" id="28_sbm33"]
+[ext_resource type="AudioStream" uid="uid://dfvdt8c316hmf" path="res://Assets/Audio/Music/ui_loop.wav" id="29_xbd85"]
+[ext_resource type="AudioStream" uid="uid://cjk5su63pas8a" path="res://Assets/Audio/Music/level_loop.wav" id="30_aoy5c"]
+[ext_resource type="AudioStream" uid="uid://8uvq7rajeufg" path="res://Assets/Audio/Music/boss_loop.wav" id="31_2n0gp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uepul"]
 bg_color = Color(1, 0.262745, 0.180392, 1)
@@ -95,9 +98,9 @@ bossExplosion = ExtResource("25_sasl1")
 uiClic = ExtResource("26_v13uv")
 uiPause = ExtResource("27_87nak")
 uiStart = ExtResource("28_sbm33")
-
-[node name="Music" type="AudioStreamPlayer" parent="AudioManager"]
-bus = &"Music"
+uiMusic = ExtResource("29_xbd85")
+levelMusic = ExtResource("30_aoy5c")
+bossMusic = ExtResource("31_2n0gp")
 
 [node name="Menu" parent="." instance=ExtResource("4_go1sy")]
 

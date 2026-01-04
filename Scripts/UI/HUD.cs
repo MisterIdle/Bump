@@ -11,7 +11,6 @@ public partial class HUD : MenuBase
 
     [Export] private PackedScene bubbleScore;
 
-    #region References
     [ExportCategory("References")]
     [Export] public HBoxContainer healthContainer;
     [Export] public HBoxContainer powContainer;
@@ -20,23 +19,17 @@ public partial class HUD : MenuBase
     [Export] public Label gameoverLabel;
     [Export] private Label bossLabel;
     [Export] private ProgressBar bossTextureBar;
-    #endregion
 
-    #region Colors
     [ExportCategory("Colors")]
     [Export] public Color activeColor = new Color(1, 1, 1, 1.0f);
     [Export] public Color inactiveColor = new Color(1, 1, 1, 0.2f);
     [Export] public Color bossDamageColor = new Color(1, 0.2f, 0.2f, 1.0f);
-    #endregion
 
-    #region Animation Settings - Score
     [ExportCategory("Anim - Score")]
     [Export(PropertyHint.Range, "0.1, 2.0")] public float popDuration = 0.25f;
     [Export(PropertyHint.Range, "1.0, 3.0")] public float popScaleFactor = 1.5f;
     [Export(PropertyHint.Range, "0.1, 5.0")] public float scoreCountDuration = 0.5f;
-    #endregion
 
-    #region Animation Settings - Entrance
     [ExportCategory("Anim - Entrance")]
     [Export] public float entranceOffsetY = 50f;
     [Export] public float entranceFadeDuration = 0.5f;
@@ -45,27 +38,20 @@ public partial class HUD : MenuBase
     [Export] public float entranceHealthDelay = 0.1f;
     [Export] public float entranceScoreDelay = 0.2f;
     [Export] public float entrancePowDelay = 0.3f;
-    #endregion
 
-    #region Animation Settings - Exit
     [ExportCategory("Anim - Exit")]
     [Export] public float exitOffsetY = 150f;
     [Export] public float exitModulateMult = 0.8f;
-    #endregion
 
-    #region Animation Settings - Boss
     [ExportCategory("Anim - Boss")]
     [Export] public float bossFadeDuration = 0.5f;
     [Export] public float bossFillDuration = 1.2f;
     [Export] public float bossHitDuration = 0.4f;
     [Export] public float bossColorReturnDuration = 0.3f;
-    #endregion
 
-    #region Animation Settings - Game Over
     [ExportCategory("Anim - Game Over")]
     [Export] public float gameOverFallDuration = 1.0f;
     [Export] public float gameOverStartOffsetY = 100f;
-    #endregion
 
     private Vector2 originalScale;
     private float originalY;
@@ -100,6 +86,7 @@ public partial class HUD : MenuBase
         Visible = true;
         gameoverLabel.Visible = false;
         PlayEntranceAnimation();
+        HideBossBattle();
     }
 
     public override void OnExit()
@@ -126,6 +113,13 @@ public partial class HUD : MenuBase
         lTween.Chain().TweenProperty(bossTextureBar, "value", pMaxHealth, bossFillDuration)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.Out);
+    }
+
+    public void HideBossBattle()
+    {
+        bossTextureBar.Modulate = new Color(1, 1, 1, 0);
+        bossTextureBar.Value = 0;
+        bossLabel.Modulate = new Color(1, 1, 1, 0);
     }
 
     public void UpdateBossHealth(int pCurrentHealth)

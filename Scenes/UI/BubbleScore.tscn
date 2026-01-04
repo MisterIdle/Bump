@@ -12,6 +12,7 @@ script = ExtResource("2_1vtec")
 label = NodePath("Label")
 
 [node name="Label" type="Label" parent="."]
+z_index = 100
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0

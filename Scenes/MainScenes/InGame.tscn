@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://eijl1ptqfcr5"]
+[gd_scene load_steps=7 format=3 uid="uid://eijl1ptqfcr5"]
 
 [ext_resource type="PackedScene" uid="uid://8eylklkdawba" path="res://Scenes/LevelDesign/Trigger.tscn" id="2_jwf2g"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
 [ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="3_066wh"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
 [ext_resource type="PackedScene" uid="uid://b37b3k3mvq3nd" path="res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn" id="3_lw5r1"]
+[ext_resource type="PackedScene" uid="uid://bpnv46wqjqrmf" path="res://Scenes/Entity/Enemy/Koops.tscn" id="7_idqdm"]
 
 [node name="InGame" type="Node2D"]
 
@@ -35,3 +36,98 @@ editor_draw_drag_margin = true
 script = ExtResource("3_066wh")
 
 [node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("2_jwf2g")]
+
+[node name="Koops" parent="." instance=ExtResource("7_idqdm")]
+position = Vector2(2969, 219)
+
+[node name="Koops2" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(3031, 395)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops3" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(3183, 257)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops4" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(3221, 438)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops5" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(2764, 576)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops6" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(2826, 752)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops7" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(2978, 614)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops8" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(3016, 795)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops9" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(3140, 600)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops10" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(3202, 776)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops11" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(3354, 638)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops12" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(3392, 819)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops13" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5072, 240)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops14" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5134, 416)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops15" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5286, 278)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops16" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5324, 459)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops17" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(4867, 597)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops18" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(4929, 773)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops19" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5081, 635)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops20" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5119, 816)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops21" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5243, 621)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops22" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5305, 797)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops23" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5457, 659)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops24" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_idqdm")]
+position = Vector2(5495, 840)
+sprite = NodePath("../Koops/Sprite")
