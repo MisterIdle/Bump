@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "E:\\Projets\\Godot\\Shmup\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\optionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\optionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\managers\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\bubblescore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\bubblescore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\enemy\\shelled\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\player\\pow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\player\\pow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,95 +27,12 @@
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\shelledenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\enemy\\shelled\\kingkoops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\kingkoops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\collectibles\\collectibles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\collectibles\\collectibles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\enemy\\shelled\\rushroops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\rushroops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\enemy\\shelled\\shell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\shell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\managers\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\statemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\statemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\managers\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\optionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\optionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\enemy\\normal\\firebar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\normal\\firebar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\gameobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\gameobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\enemy\\normal\\obstacle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\normal\\obstacle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\movable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\movable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\enemy\\normal\\walsy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\normal\\walsy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\player\\hammer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\player\\hammer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexy\\AppData\\Local\\Temp\\VSGeneratedDocuments\\63d4d49e-d34e-e453-3fb6-179edbce779b\\Hammer_ScriptSignals.generated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\entity\\enemy\\shelled\\koops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\koops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\collectibles\\powcollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\collectibles\\powcollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\menubase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\menubase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Projets\\Godot\\Shmup\\Scenes\\UI\\Sign.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scenes\\UI\\Sign.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|e:\\projets\\godot\\shmup\\scripts\\ui\\victory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -161,11 +78,51 @@
       "DocumentGroups": [
         {
           "DockedWidth": 544,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
+              "Title": "ShelledEnemy.cs",
+              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
+              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
+              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
+              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
+              "ViewState": "AgIAAMgAAAAAAAAAAAAYwNMAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T04:33:54.111Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainMenu.cs",
+              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\MainMenu.cs",
+              "RelativeDocumentMoniker": "Scripts\\UI\\MainMenu.cs",
+              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\MainMenu.cs",
+              "RelativeToolTip": "Scripts\\UI\\MainMenu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T21:27:43.238Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OptionsMenu.cs",
+              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\OptionsMenu.cs",
+              "RelativeDocumentMoniker": "Scripts\\UI\\OptionsMenu.cs",
+              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\OptionsMenu.cs",
+              "RelativeToolTip": "Scripts\\UI\\OptionsMenu.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAmwDoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T21:20:39.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Collectibles.cs",
               "DocumentMoniker": "E:\\PROJETS\\GODOT\\SHMUP\\Scripts\\Collectibles\\Collectibles.cs",
               "RelativeDocumentMoniker": "Scripts\\Collectibles\\Collectibles.cs",
@@ -178,315 +135,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 2,
               "Title": "AudioManager.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Managers\\AudioManager.cs",
               "RelativeDocumentMoniker": "Scripts\\Managers\\AudioManager.cs",
               "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Managers\\AudioManager.cs",
               "RelativeToolTip": "Scripts\\Managers\\AudioManager.cs",
-              "ViewState": "AgIAAIYAAAAAAAAAAAA5wJIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAALoAAAAAAAAAAAAIwNAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-04T19:19:22.599Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "MainMenu.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\MainMenu.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\MainMenu.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\MainMenu.cs",
-              "RelativeToolTip": "Scripts\\UI\\MainMenu.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAADgvywAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "HUD.cs",
+              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\HUD.cs",
+              "RelativeDocumentMoniker": "Scripts\\UI\\HUD.cs",
+              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\HUD.cs",
+              "RelativeToolTip": "Scripts\\UI\\HUD.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAYwJMAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T21:07:55.317Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "StateMenu.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\StateMenu.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\StateMenu.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\StateMenu.cs",
-              "RelativeToolTip": "Scripts\\UI\\StateMenu.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAwwH8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T20:51:32.865Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "KingKoops.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\KingKoops.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\KingKoops.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\KingKoops.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\KingKoops.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAYwI4AAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T22:32:01.23Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ShelledEnemy.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
-              "ViewState": "AgIAAMgAAAAAAAAAAAAYwNMAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T04:33:54.111Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Shell.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\Shell.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Shell.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\Shell.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\Shell.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAwwC0AAABSAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T09:28:29.512Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Rushroops.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\Rushroops.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Rushroops.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\Rushroops.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\Rushroops.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T09:23:32.67Z",
+              "WhenOpened": "2026-01-03T22:16:31.494Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Pow.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Player\\Pow.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Player\\Pow.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Player\\Pow.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Player\\Pow.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAYwEgAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T03:53:30.514Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Entity.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Entity.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Entity.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Entity.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Entity.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAA1wEIAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T02:57:48.94Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "BubbleScore.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\BubbleScore.cs",
               "RelativeDocumentMoniker": "Scripts\\UI\\BubbleScore.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\BubbleScore.cs*",
-              "RelativeToolTip": "Scripts\\UI\\BubbleScore.cs*",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAqwAsAAAAlAAAAAAAAAA==",
+              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\BubbleScore.cs",
+              "RelativeToolTip": "Scripts\\UI\\BubbleScore.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAIwBMAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-03T23:59:01.847Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "MenuManager.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\MenuManager.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\MenuManager.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\MenuManager.cs",
-              "RelativeToolTip": "Scripts\\UI\\MenuManager.cs",
-              "ViewState": "AgIAAIYAAAAAAAAAAAAIwAcAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T20:51:24.061Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "GameManager.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Managers\\GameManager.cs",
-              "RelativeDocumentMoniker": "Scripts\\Managers\\GameManager.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Managers\\GameManager.cs",
-              "RelativeToolTip": "Scripts\\Managers\\GameManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T22:37:06.68Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Player.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Player\\Player.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Player\\Player.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Player\\Player.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Player\\Player.cs",
-              "ViewState": "AgIAAOQAAAAAAAAAAAA3wPEAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T21:08:13.198Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Camera.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Managers\\Camera.cs",
-              "RelativeDocumentMoniker": "Scripts\\Managers\\Camera.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Managers\\Camera.cs",
-              "RelativeToolTip": "Scripts\\Managers\\Camera.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T03:21:25.292Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "OptionsMenu.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\OptionsMenu.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\OptionsMenu.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\OptionsMenu.cs",
-              "RelativeToolTip": "Scripts\\UI\\OptionsMenu.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwD4AAABLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T21:03:45.575Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Firebar.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Normal\\Firebar.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Normal\\Firebar.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Normal\\Firebar.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Normal\\Firebar.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T19:05:15.537Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "GameObject.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\GameObject.cs",
-              "RelativeDocumentMoniker": "Scripts\\GameObject.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\GameObject.cs",
-              "RelativeToolTip": "Scripts\\GameObject.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T19:14:15.123Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Obstacle.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Normal\\Obstacle.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Normal\\Obstacle.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Normal\\Obstacle.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Normal\\Obstacle.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T19:05:28.182Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Movable.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Movable.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Movable.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Movable.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Movable.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T19:07:57.535Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Hammer.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Player\\Hammer.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Player\\Hammer.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Player\\Hammer.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Player\\Hammer.cs",
-              "ViewState": "AgIAABoBAAAAAAAAAAAwwCYBAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T08:36:47.685Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "PowCollectible.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Collectibles\\PowCollectible.cs",
-              "RelativeDocumentMoniker": "Scripts\\Collectibles\\PowCollectible.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Collectibles\\PowCollectible.cs",
-              "RelativeToolTip": "Scripts\\Collectibles\\PowCollectible.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T09:34:12.647Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "MenuBase.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\MenuBase.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\MenuBase.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\MenuBase.cs",
-              "RelativeToolTip": "Scripts\\UI\\MenuBase.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwG4AAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T21:24:13.98Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Walsy.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Normal\\Walsy.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Normal\\Walsy.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Normal\\Walsy.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Normal\\Walsy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T07:20:46.696Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "Hammer_ScriptSignals.generated.cs",
-              "DocumentMoniker": "C:\\Users\\alexy\\AppData\\Local\\Temp\\VSGeneratedDocuments\\63d4d49e-d34e-e453-3fb6-179edbce779b\\Hammer_ScriptSignals.generated.cs",
-              "ToolTip": "Hammer_ScriptSignals.generated.cs [g\u00E9n\u00E9r\u00E9 par Godot.SourceGenerators.ScriptSignalsGenerator]",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "OverriddenToolTip": "Hammer_ScriptSignals.generated.cs [g\u00E9n\u00E9r\u00E9 par Godot.SourceGenerators.ScriptSignalsGenerator]",
-              "WhenOpened": "2026-01-04T09:44:13.906Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 7,
               "Title": "Koops.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\Koops.cs",
               "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Koops.cs",
@@ -498,19 +186,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Sign.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scenes\\UI\\Sign.cs",
-              "RelativeDocumentMoniker": "Scenes\\UI\\Sign.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scenes\\UI\\Sign.cs",
-              "RelativeToolTip": "Scenes\\UI\\Sign.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAwwE8AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T06:37:44.503Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 8,
               "Title": "Victory.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\Victory.cs",
               "RelativeDocumentMoniker": "Scripts\\UI\\Victory.cs",
@@ -522,7 +198,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 10,
               "Title": "UpDown.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Utils\\Effects\\UpDown.cs",
               "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\UpDown.cs",
@@ -534,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 16,
               "Title": "Pall.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Utils\\Effects\\Pall.cs",
               "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Pall.cs",
@@ -547,7 +223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 11,
               "Title": "Mystery.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Collectibles\\Mystery.cs",
               "RelativeDocumentMoniker": "Scripts\\Collectibles\\Mystery.cs",
@@ -559,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 9,
               "Title": "GameStats.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Managers\\GameStats.cs",
               "RelativeDocumentMoniker": "Scripts\\Managers\\GameStats.cs",
@@ -571,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 12,
               "Title": "Shot.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Projectiles\\Shot.cs",
               "RelativeDocumentMoniker": "Scripts\\Projectiles\\Shot.cs",
@@ -583,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 13,
               "Title": "Time.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Utils\\Effects\\Time.cs",
               "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Time.cs",
@@ -595,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 14,
               "Title": "Coin.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Collectibles\\Coin.cs",
               "RelativeDocumentMoniker": "Scripts\\Collectibles\\Coin.cs",
@@ -607,7 +283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 15,
               "Title": "Property.cs",
               "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Utils\\Property\\Property.cs",
               "RelativeDocumentMoniker": "Scripts\\Utils\\Property\\Property.cs",
@@ -616,74 +292,6 @@
               "ViewState": "AgIAAAsAAAAAAAAAAAAQwB8AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-04T02:57:32.343Z"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "10b96102-26fa-4f56-bf0c-28e17b9b252f",
-        "Display": 0,
-        "X": 199,
-        "Y": 80,
-        "Width": 1578,
-        "Height": 957,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HUD.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\HUD.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\HUD.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\UI\\HUD.cs",
-              "RelativeToolTip": "Scripts\\UI\\HUD.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAiwJIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T22:16:31.494Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "1cfc87b2-9bfb-44dd-86ef-bf7f9ffbcabb",
-        "Display": 0,
-        "X": -5,
-        "Y": 80,
-        "Width": 1578,
-        "Height": 957,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Enemy.cs",
-              "DocumentMoniker": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\Enemy.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Enemy.cs",
-              "ToolTip": "E:\\Projets\\Godot\\Shmup\\Scripts\\Entity\\Enemy\\Shelled\\Enemy.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\Enemy.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAmwEkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T03:53:34.649Z",
-              "EditorCaption": ""
             }
           ]
         }

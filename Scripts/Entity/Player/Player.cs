@@ -250,7 +250,10 @@ public partial class Player : Entity
         base.EntityHit(pDamage);
 
         if (health <= 0)
+        {
+            EntityDeath();
             SetDeadState();
+        }
 
         LevelUp(false);
         HUD.GetInstance().UpdateHealth(health);
