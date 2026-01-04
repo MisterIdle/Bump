@@ -2,45 +2,25 @@
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.cs" id="1_3gwtq"]
 [ext_resource type="PackedScene" uid="uid://bh4iqwgyl5hjm" path="res://Scenes/Projectiles/Shot.tscn" id="2_1sndv"]
-[ext_resource type="PackedScene" uid="uid://chlkbc1trkddg" path="res://Scenes/Effect/BigPlayer.tscn" id="2_4m44y"]
+[ext_resource type="PackedScene" uid="uid://chlkbc1trkddg" path="res://Scenes/Particules/BigPlayer.tscn" id="2_4m44y"]
 [ext_resource type="PackedScene" uid="uid://cgyguuakuyjb2" path="res://Scenes/Projectiles/Fireball.tscn" id="2_w6786"]
-[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_20icr"]
-[ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Misc/Pow.tscn" id="4_0ve0x"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="3_20icr"]
+[ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Entity/Player/Pow.tscn" id="4_0ve0x"]
 [ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="6_1xct8"]
+[ext_resource type="AudioStream" uid="uid://clfqvvglxi1dx" path="res://Assets/Audio/SFX/player_shoot0.wav" id="6_eqxy2"]
 [ext_resource type="PackedScene" uid="uid://b5f4s4npvvkep" path="res://Scenes/Entity/Player/Hammer.tscn" id="6_n43dq"]
-[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Misc/Eye.tscn" id="8_xd46q"]
-[ext_resource type="Texture2D" uid="uid://chijx5hb0iwny" path="res://Assets/Sprites/StickHammer.svg" id="10_qbv15"]
-[ext_resource type="Texture2D" uid="uid://pfbacar5ib3v" path="res://Assets/Sprites/Palll1.svg" id="11_7k1x7"]
-[ext_resource type="Texture2D" uid="uid://x0tb8vshaev6" path="res://Assets/Sprites/Palll2.svg" id="12_rlrdl"]
+[ext_resource type="AudioStream" uid="uid://cd0yhy3tun3qx" path="res://Assets/Audio/SFX/player_shoot1.wav" id="7_xxutd"]
+[ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="8_8qn4a"]
+[ext_resource type="AudioStream" uid="uid://ce12adqmef45" path="res://Assets/Audio/SFX/player_shoot2.wav" id="8_bdktb"]
+[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="8_xd46q"]
+[ext_resource type="AudioStream" uid="uid://qeg3ni5nxu5i" path="res://Assets/Audio/SFX/player_shoot3.wav" id="9_oyxtf"]
+[ext_resource type="AudioStream" uid="uid://bw4hbiuto4dsv" path="res://Assets/Audio/SFX/player_explosion.wav" id="10_wsy5o"]
+[ext_resource type="AudioStream" uid="uid://c6jwcbfchxt2f" path="res://Assets/Audio/SFX/loselife.wav" id="11_qavlw"]
 [ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Visual/RetroMario-Regular.otf" id="13_3fptg"]
-[ext_resource type="Texture2D" uid="uid://31vh4twefb6a" path="res://Assets/Sprites/Palll3.svg" id="13_awf0n"]
-[ext_resource type="Texture2D" uid="uid://cp6ulypumawqu" path="res://Assets/Sprites/Palll4.svg" id="14_1w5s4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p48nk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b28bx"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nus37"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_w2oku"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("11_7k1x7")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_rlrdl")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_awf0n")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_1w5s4")
-}],
-"loop": true,
-"name": &"fly",
-"speed": 30.0
-}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_c0y2u"]
 font = ExtResource("13_3fptg")
@@ -49,13 +29,12 @@ font_size = 1490
 [sub_resource type="CircleShape2D" id="CircleShape2D_onibu"]
 radius = 40.5494
 
-[node name="Player" type="Area2D" node_paths=PackedStringArray("collision", "pall", "nose", "muzzle", "hammer", "sprite")]
+[node name="Player" type="Area2D" node_paths=PackedStringArray("collision", "nose", "muzzle", "hammer", "sprite")]
 z_index = 100
 material = SubResource("ShaderMaterial_p48nk")
 collision_mask = 6
 script = ExtResource("1_3gwtq")
 collision = NodePath("CollisionShape2D")
-pall = NodePath("Propyot/Stick/Pall")
 nose = NodePath("Propyot/Nose")
 muzzle = NodePath("Muzzle")
 hammer = NodePath("Hammer")
@@ -67,6 +46,9 @@ fireBallScene = ExtResource("2_w6786")
 baseShotSpace = 1500.0
 powScene = ExtResource("4_0ve0x")
 popPlayerDeath = ExtResource("2_4m44y")
+playerShoot = Array[AudioStream]([ExtResource("6_eqxy2"), ExtResource("7_xxutd"), ExtResource("8_bdktb"), ExtResource("9_oyxtf")])
+playerDeath = ExtResource("10_wsy5o")
+loseLife = ExtResource("11_qavlw")
 health = 3
 invincibleTime = 2.0
 popScene = ExtResource("3_20icr")
@@ -83,26 +65,8 @@ position = Vector2(0, -4.76837e-07)
 scale = Vector2(0.2, 0.171)
 texture = ExtResource("6_1xct8")
 
-[node name="Stick" type="Sprite2D" parent="Propyot"]
-self_modulate = Color(0.678431, 0.415686, 0.239216, 1)
-z_index = -1
-position = Vector2(-5.85247, -268.769)
-scale = Vector2(1.17257, 0.647289)
-texture = ExtResource("10_qbv15")
-
-[node name="Pall" type="AnimatedSprite2D" parent="Propyot/Stick"]
-material = SubResource("ShaderMaterial_nus37")
-position = Vector2(-3.03382e-05, -187.234)
-scale = Vector2(4.45737, 1.18446)
-sprite_frames = SubResource("SpriteFrames_w2oku")
-animation = &"fly"
-frame_progress = 0.499092
-
-[node name="Sprite2D" type="Sprite2D" parent="Propyot/Stick"]
-modulate = Color(0.678431, 0.415686, 0.239216, 1)
-position = Vector2(-3.05176e-05, -225.572)
-scale = Vector2(0.128758, 0.248945)
-texture = ExtResource("6_1xct8")
+[node name="Pall" parent="Propyot" instance=ExtResource("8_8qn4a")]
+position = Vector2(0, -298.246)
 
 [node name="Eye" parent="Propyot" instance=ExtResource("8_xd46q")]
 self_modulate = Color(1, 1, 1, 1)

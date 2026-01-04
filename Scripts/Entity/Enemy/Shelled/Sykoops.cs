@@ -1,0 +1,109 @@
+﻿using Godot;
+
+public partial class Sykoops : ShelledEnemy
+{
+    private enum ChaseState { Patrolling, Approaching, Chasing, Abandoned }
+    private ChaseState chaseState = ChaseState.Patrolling;
+
+    [ExportGroup("Sykoops AI")]
+    [Export] private int chaseDistance = 500;
+    [Export] private int approchDistance = 200;
+
+    private Timer behindTimer;
+    private bool haveAbandoned;
+    private const float MAX_BEHIND_TIME = 10f;
+    private const float MARGIN = -75f;
+
+    public override void Initiate()
+    {
+        useSpikes = true;
+        spikeRadius = 25f;
+        fireRate = 3.5f;
+
+        base.Initiate();
+
+        behindTimer = new Timer();
+        behindTimer.WaitTime = MAX_BEHIND_TIME;
+        behindTimer.OneShot = true;
+        behindTimer.Timeout += BehindStop;
+        AddChild(behindTimer);
+
+        shell.SetShellColor(Colors.Black);
+    }
+
+    protected override void AliveUpdate(float pDelta)
+    {
+        base.AliveUpdate(pDelta);
+
+        switch (chaseState)
+        {
+            case ChaseState.Patrolling:
+                if (globalPlayerDistance <= 600)
+                {
+                    chaseState = ChaseState.Approaching;
+                    Effect.BumpScale(this, baseScale);
+                }
+                break;
+
+            case ChaseState.Approaching:
+                velocity = playerDirection;
+                StartSpikeRoutine();
+                if (globalPlayerDistance <= approchDistance)
+                {
+                    chaseState = ChaseState.Chasing;
+                    Effect.BumpScale(this, baseScale);
+                    wing.SetSpeedDouble(true);
+                }
+                break;
+
+            case ChaseState.Chasing:
+                ChasePlayer();
+                break;
+
+            case ChaseState.Abandoned:
+                if (!haveAbandoned) Abandonned();
+                break;
+        }
+
+        velocity.Y = angleX;
+    }
+
+    private void ChasePlayer()
+    {
+        Vector2 lTargetDirection = (globalPlayerDistance <= chaseDistance) ? -playerDirection : playerDirection;
+        velocity = lTargetDirection;
+
+        if (!faceLeft)
+        {
+            if (behindTimer.IsStopped()) behindTimer.Start();
+        }
+        else
+        {
+            behindTimer.Stop();
+        }
+
+        GlobalPosition = Utils.ClampToScreen(GlobalPosition, MARGIN, MARGIN);
+    }
+
+    private void BehindStop()
+    {
+        wing.SetSpeedDouble(false);
+        chaseState = ChaseState.Abandoned;
+        StopSpikeRoutine();
+    }
+
+    private void Abandonned()
+    {
+        haveAbandoned = true;
+        facePlayer = false;
+        Flip(true);
+        velocity = Vector2.Left;
+        velocity.Y = angleY;
+    }
+
+    public override void EntityHit(int pDamage)
+    {
+        base.EntityHit(pDamage);
+        StartInvincible(invincibleTime);
+    }
+}

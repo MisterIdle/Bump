@@ -1,15 +1,15 @@
 using Godot;
 using System.Collections.Generic;
 
-public partial class MainMenu : Control
+public partial class MainMenu : MenuBase
 {
     [ExportCategory("References")]
-    [Export] private MenuManager menuManager;
     [Export] private Label Title;
 
     [ExportSubgroup("Buttons")]
     [Export] private Button startButton;
     [Export] private Button optionButton;
+    [Export] private Button helpButton;
     [Export] private Button creditsButton;
     [Export] private Button quitButton;
 
@@ -24,26 +24,60 @@ public partial class MainMenu : Control
     [Export] private float rotationAmplitude = 3f;
 
     private List<Label> generatedLetterLabels = new List<Label>();
+    private Tween introTitleTween;
+    private List<Tween> waveTweens = new List<Tween>();
 
     public override void _Ready()
     {
         PrepareTitleText();
-        PlayButtonIntroAnimation();
-        PlayTitleIntroAnimation();
 
         optionButton.Pressed += OnOptionPressed;
         startButton.Pressed += OnStartPressed;
         quitButton.Pressed += OnQuitPressed;
+        creditsButton.Pressed += OnCreditsPressed;
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+
+        ResetTitleVisuals();
+        PlayTitleIntroAnimation();
+
+        startButton.GrabFocus();
+
+        //AudioManager.GetInstance().PlayMusic(AudioManager.GetInstance().uiLoop);
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+
+        if (introTitleTween != null && introTitleTween.IsValid()) introTitleTween.Kill();
+        foreach (Tween lTween in waveTweens)
+        {
+            if (lTween != null && lTween.IsValid()) lTween.Kill();
+        }
+        waveTweens.Clear();
+
+        PlayGenericExitAnimation();
     }
 
     private void OnOptionPressed()
     {
-        menuManager.ToggleMenu(MenuManager.MenuContext.MainMenu);
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Options);
     }
 
     private void OnStartPressed()
     {
-        SceneManager.GetInstance().SwitchScene(SceneManager.SceneType.Game);
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.None);
+        SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.Game);
+        //AudioManager.GetInstance().StopMusic();
+    }
+
+    private void OnCreditsPressed()
+    {
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Credits);
     }
 
     private void OnQuitPressed()
@@ -51,17 +85,30 @@ public partial class MainMenu : Control
         GetTree().Quit();
     }
 
+    private void ResetTitleVisuals()
+    {
+        foreach (var lLabel in generatedLetterLabels)
+        {
+            lLabel.Scale = Vector2.Zero;
+            lLabel.Modulate = new Color(1, 1, 1, 0);
+            lLabel.RotationDegrees = 0;
+            lLabel.Position = new Vector2(lLabel.Position.X, 0);
+        }
+    }
+
     private void PrepareTitleText()
     {
+        if (Title == null) return;
+
         string lContent = Title.Text;
         Title.Visible = false;
-
         string lFont = "font";
 
         HBoxContainer lContainer = new HBoxContainer();
         lContainer.Alignment = BoxContainer.AlignmentMode.Center;
         lContainer.Position = Title.Position;
         lContainer.Size = Title.Size;
+        lContainer.MouseFilter = MouseFilterEnum.Ignore;
 
         Title.GetParent().CallDeferred(Node.MethodName.AddChild, lContainer);
 
@@ -74,52 +121,55 @@ public partial class MainMenu : Control
             lLetterLabel.LabelSettings = Title.LabelSettings;
             lLetterLabel.Modulate = new Color(1, 1, 1, 0);
 
-            Vector2 lCharSize = lLetterLabel.GetThemeFont(lFont).GetStringSize(lLetterLabel.Text, lLetterLabel.HorizontalAlignment, -1, lLetterLabel.LabelSettings.FontSize);
-
-            lLetterLabel.PivotOffset = new Vector2(lCharSize.X / 2, lLetterLabel.LabelSettings.FontSize / 2);
+            var font = lLetterLabel.GetThemeFont(lFont);
+            if (font != null)
+            {
+                Vector2 lCharSize = font.GetStringSize(lLetterLabel.Text, lLetterLabel.HorizontalAlignment, -1, lLetterLabel.LabelSettings.FontSize);
+                lLetterLabel.PivotOffset = new Vector2(lCharSize.X / 2, lLetterLabel.LabelSettings.FontSize / 2);
+                Vector2 lWrapperSize = lCharSize * letterSpacing;
+                lWrapper.CustomMinimumSize = lWrapperSize;
+            }
 
             lWrapper.AddChild(lLetterLabel);
             lContainer.AddChild(lWrapper);
-
-            Vector2 lWrapperSize = lCharSize * letterSpacing;
-
-            lWrapper.CustomMinimumSize = lWrapperSize;
             generatedLetterLabels.Add(lLetterLabel);
         }
     }
 
     private void PlayTitleIntroAnimation()
     {
-        Tween lTween = CreateTween();
-        lTween.SetParallel(true);
+        introTitleTween = CreateTween();
+        introTitleTween.SetParallel(true);
 
         for (int i = 0; i < generatedLetterLabels.Count; i++)
         {
             Label lLabel = generatedLetterLabels[i];
             float lDelay = i * introLetterSpeed;
 
-            lLabel.Scale = Vector2.Zero;
-            lLabel.Modulate = new Color(1, 1, 1, 0);
-
-            lTween.TweenProperty(lLabel, (string)PropertyName.Scale, Vector2.One, 0.4f)
+            introTitleTween.TweenProperty(lLabel, (string)PropertyName.Scale, Vector2.One, 0.4f)
                 .SetDelay(lDelay)
                 .SetTrans(Tween.TransitionType.Back);
 
-            lTween.TweenProperty(lLabel, (string)PropertyName.Modulate + ":a", 1f, 0.3f)
+            introTitleTween.TweenProperty(lLabel, (string)PropertyName.Modulate + ":a", 1f, 0.3f)
                 .SetDelay(lDelay);
         }
 
-        lTween.Chain().TweenCallback(Callable.From(StartTitleWaveLoop));
+        introTitleTween.Chain().TweenCallback(Callable.From(StartTitleWaveLoop));
     }
 
     private void StartTitleWaveLoop()
     {
+        foreach (var t in waveTweens) { if (t != null && t.IsValid()) t.Kill(); }
+        waveTweens.Clear();
+
         for (int i = 0; i < generatedLetterLabels.Count; i++)
         {
             Label lLabel = generatedLetterLabels[i];
             float lDelayOffset = i * waveFrequencyDelay;
 
             Tween lWaveTween = CreateTween();
+            waveTweens.Add(lWaveTween);
+
             lWaveTween.SetLoops();
 
             lWaveTween.TweenProperty(lLabel, (string)PropertyName.Position + ":y", -waveAmplitude, waveDuration * 0.5f)
@@ -139,45 +189,6 @@ public partial class MainMenu : Control
             lWaveTween.Parallel().TweenProperty(lLabel, (string)PropertyName.RotationDegrees, -rotationAmplitude, waveDuration * 0.5f)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.InOut);
-        }
-    }
-
-    private void PlayButtonIntroAnimation()
-    {
-        Tween lButtonTween = CreateTween();
-        lButtonTween.SetParallel(true);
-        float lCurrentDelay = 0.5f;
-
-        AnimateButtonsRecursive(this, lButtonTween, ref lCurrentDelay);
-
-        lButtonTween.Finished += () => startButton.GrabFocus();
-    }
-
-    private void AnimateButtonsRecursive(Node pNode, Tween pTween, ref float pDelay)
-    {
-        foreach (Node lChild in pNode.GetChildren())
-        {
-            if (lChild is Button lButton)
-            {
-                lButton.Modulate = new Color(1, 1, 1, 0);
-                lButton.Scale = new Vector2(0.5f, 0.5f);
-                lButton.PivotOffset = lButton.Size / 2;
-
-                pTween.TweenProperty(lButton, (string)PropertyName.Modulate + ":a", 1f, 0.3f)
-                    .SetDelay(pDelay);
-
-                pTween.TweenProperty(lButton, (string)PropertyName.Scale, Vector2.One, 0.6f)
-                    .SetDelay(pDelay)
-                    .SetEase(Tween.EaseType.Out)
-                    .SetTrans(Tween.TransitionType.Elastic);
-
-                pDelay += 0.1f;
-            }
-
-            if (lChild.GetChildCount() > 0)
-            {
-                AnimateButtonsRecursive(lChild, pTween, ref pDelay);
-            }
         }
     }
 }

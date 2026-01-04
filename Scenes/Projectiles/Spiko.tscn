@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0nfx3v8low78"]
+
+[ext_resource type="Script" path="res://Scripts/Projectiles/Spiko.cs" id="1_g25i0"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_5aqwd"]
+[ext_resource type="Texture2D" uid="uid://degjrhvteie7t" path="res://Assets/Sprites/Spike.svg" id="2_xq3wf"]
+
+[sub_resource type="Gradient" id="Gradient_8thpy"]
+colors = PackedColorArray(1, 0.756863, 0.239216, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_66d8l"]
+gradient = SubResource("Gradient_8thpy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wy45a"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+angle_max = 720.0
+gravity = Vector3(-100, 0, 0)
+linear_accel_max = 100.0
+radial_accel_max = 30.0
+scale_min = 2.0
+scale_max = 15.0
+color_ramp = SubResource("GradientTexture1D_66d8l")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0acx"]
+size = Vector2(20, 14)
+
+[node name="Spiko" type="Area2D" node_paths=PackedStringArray("particles", "collision", "sprite")]
+collision_layer = 2
+collision_mask = 257
+script = ExtResource("1_g25i0")
+particles = NodePath("GPUParticles2D")
+collision = NodePath("CollisionShape2D")
+lifeTime = 15.0
+popScene = ExtResource("2_5aqwd")
+rotationSpeed = 3.0
+speed = 600.0
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(0.029, 0.048)
+texture = ExtResource("2_xq3wf")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-10, -5.04871e-29)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_wy45a")
+explosiveness = 0.1
+fixed_fps = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y0acx")

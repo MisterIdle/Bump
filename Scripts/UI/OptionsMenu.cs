@@ -1,39 +1,47 @@
 using Godot;
 
-public partial class OptionsMenu : Control
+public partial class OptionsMenu : MenuBase
 {
     [Export] private MenuManager manager;
 
+    [ExportGroup("References")]
     [Export] private Button backButton;
-
     [Export] private Button franceButton;
     [Export] private Button englishButton;
-
     [Export] private CheckBox fullscreenCheck;
     [Export] private CheckBox vsyncCheck;
 
     public override void _Ready()
     {
-        ProcessMode = ProcessModeEnum.Always;
-
         backButton.Pressed += OnBackPressed;
-
         franceButton.Pressed += () => ChangeLocale("fr");
         englishButton.Pressed += () => ChangeLocale("en");
 
         SetupVideoSettings();
     }
 
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        backButton.GrabFocus();
+    }
+
+    public override void OnExit() 
+    {
+        PlayGenericExitAnimation();
+    }
+
     public override void _Input(InputEvent pEvent)
     {
-        if (pEvent.IsActionPressed(Property.INPUT_UI_BACK) && manager.isShowingOptions)
+        if (Visible && pEvent.IsActionPressed(Property.INPUT_UI_BACK))
             OnBackPressed();
     }
 
     private void SetupVideoSettings()
     {
-        bool lIsFullscreen = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen || DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;
+        if (fullscreenCheck == null || vsyncCheck == null) return;
 
+        bool lIsFullscreen = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen || DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;
         fullscreenCheck.ButtonPressed = lIsFullscreen;
         fullscreenCheck.Toggled += OnFullscreenToggled;
 
@@ -62,11 +70,6 @@ public partial class OptionsMenu : Control
 
     private void OnBackPressed()
     {
-        manager.ToggleMenu();
-    }
-
-    public void OnMenuShow()
-    {
-        backButton.GrabFocus();
+        MenuManager.GetInstance().ReturnFromSubMenu();
     }
 }

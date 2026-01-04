@@ -1,0 +1,176 @@
+[gd_scene load_steps=12 format=3 uid="uid://dhloh05yspq3y"]
+
+[ext_resource type="Script" path="res://Scripts/UI/HUD.cs" id="1_cm3td"]
+[ext_resource type="PackedScene" uid="uid://y53encm32pb5" path="res://Scenes/UI/BubbleScore.tscn" id="2_iyus8"]
+[ext_resource type="Texture2D" uid="uid://dvvkm1ljuicwb" path="res://Assets/Sprites/Heart.svg" id="3_fehtv"]
+[ext_resource type="Texture2D" uid="uid://ey818jhxedis" path="res://Assets/Sprites/Pow.svg" id="4_u8t34"]
+[ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="5_1ykm6"]
+[ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Visual/RetroMario-Regular.otf" id="6_ocj3e"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hdyii"]
+font = ExtResource("5_1ykm6")
+font_size = 75
+
+[sub_resource type="LabelSettings" id="LabelSettings_vgvdy"]
+font = ExtResource("5_1ykm6")
+font_size = 30
+
+[sub_resource type="Theme" id="Theme_jta2v"]
+default_font = ExtResource("5_1ykm6")
+default_font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_on232"]
+font = ExtResource("5_1ykm6")
+font_size = 50
+outline_size = 4
+outline_color = Color(0.259294, 0.259294, 0.259294, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_viltm"]
+font = ExtResource("6_ocj3e")
+font_size = 100
+outline_size = 20
+outline_color = Color(0.652227, 2.76752e-06, 4.33177e-07, 1)
+
+[node name="HUD" type="Control" node_paths=PackedStringArray("healthContainer", "powContainer", "scoreLabel", "godmodeLabel", "gameoverLabel", "bossLabel", "bossTextureBar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cm3td")
+bubbleScore = ExtResource("2_iyus8")
+healthContainer = NodePath("Health")
+powContainer = NodePath("Pow")
+scoreLabel = NodePath("Score")
+godmodeLabel = NodePath("GodMode")
+gameoverLabel = NodePath("GameOver")
+bossLabel = NodePath("Boss/BossLife")
+bossTextureBar = NodePath("Boss/TextureProgressBar")
+
+[node name="Health" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 262.0
+offset_bottom = 118.0
+
+[node name="TextureRect" type="TextureRect" parent="Health"]
+self_modulate = Color(1, 0.346577, 0.280009, 1)
+layout_mode = 2
+texture = ExtResource("3_fehtv")
+expand_mode = 3
+flip_h = true
+
+[node name="TextureRect2" type="TextureRect" parent="Health"]
+self_modulate = Color(1, 0.346577, 0.280009, 1)
+layout_mode = 2
+texture = ExtResource("3_fehtv")
+expand_mode = 3
+flip_h = true
+
+[node name="TextureRect3" type="TextureRect" parent="Health"]
+self_modulate = Color(1, 0.346577, 0.280009, 1)
+layout_mode = 2
+texture = ExtResource("3_fehtv")
+expand_mode = 3
+flip_h = true
+
+[node name="TextureRect4" type="TextureRect" parent="Health"]
+self_modulate = Color(1, 0.346577, 0.280009, 1)
+layout_mode = 2
+texture = ExtResource("3_fehtv")
+expand_mode = 3
+flip_h = true
+
+[node name="TextureRect5" type="TextureRect" parent="Health"]
+self_modulate = Color(1, 0.346577, 0.280009, 1)
+layout_mode = 2
+texture = ExtResource("3_fehtv")
+expand_mode = 3
+flip_h = true
+
+[node name="Pow" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -262.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = 118.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pow"]
+layout_mode = 2
+texture = ExtResource("4_u8t34")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="Pow"]
+layout_mode = 2
+texture = ExtResource("4_u8t34")
+expand_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="Pow"]
+layout_mode = 2
+texture = ExtResource("4_u8t34")
+expand_mode = 3
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -336.0
+offset_top = 25.0
+offset_right = 336.0
+offset_bottom = 115.0
+grow_horizontal = 2
+pivot_offset = Vector2(336, 45)
+text = "0"
+label_settings = SubResource("LabelSettings_hdyii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Boss" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 548.0
+offset_top = 123.0
+offset_right = 1377.0
+offset_bottom = 199.0
+alignment = 1
+
+[node name="BossLife" type="Label" parent="Boss"]
+layout_mode = 2
+text = "ID_KING"
+label_settings = SubResource("LabelSettings_vgvdy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar" type="ProgressBar" parent="Boss"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+theme = SubResource("Theme_jta2v")
+
+[node name="GodMode" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1604.0
+offset_top = 997.0
+offset_right = 1882.0
+offset_bottom = 1058.0
+text = "GOD MODE"
+label_settings = SubResource("LabelSettings_on232")
+
+[node name="GameOver" type="Label" parent="."]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 487.0
+offset_right = 1606.0
+offset_bottom = 608.0
+pivot_offset = Vector2(623, 60)
+text = "UI_GAMEOVER_INGAME"
+label_settings = SubResource("LabelSettings_viltm")
+horizontal_alignment = 1
+vertical_alignment = 1

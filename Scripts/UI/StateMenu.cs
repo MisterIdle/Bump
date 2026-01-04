@@ -1,22 +1,7 @@
 ﻿using Godot;
 
-public partial class StateMenu : Control
+public partial class StateMenu : MenuBase
 {
-    public enum MenuState
-    {
-        Pause,
-        GameOver,
-        Victory
-    }
-
-    private static StateMenu instance;
-
-    public static StateMenu GetInstance()
-    {
-        return instance;
-    }
-
-    [Export] private MenuManager manager;
     [Export] private Panel panel;
     [Export] private Label titleLabel;
 
@@ -28,223 +13,136 @@ public partial class StateMenu : Control
 
     [ExportCategory("Background Settings")]
     [Export] public Color pauseColor = new Color(1, 1, 1, 1);
-    // Note : Garde l'alpha à 1 ici, l'opacité est gérée par le Tween
     [Export] public Color gameOverColor = new Color(0, 0, 0, 1);
     [Export] public Color victoryColor = new Color(1, 1, 1, 1);
 
-    private Tween currentTween;
-    private MenuState currentState = MenuState.Pause;
-    private Color currentTargetColor;
-
     public override void _Ready()
     {
-        if (instance == null) instance = this;
-        else
-        {
-            QueueFree();
-            return;
-        }
-
-        ProcessMode = ProcessModeEnum.Always;
-
-        Visible = false;
-
-        // CORRECTION : On utilise Modulate pour la transparence, pas SelfModulate
         panel.Modulate = new Color(1, 1, 1, 0);
-        // On s'assure que SelfModulate est neutre au départ
-        panel.SelfModulate = Colors.White;
 
         optionButton.Pressed += OnOptionPressed;
         resumeButton.Pressed += OnResume;
         restartButton.Pressed += OnRestart;
         mainMenuButton.Pressed += OnMainMenu;
+
+        Visible = false;
     }
 
     public override void _Input(InputEvent pEvent)
     {
         if (pEvent.IsActionPressed(Property.INPUT_UI_PAUSE))
         {
-            if (Visible)
-            {
-                if (manager.isShowingOptions)
-                {
-                    manager.ToggleMenu();
-                    return;
-                }
+            MenuManager lManager = MenuManager.GetInstance();
 
-                if (currentState == MenuState.Pause)
-                {
-                    OnResume();
-                }
-            }
-            else
-            {
-                OpenMenu(MenuState.Pause);
-            }
+            if (Visible && lManager.currentMenuState == MenuManager.MenuState.Pause)
+                OnResume();
+
+            else if (lManager.currentMenuState == MenuManager.MenuState.HUD)
+                lManager.SetMenu(MenuManager.MenuState.Pause);
         }
     }
 
-    public void OpenMenu(MenuState state)
+    public override void OnEnter()
     {
-        currentState = state;
         ConfigureUI();
-
         GetTree().Paused = true;
-        Visible = true;
-        PlayOpenAnimation();
+
+        MenuManager lManager = MenuManager.GetInstance();
+
+        lManager.previousMenuState = lManager.currentMenuState;
+
+        if (panel.Modulate.A < 0.5f)
+        {
+            panel.Modulate = new Color(1, 1, 1, 0);
+            CreateTween().TweenProperty(panel, "modulate:a", 1.0f, 0.4f);
+        }
+        else
+            panel.Modulate = new Color(1, 1, 1, 1);
+
+        base.OnEnter();
+
+        if (resumeButton.Visible) resumeButton.GrabFocus();
+        else restartButton.GrabFocus();
+    }
+
+    public override void OnExit()
+    {
+        MenuManager lManager = MenuManager.GetInstance();
+
+        if (lManager.previousMenuState == lManager.currentMenuState)
+            CreateTween().TweenProperty(panel, "modulate:a", 0.0f, 0.4f);
+
+        PlayGenericExitAnimation();
+        base.OnExit();
     }
 
     private void ConfigureUI()
     {
-        switch (currentState)
+        MenuManager.MenuState lState = MenuManager.GetInstance().currentMenuState;
+
+        resumeButton.Visible = false;
+        restartButton.Visible = false;
+        optionButton.Visible = false;
+        mainMenuButton.Visible = false;
+
+        switch (lState)
         {
-            case MenuState.Pause:
-                titleLabel.Text = "UI_PAUSE";
+            case MenuManager.MenuState.Pause:
+                titleLabel.Text = "ID_PAUSE";
                 resumeButton.Visible = true;
                 restartButton.Visible = true;
                 optionButton.Visible = true;
                 mainMenuButton.Visible = true;
-                currentTargetColor = pauseColor;
+                panel.SelfModulate = pauseColor;
                 break;
 
-            case MenuState.GameOver:
-                titleLabel.Text = "UI_GAMEOVER";
-                resumeButton.Visible = false;
+            case MenuManager.MenuState.GameOver:
+                titleLabel.Text = "ID_GAMEOVER";
                 restartButton.Visible = true;
-                optionButton.Visible = false;
                 mainMenuButton.Visible = true;
-                currentTargetColor = gameOverColor;
-                break;
-
-            case MenuState.Victory:
-                titleLabel.Text = "UI_VICTORY";
-                resumeButton.Visible = false;
-                restartButton.Visible = true;
-                optionButton.Visible = false;
-                mainMenuButton.Visible = true;
-                currentTargetColor = victoryColor;
+                panel.SelfModulate = gameOverColor;
                 break;
         }
     }
 
     private void OnOptionPressed()
     {
-        manager.ToggleMenu();
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Options);
+        CreateTween().TweenProperty(panel, "modulate:a", 1.0f, 0.4f);
     }
 
     public void OnResume()
     {
-        if (currentState != MenuState.Pause) return;
-        PlayCloseAnimation();
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
+        GetTree().Paused = false;
     }
 
     public void OnRestart()
     {
-        Tween lTween = PlayCloseAnimation();
-        lTween.Finished += () => SceneManager.GetInstance().ReloadScene();
+        panel.MouseFilter = MouseFilterEnum.Ignore;
+
+        CreateTween().TweenProperty(panel, "modulate:a", 0.0f, 0.4f);
+        Tween lTween = PlayGenericExitAnimation();
+
+        lTween.Finished += () =>
+        {
+            GetTree().Paused = false;
+            SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.Game);
+        };
+
+        //AudioManager.GetInstance().StopMusic();
     }
 
     public void OnMainMenu()
     {
-        Tween lTween = PlayCloseAnimation();
-        lTween.Finished += () => SceneManager.GetInstance().GoToMainMenu();
-    }
+        CreateTween().TweenProperty(panel, "modulate:a", 0.0f, 0.4f);
+        Tween lTween = PlayGenericExitAnimation();
 
-    private void PlayOpenAnimation()
-    {
-        if (currentTween != null && currentTween.IsRunning()) currentTween.Kill();
-        currentTween = CreateTween();
-        currentTween.SetParallel(true);
-
-        panel.SelfModulate = currentTargetColor;
-
-        panel.Modulate = new Color(1, 1, 1, 0);
-
-        currentTween.TweenProperty(panel, "modulate:a", 1.0f, 0.4f)
-            .SetEase(Tween.EaseType.Out);
-
-        float lCurrentDelay = 0.15f;
-        AnimateButtonsInRecursive(this, currentTween, ref lCurrentDelay);
-
-        currentTween.Finished += () =>
+        lTween.Finished += () =>
         {
-            if (resumeButton.Visible) resumeButton.GrabFocus();
-            else restartButton.GrabFocus();
-        };
-    }
-
-    private void AnimateButtonsInRecursive(Node pNode, Tween pTween, ref float pDelay)
-    {
-        foreach (Node lChild in pNode.GetChildren())
-        {
-            if (lChild is Button lButton)
-            {
-                if (!lButton.Visible) continue;
-
-                lButton.Modulate = new Color(1, 1, 1, 0);
-                lButton.Scale = Vector2.Zero;
-                lButton.PivotOffset = lButton.Size / 2;
-
-                pTween.TweenProperty(lButton, "modulate:a", 1f, 0.2f)
-                    .SetDelay(pDelay);
-                pTween.TweenProperty(lButton, "scale", Vector2.One, 0.5f)
-                    .SetDelay(pDelay)
-                    .SetEase(Tween.EaseType.Out)
-                    .SetTrans(Tween.TransitionType.Elastic);
-
-                pDelay += 0.08f;
-            }
-
-            if (lChild.GetChildCount() > 0)
-                AnimateButtonsInRecursive(lChild, pTween, ref pDelay);
-        }
-    }
-
-    private Tween PlayCloseAnimation()
-    {
-        if (currentTween != null && currentTween.IsRunning()) currentTween.Kill();
-        currentTween = CreateTween();
-        currentTween.SetParallel(true);
-
-        float delay = 0f;
-        AnimateButtonsOutRecursive(this, currentTween, ref delay);
-
-        currentTween.TweenProperty(panel, "modulate:a", 0.0f, 0.3f)
-            .SetDelay(0.1f)
-            .SetEase(Tween.EaseType.In);
-
-        currentTween.Finished += () =>
-        {
-            Visible = false;
             GetTree().Paused = false;
+            SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.MainMenu);
+            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
         };
-
-        return currentTween;
-    }
-
-    private void AnimateButtonsOutRecursive(Node pNode, Tween pTween, ref float pDelay)
-    {
-        foreach (Node lChild in pNode.GetChildren())
-        {
-            if (lChild is Button lButton)
-            {
-                if (!lButton.Visible) continue;
-
-                lButton.PivotOffset = lButton.Size / 2;
-                pTween.TweenProperty(lButton, "scale", Vector2.Zero, 0.2f)
-                    .SetEase(Tween.EaseType.In)
-                    .SetTrans(Tween.TransitionType.Back);
-                pTween.TweenProperty(lButton, "modulate:a", 0f, 0.15f);
-            }
-
-            if (lChild.GetChildCount() > 0)
-                AnimateButtonsOutRecursive(lChild, pTween, ref pDelay);
-        }
-    }
-
-    protected override void Dispose(bool pDisposing)
-    {
-        instance = null;
-        base.Dispose(pDisposing);
     }
 }

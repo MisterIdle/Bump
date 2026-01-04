@@ -58,9 +58,12 @@ public partial class FlowerCollectible : Collectibles
     {
         switch (level)
         {
-            case 2: return Colors.White;
-            case 3: return Colors.Red;
-            default: return Colors.White;
+            case 2: 
+                return Colors.White;
+            case 3: 
+                return Colors.Red;
+            default: 
+                return Colors.White;
         }
     }
 }

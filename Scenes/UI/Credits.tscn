@@ -1,0 +1,231 @@
+[gd_scene load_steps=11 format=3 uid="uid://dqax61yn7lfom"]
+
+[ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="1_71g3b"]
+[ext_resource type="Script" path="res://Scenes/LevelDesign/Credits.cs" id="1_oseug"]
+[ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Visual/RetroMario-Regular.otf" id="2_cqljr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8wtr6"]
+font = ExtResource("1_71g3b")
+font_size = 60
+font_color = Color(1, 0.867886, 0.436941, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_anw5n"]
+font = ExtResource("2_cqljr")
+font_size = 65
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l1qg7"]
+font = ExtResource("1_71g3b")
+font_size = 55
+font_color = Color(1, 0.776254, 0.939445, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rvxxr"]
+font = ExtResource("1_71g3b")
+font_size = 50
+font_color = Color(0.462745, 0.945098, 0.513726, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y857i"]
+font = ExtResource("1_71g3b")
+font_size = 50
+font_color = Color(1.44392e-07, 0.701049, 1.54018e-06, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a2rwx"]
+font = ExtResource("1_71g3b")
+font_size = 50
+font_color = Color(0.329412, 1, 1, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kgi33"]
+font = ExtResource("1_71g3b")
+font_size = 50
+font_color = Color(0, 0.819608, 1, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oseug")
+
+[node name="Master" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 449.0
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="ProjetManager" type="VBoxContainer" parent="Master"]
+layout_mode = 2
+alignment = 1
+
+[node name="ProjManagerText" type="Label" parent="Master/ProjetManager"]
+layout_mode = 2
+text = "ID_PROJECT_MANAGER"
+label_settings = SubResource("LabelSettings_8wtr6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProjManagerName" type="Label" parent="Master/ProjetManager"]
+layout_mode = 2
+text = "JULIEN FOURNIER"
+label_settings = SubResource("LabelSettings_anw5n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameDirector" type="VBoxContainer" parent="Master"]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDirectorText" type="Label" parent="Master/GameDirector"]
+layout_mode = 2
+text = "ID_GAME_DIRECTOR"
+label_settings = SubResource("LabelSettings_l1qg7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameDirectorName" type="Label" parent="Master/GameDirector"]
+layout_mode = 2
+text = "Mathieu Anthoine"
+label_settings = SubResource("LabelSettings_anw5n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Other" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = -72.0
+offset_top = 455.0
+offset_right = 1979.0
+offset_bottom = 1036.0
+theme_override_constants/separation = 85
+alignment = 1
+
+[node name="GameDesign" type="VBoxContainer" parent="Other"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="LeadGameDesigner" type="VBoxContainer" parent="Other/GameDesign"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeadGameDesignerText" type="Label" parent="Other/GameDesign/LeadGameDesigner"]
+layout_mode = 2
+text = "ID_GAME_DESIGNER"
+label_settings = SubResource("LabelSettings_rvxxr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeadGameDesignerName" type="Label" parent="Other/GameDesign/LeadGameDesigner"]
+layout_mode = 2
+text = "Alexandre QUENEDAY"
+label_settings = SubResource("LabelSettings_anw5n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeadUX" type="VBoxContainer" parent="Other/GameDesign"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeadUXText" type="Label" parent="Other/GameDesign/LeadUX"]
+layout_mode = 2
+text = "ID_LEAD_UX"
+label_settings = SubResource("LabelSettings_rvxxr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeadUXName" type="Label" parent="Other/GameDesign/LeadUX"]
+layout_mode = 2
+text = "Alexandre HOUDENT"
+label_settings = SubResource("LabelSettings_anw5n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameDesignAndProgramming" type="VBoxContainer" parent="Other/GameDesign"]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDesignAndProgrammingText" type="Label" parent="Other/GameDesign/GameDesignAndProgramming"]
+layout_mode = 2
+text = "ID_GAME_DESIGN_AND_PROGRAMMING"
+label_settings = SubResource("LabelSettings_y857i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameDesignAndProgrammingName" type="Label" parent="Other/GameDesign/GameDesignAndProgramming"]
+layout_mode = 2
+text = "Alexy HOUBLOUP"
+label_settings = SubResource("LabelSettings_anw5n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OtherCore" type="VBoxContainer" parent="Other"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="ArtDirector" type="VBoxContainer" parent="Other/OtherCore"]
+layout_mode = 2
+alignment = 1
+
+[node name="ArtDirectorText" type="Label" parent="Other/OtherCore/ArtDirector"]
+layout_mode = 2
+text = "ID_ART_DIRECTOR"
+label_settings = SubResource("LabelSettings_a2rwx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArtDirectorName" type="Label" parent="Other/OtherCore/ArtDirector"]
+layout_mode = 2
+text = "Damien LE MOAL"
+label_settings = SubResource("LabelSettings_anw5n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeadSoundDesigner" type="VBoxContainer" parent="Other/OtherCore"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeadSoundDesignerText" type="Label" parent="Other/OtherCore/LeadSoundDesigner"]
+layout_mode = 2
+text = "ID_LEAD_SOUND_DESIGNER"
+label_settings = SubResource("LabelSettings_a2rwx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeadSoundDesignerName" type="Label" parent="Other/OtherCore/LeadSoundDesigner"]
+layout_mode = 2
+text = "Malik YAHI"
+label_settings = SubResource("LabelSettings_anw5n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicAndSoundDesign" type="VBoxContainer" parent="Other/OtherCore"]
+layout_mode = 2
+alignment = 1
+
+[node name="MusicAndSoundDesignText" type="Label" parent="Other/OtherCore/MusicAndSoundDesign"]
+layout_mode = 2
+text = "ID_MUSIC_AND_SOUND_DESIGNER"
+label_settings = SubResource("LabelSettings_kgi33")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicAndSoundDesignName" type="Label" parent="Other/OtherCore/MusicAndSoundDesign"]
+layout_mode = 2
+text = "Gabriel TREMOULU"
+label_settings = SubResource("LabelSettings_anw5n")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -25,15 +25,15 @@ public partial class Movable : GameObject
         pDelta = Time.GetDelta(pDelta);
         elapsedTime += pDelta;
 
-        Vector2 targetVelocity = velocity * speed;
+        Vector2 lTargetVelocity = velocity * speed;
 
         angleX = Mathf.Sin(elapsedTime * frequency) * amplitude;
         angleY = Mathf.Cos(elapsedTime * frequency) * amplitude;
 
         if (affectedByScroll)
-            targetVelocity += GameManager.scrollSpeedVelocity;
+            lTargetVelocity += GameManager.scrollSpeedVelocity;
 
-        currentVelocity = currentVelocity.Lerp(targetVelocity, lerpFactor);
+        currentVelocity = currentVelocity.Lerp(lTargetVelocity, lerpFactor);
         Position += currentVelocity * pDelta;
     }
 }

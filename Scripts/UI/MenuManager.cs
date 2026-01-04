@@ -2,66 +2,156 @@ using Godot;
 
 public partial class MenuManager : Control
 {
-    public enum MenuContext
+    private static MenuManager instance;
+    public static MenuManager GetInstance()
     {
-        MainMenu,
-        PauseMenu
+        return instance;
     }
 
-    [Export] private Node2D pivot;
-    [Export] private OptionsMenu optionsMenu;
-    [Export] private ColorRect stop;
+    public enum MenuState
+    {
+        None,
+        MainMenu,
+        Options,
+        HUD,
+        Pause,
+        Victory,
+        GameOver,
+        Help,
+        Credits
+    }
 
+    [Export] public Marker2D pivot;
+
+    [ExportCategory("Menus")]
+    [Export] public MenuBase MainMenu;
+    [Export] public MenuBase OptionsMenu;
+    [Export] public MenuBase HUDMenu;
+    [Export] public MenuBase StateMenu;
+    [Export] public Victory VictoryMenu;
+    [Export] public MenuBase Credits;
+
+    [ExportCategory("Settings")]
+    [Export] public float FlipDuration = 0.6f;
+
+    public MenuState currentMenuState = MenuState.None;
+    public MenuState previousMenuState = MenuState.None;
+
+    private MenuBase currentMenu = null;
     private Tween flipTween;
-    public bool isShowingOptions = false;
-
-    private Control lastFocusedControl;
-    public MenuContext CurrentContext;
 
     public override void _Ready()
     {
-        ProcessMode = ProcessModeEnum.Always;
-    }
-
-    public void ToggleMenu(MenuContext context = MenuContext.MainMenu)
-    {
-        if (flipTween != null && flipTween.IsRunning()) return;
-
-        stop.Visible = true;
-
-        if (!isShowingOptions)
+        if (instance == null) instance = this;
+        else
         {
-            lastFocusedControl = GetViewport().GuiGetFocusOwner();
-            CurrentContext = context;
-
-            GetViewport().GuiReleaseFocus();
+            QueueFree();
+            return;
         }
 
-        isShowingOptions = !isShowingOptions;
-        float lTargetAngle = isShowingOptions ? 180f : 0f;
+        if (MainMenu != null) MainMenu.Visible = false;
+        if (OptionsMenu != null) OptionsMenu.Visible = false;
+        if (HUDMenu != null) HUDMenu.Visible = false;
+        if (StateMenu != null) StateMenu.Visible = false;
+        if (VictoryMenu != null) VictoryMenu.Visible = false;
+        if (Credits != null) Credits.Visible = false;
+
+        SetMenu(MenuState.MainMenu);
+    }
+
+    public void SetMenu(MenuState pNewState)
+    {
+        if (currentMenuState == pNewState) return;
+
+        previousMenuState = currentMenuState;
+
+        currentMenu?.OnExit();
+
+        MenuBase lNextMenuNode = null;
+        float lTargetRotation = 0f;
+
+        switch (pNewState)
+        {
+            case MenuState.MainMenu:
+                lNextMenuNode = MainMenu;
+                break;
+
+            case MenuState.Options:
+                lNextMenuNode = OptionsMenu;
+                lTargetRotation = 180f;
+                break;
+
+            case MenuState.Credits:
+                lNextMenuNode = Credits;
+                break;
+
+            case MenuState.HUD:
+                lNextMenuNode = HUDMenu;
+                break;
+
+            case MenuState.Victory:
+                lNextMenuNode = VictoryMenu;
+                break;
+
+            case MenuState.Pause:
+            case MenuState.GameOver:
+                lNextMenuNode = StateMenu;
+                lTargetRotation = 0f;
+                break;
+        }
+
+        currentMenuState = pNewState;
+        Flip(lTargetRotation);
+
+        if (lNextMenuNode == null)
+        {
+            currentMenu = null;
+            GetTree().Paused = false;
+            return;
+        }
+
+        float lPrevTime = 0.2f;
+
+        Timer lTimer = new Timer();
+        lTimer.OneShot = true;
+        lTimer.WaitTime = lPrevTime;
+        AddChild(lTimer);
+
+        lTimer.Timeout += () =>
+        {
+            if (currentMenuState != pNewState) return;
+
+            currentMenu = lNextMenuNode;
+            currentMenu.OnEnter();
+            lTimer.QueueFree();
+        };
+
+        lTimer.Start();
+    }
+
+    public void ReturnFromSubMenu()
+    {
+        if (previousMenuState != MenuState.None)
+            SetMenu(previousMenuState);
+        else
+            SetMenu(MenuState.MainMenu);
+    }
+
+    public void Flip(float pDegrees)
+    {
+        if (Mathf.IsEqualApprox(pivot.RotationDegrees, pDegrees))
+            return;
 
         flipTween?.Kill();
+
         flipTween = CreateTween();
+        flipTween.TweenProperty(pivot, (string)PropertyName.RotationDegrees, pDegrees, FlipDuration)
+            .SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Back);
+    }
 
-        flipTween.TweenProperty(pivot, (string)PropertyName.RotationDegrees, lTargetAngle, 0.6f)
-            .SetEase(Tween.EaseType.InOut)
-            .SetTrans(Tween.TransitionType.Back);
-
-        flipTween.Finished += () =>
-        {
-            if (isShowingOptions)
-            {
-                optionsMenu.OnMenuShow();
-            }
-            else
-            {
-                if (lastFocusedControl != null && IsInstanceValid(lastFocusedControl))
-                {
-                    lastFocusedControl.GrabFocus();
-                }
-            }
-
-            stop.Visible = false;
-        };
+    protected override void Dispose(bool pDisposing)
+    {
+        if (instance == this) instance = null;
+        base.Dispose(pDisposing);
     }
 }

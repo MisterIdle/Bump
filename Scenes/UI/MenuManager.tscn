@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://csry3yy5ta171"]
+
+[ext_resource type="Script" path="res://Scripts/UI/MenuManager.cs" id="1_w1ayd"]
+[ext_resource type="PackedScene" uid="uid://bb7w5cthb6nj5" path="res://Scenes/UI/MainMenu.tscn" id="3_ymd0j"]
+[ext_resource type="PackedScene" uid="uid://b51rjhcg40x8i" path="res://Scenes/UI/StateMenu.tscn" id="4_6sv5t"]
+[ext_resource type="PackedScene" uid="uid://nxhubg31nl61" path="res://Scenes/MainScenes/Options.tscn" id="5_q768o"]
+[ext_resource type="PackedScene" uid="uid://dqax61yn7lfom" path="res://Scenes/UI/Credits.tscn" id="6_1wp8b"]
+[ext_resource type="PackedScene" uid="uid://c7tvjipthkfkw" path="res://Scenes/UI/Victory.tscn" id="6_c084v"]
+
+[node name="MenuManager" type="Control" node_paths=PackedStringArray("pivot", "MainMenu", "OptionsMenu", "StateMenu", "VictoryMenu", "Credits")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 991.0
+offset_top = 1202.0
+offset_right = -889.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w1ayd")
+pivot = NodePath("Pivot")
+MainMenu = NodePath("Pivot/MainMenu")
+OptionsMenu = NodePath("Pivot/Options")
+StateMenu = NodePath("Pivot/StateMenu")
+VictoryMenu = NodePath("Victory")
+Credits = NodePath("Credits")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -991.0
+offset_top = -1202.0
+offset_right = 889.0
+offset_bottom = -162.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pivot" type="Marker2D" parent="."]
+position = Vector2(0, -50)
+
+[node name="MainMenu" parent="Pivot" instance=ExtResource("3_ymd0j")]
+offset_left = -437.0
+offset_top = -740.0
+offset_right = 393.0
+offset_bottom = -130.0
+introLetterSpeed = 0.1
+letterSpacing = 1.0
+
+[node name="StateMenu" parent="Pivot" node_paths=PackedStringArray("panel") instance=ExtResource("4_6sv5t")]
+offset_left = -991.0
+offset_top = -1152.0
+offset_right = 929.0
+offset_bottom = -72.0
+pivot_offset = Vector2(0, 0)
+panel = NodePath("../../Panel")
+
+[node name="Options" parent="Pivot" node_paths=PackedStringArray("manager") instance=ExtResource("5_q768o")]
+offset_left = -320.0
+offset_top = 443.0
+offset_right = 698.0
+offset_bottom = 1459.0
+pivot_offset = Vector2(415, 346)
+manager = NodePath("../..")
+
+[node name="Credits" parent="." instance=ExtResource("6_1wp8b")]
+layout_mode = 1
+offset_left = -992.0
+offset_top = -1202.0
+offset_right = 929.0
+offset_bottom = -122.0
+
+[node name="Victory" parent="." instance=ExtResource("6_c084v")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -24.694
+anchor_top = -29.969
+anchor_right = 23.113
+anchor_bottom = -3.153
+offset_left = -4.23999
+offset_top = -2.23999
+offset_right = -1916.52
+offset_bottom = -1074.88
+
+[node name="Stop" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -988.0
+offset_top = -1252.0
+offset_right = 937.0
+offset_bottom = -172.0

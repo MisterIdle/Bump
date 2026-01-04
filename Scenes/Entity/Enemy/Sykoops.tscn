@@ -1,31 +1,33 @@
 [gd_scene load_steps=11 format=3 uid="uid://1dl8asfcved8"]
 
-[ext_resource type="Script" path="res://Scripts/Entity/Enemy/Sykoops.cs" id="1_msbn5"]
+[ext_resource type="Script" path="res://Scripts/Entity/Enemy/Shelled/Sykoops.cs" id="1_msbn5"]
 [ext_resource type="PackedScene" uid="uid://mt782a2qgaf5" path="res://Scenes/Projectiles/Spike.tscn" id="2_0qrcg"]
-[ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Enemy/Shell.tscn" id="2_l71em"]
-[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Effect/Pop.tscn" id="3_g7d3s"]
-[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Misc/Wing.tscn" id="3_utuyu"]
+[ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Accessory/Shell.tscn" id="2_l71em"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="3_g7d3s"]
+[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Accessory/Wing.tscn" id="3_utuyu"]
 [ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="4_ocaem"]
-[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Misc/Eye.tscn" id="5_d3ihu"]
+[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="5_d3ihu"]
 [ext_resource type="Texture2D" uid="uid://dmjeu3nvnmh05" path="res://Assets/Sprites/SykoopsShell.svg" id="6_oub12"]
 [ext_resource type="Texture2D" uid="uid://cay1l5qagqn4h" path="res://Assets/Sprites/WingC.svg" id="9_5svoe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_memyj"]
 radius = 55.6529
 
-[node name="Sykoops" type="Area2D" node_paths=PackedStringArray("sprite")]
+[node name="Sykoops" type="Area2D" node_paths=PackedStringArray("spikeContainer", "sprite")]
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_msbn5")
-spikeScene = ExtResource("2_0qrcg")
-spikeContainerPath = NodePath("Shell/Spike")
 chaseDistance = 400
 approchDistance = 300
-sizeMultiplier = 3.0
 shellProjectileProtect = true
+facePlayer = true
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
-facePlayer = true
+useSpikes = true
+spikeScene = ExtResource("2_0qrcg")
+spikeContainer = NodePath("Shell/Spike")
+spikeRadius = 50.0
+spikeSizeMultiplier = 2.2
 hammerScore = 0
 direction = 2
 health = 9
@@ -59,8 +61,8 @@ offset = Vector2(228.257, -194.012)
 
 [node name="Spike" type="Node2D" parent="Shell"]
 z_index = -1
-position = Vector2(-6.66667, 129.278)
-scale = Vector2(7.99793, 9.59848)
+position = Vector2(-6.66667, 68.4411)
+scale = Vector2(7, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

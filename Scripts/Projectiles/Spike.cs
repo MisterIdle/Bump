@@ -2,11 +2,11 @@ using Godot;
 
 public partial class Spike : Projectiles
 {
-    private Entity target;
-    public bool isActive;
+    protected Entity target;
 
     [Export] public GpuParticles2D particles;
     [Export] public CollisionShape2D collision;
+    [Export] public bool isInstaKill = false;
 
     public override void Initiate()
     {
@@ -43,9 +43,15 @@ public partial class Spike : Projectiles
 
     protected override void OnCollide(Area2D pArea)
     {
+        if (isActive && isInstaKill)
+        {
+            Player lPlayer = Player.GetInstance();
+            lPlayer.InstantDeath();
+        }
+
         base.OnCollide(pArea);
 
-        if (!isActive) 
+        if (!isActive)
             return;
 
         QueueFree();

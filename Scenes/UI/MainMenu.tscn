@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://bb7w5cthb6nj5"]
+
+[ext_resource type="Script" path="res://Scripts/UI/MainMenu.cs" id="1_as8bs"]
+[ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="2_2n6h4"]
+[ext_resource type="Theme" uid="uid://bevkcx1prmt5q" path="res://Assets/Visual/Theme.tres" id="2_oxhg0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cd03x"]
+font = ExtResource("2_2n6h4")
+font_size = 150
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1a41t"]
+bg_color = Color(1, 0.262745, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukxmc"]
+bg_color = Color(1, 0.261999, 0.181151, 1)
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("Title", "startButton", "optionButton", "helpButton", "creditsButton", "quitButton")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 542.0
+offset_top = 423.0
+offset_right = 1372.0
+offset_bottom = 1033.0
+pivot_offset = Vector2(415, 225)
+script = ExtResource("1_as8bs")
+Title = NodePath("Title")
+startButton = NodePath("Menu/Start")
+optionButton = NodePath("Menu/Option")
+helpButton = NodePath("Menu/Help")
+creditsButton = NodePath("Menu/VBoxContainer/Credits")
+quitButton = NodePath("Menu/VBoxContainer/Quit")
+introLetterSpeed = 0.3
+letterSpacing = 1.5
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+offset_left = -11.0
+offset_top = -340.0
+offset_right = 819.0
+offset_bottom = -160.0
+text = "ID_NAME"
+label_settings = SubResource("LabelSettings_cd03x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 835.0
+offset_bottom = 629.0
+theme_override_constants/separation = 35
+
+[node name="Start" type="Button" parent="Menu"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../VBoxContainer/Quit")
+focus_next = NodePath("../Option")
+focus_previous = NodePath("../VBoxContainer/Quit")
+theme = ExtResource("2_oxhg0")
+text = "ID_START"
+vertical_icon_alignment = 0
+
+[node name="Option" type="Button" parent="Menu"]
+layout_mode = 2
+focus_next = NodePath("../VBoxContainer/Credits")
+focus_previous = NodePath("../Start")
+theme = ExtResource("2_oxhg0")
+text = "ID_OPTION"
+vertical_icon_alignment = 0
+
+[node name="Help" type="Button" parent="Menu"]
+layout_mode = 2
+focus_next = NodePath("../VBoxContainer/Credits")
+focus_previous = NodePath("../Start")
+theme = ExtResource("2_oxhg0")
+text = "ID_HELP"
+vertical_icon_alignment = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Menu"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Credits" type="Button" parent="Menu/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../../Start")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath(".")
+theme = ExtResource("2_oxhg0")
+text = "ID_CREDITS"
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Quit" type="Button" parent="Menu/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+focus_neighbor_right = NodePath("../Credits")
+focus_neighbor_bottom = NodePath("../../Start")
+focus_next = NodePath("../../Start")
+focus_previous = NodePath("../Credits")
+theme = ExtResource("2_oxhg0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1a41t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ukxmc")
+text = "ID_QUIT"
+icon_alignment = 1
+vertical_icon_alignment = 0

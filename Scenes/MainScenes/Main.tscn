@@ -1,0 +1,118 @@
+[gd_scene load_steps=37 format=3 uid="uid://xglysqus4mmt"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
+[ext_resource type="LabelSettings" uid="uid://dmesrhypouudo" path="res://Assets/Visual/HUDText.tres" id="2_430wl"]
+[ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/UI/Parallax.tscn" id="2_ajko8"]
+[ext_resource type="PackedScene" uid="uid://eijl1ptqfcr5" path="res://Scenes/MainScenes/InGame.tscn" id="2_ppwvp"]
+[ext_resource type="Script" path="res://Scripts/UI/MenuManager.cs" id="3_fctyd"]
+[ext_resource type="PackedScene" uid="uid://y0p204y3sd1g" path="res://Scenes/LevelDesign/Menu.tscn" id="4_go1sy"]
+[ext_resource type="Script" path="res://Scripts/UI/MainMenu.cs" id="4_tkedr"]
+[ext_resource type="Theme" uid="uid://bevkcx1prmt5q" path="res://Assets/Visual/Theme.tres" id="5_j8p8j"]
+[ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="5_xyu4v"]
+[ext_resource type="PackedScene" uid="uid://nxhubg31nl61" path="res://Scenes/MainScenes/Options.tscn" id="6_aaw6u"]
+[ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="8_etrpp"]
+[ext_resource type="AudioStream" uid="uid://clfqvvglxi1dx" path="res://Assets/Audio/SFX/player_shoot0.wav" id="9_duqeo"]
+[ext_resource type="AudioStream" uid="uid://cd0yhy3tun3qx" path="res://Assets/Audio/SFX/player_shoot1.wav" id="10_hpmgn"]
+[ext_resource type="AudioStream" uid="uid://ce12adqmef45" path="res://Assets/Audio/SFX/player_shoot2.wav" id="11_u2anj"]
+[ext_resource type="AudioStream" uid="uid://qeg3ni5nxu5i" path="res://Assets/Audio/SFX/player_shoot3.wav" id="12_qp1mp"]
+[ext_resource type="AudioStream" uid="uid://bw4hbiuto4dsv" path="res://Assets/Audio/SFX/player_explosion.wav" id="13_tbp0q"]
+[ext_resource type="AudioStream" uid="uid://c6jwcbfchxt2f" path="res://Assets/Audio/SFX/loselife.wav" id="14_o13ri"]
+[ext_resource type="AudioStream" uid="uid://rlw8gf34mp6o" path="res://Assets/Audio/SFX/chargeswing_hammer.wav" id="15_tvbui"]
+[ext_resource type="AudioStream" uid="uid://bkkiqot632e8j" path="res://Assets/Audio/SFX/powerup_bomb.wav" id="16_jr3y6"]
+[ext_resource type="AudioStream" uid="uid://b1rt6aus5pyc" path="res://Assets/Audio/SFX/powerup_life.wav" id="17_u26wi"]
+[ext_resource type="AudioStream" uid="uid://cmt4oelgj88s4" path="res://Assets/Audio/SFX/enemy0_explosion0.wav" id="18_mdvpr"]
+[ext_resource type="AudioStream" uid="uid://dqs62fpol5hwl" path="res://Assets/Audio/SFX/enemy0_explosion1.wav" id="19_yt5h6"]
+[ext_resource type="AudioStream" uid="uid://bnofcnce8tjft" path="res://Assets/Audio/SFX/enemy0_explosion2.wav" id="20_tfu7k"]
+[ext_resource type="AudioStream" uid="uid://bwq61mrc7lobr" path="res://Assets/Audio/SFX/enemy0_explosion3.wav" id="21_uilq7"]
+[ext_resource type="AudioStream" uid="uid://ddtjeeohdcorb" path="res://Assets/Audio/SFX/enemy_shoot.wav" id="22_cmc7j"]
+[ext_resource type="AudioStream" uid="uid://dmybao481uaq2" path="res://Assets/Audio/SFX/boss_shoot.wav" id="23_8ouxi"]
+[ext_resource type="AudioStream" uid="uid://cak08tolipn2k" path="res://Assets/Audio/SFX/boss_pre_explosion.wav" id="24_u566g"]
+[ext_resource type="AudioStream" uid="uid://c44pvbtmhijkw" path="res://Assets/Audio/SFX/boss_explosion.wav" id="25_sasl1"]
+[ext_resource type="AudioStream" uid="uid://cwguc2lhrrbxw" path="res://Assets/Audio/SFX/ui_click.wav" id="26_v13uv"]
+[ext_resource type="AudioStream" uid="uid://d2x41fq71qcqb" path="res://Assets/Audio/SFX/ui_pause.wav" id="27_87nak"]
+[ext_resource type="AudioStream" uid="uid://rn2727nnkexi" path="res://Assets/Audio/SFX/ui_start.wav" id="28_sbm33"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uepul"]
+bg_color = Color(1, 0.262745, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oli1o"]
+bg_color = Color(1, 0.261999, 0.181151, 1)
+
+[sub_resource type="PackedScene" id="PackedScene_ai0co"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("MainMenu", "CanvasLayer", "Name", "Label", "offset_top", "offset_right", "offset_bottom", "text", "label_settings", "horizontal_alignment", "MenuManager", "Control", "layout_mode", "anchors_preset", "offset_left", "offset_top", "offset_right", "offset_bottom", "script", "pivot", "optionsMenu", "stop", "Pivot", "Marker2D", "position", "Menu", "VBoxContainer", "offset_left", "offset_top", "offset_right", "offset_bottom", "pivot_offset", "theme_override_constants/separation", "alignment", "script", "menuManager", "Title", "startButton", "optionButton", "creditsButton", "quitButton", "introLetterSpeed", "letterSpacing", "Start", "Button", "layout_mode", "focus_neighbor_top", "focus_next", "focus_previous", "theme", "text", "vertical_icon_alignment", "Option", "Button", "layout_mode", "focus_next", "focus_previous", "theme", "text", "vertical_icon_alignment", "Option2", "Button", "layout_mode", "focus_next", "focus_previous", "theme", "text", "vertical_icon_alignment", "VBoxContainer", "HBoxContainer", "layout_mode", "theme_override_constants/separation", "alignment", "Credits", "Button", "custom_minimum_size", "layout_mode", "focus_neighbor_left", "focus_neighbor_bottom", "focus_next", "focus_previous", "theme", "text", "icon_alignment", "vertical_icon_alignment", "Quit", "Button", "custom_minimum_size", "layout_mode", "focus_neighbor_right", "focus_neighbor_bottom", "focus_next", "focus_previous", "theme", "theme_override_styles/pressed", "theme_override_styles/focus", "text", "icon_alignment", "vertical_icon_alignment", "Options", "offset_left", "offset_top", "offset_right", "offset_bottom", "pivot_offset", "manager", "Stop", "ColorRect", "visible", "modulate", "offset_left", "offset_top", "offset_right", "offset_bottom"),
+"node_count": 13,
+"node_paths": [NodePath("."), NodePath("."), NodePath("./MenuManager"), NodePath("./MenuManager/Pivot"), NodePath("./MenuManager/Pivot/Menu"), NodePath("./MenuManager/Pivot/Menu"), NodePath("./MenuManager/Pivot/Menu"), NodePath("./MenuManager/Pivot/Menu"), NodePath("./MenuManager/Pivot/Menu/VBoxContainer"), NodePath("./MenuManager/Pivot/Menu/VBoxContainer"), NodePath("./MenuManager/Pivot"), NodePath("./MenuManager/Pivot")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 0, 0, 1073741824, 0, 3, 2, -1, 6, 4, 0, 5, 1, 6, 2, 7, 3, 8, 4, 9, 5, 0, 1073741825, 0, 11, 10, -1, 10, 12, 6, 13, 7, 14, 8, 15, 9, 16, 10, 17, 11, 18, 12, 1073741843, 13, 1073741844, 14, 1073741845, 15, 0, 1073741826, 0, 23, 22, -1, 1, 24, 16, 0, 1073741827, 0, 26, 25, -1, 16, 27, 17, 28, 18, 29, 19, 30, 20, 31, 21, 32, 22, 33, 23, 34, 24, 1073741859, 25, 1073741860, 26, 1073741861, 27, 1073741862, 28, 1073741863, 29, 1073741864, 30, 41, 31, 42, 32, 0, 1073741828, 0, 44, 43, -1, 7, 45, 33, 46, 34, 47, 35, 48, 36, 49, 37, 50, 38, 51, 39, 0, 1073741829, 0, 53, 52, -1, 6, 54, 40, 55, 41, 56, 42, 57, 43, 58, 44, 59, 45, 0, 1073741830, 0, 61, 60, -1, 6, 62, 46, 63, 47, 64, 48, 65, 49, 66, 50, 67, 51, 0, 1073741831, 0, 69, 68, -1, 3, 70, 52, 71, 53, 72, 54, 0, 1073741832, 0, 74, 73, -1, 10, 75, 55, 76, 56, 77, 57, 78, 58, 79, 59, 80, 60, 81, 61, 82, 62, 83, 63, 84, 64, 0, 1073741833, 0, 86, 85, -1, 12, 87, 65, 88, 66, 89, 67, 90, 68, 91, 69, 92, 70, 93, 71, 94, 72, 95, 73, 96, 74, 97, 75, 98, 76, 0, 1073741834, 0, 2147483647, 99, 77, 6, 100, 78, 101, 79, 102, 80, 103, 81, 104, 82, 1073741929, 83, 0, 1073741835, 0, 107, 106, -1, 6, 108, 84, 109, 85, 110, 86, 111, 87, 112, 88, 113, 89, 0),
+"variants": [57.0, 1920.0, 297.0, "Bump", ExtResource("2_430wl"), 1, 3, 0, 988.0, 1202.0, 1028.0, 1242.0, ExtResource("3_fctyd"), NodePath("Pivot"), NodePath("Pivot/Options"), NodePath("Pivot/Stop"), Vector2(0, -50), -415.0, -745.0, 415.0, -135.0, Vector2(415, 225), 30, 1, ExtResource("4_tkedr"), NodePath("../.."), NodePath("../../../Name"), NodePath("Start"), NodePath("Option"), NodePath("VBoxContainer/Credits"), NodePath("VBoxContainer/Quit"), 0.3, 1.5, 2, NodePath("../VBoxContainer/Quit"), NodePath("../Option"), NodePath("../VBoxContainer/Quit"), ExtResource("5_j8p8j"), "ID_START", 0, 2, NodePath("../VBoxContainer/Credits"), NodePath("../Start"), ExtResource("5_j8p8j"), "ID_OPTION", 0, 2, NodePath("../VBoxContainer/Credits"), NodePath("../Start"), ExtResource("5_j8p8j"), "ID_HELP", 0, 2, 30, 1, Vector2(400, 0), 2, NodePath("../Quit"), NodePath("../../Start"), NodePath("../Quit"), NodePath("."), ExtResource("5_j8p8j"), "ID_CREDITS", 1, 0, Vector2(400, 0), 2, NodePath("../Credits"), NodePath("../../Start"), NodePath("../../Start"), NodePath("../Credits"), ExtResource("5_j8p8j"), SubResource("StyleBoxFlat_uepul"), SubResource("StyleBoxFlat_oli1o"), "ID_QUIT", 1, 0, ExtResource("6_aaw6u"), -415.0, 110.0, 415.0, 803.0, Vector2(415, 346), NodePath("../.."), false, Color(1, 1, 1, 0), -988.0, -1202.0, 937.0, -122.0],
+"version": 3
+}
+
+[sub_resource type="Environment" id="Environment_k772t"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.1
+glow_bloom = 0.1
+fog_light_energy = 16.0
+fog_sun_scatter = 1.0
+fog_density = 1.0
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 1.2
+
+[sub_resource type="LabelSettings" id="LabelSettings_sgn7q"]
+font = ExtResource("5_xyu4v")
+font_size = 25
+outline_size = 3
+outline_color = Color(1, 0, 0, 1)
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("debug")]
+script = ExtResource("1_ij506")
+mainMenuScene = SubResource("PackedScene_ai0co")
+gameScene = ExtResource("2_ppwvp")
+debug = NodePath("Background/Info")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k772t")
+
+[node name="AudioManager" type="Node" parent="."]
+script = ExtResource("8_etrpp")
+playerShoot = Array[AudioStream]([ExtResource("9_duqeo"), ExtResource("10_hpmgn"), ExtResource("11_u2anj"), ExtResource("12_qp1mp")])
+playerExplosion = ExtResource("13_tbp0q")
+playerLostLife = ExtResource("14_o13ri")
+hammerCharge = ExtResource("15_tvbui")
+hammerSwing = ExtResource("21_uilq7")
+powerUpPow = ExtResource("16_jr3y6")
+powerLife = ExtResource("17_u26wi")
+enemyExplosion = Array[AudioStream]([ExtResource("18_mdvpr"), ExtResource("19_yt5h6"), ExtResource("20_tfu7k"), ExtResource("21_uilq7")])
+enemyShoot = ExtResource("22_cmc7j")
+bossShoot = ExtResource("23_8ouxi")
+bossPreExplosion = ExtResource("24_u566g")
+bossExplosion = ExtResource("25_sasl1")
+uiClic = ExtResource("26_v13uv")
+uiPause = ExtResource("27_87nak")
+uiStart = ExtResource("28_sbm33")
+
+[node name="Music" type="AudioStreamPlayer" parent="AudioManager"]
+bus = &"Music"
+
+[node name="Menu" parent="." instance=ExtResource("4_go1sy")]
+
+[node name="Background" parent="." instance=ExtResource("2_ajko8")]
+
+[node name="Info" type="Label" parent="Background"]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -792.0
+offset_right = 1022.0
+offset_bottom = -751.0
+grow_vertical = 0
+text = "DEBUG MENU (IN GAME ONLY)"
+label_settings = SubResource("LabelSettings_sgn7q")
+vertical_alignment = 1

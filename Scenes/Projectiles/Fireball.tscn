@@ -1,12 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgyguuakuyjb2"]
+[gd_scene load_steps=10 format=3 uid="uid://cgyguuakuyjb2"]
 
 [ext_resource type="Script" path="res://Scripts/Projectiles/Shot.cs" id="1_tb7fp"]
-[ext_resource type="PackedScene" uid="uid://7710phv1wm7k" path="res://Scenes/Effect/PopShot.tscn" id="2_fkf3x"]
+[ext_resource type="PackedScene" uid="uid://7710phv1wm7k" path="res://Scenes/Particules/PopShot.tscn" id="2_wc6pa"]
 [ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="3_i3x5u"]
 [ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="3_spn6e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3u186"]
 radius = 27.0
+
+[sub_resource type="Curve" id="Curve_xlue0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.997696, 0.58101), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rusxq"]
+curve = SubResource("Curve_xlue0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q8xao"]
+particle_flag_disable_z = true
+gravity = Vector3(-150, 1, 0)
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_rusxq")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cs02e"]
 shader = ExtResource("3_spn6e")
@@ -18,7 +32,7 @@ shader_parameter/Amplitude = 0.01
 collision_layer = 256
 collision_mask = 6
 script = ExtResource("1_tb7fp")
-popScene = ExtResource("2_fkf3x")
+popScene = ExtResource("2_wc6pa")
 speed = 1000.0
 lerpFactor = 1.0
 sprite = NodePath("Sprite2D2/Sprite2D")
@@ -26,14 +40,21 @@ sprite = NodePath("Sprite2D2/Sprite2D")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3u186")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-22, -1)
+process_material = SubResource("ParticleProcessMaterial_q8xao")
+texture = ExtResource("3_i3x5u")
+lifetime = 0.8
+fixed_fps = 60
+
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_cs02e")
 position = Vector2(-1.43051e-06, 0)
-scale = Vector2(0.117872, 0.0496901)
+scale = Vector2(0.117872, 0.119835)
 texture = ExtResource("3_i3x5u")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D2"]
 self_modulate = Color(1, 0.262745, 0.133333, 1)
-position = Vector2(30.7297, 0)
-scale = Vector2(0.828121, 0.610661)
+position = Vector2(1.23978e-05, 0)
+scale = Vector2(0.828121, 0.827586)
 texture = ExtResource("3_i3x5u")

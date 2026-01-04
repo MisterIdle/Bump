@@ -1,54 +1,64 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class Projectiles : Movable
 {
+    // Utilisation d'une liste statique pour suivre tous les projectiles actifs
+    public static List<Projectiles> projectilesList = new List<Projectiles>();
+
     [Export] private float lifeTime = 5;
-
     [Export] protected PackedScene popScene;
-
     [Export] protected float rotationSpeed;
-
-    public static List<Projectiles> enemyProjectilesList = new List<Projectiles>();
+    public bool isActive;
 
     public Timer lifeTimer;
 
     public override void Initiate()
-    {  
+    {
         base.Initiate();
-        lifeTimer = new Timer();
 
+        // On ne track pas les tirs simples (Shot) s'ils sont gérés ailleurs, 
+        // sinon on ajoute tout projectile à la liste globale.
+        if (this is not Shot)
+            projectilesList.Add(this);
+
+        lifeTimer = new Timer();
         lifeTimer.WaitTime = lifeTime;
         lifeTimer.Autostart = true;
         lifeTimer.Timeout += Destory;
-
         AddChild(lifeTimer);
     }
 
-    public static List<Projectiles> GetEnemiesProjectilesOnScreen(Vector2 pPos)
+    public void Destory()
     {
-        List<Projectiles> lVisibleProjectiles = new List<Projectiles>();
+        if (!IsInstanceValid(this)) return;
 
-        foreach (Projectiles lProjectiles in enemyProjectilesList)
-        {
-            if (lProjectiles.enable) lVisibleProjectiles.Add(lProjectiles);
-        }
-
-        return lVisibleProjectiles;
+        if (IsQueuedForDeletion()) return;
+        CallDeferred(MethodName.QueueFree);
     }
 
-    public virtual void Destory()
+    public static void ClearAll()
     {
-        QueueFree();
+        var listCopy = new List<Projectiles>(projectilesList);
+
+        foreach (var p in listCopy)
+        {
+            if (IsInstanceValid(p) && p.isActive)
+            {
+                p.Destory();
+            }
+        }
+
+        projectilesList.Clear();
     }
 
     protected override void Dispose(bool pDisposing)
     {
-        if (enemyProjectilesList.Contains(this))
-            enemyProjectilesList.Remove(this);
+        if (projectilesList != null && projectilesList.Contains(this))
+        {
+            projectilesList.Remove(this);
+        }
 
         base.Dispose(pDisposing);
     }
-
 }

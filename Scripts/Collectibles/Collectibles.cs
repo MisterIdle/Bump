@@ -3,24 +3,29 @@ using System;
 
 public partial class Collectibles : Movable
 {
-    private float finalAlpha = 0;
-    private float rotationSpeed = 20f;
+    [Export] private float finalAlpha = 0f;
+    [Export] private float rotationSpeed = 20f;
     [Export] private float animationSec = 2f;
+    [Export] private float recoltHeight = 30f;
+    [Export] private float recoltDuration = 0.2f;
+    [Export] private float moveUpRatio = 0.6f;
+
     private Timer animationTimer;
 
     public override void Initiate()
     {
         base.Initiate();
-        velocity = Vector2.Left;
+
         Effect.BumpScale(this, baseScale);
 
-        animationTimer = new Timer();
+        animationTimer = new Timer
+        {
+            WaitTime = animationSec,
+            OneShot = false,
+            Autostart = true
+        };
 
-        animationTimer.WaitTime = animationSec;
-        animationTimer.OneShot = false;
-        animationTimer.Autostart = true;
         animationTimer.Timeout += PlayAnimation;
-
         AddChild(animationTimer);
     }
 
@@ -28,7 +33,6 @@ public partial class Collectibles : Movable
     {
         base.Update(pDelta);
         velocity.Y = angleY;
-
         RotationDegrees += rotationSpeed * pDelta;
     }
 
@@ -38,7 +42,7 @@ public partial class Collectibles : Movable
         Effect.BumpScale(this, baseScale);
     }
 
-    public void Recolt(float pHeight = 30f, float pDuration = 0.2f)
+    public void Recolt()
     {
         CollisionMask = 0;
 
@@ -46,11 +50,11 @@ public partial class Collectibles : Movable
 
         Tween lTween = CreateTween();
 
-        lTween.TweenProperty(this, (string)PropertyName.GlobalPosition + ":y", GlobalPosition.Y - pHeight, pDuration * 0.6f)
+        lTween.TweenProperty(this, (string)PropertyName.GlobalPosition + ":y", GlobalPosition.Y - recoltHeight,recoltDuration * moveUpRatio)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(this, (string)PropertyName.Modulate + ":a", finalAlpha, pDuration)
+        lTween.TweenProperty(this, (string)PropertyName.Modulate + ":a", finalAlpha ,recoltDuration)
             .SetEase(Tween.EaseType.In);
 
         lTween.Finished += () => QueueFree();

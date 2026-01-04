@@ -1,0 +1,171 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7tvjipthkfkw"]
+
+[ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Visual/RetroMario-Regular.otf" id="1_dcoii"]
+[ext_resource type="Script" path="res://Scripts/UI/Victory.cs" id="1_it0n4"]
+[ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="2_2xoya"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eo5ty"]
+font = ExtResource("2_2xoya")
+font_size = 150
+font_color = Color(1, 1, 0.466667, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ocbv4"]
+font = ExtResource("2_2xoya")
+font_size = 40
+font_color = Color(1, 0.713726, 0.556863, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aulg1"]
+font = ExtResource("1_dcoii")
+font_size = 75
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dgmlt"]
+font = ExtResource("1_dcoii")
+font_size = 350
+
+[sub_resource type="LabelSettings" id="LabelSettings_xq6jh"]
+font = ExtResource("2_2xoya")
+font_size = 75
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Victory" type="Control" node_paths=PackedStringArray("titleLabel", "killCountText", "killCountLabel", "shotCountText", "shotCountLabel", "specialCountText", "specialCountLabel", "powCountText", "powCountLabel", "scoreText", "scoreLabel", "rankLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -294.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_it0n4")
+titleLabel = NodePath("Label")
+killCountText = NodePath("Stats/Kill/Kill")
+killCountLabel = NodePath("Stats/Kill/KillCount")
+shotCountText = NodePath("Stats/Shot/Shot")
+shotCountLabel = NodePath("Stats/Shot/ShotCount")
+specialCountText = NodePath("Stats/Special/SpecialUse")
+specialCountLabel = NodePath("Stats/Special/SpecialUseCount")
+powCountText = NodePath("Stats/Pow/PowUse")
+powCountLabel = NodePath("Stats/Pow/PowUseCount")
+scoreText = NodePath("RangLetter/Score/ScoreText")
+scoreLabel = NodePath("RangLetter/Score/ScoreCount")
+rankLabel = NodePath("RangLetter/Score/Rang")
+rankScoreThresholds = PackedInt32Array(10000)
+rankTitles = PackedStringArray("S++")
+rankColors = PackedColorArray(0.973093, 0.774373, 2.31028e-06, 1)
+scoreHeatColor = Color(1, 0.621042, 0.563658, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = 36.0
+offset_right = 1920.0
+offset_bottom = 252.0
+text = "ID_VICTORY_TEXT"
+label_settings = SubResource("LabelSettings_eo5ty")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_top = 317.0
+offset_right = 1920.0
+offset_bottom = 524.0
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="Kill" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="Kill" type="Label" parent="Stats/Kill"]
+layout_mode = 2
+text = "ID_ENEMY_KILL"
+label_settings = SubResource("LabelSettings_ocbv4")
+
+[node name="KillCount" type="Label" parent="Stats/Kill"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_aulg1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shot" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="Shot" type="Label" parent="Stats/Shot"]
+layout_mode = 2
+text = "ID_SHOT_SHOOTED"
+label_settings = SubResource("LabelSettings_ocbv4")
+
+[node name="ShotCount" type="Label" parent="Stats/Shot"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_aulg1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Special" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="SpecialUse" type="Label" parent="Stats/Special"]
+layout_mode = 2
+text = "ID_SPECIAL_USE"
+label_settings = SubResource("LabelSettings_ocbv4")
+
+[node name="SpecialUseCount" type="Label" parent="Stats/Special"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_aulg1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pow" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="PowUse" type="Label" parent="Stats/Pow"]
+layout_mode = 2
+text = "ID_POW_USE"
+label_settings = SubResource("LabelSettings_ocbv4")
+
+[node name="PowUseCount" type="Label" parent="Stats/Pow"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_aulg1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RangLetter" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_top = 415.0
+offset_right = 1920.0
+offset_bottom = 1042.0
+alignment = 1
+
+[node name="Score" type="VBoxContainer" parent="RangLetter"]
+layout_mode = 2
+alignment = 1
+
+[node name="Rang" type="Label" parent="RangLetter/Score"]
+layout_mode = 2
+text = "A"
+label_settings = SubResource("LabelSettings_dgmlt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreText" type="Label" parent="RangLetter/Score"]
+layout_mode = 2
+text = "SCORE"
+label_settings = SubResource("LabelSettings_xq6jh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreCount" type="Label" parent="RangLetter/Score"]
+layout_mode = 2
+text = "00000000000000000"
+label_settings = SubResource("LabelSettings_xq6jh")
+horizontal_alignment = 1
+vertical_alignment = 1

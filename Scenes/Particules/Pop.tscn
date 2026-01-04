@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu8fuy0ur81dn"]
+
+[ext_resource type="Texture2D" uid="uid://balbovoayhgbc" path="res://Assets/Sprites/Walsy1.svg" id="1_kjfgq"]
+[ext_resource type="Script" path="res://Scripts/Utils/Effects/Particule.cs" id="1_lx4wv"]
+
+[sub_resource type="Gradient" id="Gradient_abm6w"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_02ff0"]
+gradient = SubResource("Gradient_abm6w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dw504"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 100.0
+emission_ring_radius = 100.0
+emission_ring_inner_radius = 50.0
+angle_max = 720.0
+radial_velocity_max = 150.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.2
+color_ramp = SubResource("GradientTexture1D_02ff0")
+
+[node name="Pop" type="GPUParticles2D"]
+process_mode = 1
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_dw504")
+texture = ExtResource("1_kjfgq")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+script = ExtResource("1_lx4wv")

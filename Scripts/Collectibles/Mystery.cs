@@ -3,28 +3,16 @@ using System;
 
 public partial class Mystery : Movable
 {
-    private enum Type
+    private enum ItemType
     {
         Flower,
         Pow,
     }
 
-    private Type type;
+    private ItemType itemType;
 
     [Export] private PackedScene FlowerScene;
     [Export] private PackedScene PowScene;
-
-    private AnimatedSprite2D spriteAnimated;
-    [Export] private NodePath spriteAnimatedPath;
-
-    public override void Initiate()
-    {
-        base.Initiate();
-
-        spriteAnimated = (AnimatedSprite2D)GetNode(spriteAnimatedPath);
-
-        spriteAnimated.Play();
-    }
 
     protected override void Update(float pDelta)
     {
@@ -47,12 +35,13 @@ public partial class Mystery : Movable
 
     private void SpawnCollectible()
     {
-        switch (type)
+        switch (itemType)
         {
-            case Type.Flower:
+            case ItemType.Flower:
                 FlowerCollectible.Create(FlowerScene, GlobalPosition);
                 break;
-            case Type.Pow:
+
+            case ItemType.Pow:
                 PowCollectible.Create(PowScene, GlobalPosition);
                 break;
         }

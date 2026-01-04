@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://slk3be7ijadp"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t2co5"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1080, 0, 0)
+gravity = Vector3(0, 98, 0)
+
+[node name="Snow" type="GPUParticles2D"]
+position = Vector2(0, -44)
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_t2co5")
+lifetime = 10.0

@@ -1,12 +1,12 @@
 using Godot;
-using System.Collections.Generic; // Nécessaire pour les List<>
 
 public partial class SceneManager : Node
 {
-    // ... (Le début du code reste inchangé : Singleton, Variables, _Ready, _Process) ...
-
     private static SceneManager instance;
-    public static SceneManager GetInstance() { return instance; }
+    public static SceneManager GetInstance()
+    {
+        return instance;
+    }
 
     public enum SceneType { MainMenu, Game }
 
@@ -24,7 +24,11 @@ public partial class SceneManager : Node
     public override void _Ready()
     {
         if (instance == null) instance = this;
-        else { QueueFree(); return; }
+        else
+        {
+            QueueFree();
+            return;
+        }
 
         transitionTimer = new Timer();
         transitionTimer.OneShot = true;
@@ -32,24 +36,45 @@ public partial class SceneManager : Node
         transitionTimer.Timeout += OnTransitionFinished;
         AddChild(transitionTimer);
 
-        SwitchScene(SceneType.MainMenu);
+        if (currentSceneType == SceneType.MainMenu)
+            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
     }
 
-    // ... (_Input et _Process inchangés) ...
+    public SceneType GetCurrentSceneType()
+    {
+        return currentSceneType;
+    }
+
     public override void _Input(InputEvent pInput)
     {
+        if (debug == null) return;
+
         if (pInput.IsActionPressed(Property.INPUT_DEBUG))
             debug.Visible = !debug.Visible;
     }
 
     public override void _Process(double pDelta)
     {
-        if (!debug.Visible) return;
-        // ... (Ton code de debug) ...
-        debug.Text = "Debug info..."; // Simplifié pour la lecture
+        if (debug == null || !debug.Visible) return;
+
+        string lText =
+            $"Scene : {currentSceneType}\n" +
+            $"FPS : {Engine.GetFramesPerSecond()}\n" +
+            $"Time : {Engine.TimeScale:F2}s\n" +
+            $"Freeze Time : {Time.currentTimeScale:F2}s\n";
+
+        Player lPlayer = Player.GetInstance();
+        if (lPlayer != null)
+            lText += $"Player State : {lPlayer.currentState}\n";
+
+        Hammer lHammer = Hammer.GetInstance();
+        if (lHammer != null)
+            lText += $"Hammer State : {lHammer.currentState}\n";
+
+        debug.Text = lText;
     }
 
-    public void SwitchScene(SceneType pSceneType)
+    private void SwitchScene(SceneType pSceneType)
     {
         if (isTransitioning) return;
         isTransitioning = true;
@@ -61,6 +86,7 @@ public partial class SceneManager : Node
             currentScene.QueueFree();
             currentScene = null;
         }
+
         transitionTimer.Start();
     }
 
@@ -77,36 +103,34 @@ public partial class SceneManager : Node
         isTransitioning = true;
         float duration = 1.5f;
 
-        GameManager gm = GameManager.GetInstance();
-        if (gm != null)
+        GameManager lGameManager = GameManager.GetInstance();
+        if (lGameManager != null)
         {
-            gm.scrollSpeed = 0f;
+            lGameManager.scrollSpeed = 0f;
             GameManager.scrollSpeedVelocity = Vector2.Zero;
         }
 
-        // --- NETTOYAGE ---
-        CleanupLevel();
-
-        Camera cam = Camera.GetInstance();
-        if (cam != null)
+        Camera lCam = Camera.GetInstance();
+        if (lCam != null)
         {
             Tween tween = CreateTween();
             tween.SetPauseMode(Tween.TweenPauseMode.Process);
-            tween.TweenProperty(cam, "global_position", Vector2.Zero, duration)
+            tween.TweenProperty(lCam, "global_position", Vector2.Zero, duration)
                 .SetTrans(Tween.TransitionType.Cubic)
                 .SetEase(Tween.EaseType.InOut);
         }
 
-        Player player = Player.GetInstance();
-        if (player != null) player.AnimatedDespawn(duration);
-
-        HUD hud = HUD.GetInstance();
-        if (hud != null) hud.PlayExitAnimation(duration);
+        Player lPlayer = Player.GetInstance();
+        if (lPlayer != null)
+            lPlayer.AnimatedDespawn(duration);
 
         Timer timer = new Timer();
         timer.WaitTime = duration;
         timer.OneShot = true;
         AddChild(timer);
+
+        Projectiles.ClearAll();
+        Enemy.ClearAll(true);
 
         timer.Timeout += () =>
         {
@@ -117,49 +141,17 @@ public partial class SceneManager : Node
         timer.Start();
     }
 
-    // NOUVELLE VERSION SANS GROUPES
-    private void CleanupLevel()
-    {
-        // 1. On récupère une position de référence (la caméra ou le centre)
-        Vector2 centerPos = Vector2.Zero;
-        if (Camera.GetInstance() != null) centerPos = Camera.GetInstance().GlobalPosition;
-
-        // 2. Nettoyage des Projectiles via ta méthode statique
-        // On récupère la liste
-        List<Projectiles> projectiles = Projectiles.GetEnemiesProjectilesOnScreen(centerPos);
-        if (projectiles != null)
-        {
-            // On boucle à l'envers par sécurité
-            for (int i = projectiles.Count - 1; i >= 0; i--)
-            {
-                if (IsInstanceValid(projectiles[i]))
-                    projectiles[i].Destory(); // Utilise ta méthode Destory ou QueueFree
-            }
-        }
-
-        List<Enemy> enemies = Enemy.GetEnemiesOnScreen(centerPos);
-        if (enemies != null)
-        {
-            for (int i = enemies.Count - 1; i >= 0; i--)
-            {
-                if (IsInstanceValid(enemies[i]))
-                {
-                    enemies[i].QueueFree();
-                }
-            }
-        }
-    }
-
-    public void ReloadScene() { ChangeScene(SceneType.Game); }
-    public void GoToMainMenu() { ChangeScene(SceneType.MainMenu); }
-
     private void OnTransitionFinished()
     {
         PackedScene lTargetScene = null;
         switch (sceneToLoad)
         {
-            case SceneType.MainMenu: lTargetScene = mainMenuScene; break;
-            case SceneType.Game: lTargetScene = gameScene; break;
+            case SceneType.MainMenu: 
+                lTargetScene = mainMenuScene;
+                break;
+            case SceneType.Game: 
+                lTargetScene = gameScene; 
+                break;
         }
 
         if (lTargetScene != null)
@@ -168,12 +160,13 @@ public partial class SceneManager : Node
             AddChild(currentScene);
             currentSceneType = sceneToLoad;
         }
+
         isTransitioning = false;
     }
 
     protected override void Dispose(bool pDisposing)
     {
-        instance = null;
+        if (instance == this) instance = null;
         base.Dispose(pDisposing);
     }
 }

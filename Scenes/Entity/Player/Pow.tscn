@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://808ccomvyg1"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Player/Pow.cs" id="1_1d0vc"]
+[ext_resource type="PackedScene" uid="uid://bhnuaia2dpuey" path="res://Scenes/Particules/Big.tscn" id="2_7ay6i"]
+[ext_resource type="Texture2D" uid="uid://ey818jhxedis" path="res://Assets/Sprites/Pow.svg" id="3_v8jas"]
+[ext_resource type="PackedScene" uid="uid://dihh2tvaur1gt" path="res://Scenes/LevelDesign/Collectibles/Bubble.tscn" id="4_jo7to"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuduw"]
+size = Vector2(54, 54)
+
+[node name="Pow" type="Area2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_1d0vc")
+pop = ExtResource("2_7ay6i")
+sprite = NodePath("Pow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vuduw")
+disabled = true
+
+[node name="Pow" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("3_v8jas")
+
+[node name="Bubble" parent="." instance=ExtResource("4_jo7to")]
+position = Vector2(2, -1)
+scale = Vector2(1, 0.88)

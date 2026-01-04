@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using static TickEvent;
 
 public partial class Player : Entity
 {
@@ -9,15 +8,13 @@ public partial class Player : Entity
         Spawn,
         Normal,
         Dash,
-        Knockback,
-        Dead
+        Knockback
     }
 
     private static Player instance;
 
     [ExportCategory("Components")]
     [Export] public CollisionShape2D collision;
-    [Export] private AnimatedSprite2D pall;
     [Export] private Sprite2D nose;
     [Export] private Marker2D muzzle;
     [Export] private Hammer hammer;
@@ -73,6 +70,11 @@ public partial class Player : Entity
     [Export] private float deathSlowMoScale = 0.5f;
     [Export] private float deathTimerDuration = 3f;
 
+    [ExportGroup("Audio")]
+    [Export] private AudioStream[] playerShoot;
+    [Export] private AudioStream playerDeath;
+    [Export] private AudioStream loseLife;
+
     public int level = 1;
     public State currentState;
 
@@ -105,10 +107,7 @@ public partial class Player : Entity
 
     public override void _Ready()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        if (instance == null) instance = this;
         else
         {
             QueueFree();
@@ -119,10 +118,12 @@ public partial class Player : Entity
     public override void Initiate()
     {
         base.Initiate();
+
+        GameStats.Reset();
+
         currentState = State.Spawn;
 
         finalSpawnPosition = Position;
-
         Position = new Vector2(finalSpawnPosition.X, -minSpawnOffset);
 
         movementTimer = new Timer();
@@ -130,16 +131,17 @@ public partial class Player : Entity
         movementTimer.Timeout += OnMovementTimerTimeout;
         AddChild(movementTimer);
 
-        pall.Play();
         hammer.Initiate();
         hammer.SetPlayer(this);
 
-        HUD.GetInstance().UpdateHealth(health);
-        HUD.GetInstance().UpdatePow(powNum);
         UpdateLevelParameters();
 
         AnimatedSpawn();
+
+        HUD.GetInstance().UpdateHealth(health);
+        HUD.GetInstance().UpdatePow(powNum);
     }
+
 
     protected override void Update(float pDelta)
     {
@@ -164,9 +166,9 @@ public partial class Player : Entity
         if (spawnTween != null) spawnTween.Kill();
         spawnTween = CreateTween();
 
-        Vector2 overshootPos = finalSpawnPosition + new Vector2(0, entranceOvershoot);
+        Vector2 lOvershootPos = finalSpawnPosition + new Vector2(0, entranceOvershoot);
 
-        spawnTween.TweenProperty(this, "position", overshootPos, dropDuration * 0.7f)
+        spawnTween.TweenProperty(this, "position", lOvershootPos, dropDuration * 0.7f)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 
@@ -206,7 +208,7 @@ public partial class Player : Entity
 
     public void AnimatedDespawn(float pDuration)
     {
-        if (currentState == State.Dead)
+        if (isDeath)
             return;
 
         currentState = State.Spawn;
@@ -240,6 +242,9 @@ public partial class Player : Entity
 
         currentState = State.Normal;
         EndInvincible();
+
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
+        //AudioManager.GetInstance().PlayMusic(AudioManager.GetInstance().levelLoop);
     }
 
     public override void EntityHit(int pDamage = 1)
@@ -259,14 +264,13 @@ public partial class Player : Entity
 
     private void SetDeadState()
     {
-        currentState = State.Dead;
-
         invincibleTween?.Kill();
         spawnTween?.Kill();
 
         sprite.Modulate = Colors.White;
         movementTimer.Stop();
         velocity = Vector2.Zero;
+        AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerExplosion);
     }
 
     private void TriggerGameOverSequence()
@@ -281,11 +285,14 @@ public partial class Player : Entity
         AddChild(lTimer);
         lTimer.Timeout += AfterDeath;
         lTimer.Start();
+
+        HUD.GetInstance().PlayGameOver();
+        AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerExplosion);
     }
 
     private void AfterDeath()
     {
-        StateMenu.GetInstance().OpenMenu(StateMenu.MenuState.GameOver);
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.GameOver);
     }
 
     private void OutOfBound()
@@ -298,7 +305,7 @@ public partial class Player : Entity
         if (lOut == Vector2.Zero)
             return;
 
-        if (currentState == State.Dead)
+        if (isDeath)
         {
             if (!isOutSide && lOut.Y > 0)
             {
@@ -360,9 +367,7 @@ public partial class Player : Entity
     private void OnMovementTimerTimeout()
     {
         if (currentState == State.Dash || currentState == State.Knockback)
-        {
             currentState = State.Normal;
-        }
     }
 
     protected override void OnCollide(Area2D pArea)
@@ -423,6 +428,8 @@ public partial class Player : Entity
                 throw new InvalidOperationException();
         }
 
+        AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerShoot);
+
         Effect.BumpScale(sprite, baseSpriteScale);
         Effect.SquashStretch(sprite, baseSpriteScale, true, false, 0.8f, 1f);
 
@@ -479,6 +486,7 @@ public partial class Player : Entity
         if (health >= maxHealth)
             return;
 
+        AudioManager.GetInstance().Play(AudioManager.AudioType.PowerLife);
         health = Mathf.Min(health + 1, maxHealth);
         HUD.GetInstance().UpdateHealth(health);
         GD.Print("HEALTH:" + health);
@@ -492,6 +500,7 @@ public partial class Player : Entity
         if (powNum >= maxPow)
             return;
 
+        AudioManager.GetInstance().Play(AudioManager.AudioType.PowerUpPow);
         powNum = Mathf.Min(powNum + 1, maxPow);
         HUD.GetInstance().UpdatePow(powNum);
         GD.Print("POW:" + powNum);
@@ -516,6 +525,7 @@ public partial class Player : Entity
         {
             EntityHit();
             hammer.ResetToIdle();
+            AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerLostLife);
         }
     }
 
@@ -525,6 +535,21 @@ public partial class Player : Entity
         Effect.FlashColor(this, Colors.Red, flashTime);
         Blink();
     }
+
+    public void InstantDeath()
+    {
+        if (isDeath) return;
+
+        godMode = false;
+        invincible = false;
+        if (invincibleTimer != null) invincibleTimer.Stop();
+
+        health = 0;
+        HUD.GetInstance().UpdateHealth(0);
+
+        EntityDeath();
+    }
+
 
     protected override void EndInvincible()
     {
@@ -587,6 +612,11 @@ public partial class Player : Entity
         if (Input.IsActionJustPressed(Property.INPUT_HEALTH_DOWN))
         {
             HitCheckInvincible();
+        }
+
+        if (Input.IsActionJustPressed(Property.INPUT_WIN))
+        {
+            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
         }
     }
 

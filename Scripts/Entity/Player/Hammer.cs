@@ -48,13 +48,21 @@ public partial class Hammer : GameObject
     [Export] private float hammerHide = 0.2f;
     [Export] private float dashDistance = 0.15f;
 
+    [ExportGroup("Audio")]
+    [Export] private AudioManager.AudioType chargeSoundType = AudioManager.AudioType.HammerCharge;
+    [Export] private AudioManager.AudioType swingSoundType = AudioManager.AudioType.HammerSwing;
+
     private Tween animationTween;
     private Timer animationTimer;
+    private AudioStreamPlayer sfxPlayer;
 
     private float chargeTime;
     private float attackTime;
 
     private static Hammer instance;
+
+    private readonly string propRotation = (string)Node2D.PropertyName.RotationDegrees;
+    private readonly string propScale = (string)Node2D.PropertyName.Scale;
 
     public static Hammer GetInstance()
     {
@@ -69,6 +77,10 @@ public partial class Hammer : GameObject
             QueueFree();
             return;
         }
+
+        sfxPlayer = new AudioStreamPlayer();
+        sfxPlayer.Bus = "SFX";
+        AddChild(sfxPlayer);
     }
 
     public override void Initiate()
@@ -101,9 +113,7 @@ public partial class Hammer : GameObject
     public void Attack(float pDelta)
     {
         if (animationTween != null && animationTween.IsValid())
-        {
             animationTween.CustomStep(pDelta);
-        }
 
         progressBar.Value = chargeTime;
 
@@ -165,6 +175,8 @@ public partial class Hammer : GameObject
         Effect.SquashStretch(player.sprite, player.baseSpriteScale, false);
         SetRotation(startChargeRotation, maxChargeTime - chargeTweenTime);
         Effect.BumpScale(sprite, baseSpriteScale);
+
+        PlayHammerSound(chargeSoundType, maxChargedTime);
     }
 
     private void FullyCharged()
@@ -189,13 +201,35 @@ public partial class Hammer : GameObject
 
         animationTween?.Kill();
 
-        int lAttackForce = attackForce - 1;
-        if (lAttackForce < swingRotations.Length)
-            animationTween = SetRotation(swingRotations[lAttackForce], attackTime * attackForce);
+        int lAttackForceIndex = attackForce - 1;
+        float lTotalDuration = attackTime * attackForce;
+
+        PlayHammerSound(swingSoundType, lTotalDuration);
+
+        if (lAttackForceIndex < swingRotations.Length)
+            animationTween = SetRotation(swingRotations[lAttackForceIndex], lTotalDuration);
 
         attackForce = attackForceMultiply * (int)chargeTime;
 
         animationTween.Finished += FinishAttack;
+    }
+
+    private void PlayHammerSound(AudioManager.AudioType pType, float pTargetDuration)
+    {
+        AudioStream lStream = AudioManager.GetInstance().GetStream(pType);
+
+        if (lStream == null || pTargetDuration <= 0) return;
+
+        sfxPlayer.Stop();
+        sfxPlayer.Stream = lStream;
+
+        float lOriginalDuration = (float)lStream.GetLength();
+        if (lOriginalDuration > 0)
+        {
+            sfxPlayer.PitchScale = lOriginalDuration / pTargetDuration;
+        }
+
+        sfxPlayer.Play();
     }
 
     private void FinishAttack()
@@ -221,6 +255,9 @@ public partial class Hammer : GameObject
 
     public void ResetToIdle()
     {
+        if (sfxPlayer.Playing)
+            sfxPlayer.Stop();
+
         SetScale(1, 0);
         chargeTime = 0;
         progressBar.Visible = false;
@@ -235,7 +272,7 @@ public partial class Hammer : GameObject
         animationTween?.Kill();
 
         animationTween = CreateTween();
-        animationTween.TweenProperty(sprite, (string)PropertyName.RotationDegrees, pTarget, pTime)
+        animationTween.TweenProperty(sprite, propRotation, pTarget, pTime)
               .SetEase(Tween.EaseType.InOut)
               .SetTrans(Tween.TransitionType.Back);
 
@@ -247,14 +284,14 @@ public partial class Hammer : GameObject
     private void SetScale(float pScale, float pTime)
     {
         Tween lTween = CreateTween();
-        lTween.TweenProperty(sprite, (string)PropertyName.Scale, baseScale * pScale, pTime)
+        lTween.TweenProperty(sprite, propScale, baseScale * pScale, pTime)
               .SetEase(Tween.EaseType.InOut)
               .SetTrans(Tween.TransitionType.Back);
     }
 
-    private Color LerpColors(Color pColorA, Color ColorB, float pTime)
+    private Color LerpColors(Color pColorA, Color pColorB, float pTime)
     {
-        return pColorA.Lerp(ColorB, Mathf.Clamp(pTime, 0f, 1f));
+        return pColorA.Lerp(pColorB, Mathf.Clamp(pTime, 0f, 1f));
     }
 
     protected override void Dispose(bool pDisposing)

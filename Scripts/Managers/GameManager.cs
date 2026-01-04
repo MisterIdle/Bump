@@ -16,10 +16,6 @@ public partial class GameManager : Node2D
     [ExportCategory("Self")]
     [Export] public Node2D gameContainer;
 
-    [ExportCategory("Global Score")]
-    [Export] public int coin;
-    [Export] public int score;
-
     public Vector2 screenSize;
     public Vector2 screenSizeCenterX;
 
@@ -70,12 +66,6 @@ public partial class GameManager : Node2D
 
         if (lChance < healthPercent)
             HeartCollectible.Create(healthScene, pPos);
-    }
-
-    public void AddCoin()
-    {
-        coin++;
-        GD.Print("COIN:" + coin);
     }
 
     protected override void Dispose(bool pDisposing)

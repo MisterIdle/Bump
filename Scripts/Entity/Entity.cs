@@ -62,11 +62,9 @@ public partial class Entity : Movable
     {
         if (invincible || isDeath) return;
 
-        GD.Print(Name + " Hit");
+        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion);
 
         health -= pDamage;
-
-        GD.Print(Name + "Hit: " + pDamage);
 
         if (health <= 0)
             EntityDeath();
@@ -102,8 +100,8 @@ public partial class Entity : Movable
 
     protected void Flip(bool pFaceLeft)
     {
-        Scale = new Vector2(Mathf.Abs(Scale.X) * (pFaceLeft ? 1 : -1), Scale.Y);
-        baseScale = Scale;
+        float lDirection = pFaceLeft ? 1 : -1;
+        Scale = new Vector2(Mathf.Abs(baseScale.X) * lDirection, baseScale.Y);
         Effect.SquashStretch(this, baseScale, true);
     }
 

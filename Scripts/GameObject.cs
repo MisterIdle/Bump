@@ -19,11 +19,7 @@ public partial class GameObject : Area2D
         if (sprite != null && IsInstanceValid(sprite))
             baseSpriteScale = sprite.Scale;
 
-        GD.Print(Name + " base: " + baseSpriteScale);
-
         enable = true;
-
-        GD.Print(Name + " enable");
     }
 
     public override void _Process(double pDelta)

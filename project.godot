@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Shmup"
-run/main_scene="res://Scenes/Main/Main.tscn"
+run/main_scene="res://Scenes/MainScenes/Main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 boot_splash/image="res://Assets/Sprites/LOGO-ISART_baselineFR_150DPI_white.png"
 boot_splash/fullsize=false
@@ -35,10 +35,7 @@ project/assembly_name="Shmup"
 
 folder_colors={
 "res://Assets/": "orange",
-"res://Assets/Background/": "blue",
-"res://Assets/Shader/": "purple",
-"res://Assets/Sprites/": "red",
-"res://Assets/Visual/": "teal",
+"res://Audio/": "yellow",
 "res://Scenes/": "green",
 "res://Scripts/": "blue"
 }
@@ -157,29 +154,9 @@ DEBUG={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194332,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
-BOSSPROTECTED={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194445,"key_label":0,"unicode":55,"echo":false,"script":null)
-]
-}
-BOSSNORMAL={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194446,"key_label":0,"unicode":56,"echo":false,"script":null)
-]
-}
-PHASEA={
+WIN={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":90,"key_label":0,"unicode":119,"echo":false,"script":null)
-]
-}
-PHASEB={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":88,"key_label":0,"unicode":120,"echo":false,"script":null)
-]
-}
-PHASEC={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"echo":false,"script":null)
 ]
 }
 

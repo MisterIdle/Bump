@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhnuaia2dpuey"]
+
+[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="1_21i7s"]
+[ext_resource type="Script" path="res://Scripts/Utils/Effects/Particule.cs" id="1_fwsfw"]
+
+[sub_resource type="Gradient" id="Gradient_aopg1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w2iwy"]
+gradient = SubResource("Gradient_aopg1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_40r7s"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 200.0
+emission_ring_radius = 200.0
+emission_ring_inner_radius = 180.0
+spread = 0.0
+angular_velocity_min = 400.0
+angular_velocity_max = 500.0
+radial_velocity_min = 300.0
+radial_velocity_max = 800.0
+gravity = Vector3(0, 500, 0)
+scale_min = 0.1
+scale_max = 0.2
+color_ramp = SubResource("GradientTexture1D_w2iwy")
+
+[node name="Big" type="GPUParticles2D"]
+process_mode = 1
+emitting = false
+amount = 80
+process_material = SubResource("ParticleProcessMaterial_40r7s")
+texture = ExtResource("1_21i7s")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+script = ExtResource("1_fwsfw")

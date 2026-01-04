@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class HUD : Control
+public partial class HUD : MenuBase
 {
     private static HUD instance;
     public static HUD GetInstance()
@@ -11,34 +11,66 @@ public partial class HUD : Control
 
     [Export] private PackedScene bubbleScore;
 
+    #region References
     [ExportCategory("References")]
-    [Export] public HBoxContainer HealthContainer;
-    [Export] public HBoxContainer PowContainer;
+    [Export] public HBoxContainer healthContainer;
+    [Export] public HBoxContainer powContainer;
     [Export] public Label scoreLabel;
     [Export] public Label godmodeLabel;
+    [Export] public Label gameoverLabel;
+    [Export] private Label bossLabel;
+    [Export] private ProgressBar bossTextureBar;
+    #endregion
 
+    #region Colors
     [ExportCategory("Colors")]
     [Export] public Color activeColor = new Color(1, 1, 1, 1.0f);
     [Export] public Color inactiveColor = new Color(1, 1, 1, 0.2f);
     [Export] public Color bossDamageColor = new Color(1, 0.2f, 0.2f, 1.0f);
+    #endregion
 
-    [ExportCategory("Animation Settings")]
-    [Export(PropertyHint.Range, "0.1, 2.0")]
-    public float popDuration = 0.25f;
+    #region Animation Settings - Score
+    [ExportCategory("Anim - Score")]
+    [Export(PropertyHint.Range, "0.1, 2.0")] public float popDuration = 0.25f;
+    [Export(PropertyHint.Range, "1.0, 3.0")] public float popScaleFactor = 1.5f;
+    [Export(PropertyHint.Range, "0.1, 5.0")] public float scoreCountDuration = 0.5f;
+    #endregion
 
-    [Export(PropertyHint.Range, "1.0, 3.0")]
-    public float popScaleFactor = 1.5f;
+    #region Animation Settings - Entrance
+    [ExportCategory("Anim - Entrance")]
+    [Export] public float entranceOffsetY = 50f;
+    [Export] public float entranceFadeDuration = 0.5f;
+    [Export] public float entranceMoveDuration = 0.6f;
+    [Export] public float entranceElementScaleDuration = 0.4f;
+    [Export] public float entranceHealthDelay = 0.1f;
+    [Export] public float entranceScoreDelay = 0.2f;
+    [Export] public float entrancePowDelay = 0.3f;
+    #endregion
 
-    [Export(PropertyHint.Range, "0.1, 5.0")]
-    public float scoreCountDuration = 0.5f;
+    #region Animation Settings - Exit
+    [ExportCategory("Anim - Exit")]
+    [Export] public float exitOffsetY = 150f;
+    [Export] public float exitModulateMult = 0.8f;
+    #endregion
 
-    [ExportCategory("Boss UI")]
-    [Export] private Label bossLabel;
-    [Export] private ProgressBar bossTextureBar;
+    #region Animation Settings - Boss
+    [ExportCategory("Anim - Boss")]
+    [Export] public float bossFadeDuration = 0.5f;
+    [Export] public float bossFillDuration = 1.2f;
+    [Export] public float bossHitDuration = 0.4f;
+    [Export] public float bossColorReturnDuration = 0.3f;
+    #endregion
+
+    #region Animation Settings - Game Over
+    [ExportCategory("Anim - Game Over")]
+    [Export] public float gameOverFallDuration = 1.0f;
+    [Export] public float gameOverStartOffsetY = 100f;
+    #endregion
 
     private Vector2 originalScale;
     private float originalY;
     private float bossBarOriginalX;
+    private float gameOverOriginalY;
 
     public override void _Ready()
     {
@@ -52,19 +84,27 @@ public partial class HUD : Control
         originalScale = scoreLabel.Scale;
         originalY = Position.Y;
 
-        // On sauvegarde la position X de la barre du boss pour le tremblement
-        if (bossTextureBar != null)
-        {
-            bossBarOriginalX = bossTextureBar.Position.X;
-            bossTextureBar.Modulate = new Color(1, 1, 1, 0);
-        }
+        bossBarOriginalX = bossTextureBar.Position.X;
+        bossTextureBar.Modulate = new Color(1, 1, 1, 0);
 
-        if (bossLabel != null)
-        {
-            bossLabel.Modulate = new Color(1, 1, 1, 0);
-        }
+        bossLabel.Modulate = new Color(1, 1, 1, 0);
 
+        gameOverOriginalY = gameoverLabel.Position.Y;
+        gameoverLabel.Visible = false;
+
+        Visible = false;
+    }
+
+    public override void OnEnter()
+    {
+        Visible = true;
+        gameoverLabel.Visible = false;
         PlayEntranceAnimation();
+    }
+
+    public override void OnExit()
+    {
+        PlayExitAnimation(animDurationExit);
     }
 
     public void SetupBossBattle(int pMaxHealth)
@@ -75,15 +115,15 @@ public partial class HUD : Control
         bossTextureBar.Value = 0;
 
         Tween lTween = CreateTween();
-        
-        lTween.TweenProperty(bossTextureBar, "modulate:a", 1.0f, 0.5f);
-        
+
+        lTween.TweenProperty(bossTextureBar, (string)CanvasItem.PropertyName.Modulate + ":a", 1.0f, bossFadeDuration);
+
         if (bossLabel != null)
         {
-            lTween.Parallel().TweenProperty(bossLabel, "modulate:a", 1.0f, 0.5f);
+            lTween.Parallel().TweenProperty(bossLabel, (string)CanvasItem.PropertyName.Modulate + ":a", 1.0f, bossFadeDuration);
         }
 
-        lTween.Chain().TweenProperty(bossTextureBar, "value", pMaxHealth, 1.2f)
+        lTween.Chain().TweenProperty(bossTextureBar, "value", pMaxHealth, bossFillDuration)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.Out);
     }
@@ -95,18 +135,20 @@ public partial class HUD : Control
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
 
-        lTween.TweenProperty(bossTextureBar, "value", pCurrentHealth, 0.4f)
+        lTween.TweenProperty(bossTextureBar, "value", pCurrentHealth, bossHitDuration)
             .SetTrans(Tween.TransitionType.Elastic)
             .SetEase(Tween.EaseType.Out);
 
         bossTextureBar.Modulate = bossDamageColor;
-        lTween.TweenProperty(bossTextureBar, "modulate", new Color(1, 1, 1, 1), 0.3f);
+        lTween.TweenProperty(bossTextureBar, (string)CanvasItem.PropertyName.Modulate, new Color(1, 1, 1, 1), bossColorReturnDuration);
 
         Effect.BumpHUD(bossTextureBar, originalScale);
     }
 
     public BubbleScore CreateBubbleScore(Vector2 pPos, int pScore)
     {
+        if (bubbleScore == null) return null;
+
         BubbleScore lBubbleScore = (BubbleScore)bubbleScore.Instantiate();
         lBubbleScore.Position = pPos;
         lBubbleScore.score = pScore;
@@ -118,10 +160,12 @@ public partial class HUD : Control
 
     public void AnimatedScore(int pNewScore)
     {
-        int lCurrentScore = GameManager.GetInstance().score;
+        int lCurrentScore = GameStats.currentScore;
         int lTargetScore = lCurrentScore + pNewScore;
 
-        GameManager.GetInstance().score = lTargetScore;
+        GameStats.currentScore = lTargetScore;
+
+        GD.Print(GameStats.currentScore);
 
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
@@ -130,43 +174,46 @@ public partial class HUD : Control
               .SetEase(Tween.EaseType.Out)
               .SetTrans(Tween.TransitionType.Cubic);
 
-        lTween.TweenProperty(scoreLabel, "scale", originalScale * popScaleFactor, popDuration)
+        lTween.TweenProperty(scoreLabel, (string)PropertyName.Scale, originalScale * popScaleFactor, popDuration)
               .SetTrans(Tween.TransitionType.Back)
               .SetEase(Tween.EaseType.Out);
 
-        lTween.Chain().TweenProperty(scoreLabel, "scale", originalScale, popDuration)
+        lTween.Chain().TweenProperty(scoreLabel, (string)PropertyName.Scale, originalScale, popDuration)
               .SetTrans(Tween.TransitionType.Back)
               .SetEase(Tween.EaseType.In);
     }
 
     public void PlayEntranceAnimation()
     {
-        Modulate = new Color(1, 1, 1, 0); 
-        Position = new Vector2(Position.X, originalY - 50);
+        Modulate = new Color(1, 1, 1, 0);
+        Position = new Vector2(Position.X, originalY - entranceOffsetY);
 
-        HealthContainer.Scale = Vector2.Zero;
-        PowContainer.Scale = Vector2.Zero;
-        scoreLabel.Scale = Vector2.Zero;
+        if (healthContainer != null) healthContainer.Scale = Vector2.Zero;
+        if (powContainer != null) powContainer.Scale = Vector2.Zero;
+        if (scoreLabel != null) scoreLabel.Scale = Vector2.Zero;
 
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
 
-        lTween.TweenProperty(this, "modulate:a", 1f, 0.5f);
-        lTween.TweenProperty(this, "position:y", originalY, 0.6f)
+        lTween.TweenProperty(this, (string)CanvasItem.PropertyName.Modulate + ":a", 1f, entranceFadeDuration);
+        lTween.TweenProperty(this, (string)Node2D.PropertyName.Position + ":y", originalY, entranceMoveDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(HealthContainer, "scale", Vector2.One, 0.4f)
-            .SetDelay(0.1f)
-            .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+        if (healthContainer != null)
+            lTween.TweenProperty(healthContainer, (string)Node2D.PropertyName.Scale, Vector2.One, entranceElementScaleDuration)
+                .SetDelay(entranceHealthDelay)
+                .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(scoreLabel, "scale", originalScale, 0.4f)
-            .SetDelay(0.2f)
-            .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+        if (scoreLabel != null)
+            lTween.TweenProperty(scoreLabel, (string)Node2D.PropertyName.Scale, originalScale, entranceElementScaleDuration)
+                .SetDelay(entranceScoreDelay)
+                .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(PowContainer, "scale", Vector2.One, 0.4f)
-            .SetDelay(0.3f)
-            .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+        if (powContainer != null)
+            lTween.TweenProperty(powContainer, (string)Node2D.PropertyName.Scale, Vector2.One, entranceElementScaleDuration)
+                .SetDelay(entrancePowDelay)
+                .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
     }
 
     public void PlayExitAnimation(float pDuration)
@@ -174,31 +221,48 @@ public partial class HUD : Control
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
 
-        lTween.TweenProperty(this, "position:y", originalY - 150, pDuration)
+        lTween.TweenProperty(this, (string)Node2D.PropertyName.Position + ":y", originalY - exitOffsetY, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.In);
 
-        lTween.TweenProperty(this, "modulate:a", 0f, pDuration * 0.8f);
+        lTween.TweenProperty(this, (string)CanvasItem.PropertyName.Modulate + ":a", 0f, pDuration * exitModulateMult);
+
+        lTween.Chain().TweenCallback(Callable.From(() => Visible = false));
+    }
+
+    public void PlayGameOver()
+    {
+        gameoverLabel.Visible = true;
+        gameoverLabel.Modulate = new Color(1, 1, 1, 1);
+
+        float startY = -gameoverLabel.Size.Y - gameOverStartOffsetY;
+        gameoverLabel.Position = new Vector2(gameoverLabel.Position.X, startY);
+
+        Tween lTween = CreateTween();
+
+        lTween.TweenProperty(gameoverLabel, (string)Node2D.PropertyName.Position + ":y", gameOverOriginalY, gameOverFallDuration)
+              .SetTrans(Tween.TransitionType.Bounce)
+              .SetEase(Tween.EaseType.Out);
     }
 
     private void SetScoreText(int pValue)
     {
-        scoreLabel.Text = pValue.ToString();
+        if (scoreLabel != null) scoreLabel.Text = pValue.ToString();
     }
 
     public void UpdateHealth(int pCurrentHealth)
     {
-        UpdateContainerAlpha(HealthContainer, pCurrentHealth);
+        UpdateContainerAlpha(healthContainer, pCurrentHealth);
     }
 
     public void UpdatePow(int pCurrentPow)
     {
-        UpdateContainerAlpha(PowContainer, pCurrentPow);
+        UpdateContainerAlpha(powContainer, pCurrentPow);
     }
 
     public void SetGodMode(bool pEnabled)
     {
-        godmodeLabel.Visible = pEnabled;
+        if (godmodeLabel != null) godmodeLabel.Visible = pEnabled;
     }
 
     private void UpdateContainerAlpha(HBoxContainer pContainer, int pValue)
@@ -212,7 +276,6 @@ public partial class HUD : Control
             if (lNode is TextureRect lTextureRect)
             {
                 lTextureRect.Modulate = lIndex < pValue ? activeColor : inactiveColor;
-
                 Effect.BumpHUD(lTextureRect, Scale);
             }
             lIndex++;
