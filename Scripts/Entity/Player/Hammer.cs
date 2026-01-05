@@ -1,18 +1,15 @@
 using Godot;
-using System;
+
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
 public partial class Hammer : GameObject
 {
-    public enum State
-    {
-        Idle,
-        Charging,
-        Charged,
-        Swing,
-        Cooldown
-    }
-
+    public enum State { Idle, Charging, Charged, Swing, Cooldown }
     public State currentState;
+
     public bool isActif;
 
     [ExportGroup("References")]
@@ -69,6 +66,10 @@ public partial class Hammer : GameObject
         return instance;
     }
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         if (instance == null) instance = this;
@@ -78,8 +79,10 @@ public partial class Hammer : GameObject
             return;
         }
 
+        string lBus = "SFX";
+
         sfxPlayer = new AudioStreamPlayer();
-        sfxPlayer.Bus = "SFX";
+        sfxPlayer.Bus = lBus;
         AddChild(sfxPlayer);
     }
 
@@ -93,7 +96,7 @@ public partial class Hammer : GameObject
         attackTime = baseAttackTime;
 
         animationTween = CreateTween();
-        animationTween.Kill();
+        animationTween?.Kill();
 
         animationTimer = new Timer();
         animationTimer.WaitTime = hammerHide;
@@ -109,6 +112,10 @@ public partial class Hammer : GameObject
     {
         player = pPlayer;
     }
+
+    // ========================================================================
+    // STATE MACHINE
+    // ========================================================================
 
     public void Attack(float pDelta)
     {
@@ -164,6 +171,10 @@ public partial class Hammer : GameObject
                 break;
         }
     }
+
+    // ========================================================================
+    // STATE
+    // ========================================================================
 
     private void StartCharging()
     {
@@ -258,7 +269,7 @@ public partial class Hammer : GameObject
         if (sfxPlayer.Playing)
             sfxPlayer.Stop();
 
-        SetScale(1, 0);
+        SetScale();
         chargeTime = 0;
         progressBar.Visible = false;
         sprite.Visible = false;
@@ -266,6 +277,10 @@ public partial class Hammer : GameObject
         currentState = State.Idle;
         SetRotation(idleRotation, 0);
     }
+
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
 
     private Tween SetRotation(float pTarget, float pTime)
     {
@@ -281,7 +296,7 @@ public partial class Hammer : GameObject
         return animationTween;
     }
 
-    private void SetScale(float pScale, float pTime)
+    private void SetScale(float pScale = 1, float pTime = 0)
     {
         Tween lTween = CreateTween();
         lTween.TweenProperty(sprite, propScale, baseScale * pScale, pTime)

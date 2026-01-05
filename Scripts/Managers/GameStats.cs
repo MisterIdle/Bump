@@ -1,5 +1,9 @@
 ﻿using System;
 
+using Com.IsartDigital.Shmup.NHUD;
+
+namespace Com.IsartDigital.Shmup.NStats;
+
 public static class GameStats
 {
     public static int enemyKills;

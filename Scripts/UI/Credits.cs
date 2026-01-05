@@ -1,7 +1,20 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class Credits : MenuBase
 {
+    public override void OnExit()
+    {
+        PlayGenericExitAnimation();
+    }
+
+    // ========================================================================
+    // INPUT
+    // ========================================================================
+
     public override void _Input(InputEvent pEvent)
     {
         if (!Visible) return;
@@ -20,10 +33,5 @@ public partial class Credits : MenuBase
                 SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.MainMenu);
             }
         }
-    }
-
-    public override void OnExit()
-    {
-        PlayGenericExitAnimation();
     }
 }

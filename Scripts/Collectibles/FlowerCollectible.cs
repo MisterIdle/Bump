@@ -1,6 +1,12 @@
 using Godot;
 using System;
 
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
+
 public partial class FlowerCollectible : Collectibles
 {
     [Export] private NodePath spritePath;
@@ -11,6 +17,10 @@ public partial class FlowerCollectible : Collectibles
     private static ShaderMaterial material;
     private static Color sharedColor = Colors.White;
     private static int lastLevel = -1;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
@@ -36,6 +46,23 @@ public partial class FlowerCollectible : Collectibles
         return collectible;
     }
 
+    private Color GetColorForLevel(int level)
+    {
+        switch (level)
+        {
+            case 2:
+                return Colors.White;
+            case 3:
+                return Colors.Red;
+            default:
+                return Colors.White;
+        }
+    }
+
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
+
     protected override void OnCollide(Area2D pArea)
     {
         base.OnCollide(pArea);
@@ -52,18 +79,5 @@ public partial class FlowerCollectible : Collectibles
         }
 
         Effect.SquashStretch(this, baseScale, true);
-    }
-
-    private Color GetColorForLevel(int level)
-    {
-        switch (level)
-        {
-            case 2: 
-                return Colors.White;
-            case 3: 
-                return Colors.Red;
-            default: 
-                return Colors.White;
-        }
     }
 }

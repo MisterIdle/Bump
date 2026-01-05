@@ -1,4 +1,8 @@
 using Godot;
+using Com.IsartDigital.Shmup.NGameObject;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
+
+namespace Com.IsartDigital.Shmup.NManager;
 
 public partial class GameManager : Node2D
 {
@@ -22,13 +26,16 @@ public partial class GameManager : Node2D
     public static RandomNumberGenerator rand = new RandomNumberGenerator();
 
     private static GameManager instance;
-
     public GameManager() : base() { }
 
     public static GameManager GetInstance()
     {
         return instance;
     }
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void _Ready()
     {
@@ -43,6 +50,10 @@ public partial class GameManager : Node2D
             if (!forceEnable[i].enable) forceEnable[i].Initiate();
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     public override void _Process(double pDelta)
     {
         Vector2 lViewportSize = GetViewportRect().Size;
@@ -53,6 +64,10 @@ public partial class GameManager : Node2D
 
         scrollSpeedVelocity = Vector2.Right * scrollSpeed;
     }
+
+    // ========================================================================
+    // COLLECTIBLE
+    // ========================================================================
 
     public static void CreateHealthCollectible(Vector2 pPos)
     {

@@ -68,3 +68,7 @@ res://Scripts/Entity/Enemy/Shelled/ShelledEnemy.cs
 res://Scripts/UI/Credits.cs
 res://Scripts/Entity/Enemy/Shelled/Shell.cs
 res://Scripts/Entity/Entity.cs
+res://Scenes/Entity/Enemy/Rushroops.tscn
+res://default_bus_layout.tres
+res://Scenes/Projectiles/Fireball.tscn
+res://Scenes/Projectiles/KingSpike.tscn

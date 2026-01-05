@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class MenuManager : Control
 {
     private static MenuManager instance;
@@ -40,6 +42,10 @@ public partial class MenuManager : Control
     private MenuBase currentMenu = null;
     private Tween flipTween;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         if (instance == null) instance = this;
@@ -49,15 +55,19 @@ public partial class MenuManager : Control
             return;
         }
 
-        if (MainMenu != null) MainMenu.Visible = false;
-        if (OptionsMenu != null) OptionsMenu.Visible = false;
-        if (HUDMenu != null) HUDMenu.Visible = false;
-        if (StateMenu != null) StateMenu.Visible = false;
-        if (VictoryMenu != null) VictoryMenu.Visible = false;
-        if (Credits != null) Credits.Visible = false;
+        MainMenu.Visible = false;
+        OptionsMenu.Visible = false;
+        HUDMenu.Visible = false;
+        StateMenu.Visible = false;
+        VictoryMenu.Visible = false;
+        Credits.Visible = false;
 
         SetMenu(MenuState.MainMenu);
     }
+
+    // ========================================================================
+    // STATE
+    // ========================================================================
 
     public void SetMenu(MenuState pNewState)
     {
@@ -137,11 +147,12 @@ public partial class MenuManager : Control
             SetMenu(MenuState.MainMenu);
     }
 
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
+
     public void Flip(float pDegrees)
     {
-        if (Mathf.IsEqualApprox(pivot.RotationDegrees, pDegrees))
-            return;
-
         flipTween?.Kill();
 
         flipTween = CreateTween();

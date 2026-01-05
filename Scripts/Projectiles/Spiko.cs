@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+
 public partial class Spiko : Spike
 {
     [Export] public float trackingTime = 1.0f;
@@ -7,6 +9,10 @@ public partial class Spiko : Spike
     private Timer trackingTimer;
     private bool isTracking = true;
     private bool hasTimerStarted = false;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
@@ -33,6 +39,10 @@ public partial class Spiko : Spike
     {
         isTracking = false;
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     protected override void Update(float pDelta)
     {

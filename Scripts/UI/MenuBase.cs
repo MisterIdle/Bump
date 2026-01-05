@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class MenuBase : Control
 {
     [ExportCategory("Base Animation")]
@@ -10,6 +12,10 @@ public partial class MenuBase : Control
 
     private Tween animationTween;
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     public virtual void OnEnter()
     {
         Visible = true;
@@ -18,6 +24,10 @@ public partial class MenuBase : Control
     }
 
     public virtual void OnExit() { }
+
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
 
     protected void ResetControlsRecursive(Node pNode)
     {
@@ -115,11 +125,6 @@ public partial class MenuBase : Control
 
     private bool IsAnimatable(Control pControl)
     {
-        return pControl is Button ||
-               pControl is Label ||
-               pControl is CheckBox ||
-               pControl is HSlider ||
-               pControl is TextureRect ||
-               pControl is ProgressBar;
+        return pControl is Button || pControl is Label || pControl is CheckBox || pControl is HSlider || pControl is TextureRect || pControl is ProgressBar;
     }
 }

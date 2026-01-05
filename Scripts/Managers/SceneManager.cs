@@ -1,5 +1,13 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NHUD;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NManager;
+
 public partial class SceneManager : Node
 {
     private static SceneManager instance;
@@ -21,6 +29,10 @@ public partial class SceneManager : Node
     private bool isTransitioning = false;
     private float loadTime = 0.3f;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         if (instance == null) instance = this;
@@ -40,18 +52,9 @@ public partial class SceneManager : Node
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
     }
 
-    public SceneType GetCurrentSceneType()
-    {
-        return currentSceneType;
-    }
-
-    public override void _Input(InputEvent pInput)
-    {
-        if (debug == null) return;
-
-        if (pInput.IsActionPressed(Property.INPUT_DEBUG))
-            debug.Visible = !debug.Visible;
-    }
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     public override void _Process(double pDelta)
     {
@@ -61,7 +64,7 @@ public partial class SceneManager : Node
             $"Scene : {currentSceneType}\n" +
             $"FPS : {Engine.GetFramesPerSecond()}\n" +
             $"Time : {Engine.TimeScale:F2}s\n" +
-            $"Freeze Time : {Time.currentTimeScale:F2}s\n";
+            $"Freeze Time : {ScaleTime.currentTimeScale:F2}s\n";
 
         Player lPlayer = Player.GetInstance();
         if (lPlayer != null)
@@ -72,6 +75,27 @@ public partial class SceneManager : Node
             lText += $"Hammer State : {lHammer.currentState}\n";
 
         debug.Text = lText;
+    }
+
+    // ========================================================================
+    // INPUT
+    // ========================================================================
+
+    public override void _Input(InputEvent pInput)
+    {
+        if (debug == null) return;
+
+        if (pInput.IsActionPressed(Property.INPUT_DEBUG))
+            debug.Visible = !debug.Visible;
+    }
+
+    // ========================================================================
+    // SCENE
+    // ========================================================================
+
+    public SceneType GetCurrentSceneType()
+    {
+        return currentSceneType;
     }
 
     private void SwitchScene(SceneType pSceneType)

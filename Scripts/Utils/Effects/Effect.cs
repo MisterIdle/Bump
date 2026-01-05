@@ -1,9 +1,14 @@
 ﻿using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NToolsBox;
+
 public static class Effect
 {
-    private static string scale = "scale";
-    private static string modulate = "modulate";
+    private static string scaleProperty = "scale";
+    private static string modulateProperty = "modulate";
+    private static string offsetProperty = "offset";
 
     public static Tween BumpScale(Node2D pWho, Vector2 pBaseScale, float pScaleBump = 1.2f, float pDuration = 0.1f)
     {
@@ -11,11 +16,11 @@ public static class Effect
 
         Tween lTween = pWho.CreateTween();
 
-        lTween.TweenProperty(pWho, scale, pBaseScale * pScaleBump, pDuration)
+        lTween.TweenProperty(pWho, scaleProperty, pBaseScale * pScaleBump, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(pWho, scale, pBaseScale, pDuration)
+        lTween.TweenProperty(pWho, scaleProperty, pBaseScale, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
@@ -26,11 +31,11 @@ public static class Effect
     {
         Tween lTween = pWho.CreateTween();
 
-        lTween.TweenProperty(pWho, modulate, pColor, pDuration)
+        lTween.TweenProperty(pWho, modulateProperty, pColor, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(pWho, modulate, Colors.White, pDuration)
+        lTween.TweenProperty(pWho, modulateProperty, Colors.White, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
@@ -45,11 +50,11 @@ public static class Effect
     
         pWho.Scale = pBaseScale;
     
-        lTween.TweenProperty(pWho, scale, pWho.Scale * pScaleBump, pDuration)
+        lTween.TweenProperty(pWho, scaleProperty, pWho.Scale * pScaleBump, pDuration)
             .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Back);
     
-        lTween.TweenProperty(pWho, scale, pWho.Scale, pDuration)
+        lTween.TweenProperty(pWho, scaleProperty, pWho.Scale, pDuration)
             .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Back);
     }
@@ -74,21 +79,53 @@ public static class Effect
             lStretch.Y *= pStretchScale;
         }
 
-        lTween.TweenProperty(pWho, scale, lSquash, pDuration)
+        lTween.TweenProperty(pWho, scaleProperty, lSquash, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
         if (!pStaySquashed)
         {
-            lTween.TweenProperty(pWho, scale, lStretch, pDuration)
+            lTween.TweenProperty(pWho, scaleProperty, lStretch, pDuration)
                 .SetTrans(Tween.TransitionType.Back)
                 .SetEase(Tween.EaseType.Out);
 
-            lTween.TweenProperty(pWho, scale, pBaseScale, pDuration)
+            lTween.TweenProperty(pWho, scaleProperty, pBaseScale, pDuration)
                 .SetTrans(Tween.TransitionType.Back)
                 .SetEase(Tween.EaseType.Out);
         }
 
         return lTween;
+    }
+
+    public static void JoyVibration(float pTime, float pWeak = 0.3f, float pStrong = 0.3f, int pDevice = 0)
+    {
+        Input.StartJoyVibration(pDevice, pWeak, pStrong, pTime);
+    }
+
+    public static void Shake(float pForce, float pTime, float pX = 1, float pY = 1, float pStep = 0.025f)
+    {
+        Camera pSelf = Camera.GetInstance();
+        pSelf.Offset = Vector2.Zero;
+
+        int pSteps = Mathf.Max(1, (int)(pTime / pStep));
+        float pStepDuration = pStep;
+
+
+        Tween lTween = pSelf.CreateTween();
+
+        for (int i = 0; i < pSteps; i++)
+        {
+            float lTime = 1f - (float)i / (pSteps - 1);
+
+            Vector2 offset = new Vector2(GameManager.rand.RandfRange(-pX, pX), GameManager.rand.RandfRange(-pY, pY)) * pForce * lTime;
+
+            lTween.TweenProperty(pSelf, offsetProperty, offset, pStepDuration)
+                  .SetTrans(Tween.TransitionType.Sine)
+                  .SetEase(Tween.EaseType.InOut);
+        }
+
+        lTween.TweenProperty(pSelf, offsetProperty, Vector2.Zero, pStepDuration)
+              .SetTrans(Tween.TransitionType.Sine)
+              .SetEase(Tween.EaseType.InOut);
     }
 }

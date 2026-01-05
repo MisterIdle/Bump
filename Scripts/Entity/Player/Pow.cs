@@ -1,5 +1,12 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+
 public partial class Pow : GameObject
 {
     [Export] private float dropDuration = 1.0f;
@@ -14,6 +21,10 @@ public partial class Pow : GameObject
     private int index;
 
     private Vector2 targetPosition;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void _Ready()
     {
@@ -39,6 +50,10 @@ public partial class Pow : GameObject
         return lPow;
     }
 
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
+
     private void StartEntranceAnimation()
     {
         Tween lTween = CreateTween();
@@ -60,8 +75,8 @@ public partial class Pow : GameObject
         Tween lTween = Effect.SquashStretch(sprite, baseSpriteScale, false, true, 0.5f);
 
         Effect.FlashColor(this, Colors.Red);
-        Camera.Shake(35, 1.2f);
-        Time.SlowMotion();
+        Effect.Shake(35, 1.2f);
+        ScaleTime.SlowMotion();
 
         Particule.Create(pop, Position);
 

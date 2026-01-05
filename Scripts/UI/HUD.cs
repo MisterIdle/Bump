@@ -1,6 +1,12 @@
 using Godot;
 using System;
 
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
+using Com.IsartDigital.Shmup.NStats;
+
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class HUD : MenuBase
 {
     private static HUD instance;
@@ -58,6 +64,10 @@ public partial class HUD : MenuBase
     private float bossBarOriginalX;
     private float gameOverOriginalY;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         if (instance == null) instance = this;
@@ -81,6 +91,23 @@ public partial class HUD : MenuBase
         Visible = false;
     }
 
+    public BubbleScore CreateBubbleScore(Vector2 pPos, int pScore)
+    {
+        if (bubbleScore == null) return null;
+
+        BubbleScore lBubbleScore = (BubbleScore)bubbleScore.Instantiate();
+        lBubbleScore.Position = pPos;
+        lBubbleScore.score = pScore;
+
+        GameManager.GetInstance().gameContainer.AddChild(lBubbleScore);
+
+        return lBubbleScore;
+    }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     public override void OnEnter()
     {
         Visible = true;
@@ -93,6 +120,25 @@ public partial class HUD : MenuBase
     {
         PlayExitAnimation(animDurationExit);
     }
+
+    private void SetScoreText(int pValue)
+    {
+        if (scoreLabel != null) scoreLabel.Text = pValue.ToString();
+    }
+
+    public void UpdateHealth(int pCurrentHealth)
+    {
+        UpdateContainerAlpha(healthContainer, pCurrentHealth);
+    }
+
+    public void UpdatePow(int pCurrentPow)
+    {
+        UpdateContainerAlpha(powContainer, pCurrentPow);
+    }
+
+    // ========================================================================
+    // ANIMATION BOSS
+    // ========================================================================
 
     public void SetupBossBattle(int pMaxHealth)
     {
@@ -139,18 +185,9 @@ public partial class HUD : MenuBase
         Effect.BumpHUD(bossTextureBar, originalScale);
     }
 
-    public BubbleScore CreateBubbleScore(Vector2 pPos, int pScore)
-    {
-        if (bubbleScore == null) return null;
-
-        BubbleScore lBubbleScore = (BubbleScore)bubbleScore.Instantiate();
-        lBubbleScore.Position = pPos;
-        lBubbleScore.score = pScore;
-
-        GameManager.GetInstance().gameContainer.AddChild(lBubbleScore);
-
-        return lBubbleScore;
-    }
+    // ========================================================================
+    // ANIMATION HUD
+    // ========================================================================
 
     public void AnimatedScore(int pNewScore)
     {
@@ -224,6 +261,25 @@ public partial class HUD : MenuBase
         lTween.Chain().TweenCallback(Callable.From(() => Visible = false));
     }
 
+    private void UpdateContainerAlpha(HBoxContainer pContainer, int pValue)
+    {
+        int lIndex = 0;
+
+        foreach (Node lNode in pContainer.GetChildren())
+        {
+            if (lNode is TextureRect lTextureRect)
+            {
+                lTextureRect.Modulate = lIndex < pValue ? activeColor : inactiveColor;
+                Effect.BumpHUD(lTextureRect, Scale);
+            }
+            lIndex++;
+        }
+    }
+
+    // ========================================================================
+    // ANIMATION GAME OVER
+    // ========================================================================
+
     public void PlayGameOver()
     {
         gameoverLabel.Visible = true;
@@ -239,41 +295,13 @@ public partial class HUD : MenuBase
               .SetEase(Tween.EaseType.Out);
     }
 
-    private void SetScoreText(int pValue)
-    {
-        if (scoreLabel != null) scoreLabel.Text = pValue.ToString();
-    }
-
-    public void UpdateHealth(int pCurrentHealth)
-    {
-        UpdateContainerAlpha(healthContainer, pCurrentHealth);
-    }
-
-    public void UpdatePow(int pCurrentPow)
-    {
-        UpdateContainerAlpha(powContainer, pCurrentPow);
-    }
+    // ========================================================================
+    // ANIMATION OTHER
+    // ========================================================================
 
     public void SetGodMode(bool pEnabled)
     {
         if (godmodeLabel != null) godmodeLabel.Visible = pEnabled;
-    }
-
-    private void UpdateContainerAlpha(HBoxContainer pContainer, int pValue)
-    {
-        if (pContainer == null) return;
-
-        int lIndex = 0;
-
-        foreach (Node lNode in pContainer.GetChildren())
-        {
-            if (lNode is TextureRect lTextureRect)
-            {
-                lTextureRect.Modulate = lIndex < pValue ? activeColor : inactiveColor;
-                Effect.BumpHUD(lTextureRect, Scale);
-            }
-            lIndex++;
-        }
     }
 
     protected override void Dispose(bool pDisposing)

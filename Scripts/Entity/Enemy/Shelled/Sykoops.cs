@@ -1,11 +1,15 @@
 ﻿using Godot;
 
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+
 public partial class Sykoops : ShelledEnemy
 {
     private enum ChaseState { Patrolling, Approaching, Chasing, Abandoned }
     private ChaseState chaseState = ChaseState.Patrolling;
 
-    [ExportGroup("Sykoops AI")]
+    [ExportCategory("Sykoops AI")]
     [Export] private int chaseDistance = 500;
     [Export] private int approchDistance = 200;
 
@@ -13,6 +17,10 @@ public partial class Sykoops : ShelledEnemy
     private bool haveAbandoned;
     private const float MAX_BEHIND_TIME = 10f;
     private const float MARGIN = -75f;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
@@ -31,6 +39,10 @@ public partial class Sykoops : ShelledEnemy
         shell.SetShellColor(Colors.Black);
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
@@ -47,7 +59,7 @@ public partial class Sykoops : ShelledEnemy
 
             case ChaseState.Approaching:
                 velocity = playerDirection;
-                StartSpikeRoutine();
+                StartSpikeTimer();
                 if (globalPlayerDistance <= approchDistance)
                 {
                     chaseState = ChaseState.Chasing;
@@ -68,6 +80,10 @@ public partial class Sykoops : ShelledEnemy
         velocity.Y = angleX;
     }
 
+    // ========================================================================
+    // ATTACK
+    // ========================================================================
+
     private void ChasePlayer()
     {
         Vector2 lTargetDirection = (globalPlayerDistance <= chaseDistance) ? -playerDirection : playerDirection;
@@ -85,6 +101,10 @@ public partial class Sykoops : ShelledEnemy
         GlobalPosition = Utils.ClampToScreen(GlobalPosition, MARGIN, MARGIN);
     }
 
+    // ========================================================================
+    // ABANDONED
+    // ========================================================================
+
     private void BehindStop()
     {
         wing.SetSpeedDouble(false);
@@ -100,6 +120,10 @@ public partial class Sykoops : ShelledEnemy
         velocity = Vector2.Left;
         velocity.Y = angleY;
     }
+
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
 
     public override void EntityHit(int pDamage)
     {

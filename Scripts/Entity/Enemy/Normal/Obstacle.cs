@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Com.IsartDigital.Shmup.NGameObject;
+
 [Tool]
 public partial class Obstacle : Area2D
 {
@@ -10,11 +12,19 @@ public partial class Obstacle : Area2D
 
     Vector2 lastSize;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         lastSize = size;
         ApplySize();
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     public override void _Process(double delta)
     {

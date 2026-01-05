@@ -1,12 +1,25 @@
 ﻿using Godot;
 using System;
 
-public static class Time
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NToolsBox;
+
+public static class ScaleTime
 {
     private static float targetTimeScale = 1f;
     public static float currentTimeScale = 1f;
     private static float lerpSpeed = 5f;
     private static float maxFrameTime = 0.05f;
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
+    public static void Update(float pDelta)
+    {
+        currentTimeScale = Mathf.Lerp(currentTimeScale, targetTimeScale, lerpSpeed * pDelta);
+    }
 
     public static float GetDelta(float pDelta)
     {
@@ -16,10 +29,9 @@ public static class Time
         return safeDelta * currentTimeScale;
     }
 
-    public static void Update(float pDelta)
-    {
-        currentTimeScale = Mathf.Lerp(currentTimeScale, targetTimeScale, lerpSpeed * pDelta);
-    }
+    // ========================================================================
+    // EFFECTS
+    // ========================================================================
 
     public static void SlowMotion(float pTime = 0.2f, float pDuration = 0.2f)
     {

@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Com.IsartDigital.Shmup.NToolsBox;
+
 public partial class Biome : Control
 {
     private static Biome instance;
@@ -30,7 +32,10 @@ public partial class Biome : Control
     private GradientTexture2D baseTexture;
     private Tween tween;
 
-
+    // ========================================================================
+    // INIT
+    // ========================================================================
+    
     public override void _Ready()
     {
         if (instance == null) instance = this;
@@ -44,6 +49,10 @@ public partial class Biome : Control
 
         SetBiome(BiomeType.MainMenu);
     }
+
+    // ========================================================================
+    // ACTION
+    // ========================================================================
 
     public void SetBiome(BiomeType pBiomeType)
     {

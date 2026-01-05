@@ -1,13 +1,14 @@
 using Godot;
 using System;
 
+using Com.IsartDigital.Shmup.NToolsBox;
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
+
 public partial class Entity : Movable
 {
-    public enum MoveDirection
-    {
-        Left,
-        Right
-    }
+    public enum MoveDirection { Left, Right }
 
     [ExportCategory("Direction")]
     [Export] public MoveDirection direction;
@@ -29,6 +30,9 @@ public partial class Entity : Movable
 
     protected Timer invincibleTimer;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
     public override void Initiate()
     {
         base.Initiate();
@@ -42,6 +46,10 @@ public partial class Entity : Movable
         velocity = GetDirectionVector();
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     protected override void Update(float pDelta)
     {
         base.Update(pDelta);
@@ -49,35 +57,39 @@ public partial class Entity : Movable
         if (isDeath)
         {
             velocity += Vector2.Down * deathGravity * pDelta;
-            RotationDegrees += deathRotationSpeed * Time.GetDelta(pDelta);
+            RotationDegrees += deathRotationSpeed * ScaleTime.GetDelta(pDelta);
             return;
         }
         else
-            AliveUpdate(Time.GetDelta(pDelta));
+            AliveUpdate(ScaleTime.GetDelta(pDelta));
     }
 
     protected virtual void AliveUpdate(float pDelta) { }
 
-    public virtual void EntityHit(int pDamage = 1)
+    // ========================================================================
+    // UTILS
+    // ========================================================================
+
+    private Vector2 GetDirectionVector()
     {
-        if (invincible || isDeath) return;
+        switch (direction)
+        {
+            case MoveDirection.Left:
+                velocity = Vector2.Left;
+                break;
+            case MoveDirection.Right:
+                velocity = Vector2.Right;
+                break;
+            default:
+                break;
+        }
 
-        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion);
-
-        health -= pDamage;
+        return velocity;
     }
 
-    public virtual void EntityDeath()
-    {
-        velocity = Vector2.Zero;
-        isDeath = true;
-        speed = fallDeath;
-
-        CollisionMask = 0;
-        CollisionLayer = 0;
-
-        DeathBump();
-    }
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
 
     protected virtual void StartInvincible(float pDuration)
     {
@@ -95,27 +107,27 @@ public partial class Entity : Movable
         velocity.Y = -deathJump;
     }
 
-    protected void Flip(bool pFaceLeft)
+    public virtual void EntityHit(int pDamage = 1)
     {
-        float lDirection = pFaceLeft ? 1 : -1;
-        Scale = new Vector2(Mathf.Abs(baseScale.X) * lDirection, baseScale.Y);
-        Effect.SquashStretch(this, baseScale, true);
+        if (invincible || isDeath) return;
+
+        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion);
+
+        health -= pDamage;
+
+        if (health <= 0)
+            EntityDeath();
     }
 
-    private Vector2 GetDirectionVector()
+    public virtual void EntityDeath()
     {
-        switch (direction)
-        {
-            case MoveDirection.Left:
-                velocity = Vector2.Left;
-                break;
-            case MoveDirection.Right:
-                velocity = Vector2.Right;
-                break;
-            default:
-                break;
-        }
+        velocity = Vector2.Zero;
+        isDeath = true;
+        speed = fallDeath;
 
-        return velocity;
+        CollisionMask = 0;
+        CollisionLayer = 0;
+
+        DeathBump();
     }
 }

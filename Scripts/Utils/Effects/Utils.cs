@@ -1,5 +1,10 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NToolsBox;
+
 public static class Utils
 {
     public static Vector2 DirectionTo(Vector2 pFrom, Vector2 pTo)

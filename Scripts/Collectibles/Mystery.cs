@@ -1,18 +1,21 @@
 using Godot;
 using System;
 
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
+
 public partial class Mystery : Movable
 {
-    private enum ItemType
-    {
-        Flower,
-        Pow,
-    }
-
-    private ItemType itemType;
-
     [Export] private PackedScene FlowerScene;
     [Export] private PackedScene PowScene;
+
+    private enum ItemType { Flower, Pow }
+    private ItemType itemType;
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     protected override void Update(float pDelta)
     {
@@ -20,18 +23,9 @@ public partial class Mystery : Movable
         velocity.Y = angleY;
     }
 
-    private void Hit()
-    {
-        Tween lTween;
-
-        lTween = Effect.BumpScale(this, baseScale);
-
-        lTween.Finished += () =>
-        {
-            SpawnCollectible();
-            QueueFree();
-        };
-    }
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
 
     private void SpawnCollectible()
     {
@@ -45,6 +39,19 @@ public partial class Mystery : Movable
                 PowCollectible.Create(PowScene, GlobalPosition);
                 break;
         }
+    }
+
+    private void Hit()
+    {
+        Tween lTween;
+
+        lTween = Effect.BumpScale(this, baseScale);
+
+        lTween.Finished += () =>
+        {
+            SpawnCollectible();
+            QueueFree();
+        };
     }
 
     protected override void OnCollide(Area2D pArea)

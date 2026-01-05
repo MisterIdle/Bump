@@ -1,6 +1,14 @@
 using Godot;
 using System.Collections.Generic;
 
+using Com.IsartDigital.Shmup.NToolsBox;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NStats;
+using Com.IsartDigital.Shmup.NHUD;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+
 public partial class Enemy : Entity
 {
     public static List<Enemy> enemyList = new List<Enemy>();
@@ -19,13 +27,23 @@ public partial class Enemy : Entity
     private int bossDamage = 20;
     private int clearAllDamage = 9999;
 
+    private bool killedByHammer;
+
     protected float globalPlayerDistance;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
         base.Initiate();
         enemyList.Add(this);
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     protected override void Update(float pDelta)
     {
@@ -41,34 +59,56 @@ public partial class Enemy : Entity
         }
     }
 
-    protected override void OnCollide(Area2D pArea)
+    // ========================================================================
+    // STATIC CLEAR
+    // ========================================================================
+
+    public static void ClearAll(bool pBossOneShot, bool pTotalClear)
     {
-        base.OnCollide(pArea);
-
-        bool lKilledByHammer = false;
-
-        if (pArea.Owner is Hammer)
+        for (int i = enemyList.Count - 1; i >= 0; i--)
         {
-            EntityHit(Hammer.GetInstance().attackForce);
+            if (i >= enemyList.Count) continue;
 
-            Camera.Shake(cameraShakeIntensity, cameraShakeDuration, cameraShakeFrequency, cameraShakeRandomness);
+            Enemy lEnemy = enemyList[i];
 
-            Time.SlowMotion();
-            Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
+            if (IsInstanceValid(lEnemy))
+            {
+                if (pTotalClear)
+                {
+                    lEnemy.QueueFree();
+                    continue;
+                }
 
-            if (health <= 0)
-                lKilledByHammer = true;
+                if (lEnemy is KingKoops && !pBossOneShot)
+                {
+                    lEnemy.EntityHit(lEnemy.bossDamage);
+                    continue;
+                }
+
+                lEnemy.EntityHit(lEnemy.clearAllDamage);
+            }
         }
-        else
-        {
-            EntityHit();
-        }
-
-        if (health <= 0)
-            EntityDeath(lKilledByHammer);
     }
 
-    public void EntityDeath(bool pKilledByHammer = false)
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
+
+    protected void Flip(bool pFaceLeft)
+    {
+        float lDirection = pFaceLeft ? 1 : -1;
+        Scale = new Vector2(Mathf.Abs(baseScale.X) * lDirection, baseScale.Y);
+
+        baseScale = Scale;
+
+        Effect.SquashStretch(this, baseScale, true);
+    }
+
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
+
+    public override void EntityDeath()
     {
         base.EntityDeath();
 
@@ -78,39 +118,34 @@ public partial class Enemy : Entity
 
         GameManager.CreateHealthCollectible(GlobalPosition);
 
-        if (pKilledByHammer)
+        if (killedByHammer)
+        {
             Particule.Create(popScene, GlobalPosition);
+            GD.Print("oui hammer 2");
+        }
 
-        int lFinalScore = pKilledByHammer ? score + hammerScore : score;
+        int lFinalScore = killedByHammer ? score + hammerScore : score;
 
         HUD.GetInstance().CreateBubbleScore(Position, lFinalScore);
     }
 
-    public static void ClearAll(bool pBossOneShot, bool pTotalClear)
+    protected override void OnCollide(Area2D pArea)
     {
-        for (int i = enemyList.Count - 1; i >= 0; i--)
+        base.OnCollide(pArea);
+
+        if (pArea.Owner is Hammer)
         {
-            if (i >= enemyList.Count) continue;
+            killedByHammer = true;
+            EntityHit(Hammer.GetInstance().attackForce);
 
-            Enemy enemy = enemyList[i];
-
-            if (IsInstanceValid(enemy))
-            {
-                if (pTotalClear)
-                {
-                    enemy.QueueFree();
-                    continue;
-                }
-
-                if (enemy is KingKoops && !pBossOneShot)
-                {
-                    enemy.EntityHit(enemy.bossDamage);
-                    continue;
-                }
-
-                enemy.health = 0;
-                enemy.EntityHit(enemy.clearAllDamage);
-            }
+            Effect.Shake(cameraShakeIntensity, cameraShakeDuration, cameraShakeFrequency, cameraShakeRandomness);
+            ScaleTime.SlowMotion();
+            Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
+        }
+        else
+        {
+            killedByHammer = false;
+            EntityHit();
         }
     }
 

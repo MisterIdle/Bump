@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Com.IsartDigital.Shmup.NManager;
+
 public partial class AudioManager : Node
 {
     public static AudioManager instance;
@@ -66,6 +68,15 @@ public partial class AudioManager : Node
 
     private AudioStreamPlayer musicPlayer;
 
+    public static AudioManager GetInstance()
+    {
+        return instance;
+    }
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         if (instance == null)
@@ -86,10 +97,9 @@ public partial class AudioManager : Node
         musicPlayer.Finished += OnMusicFinished;
     }
 
-    public static AudioManager GetInstance()
-    {
-        return instance;
-    }
+    // ========================================================================
+    // SFX
+    // ========================================================================
 
     public void Play(AudioType pType, float pPitch = 1.0f)
     {
@@ -153,6 +163,10 @@ public partial class AudioManager : Node
         AddChild(lAudio);
         lAudio.Play();
     }
+
+    // ========================================================================
+    // MUSIC
+    // ========================================================================
 
     public void PlayMusic(MusicType pType, float pFadeTime = 0.0f)
     {

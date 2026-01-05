@@ -1,9 +1,15 @@
 using Godot;
 
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+
 public partial class Koops : ShelledEnemy
 {
     private enum TypeEnum { Green, Red }
     [Export] private TypeEnum type;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
@@ -19,6 +25,10 @@ public partial class Koops : ShelledEnemy
         lKoops.GlobalPosition = pPos;
         return lKoops;
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     protected override void AliveUpdate(float pDelta)
     {

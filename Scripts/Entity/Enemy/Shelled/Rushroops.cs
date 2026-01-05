@@ -1,5 +1,9 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+
 public partial class Rushroops : ShelledEnemy
 {
     [ExportGroup("Rushroops Specifics")]
@@ -11,6 +15,10 @@ public partial class Rushroops : ShelledEnemy
 
     private Timer chargeTimer;
     private bool isCharging = false;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
@@ -25,8 +33,12 @@ public partial class Rushroops : ShelledEnemy
 
         shell.SetShellColor(Colors.Blue);
 
-        StartSpikeRoutine();
+        StartSpikeTimer();
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     protected override void AliveUpdate(float pDelta)
     {
@@ -35,6 +47,10 @@ public partial class Rushroops : ShelledEnemy
         if (!isCharging)
             velocity = new Vector2(angleX, angleY);
     }
+
+    // ========================================================================
+    // ATTACK
+    // ========================================================================
 
     private void StartCharge()
     {
@@ -63,6 +79,10 @@ public partial class Rushroops : ShelledEnemy
         lTween.Parallel().TweenProperty(shell, "position", basePosShell, recoilDuration)
             .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
     }
+
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
 
     public override void EntityDeath()
     {

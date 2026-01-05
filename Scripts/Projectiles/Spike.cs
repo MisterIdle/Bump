@@ -1,5 +1,11 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+
 public partial class Spike : Projectiles
 {
     protected Entity target;
@@ -7,6 +13,10 @@ public partial class Spike : Projectiles
     [Export] public GpuParticles2D particles;
     [Export] public CollisionShape2D collision;
     [Export] public bool isInstaKill = false;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
@@ -28,6 +38,10 @@ public partial class Spike : Projectiles
 
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     protected override void Update(float pDelta)
     {
         base.Update(pDelta);
@@ -40,6 +54,10 @@ public partial class Spike : Projectiles
         Rotation = Mathf.LerpAngle(Rotation, lTargetAngle, rotationSpeed * pDelta);
         velocity = Vector2.FromAngle(Rotation);
     }
+
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
 
     protected override void OnCollide(Area2D pArea)
     {

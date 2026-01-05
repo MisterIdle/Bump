@@ -1,9 +1,10 @@
 using Godot;
 using System.Collections.Generic;
 
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+
 public partial class Projectiles : Movable
 {
-    // Utilisation d'une liste statique pour suivre tous les projectiles actifs
     public static List<Projectiles> projectilesList = new List<Projectiles>();
 
     [Export] private float lifeTime = 5;
@@ -13,12 +14,14 @@ public partial class Projectiles : Movable
 
     public Timer lifeTimer;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void Initiate()
     {
         base.Initiate();
 
-        // On ne track pas les tirs simples (Shot) s'ils sont gérés ailleurs, 
-        // sinon on ajoute tout projectile à la liste globale.
         if (this is not Shot)
             projectilesList.Add(this);
 
@@ -27,14 +30,6 @@ public partial class Projectiles : Movable
         lifeTimer.Autostart = true;
         lifeTimer.Timeout += Destory;
         AddChild(lifeTimer);
-    }
-
-    public void Destory()
-    {
-        if (!IsInstanceValid(this)) return;
-
-        if (IsQueuedForDeletion()) return;
-        CallDeferred(MethodName.QueueFree);
     }
 
     public static void ClearAll()
@@ -50,6 +45,14 @@ public partial class Projectiles : Movable
         }
 
         projectilesList.Clear();
+    }
+
+    public void Destory()
+    {
+        if (!IsInstanceValid(this)) return;
+
+        if (IsQueuedForDeletion()) return;
+        CallDeferred(MethodName.QueueFree);
     }
 
     protected override void Dispose(bool pDisposing)

@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Com.IsartDigital.Shmup.NGameObject;
+
 public partial class GameObject : Area2D
 {
     public bool enable = false;
@@ -9,6 +11,10 @@ public partial class GameObject : Area2D
     [Export] public Sprite2D sprite;
     public Vector2 baseScale;
     public Vector2 baseSpriteScale;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public virtual void Initiate()
     {
@@ -24,6 +30,9 @@ public partial class GameObject : Area2D
         GD.Print(Name + " enable");
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
     public override void _Process(double pDelta)
     {
         if (!enable) return;
@@ -34,5 +43,11 @@ public partial class GameObject : Area2D
     }
 
     protected virtual void Update(float pDelta) { }
+
+
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
+
     protected virtual void OnCollide(Area2D pArea) { }
 }

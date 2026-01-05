@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Com.IsartDigital.Shmup.NToolsBox;
+
 public partial class UpDown : Sprite2D
 {
     [Export] public float amplitude = 50f;
@@ -9,10 +11,19 @@ public partial class UpDown : Sprite2D
     private Vector2 startPos;
     private float time = 0f;
 
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         startPos = Position;
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     public override void _Process(double pDelta)
     {

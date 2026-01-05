@@ -1,5 +1,9 @@
 ﻿using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class StateMenu : MenuBase
 {
     [Export] private Panel panel;
@@ -16,6 +20,10 @@ public partial class StateMenu : MenuBase
     [Export] public Color gameOverColor = new Color(0, 0, 0, 1);
     [Export] public Color victoryColor = new Color(1, 1, 1, 1);
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         panel.Modulate = new Color(1, 1, 1, 0);
@@ -27,6 +35,10 @@ public partial class StateMenu : MenuBase
 
         Visible = false;
     }
+
+    // ========================================================================
+    // INPUT
+    // ========================================================================
 
     public override void _Input(InputEvent pEvent)
     {
@@ -42,9 +54,13 @@ public partial class StateMenu : MenuBase
         }
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     public override void OnEnter()
     {
-        ConfigureUI();
+        Configure();
         GetTree().Paused = true;
 
         MenuManager lManager = MenuManager.GetInstance();
@@ -76,7 +92,11 @@ public partial class StateMenu : MenuBase
         base.OnExit();
     }
 
-    private void ConfigureUI()
+    // ========================================================================
+    // STATE
+    // ========================================================================
+
+    private void Configure()
     {
         MenuManager.MenuState lState = MenuManager.GetInstance().currentMenuState;
 
@@ -104,6 +124,10 @@ public partial class StateMenu : MenuBase
                 break;
         }
     }
+
+    // ========================================================================
+    // ACTION
+    // ========================================================================
 
     private void OnOptionPressed()
     {

@@ -1,8 +1,17 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+
 public partial class Shot : Projectiles
 {
     [Export] private bool rotation;
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     protected override void Update(float pDelta)
     {
@@ -23,6 +32,10 @@ public partial class Shot : Projectiles
 
         return lShot;
     }
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     private void SetInitialMovement(float pAngle, Vector2 pWay)
     {

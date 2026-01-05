@@ -1,5 +1,9 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+
 public partial class Walsy : Enemy
 {
     private AnimatedSprite2D animatedSprite;
@@ -8,6 +12,10 @@ public partial class Walsy : Enemy
     [Export] private float rotationSpeed;
     [Export] private float inverseRotationAmount = 15f;
     [Export] private float inverseRotationDuration = 0.2f;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
@@ -19,11 +27,29 @@ public partial class Walsy : Enemy
         health = animatedSprite.SpriteFrames.GetFrameCount(lAnim);
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
         RotationDegrees += rotationSpeed * pDelta;
     }
+
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
+
+    private void InverseRotation()
+    {
+        Tween lTween = CreateTween();
+        lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, RotationDegrees - inverseRotationAmount, inverseRotationDuration);
+    }
+
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
 
     public override void EntityHit(int pDamage)
     {
@@ -36,11 +62,5 @@ public partial class Walsy : Enemy
 
         Effect.BumpScale(this, baseScale);
         InverseRotation();
-    }
-
-    private void InverseRotation()
-    {
-        Tween tween = CreateTween();
-        tween.TweenProperty(this, (string)PropertyName.RotationDegrees, RotationDegrees - inverseRotationAmount, inverseRotationDuration);
     }
 }

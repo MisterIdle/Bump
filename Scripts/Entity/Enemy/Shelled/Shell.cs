@@ -1,5 +1,8 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 public partial class Shell : Sprite2D
 {
     [Export] public float protectAnimAngle = 20f;
@@ -11,6 +14,10 @@ public partial class Shell : Sprite2D
     private ShaderMaterial material;
     private Color baseColor;
     private const string COLOR_CONST = "New";
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void _Ready()
     {
@@ -27,6 +34,10 @@ public partial class Shell : Sprite2D
             Material = material;
         }
     }
+
+    // ========================================================================
+    // ANIMATION & COLORS
+    // ========================================================================
 
     public void SetShellColor(Color pColor)
     {

@@ -1,5 +1,9 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NManager;
+
 public partial class Camera : Camera2D
 {
     private static Camera instance;
@@ -8,6 +12,10 @@ public partial class Camera : Camera2D
     {
         return instance;
     }
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void _Ready()
     {
@@ -19,41 +27,15 @@ public partial class Camera : Camera2D
         }
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     public override void _Process(double pDelta)
     {
         float lDelta = (float)pDelta;
 
-        Position += GameManager.scrollSpeedVelocity * Time.GetDelta(lDelta);
-    }
-
-    public static void Shake(float pForce, float pTime, float pX = 1, float pY = 1, float pStep = 0.025f)
-    {
-        Camera pSelf = instance;
-        pSelf.Offset = Vector2.Zero;
-
-        int pSteps = Mathf.Max(1, (int)(pTime / pStep));
-        float pStepDuration = pStep;
-
-
-        Tween lTween = pSelf.CreateTween();
-
-        for (int i = 0; i < pSteps; i++)
-        {
-            float lTime = 1f - (float)i / (pSteps - 1);
-
-            Vector2 offset = new Vector2(
-                GameManager.rand.RandfRange(-pX, pX),
-                GameManager.rand.RandfRange(-pY, pY)
-            ) * pForce * lTime;
-
-            lTween.TweenProperty(pSelf, (string)PropertyName.Offset, offset, pStepDuration)
-                  .SetTrans(Tween.TransitionType.Sine)
-                  .SetEase(Tween.EaseType.InOut);
-        }
-
-        lTween.TweenProperty(pSelf, (string)PropertyName.Offset, Vector2.Zero, pStepDuration)
-              .SetTrans(Tween.TransitionType.Sine)
-              .SetEase(Tween.EaseType.InOut);
+        Position += GameManager.scrollSpeedVelocity * ScaleTime.GetDelta(lDelta);
     }
 
     protected override void Dispose(bool pDisposing)

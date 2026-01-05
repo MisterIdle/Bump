@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Com.IsartDigital.Shmup.NMusic;
+
 public partial class TickEvent : Node2D
 {
     public enum BeatTypeBoss
@@ -33,6 +35,10 @@ public partial class TickEvent : Node2D
 
     private double globalTimer = 0.5;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         indexDash = AudioServer.GetBusIndex(BusNameDash);
@@ -41,6 +47,10 @@ public partial class TickEvent : Node2D
         indexMove = AudioServer.GetBusIndex(BusNameMove);
         indexPhase = AudioServer.GetBusIndex(BusNamePhase);
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     public override void _Process(double delta)
     {
@@ -64,11 +74,9 @@ public partial class TickEvent : Node2D
             OnBeat(BeatTypeBoss.Phase);
     }
 
-    private bool CheckBusVolume(int pBusIndex)
-    {
-        float lDB = AudioServer.GetBusPeakVolumeLeftDb(pBusIndex, 0);
-        return lDB > seuilDb;
-    }
+    // ========================================================================
+    // STATE MACHINE
+    // ========================================================================
 
     public void OnBeat(BeatTypeBoss pBeatType)
     {
@@ -95,6 +103,16 @@ public partial class TickEvent : Node2D
                 break;
         }
     }
+
+    private bool CheckBusVolume(int pBusIndex)
+    {
+        float lDB = AudioServer.GetBusPeakVolumeLeftDb(pBusIndex, 0);
+        return lDB > seuilDb;
+    }
+
+    // ========================================================================
+    // START
+    // ========================================================================
 
     public void PlayAll()
     {

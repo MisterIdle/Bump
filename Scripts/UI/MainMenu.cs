@@ -1,6 +1,10 @@
 using Godot;
 using System.Collections.Generic;
 
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class MainMenu : MenuBase
 {
     [ExportCategory("References")]
@@ -26,6 +30,10 @@ public partial class MainMenu : MenuBase
     private Tween introTitleTween;
     private List<Tween> waveTweens = new List<Tween>();
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         PrepareTitleText();
@@ -35,6 +43,10 @@ public partial class MainMenu : MenuBase
         quitButton.Pressed += OnQuitPressed;
         creditsButton.Pressed += OnCreditsPressed;
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     public override void OnEnter()
     {
@@ -62,6 +74,10 @@ public partial class MainMenu : MenuBase
         PlayGenericExitAnimation();
     }
 
+    // ========================================================================
+    // ACTION
+    // ========================================================================
+
     private void OnOptionPressed()
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Options);
@@ -83,6 +99,10 @@ public partial class MainMenu : MenuBase
     {
         GetTree().Quit();
     }
+
+    // ========================================================================
+    // ANIMATION TITLE
+    // ========================================================================
 
     private void ResetTitleVisuals()
     {

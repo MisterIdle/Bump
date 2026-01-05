@@ -131,7 +131,7 @@ vertical_alignment = 1
 
 [node name="LeadGameDesignerName" type="Label" parent="Other/GameDesign/LeadGameDesigner"]
 layout_mode = 2
-text = "Alexandre QUENEDAY"
+text = "Alexandre QUENEDEY"
 label_settings = SubResource("LabelSettings_anw5n")
 horizontal_alignment = 1
 vertical_alignment = 1

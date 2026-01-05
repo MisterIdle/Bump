@@ -1,6 +1,10 @@
 using Godot;
 using System;
 
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class BubbleScore : Node2D
 {
     public int score;
@@ -14,6 +18,10 @@ public partial class BubbleScore : Node2D
     [Export] private float maxRiseDistance = -250.0f;
     [Export] private float maxRotationRange = 15.0f;
     [Export] private Vector2 offsetRange = new Vector2(20f, 10f);
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void _Ready()
     {
@@ -29,6 +37,10 @@ public partial class BubbleScore : Node2D
 
         AnimateFloatingText();
     }
+
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
 
     private void AnimateFloatingText()
     {

@@ -1,5 +1,8 @@
 using Godot;
-using System;
+using Com.IsartDigital.Shmup.NToolsBox;
+using Com.IsartDigital.Shmup.NHUD;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 
 public partial class Collectibles : Movable
 {
@@ -11,6 +14,10 @@ public partial class Collectibles : Movable
     [Export] private float moveUpRatio = 0.6f;
 
     private Timer animationTimer;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void Initiate()
     {
@@ -29,12 +36,20 @@ public partial class Collectibles : Movable
         AddChild(animationTimer);
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     protected override void Update(float pDelta)
     {
         base.Update(pDelta);
         velocity.Y = angleY;
         RotationDegrees += rotationSpeed * pDelta;
     }
+
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
 
     private void PlayAnimation()
     {
@@ -60,6 +75,9 @@ public partial class Collectibles : Movable
         lTween.Finished += () => QueueFree();
     }
 
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
     protected override void OnCollide(Area2D pArea)
     {
         base.OnCollide(pArea);

@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Com.IsartDigital.Shmup.NToolsBox;
+
 public partial class Wing : Sprite2D
 {
     [Export] private float speedScale = 1.0f;
@@ -18,11 +20,20 @@ public partial class Wing : Sprite2D
     private Tween rotationTween;
     private Tween skewTween;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         if (speedScale <= 0) speedScale = 0.1f;
         StartAnimations();
     }
+
+
+    // ========================================================================
+    // ANIMATION
+    // ========================================================================
 
     public void SetSpeedDouble(bool pOn)
     {

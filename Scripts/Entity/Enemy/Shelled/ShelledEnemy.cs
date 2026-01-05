@@ -1,6 +1,12 @@
 using Godot;
 using System.Collections.Generic;
 
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+using Com.IsartDigital.Shmup.NToolsBox;
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 public partial class ShelledEnemy : Enemy
 {
     [ExportGroup("Base Settings")]
@@ -36,6 +42,10 @@ public partial class ShelledEnemy : Enemy
     protected Vector2 playerPos;
     protected bool faceLeft;
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void Initiate()
     {
         base.Initiate();
@@ -56,6 +66,10 @@ public partial class ShelledEnemy : Enemy
         AddChild(spikeAutoFireTimer);
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
@@ -74,7 +88,11 @@ public partial class ShelledEnemy : Enemy
         }
     }
 
-    public void StartSpikeRoutine()
+    // ========================================================================
+    // ATTACK
+    // ========================================================================
+
+    public void StartSpikeTimer()
     {
         if (!useSpikes) return;
         CallDeferred(MethodName.SpawnSpikes);
@@ -207,6 +225,10 @@ public partial class ShelledEnemy : Enemy
         CreateTween().TweenProperty(spike, "scale", spike.Scale * spikeSizeMultiplier, 0.2f);
     }
 
+    // ========================================================================
+    // COLLIDE
+    // ========================================================================
+
     public override void EntityHit(int pDamage)
     {
         base.EntityHit(pDamage);
@@ -216,6 +238,15 @@ public partial class ShelledEnemy : Enemy
             shell?.ShellDestructionAnimation();
             wing?.SetSpeedDouble(true);
         }
+    }
+
+    public override void EntityDeath()
+    {
+        base.EntityDeath();
+
+        StopSpikeRoutine();
+        fireTween?.Kill();
+        chargingSpikes.Clear();
     }
 
     protected override void OnCollide(Area2D pArea)
@@ -228,13 +259,5 @@ public partial class ShelledEnemy : Enemy
 
         base.OnCollide(pArea);
         shell?.ShellDamageAnimation();
-    }
-
-    public override void EntityDeath()
-    {
-        base.EntityDeath();
-        StopSpikeRoutine();
-        fireTween?.Kill();
-        chargingSpikes.Clear();
     }
 }

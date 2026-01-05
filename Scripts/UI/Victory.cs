@@ -1,6 +1,10 @@
 using Godot;
 using System;
 
+using Com.IsartDigital.Shmup.NStats;
+
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class Victory : MenuBase
 {
     private static Victory instance;
@@ -95,6 +99,10 @@ public partial class Victory : MenuBase
         return instance;
     }
 
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         if (instance == null) instance = this;
@@ -104,25 +112,29 @@ public partial class Victory : MenuBase
             return;
         }
 
-        if (titleLabel != null) baseScaleTitle = titleLabel.Scale;
+        baseScaleTitle = titleLabel.Scale;
 
-        if (killCountLabel != null) baseScaleKill = killCountLabel.Scale;
-        if (shotCountLabel != null) baseScaleShot = shotCountLabel.Scale;
-        if (specialCountLabel != null) baseScaleSpecial = specialCountLabel.Scale;
-        if (powCountLabel != null) baseScalePow = powCountLabel.Scale;
+        baseScaleKill = killCountLabel.Scale;
+        baseScaleShot = shotCountLabel.Scale;
+        baseScaleSpecial = specialCountLabel.Scale;
+        baseScalePow = powCountLabel.Scale;
 
-        if (killCountText != null) baseScaleKillText = killCountText.Scale;
-        if (shotCountText != null) baseScaleShotText = shotCountText.Scale;
-        if (specialCountText != null) baseScaleSpecialText = specialCountText.Scale;
-        if (powCountText != null) baseScalePowText = powCountText.Scale;
+        baseScaleKillText = killCountText.Scale;
+        baseScaleShotText = shotCountText.Scale;
+        baseScaleSpecialText = specialCountText.Scale;
+        baseScalePowText = powCountText.Scale;
 
-        if (scoreText != null) baseScaleScoreText = scoreText.Scale;
-        if (scoreLabel != null) baseScaleScore = scoreLabel.Scale;
+        baseScaleScoreText = scoreText.Scale;
+        baseScaleScore = scoreLabel.Scale;
 
-        if (rankLabel != null) baseScaleRank = rankLabel.Scale;
+        baseScaleRank = rankLabel.Scale;
 
         HideAllElements();
     }
+
+    // ========================================================================
+    // INPUT
+    // ========================================================================
 
     public override void _Input(InputEvent pEvent)
     {
@@ -136,6 +148,10 @@ public partial class Victory : MenuBase
         }
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     public override void OnEnter()
     {
         Visible = true;
@@ -143,6 +159,10 @@ public partial class Victory : MenuBase
         HideAllElements();
         PlayVictorySequence();
     }
+
+    // ========================================================================
+    // ANIMATION RESET
+    // ========================================================================
 
     private void HideAllElements()
     {
@@ -182,6 +202,10 @@ public partial class Victory : MenuBase
             pLabel.PivotOffset = pLabel.Size * PIVOT_CENTER_RATIO;
         }
     }
+
+    // ========================================================================
+    // ANIMATION GLOBAL
+    // ========================================================================
 
     private void PlayVictorySequence()
     {

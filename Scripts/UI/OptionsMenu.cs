@@ -1,5 +1,9 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+
+namespace Com.IsartDigital.Shmup.NHUD;
+
 public partial class OptionsMenu : MenuBase
 {
     [Export] private MenuManager manager;
@@ -15,15 +19,27 @@ public partial class OptionsMenu : MenuBase
     [Export] private HSlider musicSlider;
     [Export] private HSlider sfxSlider;
 
+    [ExportGroup("Lang")]
+    private const string FRANCE = "fr";
+    private const string USA = "en";
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         backButton.Pressed += OnBackPressed;
-        franceButton.Pressed += () => ChangeLocale("fr");
-        englishButton.Pressed += () => ChangeLocale("en");
+        franceButton.Pressed += () => ChangeLocale(FRANCE);
+        englishButton.Pressed += () => ChangeLocale(USA);
 
         SetupVideoSettings();
         SetupAudioSettings();
     }
+
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
 
     public override void OnEnter()
     {
@@ -36,11 +52,19 @@ public partial class OptionsMenu : MenuBase
         PlayGenericExitAnimation();
     }
 
+    // ========================================================================
+    // INPUT
+    // ========================================================================
+
     public override void _Input(InputEvent pEvent)
     {
         if (Visible && pEvent.IsActionPressed(Property.INPUT_UI_BACK))
             OnBackPressed();
     }
+
+    // ========================================================================
+    // SETUP / CHANGE PARAMETERS
+    // ========================================================================
 
     private void SetupVideoSettings()
     {

@@ -1,5 +1,10 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
+
+namespace Com.IsartDigital.Shmup.NGameObject.NMovable;
+
 public partial class Movable : GameObject
 {
     [Export] protected int score = 1000;
@@ -20,9 +25,13 @@ public partial class Movable : GameObject
     protected Vector2 currentVelocity;
     protected Vector2 velocity;
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     protected override void Update(float pDelta)
     {
-        pDelta = Time.GetDelta(pDelta);
+        pDelta = ScaleTime.GetDelta(pDelta);
         elapsedTime += pDelta;
 
         Vector2 lTargetVelocity = velocity * speed;
