@@ -11,7 +11,7 @@ public partial class Mystery : Movable
     [Export] private PackedScene PowScene;
 
     private enum ItemType { Flower, Pow }
-    private ItemType itemType;
+    [Export] private ItemType itemType;
 
     // ========================================================================
     // UPDATE
@@ -43,11 +43,11 @@ public partial class Mystery : Movable
 
     private void Hit()
     {
-        Tween lTween;
+        Tween lHitTween;
 
-        lTween = Effect.BumpScale(this, baseScale);
+        lHitTween = Effect.BumpScale(this, baseScale);
 
-        lTween.Finished += () =>
+        lHitTween.Finished += () =>
         {
             SpawnCollectible();
             QueueFree();

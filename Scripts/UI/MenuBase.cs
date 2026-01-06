@@ -50,7 +50,7 @@ public partial class MenuBase : Control
 
     protected void PlayGenericEntryAnimation()
     {
-        if (animationTween != null && animationTween.IsValid()) animationTween.Kill();
+        animationTween?.Kill();
         animationTween = CreateTween();
         animationTween.SetParallel(true);
 
@@ -85,7 +85,7 @@ public partial class MenuBase : Control
 
     public Tween PlayGenericExitAnimation()
     {
-        if (animationTween != null && animationTween.IsValid()) animationTween.Kill();
+        animationTween?.Kill();
 
         animationTween = CreateTween();
         animationTween.SetParallel(true);

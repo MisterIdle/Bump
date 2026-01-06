@@ -1,11 +1,12 @@
-res://Scripts/Entity/Enemy/Normal
+res://Scripts/UI
 res://Scripts/Utils/Effects
+res://
 res://Scenes/LevelDesign
+res://Scenes/MainScenes
+res://Scripts/Entity/Enemy/Normal
 res://Scripts/Managers
 res://Scenes/UI
 res://Scenes/Entity/Accessory
-res://Scripts/UI
-res://
 res://Scripts/Utils
 res://Assets/Shader
 res://Scripts/Projectiles

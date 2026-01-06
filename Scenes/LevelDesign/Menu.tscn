@@ -7,5 +7,5 @@
 
 [node name="HUD" parent="." instance=ExtResource("1_e7rsg")]
 
-[node name="MenuManager" parent="." node_paths=PackedStringArray("HUDMenu") instance=ExtResource("7_8k05n")]
-HUDMenu = NodePath("../HUD")
+[node name="MenuManager" parent="." node_paths=PackedStringArray("HUD") instance=ExtResource("7_8k05n")]
+HUD = NodePath("../HUD")

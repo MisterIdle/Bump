@@ -9,6 +9,11 @@ public partial class Movable : GameObject
 {
     [Export] protected int score = 1000;
 
+    public enum MoveDirection { None, Left, Right }
+
+    [ExportCategory("Direction")]
+    [Export] public MoveDirection direction;
+
     [ExportCategory("Speed")]
     [Export] public float speed;
     [Export] public bool affectedByScroll;
@@ -24,6 +29,16 @@ public partial class Movable : GameObject
 
     protected Vector2 currentVelocity;
     protected Vector2 velocity;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
+    public override void Initiate()
+    {
+        base.Initiate();
+        velocity = GetDirectionVector();
+    }
 
     // ========================================================================
     // UPDATE
@@ -44,5 +59,27 @@ public partial class Movable : GameObject
 
         currentVelocity = currentVelocity.Lerp(lTargetVelocity, lerpFactor);
         Position += currentVelocity * pDelta;
+    }
+
+    // ========================================================================
+    // UTILS
+    // ========================================================================
+
+    private Vector2 GetDirectionVector()
+    {
+        switch (direction)
+        {
+            case MoveDirection.Left:
+                velocity = Vector2.Left;
+                break;
+            case MoveDirection.Right:
+                velocity = Vector2.Right;
+                break;
+            default:
+                velocity = Vector2.Zero;
+                break;
+        }
+
+        return velocity;
     }
 }

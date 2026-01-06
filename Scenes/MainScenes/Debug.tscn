@@ -1,0 +1,179 @@
+[gd_scene load_steps=13 format=3 uid="uid://b26o5ieubh6fc"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="1_4ibid"]
+[ext_resource type="PackedScene" uid="uid://b37b3k3mvq3nd" path="res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn" id="2_uuxkw"]
+[ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_jcu1k"]
+[ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="4_a3x0i"]
+[ext_resource type="PackedScene" uid="uid://8eylklkdawba" path="res://Scenes/LevelDesign/Trigger.tscn" id="5_fr75o"]
+[ext_resource type="PackedScene" uid="uid://d2jsnu1okwcj1" path="res://Scenes/Entity/Enemy/KingKoops.tscn" id="6_md5ow"]
+[ext_resource type="PackedScene" uid="uid://ceb8ljhl5g73k" path="res://Scenes/LevelDesign/Obstacle.tscn" id="7_imcnq"]
+[ext_resource type="PackedScene" uid="uid://d3hgpjemtaphm" path="res://Scenes/Entity/Enemy/Walsy.tscn" id="8_3wkh7"]
+[ext_resource type="PackedScene" uid="uid://bpnv46wqjqrmf" path="res://Scenes/Entity/Enemy/Koops.tscn" id="9_yih5p"]
+[ext_resource type="PackedScene" uid="uid://c1u0rdsgn8dhl" path="res://Scenes/Entity/Enemy/Rushroops.tscn" id="10_gotfw"]
+[ext_resource type="PackedScene" uid="uid://1dl8asfcved8" path="res://Scenes/Entity/Enemy/Sykoops.tscn" id="11_r82cg"]
+[ext_resource type="PackedScene" uid="uid://r5xghrumtfq" path="res://Scenes/LevelDesign/Mystery.tscn" id="12_r5ja2"]
+
+[node name="Debug" type="Node2D"]
+
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("forceEnable", "gameContainer", "projectilesContainer", "enemyContainer")]
+scale = Vector2(2.07197, 475.784)
+script = ExtResource("1_4ibid")
+scrollSpeed = 200.0
+forceEnable = [NodePath("../GameContainer/Player")]
+healthScene = ExtResource("2_uuxkw")
+gameContainer = NodePath("../GameContainer")
+projectilesContainer = NodePath("../GameContainer/ProjectilesContainer")
+enemyContainer = NodePath("../GameContainer/EnemyContainer")
+
+[node name="GameContainer" type="Node2D" parent="."]
+
+[node name="Player" parent="GameContainer" instance=ExtResource("3_jcu1k")]
+z_as_relative = false
+position = Vector2(977, 560)
+dropDuration = 2.0
+entranceOvershoot = -5.0
+minSpawnOffset = 200.0
+spawnRotationAmplitude = 3.0
+spawnWaveDuration = 0.8
+health = 1
+
+[node name="Camera" type="Camera2D" parent="GameContainer"]
+anchor_mode = 0
+position_smoothing_enabled = true
+editor_draw_drag_margin = true
+script = ExtResource("4_a3x0i")
+
+[node name="Trigger" parent="GameContainer/Camera" instance=ExtResource("5_fr75o")]
+
+[node name="ObstaclesContainer" type="Node2D" parent="GameContainer"]
+
+[node name="Obstacle" parent="GameContainer/ObstaclesContainer" instance=ExtResource("7_imcnq")]
+position = Vector2(4928, -201)
+scale = Vector2(1, 2.4859)
+
+[node name="Obstacle2" parent="GameContainer/ObstaclesContainer" instance=ExtResource("7_imcnq")]
+position = Vector2(4928, 1117)
+scale = Vector2(1, 2.4859)
+
+[node name="EnemyContainer" type="Node2D" parent="GameContainer"]
+
+[node name="KingKoops" parent="GameContainer/EnemyContainer" instance=ExtResource("6_md5ow")]
+position = Vector2(10125, 467)
+
+[node name="Walsy" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
+position = Vector2(4928, 210)
+
+[node name="Walsy2" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
+position = Vector2(4928, 376)
+
+[node name="Walsy3" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
+position = Vector2(4928, 547)
+
+[node name="Walsy5" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
+position = Vector2(4928, 724)
+
+[node name="Koops" parent="GameContainer/EnemyContainer" instance=ExtResource("9_yih5p")]
+position = Vector2(5835, 210)
+
+[node name="Koops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
+position = Vector2(5835, 372)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
+position = Vector2(5835, 547)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops4" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
+position = Vector2(5835, 724)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops5" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
+position = Vector2(6271, 724)
+type = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops6" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
+position = Vector2(6271, 547)
+type = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops7" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
+position = Vector2(6271, 365)
+type = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops8" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
+position = Vector2(6271, 210)
+type = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Rushroops" parent="GameContainer/EnemyContainer" instance=ExtResource("10_gotfw")]
+position = Vector2(7269, 510)
+
+[node name="Rushroops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("spikeContainer", "sprite") instance=ExtResource("10_gotfw")]
+position = Vector2(7269, 210)
+spikeContainer = NodePath("../Rushroops/Shell/Spike")
+sprite = NodePath("../Rushroops/Sprite")
+
+[node name="Rushroops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("spikeContainer", "sprite") instance=ExtResource("10_gotfw")]
+position = Vector2(7269, 821)
+spikeContainer = NodePath("../Rushroops/Shell/Spike")
+sprite = NodePath("../Rushroops/Sprite")
+
+[node name="Sykoops" parent="GameContainer/EnemyContainer" instance=ExtResource("11_r82cg")]
+position = Vector2(8251, 495)
+
+[node name="ProjectilesContainer" type="Node2D" parent="GameContainer"]
+
+[node name="Mystery" parent="." instance=ExtResource("12_r5ja2")]
+position = Vector2(2546, 211)
+itemType = 1
+
+[node name="Mystery2" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(2554, 515)
+itemType = 1
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery3" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(2574, 878)
+itemType = 1
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery4" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(2898, 223)
+itemType = 1
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery5" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(2906, 527)
+itemType = 1
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery6" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(2926, 890)
+itemType = 1
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery7" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(3385, 193)
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery8" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(3393, 497)
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery9" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(3413, 860)
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery10" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(3799, 185)
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery11" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(3807, 489)
+sprite = NodePath("../Mystery/Mystery")
+
+[node name="Mystery12" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("12_r5ja2")]
+position = Vector2(3827, 852)
+sprite = NodePath("../Mystery/Mystery")

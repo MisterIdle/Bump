@@ -1,12 +1,12 @@
 using Godot;
 using System.Collections.Generic;
 
+using Com.IsartDigital.Shmup.NManager;
+
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
 public partial class Projectiles : Movable
 {
-    public static List<Projectiles> projectilesList = new List<Projectiles>();
-
     [Export] private float lifeTime = 5;
     [Export] protected PackedScene popScene;
     [Export] protected float rotationSpeed;
@@ -22,9 +22,6 @@ public partial class Projectiles : Movable
     {
         base.Initiate();
 
-        if (this is not Shot)
-            projectilesList.Add(this);
-
         lifeTimer = new Timer();
         lifeTimer.WaitTime = lifeTime;
         lifeTimer.Autostart = true;
@@ -34,17 +31,17 @@ public partial class Projectiles : Movable
 
     public static void ClearAll()
     {
-        var listCopy = new List<Projectiles>(projectilesList);
+        GameManager lGameManager = GameManager.GetInstance();
 
-        foreach (var p in listCopy)
+        if (lGameManager == null || !IsInstanceValid(lGameManager)) return;
+
+        foreach (Projectiles lProjectiles in lGameManager.projectilesContainer.GetChildren())
         {
-            if (IsInstanceValid(p) && p.isActive)
+            if (IsInstanceValid(lProjectiles) && !lProjectiles.IsQueuedForDeletion())
             {
-                p.Destory();
+                lProjectiles.QueueFree();
             }
         }
-
-        projectilesList.Clear();
     }
 
     public void Destory()
@@ -53,15 +50,5 @@ public partial class Projectiles : Movable
 
         if (IsQueuedForDeletion()) return;
         CallDeferred(MethodName.QueueFree);
-    }
-
-    protected override void Dispose(bool pDisposing)
-    {
-        if (projectilesList != null && projectilesList.Contains(this))
-        {
-            projectilesList.Remove(this);
-        }
-
-        base.Dispose(pDisposing);
     }
 }

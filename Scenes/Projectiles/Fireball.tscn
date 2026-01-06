@@ -33,6 +33,7 @@ collision_layer = 256
 collision_mask = 6
 script = ExtResource("1_tb7fp")
 popScene = ExtResource("2_wc6pa")
+direction = 2
 speed = 1000.0
 lerpFactor = 1.0
 sprite = NodePath("Sprite2D2/Sprite2D")

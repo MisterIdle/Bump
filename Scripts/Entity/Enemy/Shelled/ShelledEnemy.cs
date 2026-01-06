@@ -213,7 +213,7 @@ public partial class ShelledEnemy : Enemy
         float globalRot = spike.GlobalRotation;
 
         spikeContainer.RemoveChild(spike);
-        GameManager.GetInstance().gameContainer.AddChild(spike);
+        GameManager.GetInstance().projectilesContainer.AddChild(spike);
 
         spike.GlobalPosition = globalPos;
         spike.GlobalRotation = globalRot;

@@ -9,6 +9,7 @@
 [node name="Coin" type="Area2D"]
 collision_layer = 8
 script = ExtResource("1_jbjdg")
+direction = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_mnqh6")

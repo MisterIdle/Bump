@@ -1,21 +1,19 @@
 using Godot;
 using System.Collections.Generic;
 
-using Com.IsartDigital.Shmup.NToolsBox;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NStats;
-using Com.IsartDigital.Shmup.NHUD;
+using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 public partial class Enemy : Entity
 {
-    public static List<Enemy> enemyList = new List<Enemy>();
-
     [Export] protected int hammerScore = 1000;
 
-    [Export] private int outOfBoundMargin = 350;
+    [Export] private int outOfBoundMargin = 500;
 
     [Export] private float cameraShakeIntensity = 2f;
     [Export] private float cameraShakeDuration = 0.2f;
@@ -25,21 +23,11 @@ public partial class Enemy : Entity
     [Export] private float squashStretchDuration = 0.4f;
 
     private int bossDamage = 20;
-    private int clearAllDamage = 9999;
+    private int clearAll = 9999;
 
     private bool killedByHammer;
 
     protected float globalPlayerDistance;
-
-    // ========================================================================
-    // INIT
-    // ========================================================================
-
-    public override void Initiate()
-    {
-        base.Initiate();
-        enemyList.Add(this);
-    }
 
     // ========================================================================
     // UPDATE
@@ -65,13 +53,15 @@ public partial class Enemy : Entity
 
     public static void ClearAll(bool pBossOneShot, bool pTotalClear)
     {
-        for (int i = enemyList.Count - 1; i >= 0; i--)
+        GameManager lGameManager = GameManager.GetInstance();
+
+        if (lGameManager == null || !IsInstanceValid(lGameManager)) return;
+
+        if (lGameManager.enemyContainer == null) return;
+
+        foreach (Enemy lEnemy in lGameManager.enemyContainer.GetChildren())
         {
-            if (i >= enemyList.Count) continue;
-
-            Enemy lEnemy = enemyList[i];
-
-            if (IsInstanceValid(lEnemy))
+            if (IsInstanceValid(lEnemy) && lEnemy.enable)
             {
                 if (pTotalClear)
                 {
@@ -85,7 +75,7 @@ public partial class Enemy : Entity
                     continue;
                 }
 
-                lEnemy.EntityHit(lEnemy.clearAllDamage);
+                lEnemy.EntityHit(lEnemy.clearAll);
             }
         }
     }
@@ -113,8 +103,6 @@ public partial class Enemy : Entity
         base.EntityDeath();
 
         GameStats.enemyKills++;
-
-        enemyList.Remove(this);
 
         GameManager.CreateHealthCollectible(GlobalPosition);
 
@@ -147,11 +135,5 @@ public partial class Enemy : Entity
             killedByHammer = false;
             EntityHit();
         }
-    }
-
-    protected override void Dispose(bool pDisposing)
-    {
-        enemyList.Remove(this);
-        base.Dispose(pDisposing);
     }
 }

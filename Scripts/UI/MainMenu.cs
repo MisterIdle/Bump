@@ -8,11 +8,12 @@ namespace Com.IsartDigital.Shmup.NHUD;
 public partial class MainMenu : MenuBase
 {
     [ExportCategory("References")]
-    [Export] private Label Title;
+    [Export] private Label title;
 
     [ExportSubgroup("Buttons")]
     [Export] private Button startButton;
     [Export] private Button optionButton;
+    [Export] private Button helpButton;
     [Export] private Button creditsButton;
     [Export] private Button quitButton;
 
@@ -40,6 +41,7 @@ public partial class MainMenu : MenuBase
 
         optionButton.Pressed += OnOptionPressed;
         startButton.Pressed += OnStartPressed;
+        helpButton.Pressed += OnHelpPressed;
         quitButton.Pressed += OnQuitPressed;
         creditsButton.Pressed += OnCreditsPressed;
     }
@@ -64,10 +66,11 @@ public partial class MainMenu : MenuBase
     {
         base.OnExit();
 
-        if (introTitleTween != null && introTitleTween.IsValid()) introTitleTween.Kill();
+        introTitleTween?.Kill();
+
         foreach (Tween lTween in waveTweens)
         {
-            if (lTween != null && lTween.IsValid()) lTween.Kill();
+            lTween?.Kill();
         }
         waveTweens.Clear();
 
@@ -85,9 +88,13 @@ public partial class MainMenu : MenuBase
 
     private void OnStartPressed()
     {
-        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.None);
-        SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.Game);
-        AudioManager.GetInstance().StopMusic();
+        MenuManager.GetInstance().nextIsGame = true;
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
+    }
+
+    private void OnHelpPressed()
+    {
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
     }
 
     private void OnCreditsPressed()
@@ -117,19 +124,19 @@ public partial class MainMenu : MenuBase
 
     private void PrepareTitleText()
     {
-        if (Title == null) return;
+        if (title == null) return;
 
-        string lContent = Title.Text;
-        Title.Visible = false;
+        string lContent = title.Text;
+        title.Visible = false;
         string lFont = "font";
 
         HBoxContainer lContainer = new HBoxContainer();
         lContainer.Alignment = BoxContainer.AlignmentMode.Center;
-        lContainer.Position = Title.Position;
-        lContainer.Size = Title.Size;
+        lContainer.Position = title.Position;
+        lContainer.Size = title.Size;
         lContainer.MouseFilter = MouseFilterEnum.Ignore;
 
-        Title.GetParent().CallDeferred(Node.MethodName.AddChild, lContainer);
+        title.GetParent().CallDeferred(Node.MethodName.AddChild, lContainer);
 
         foreach (char lLetter in lContent)
         {
@@ -137,7 +144,7 @@ public partial class MainMenu : MenuBase
             Label lLetterLabel = new Label();
 
             lLetterLabel.Text = lLetter.ToString();
-            lLetterLabel.LabelSettings = Title.LabelSettings;
+            lLetterLabel.LabelSettings = title.LabelSettings;
             lLetterLabel.Modulate = new Color(1, 1, 1, 0);
 
             var font = lLetterLabel.GetThemeFont(lFont);

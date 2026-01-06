@@ -36,6 +36,13 @@ public partial class Rushroops : ShelledEnemy
         StartSpikeTimer();
     }
 
+    public static Rushroops Create(PackedScene pScene, Vector2 pPos)
+    {
+        Rushroops lRushroops = (Rushroops)pScene.Instantiate();
+        lRushroops.GlobalPosition = pPos;
+        return lRushroops;
+    }
+
     // ========================================================================
     // UPDATE
     // ========================================================================
@@ -86,7 +93,7 @@ public partial class Rushroops : ShelledEnemy
 
     public override void EntityDeath()
     {
+        chargeTimer?.Stop();
         base.EntityDeath();
-        chargeTimer.Stop();
     }
 }

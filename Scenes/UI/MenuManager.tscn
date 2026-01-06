@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://csry3yy5ta171"]
+[gd_scene load_steps=8 format=3 uid="uid://csry3yy5ta171"]
 
 [ext_resource type="Script" path="res://Scripts/UI/MenuManager.cs" id="1_w1ayd"]
 [ext_resource type="PackedScene" uid="uid://bb7w5cthb6nj5" path="res://Scenes/UI/MainMenu.tscn" id="3_ymd0j"]
@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://nxhubg31nl61" path="res://Scenes/MainScenes/Options.tscn" id="5_q768o"]
 [ext_resource type="PackedScene" uid="uid://dqax61yn7lfom" path="res://Scenes/UI/Credits.tscn" id="6_1wp8b"]
 [ext_resource type="PackedScene" uid="uid://c7tvjipthkfkw" path="res://Scenes/UI/Victory.tscn" id="6_c084v"]
+[ext_resource type="PackedScene" uid="uid://c16bdke1sxf5b" path="res://Scenes/UI/Help.tscn" id="7_cetiy"]
 
-[node name="MenuManager" type="Control" node_paths=PackedStringArray("pivot", "MainMenu", "OptionsMenu", "StateMenu", "VictoryMenu", "Credits")]
+[node name="MenuManager" type="Control" node_paths=PackedStringArray("pivot", "MainMenu", "Options", "Help", "StateMenu", "VictoryMenu", "Credits")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -22,7 +23,8 @@ grow_vertical = 2
 script = ExtResource("1_w1ayd")
 pivot = NodePath("Pivot")
 MainMenu = NodePath("Pivot/MainMenu")
-OptionsMenu = NodePath("Pivot/Options")
+Options = NodePath("Pivot/Options")
+Help = NodePath("Help")
 StateMenu = NodePath("Pivot/StateMenu")
 VictoryMenu = NodePath("Victory")
 Credits = NodePath("Credits")
@@ -72,6 +74,14 @@ offset_left = -992.0
 offset_top = -1202.0
 offset_right = 929.0
 offset_bottom = -122.0
+
+[node name="Help" parent="." instance=ExtResource("7_cetiy")]
+layout_mode = 1
+offset_left = -991.0
+offset_top = -1201.0
+offset_right = 888.0
+offset_bottom = -162.0
+pivot_offset = Vector2(612, -772)
 
 [node name="Victory" parent="." instance=ExtResource("6_c084v")]
 layout_mode = 1

@@ -11,7 +11,8 @@ radius = 54.0093
 z_index = 2
 collision_layer = 8
 script = ExtResource("1_o1hps")
-speed = 50.0
+direction = 2
+speed = 25.0
 affectedByScroll = true
 sprite = NodePath("Sprite2D")
 

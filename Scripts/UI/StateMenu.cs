@@ -1,6 +1,7 @@
-﻿using Godot;
-
+﻿using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NManager;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NHUD;
 
@@ -148,10 +149,15 @@ public partial class StateMenu : MenuBase
         CreateTween().TweenProperty(panel, "modulate:a", 0.0f, 0.4f);
         Tween lTween = PlayGenericExitAnimation();
 
+        Enemy.ClearAll(true, true);
+        Projectiles.ClearAll();
+
         lTween.Finished += () =>
         {
             GetTree().Paused = false;
-            SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.Game);
+            MenuManager.GetInstance().nextIsGame = true;
+            SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.MainMenu);
+            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
         };
 
         AudioManager.GetInstance().StopMusic();
@@ -161,6 +167,9 @@ public partial class StateMenu : MenuBase
     {
         CreateTween().TweenProperty(panel, "modulate:a", 0.0f, 0.4f);
         Tween lTween = PlayGenericExitAnimation();
+
+        Enemy.ClearAll(true, true);
+        Projectiles.ClearAll();
 
         lTween.Finished += () =>
         {

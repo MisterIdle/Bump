@@ -25,12 +25,10 @@ public partial class Collectibles : Movable
 
         Effect.BumpScale(this, baseScale);
 
-        animationTimer = new Timer
-        {
-            WaitTime = animationSec,
-            OneShot = false,
-            Autostart = true
-        };
+        animationTimer = new Timer();
+        animationTimer.WaitTime = animationSec;
+        animationTimer.OneShot = false;
+        animationTimer.Autostart = true;
 
         animationTimer.Timeout += PlayAnimation;
         AddChild(animationTimer);
@@ -63,16 +61,16 @@ public partial class Collectibles : Movable
 
         HUD.GetInstance().CreateBubbleScore(Position, score);
 
-        Tween lTween = CreateTween();
+        Tween lRecoltTween = CreateTween();
 
-        lTween.TweenProperty(this, (string)PropertyName.GlobalPosition + ":y", GlobalPosition.Y - recoltHeight,recoltDuration * moveUpRatio)
+        lRecoltTween.TweenProperty(this, (string)PropertyName.GlobalPosition + ":y", GlobalPosition.Y - recoltHeight,recoltDuration * moveUpRatio)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lTween.TweenProperty(this, (string)PropertyName.Modulate + ":a", finalAlpha ,recoltDuration)
+        lRecoltTween.TweenProperty(this, (string)PropertyName.Modulate + ":a", finalAlpha ,recoltDuration)
             .SetEase(Tween.EaseType.In);
 
-        lTween.Finished += () => QueueFree();
+        lRecoltTween.Finished += () => QueueFree();
     }
 
     // ========================================================================

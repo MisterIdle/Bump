@@ -39,6 +39,13 @@ public partial class Sykoops : ShelledEnemy
         shell.SetShellColor(Colors.Black);
     }
 
+    public static Sykoops Create(PackedScene pScene, Vector2 pPos)
+    {
+        Sykoops lSykoops = (Sykoops)pScene.Instantiate();
+        lSykoops.GlobalPosition = pPos;
+        return lSykoops;
+    }
+
     // ========================================================================
     // UPDATE
     // ========================================================================

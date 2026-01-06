@@ -31,6 +31,7 @@ shader_parameter/Seuil = 0.1
 size = Vector2(172, 170)
 
 [node name="KingKoops" type="Area2D" node_paths=PackedStringArray("head", "spriteHead", "musicSync", "spikeContainer", "sprite")]
+z_index = 9
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_pujo4")
@@ -43,7 +44,7 @@ introDuration = 4.0
 dashSpeed = 10.0
 returnSpeed = 30.0
 dashDuration = 0.7
-headRetractedScale = Vector2(0, 0)
+headRetractedScale = Vector2(0.2, 0.2)
 headOutsidePos = Vector2(0, 0)
 shellRetractedPos = Vector2(0, -50)
 shellOutsidePos = Vector2(0, -120)
@@ -59,6 +60,7 @@ hammerScore = 10000
 health = 80
 popScene = ExtResource("2_3do05")
 score = 15000
+direction = 1
 speed = 50.0
 affectedByScroll = true
 frequency = 5.0

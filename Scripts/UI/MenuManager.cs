@@ -27,11 +27,14 @@ public partial class MenuManager : Control
 
     [ExportCategory("Menus")]
     [Export] public MenuBase MainMenu;
-    [Export] public MenuBase OptionsMenu;
-    [Export] public MenuBase HUDMenu;
+    [Export] public MenuBase Options;
+    [Export] public MenuBase HUD;
+    [Export] public MenuBase Help;
     [Export] public MenuBase StateMenu;
     [Export] public Victory VictoryMenu;
     [Export] public MenuBase Credits;
+
+    public bool nextIsGame = false;
 
     [ExportCategory("Settings")]
     [Export] public float FlipDuration = 0.6f;
@@ -56,8 +59,9 @@ public partial class MenuManager : Control
         }
 
         MainMenu.Visible = false;
-        OptionsMenu.Visible = false;
-        HUDMenu.Visible = false;
+        Options.Visible = false;
+        HUD.Visible = false;
+        Help.Visible = false;
         StateMenu.Visible = false;
         VictoryMenu.Visible = false;
         Credits.Visible = false;
@@ -87,7 +91,7 @@ public partial class MenuManager : Control
                 break;
 
             case MenuState.Options:
-                lNextMenuNode = OptionsMenu;
+                lNextMenuNode = Options;
                 lTargetRotation = 180f;
                 break;
 
@@ -96,7 +100,11 @@ public partial class MenuManager : Control
                 break;
 
             case MenuState.HUD:
-                lNextMenuNode = HUDMenu;
+                lNextMenuNode = HUD;
+                break;
+
+            case MenuState.Help:
+                lNextMenuNode = Help;
                 break;
 
             case MenuState.Victory:

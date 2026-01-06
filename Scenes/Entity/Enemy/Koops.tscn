@@ -19,6 +19,7 @@ script = ExtResource("1_8e6h4")
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
 popScene = ExtResource("2_ba4au")
+direction = 1
 speed = 100.0
 sprite = NodePath("Sprite")
 

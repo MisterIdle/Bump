@@ -15,13 +15,13 @@ public partial class HeartCollectible : Collectibles
 
     public static HeartCollectible Create(PackedScene pScene, Vector2 pPos)
     {
-        HeartCollectible collectible = (HeartCollectible)pScene.Instantiate();
-        collectible.Position = pPos;
+        HeartCollectible lCollectible = (HeartCollectible)pScene.Instantiate();
+        lCollectible.Position = pPos;
 
-        GameManager.GetInstance().gameContainer.AddChild(collectible);
-        collectible.Initiate();
+        GameManager.GetInstance().gameContainer.AddChild(lCollectible);
+        lCollectible.Initiate();
 
-        return collectible;
+        return lCollectible;
     }
 
     // ========================================================================

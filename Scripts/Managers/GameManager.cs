@@ -19,6 +19,8 @@ public partial class GameManager : Node2D
 
     [ExportCategory("Self")]
     [Export] public Node2D gameContainer;
+    [Export] public Node2D projectilesContainer;
+    [Export] public Node2D enemyContainer;
 
     public Vector2 screenSize;
     public Vector2 screenSizeCenterX;

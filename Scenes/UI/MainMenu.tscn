@@ -14,7 +14,7 @@ bg_color = Color(1, 0.262745, 0.180392, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukxmc"]
 bg_color = Color(1, 0.261999, 0.181151, 1)
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("Title", "startButton", "optionButton", "creditsButton", "quitButton")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("title", "startButton", "optionButton", "helpButton", "creditsButton", "quitButton")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 542.0
@@ -23,9 +23,10 @@ offset_right = 1372.0
 offset_bottom = 1033.0
 pivot_offset = Vector2(415, 225)
 script = ExtResource("1_as8bs")
-Title = NodePath("Title")
+title = NodePath("Title")
 startButton = NodePath("Menu/Start")
 optionButton = NodePath("Menu/Option")
+helpButton = NodePath("Menu/Help")
 creditsButton = NodePath("Menu/VBoxContainer/Credits")
 quitButton = NodePath("Menu/VBoxContainer/Quit")
 introLetterSpeed = 0.3
@@ -66,6 +67,14 @@ focus_next = NodePath("../VBoxContainer/Credits")
 focus_previous = NodePath("../Start")
 theme = ExtResource("2_oxhg0")
 text = "ID_OPTION"
+vertical_icon_alignment = 0
+
+[node name="Help" type="Button" parent="Menu"]
+layout_mode = 2
+focus_next = NodePath("../VBoxContainer/Credits")
+focus_previous = NodePath("../Start")
+theme = ExtResource("2_oxhg0")
+text = "ID_HELP"
 vertical_icon_alignment = 0
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Menu"]

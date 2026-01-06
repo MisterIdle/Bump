@@ -23,7 +23,7 @@ shader_parameter/Amplitude = 0.02
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e7rcv"]
 shader = ExtResource("4_u20jj")
-shader_parameter/New = Color(0.45098, 0.705882, 0.517647, 1)
+shader_parameter/New = Color(0.45098, 0.658824, 0.517647, 1)
 shader_parameter/Seuil = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_umlv3"]

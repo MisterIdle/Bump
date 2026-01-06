@@ -3,16 +3,12 @@ using System;
 
 using Com.IsartDigital.Shmup.NToolsBox;
 using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
 
 public partial class Entity : Movable
 {
-    public enum MoveDirection { Left, Right }
-
-    [ExportCategory("Direction")]
-    [Export] public MoveDirection direction;
-
     [ExportCategory("Alive")]
     [Export] public int health = 1;
     [Export] protected float invincibleTime = 1f;
@@ -42,8 +38,6 @@ public partial class Entity : Movable
         invincibleTimer.Timeout += EndInvincible;
 
         AddChild(invincibleTimer);
-
-        velocity = GetDirectionVector();
     }
 
     // ========================================================================
@@ -67,34 +61,13 @@ public partial class Entity : Movable
     protected virtual void AliveUpdate(float pDelta) { }
 
     // ========================================================================
-    // UTILS
-    // ========================================================================
-
-    private Vector2 GetDirectionVector()
-    {
-        switch (direction)
-        {
-            case MoveDirection.Left:
-                velocity = Vector2.Left;
-                break;
-            case MoveDirection.Right:
-                velocity = Vector2.Right;
-                break;
-            default:
-                break;
-        }
-
-        return velocity;
-    }
-
-    // ========================================================================
     // COLLIDE
     // ========================================================================
 
     protected virtual void StartInvincible(float pDuration)
     {
         invincible = true;
-        invincibleTimer.Start(pDuration);
+        invincibleTimer?.Start(pDuration);
     }
 
     protected virtual void EndInvincible()
@@ -114,6 +87,8 @@ public partial class Entity : Movable
         AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion);
 
         health -= pDamage;
+
+        GD.Print(health);
 
         if (health <= 0)
             EntityDeath();

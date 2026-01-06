@@ -37,18 +37,18 @@ public partial class FlowerCollectible : Collectibles
 
     public static FlowerCollectible Create(PackedScene pScene, Vector2 pPos)
     {
-        FlowerCollectible collectible = (FlowerCollectible)pScene.Instantiate();
-        collectible.Position = pPos;
+        FlowerCollectible lCollectible = (FlowerCollectible)pScene.Instantiate();
+        lCollectible.Position = pPos;
 
-        GameManager.GetInstance().gameContainer.AddChild(collectible);
-        collectible.Initiate();
+        GameManager.GetInstance().gameContainer.AddChild(lCollectible);
+        lCollectible.Initiate();
 
-        return collectible;
+        return lCollectible;
     }
 
-    private Color GetColorForLevel(int level)
+    private Color GetColorForLevel(int pLevel)
     {
-        switch (level)
+        switch (pLevel)
         {
             case 2:
                 return Colors.White;

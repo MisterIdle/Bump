@@ -20,7 +20,8 @@ z_index = 2
 collision_layer = 8
 script = ExtResource("1_d01ie")
 spritePath = NodePath("Sprite/Head")
-speed = 50.0
+direction = 2
+speed = 25.0
 affectedByScroll = true
 sprite = NodePath("Sprite")
 

@@ -43,8 +43,8 @@ public partial class Walsy : Enemy
 
     private void InverseRotation()
     {
-        Tween lTween = CreateTween();
-        lTween.TweenProperty(this, (string)PropertyName.RotationDegrees, RotationDegrees - inverseRotationAmount, inverseRotationDuration);
+        Tween lInverseTween = CreateTween();
+        lInverseTween.TweenProperty(this, (string)PropertyName.RotationDegrees, RotationDegrees - inverseRotationAmount, inverseRotationDuration);
     }
 
     // ========================================================================

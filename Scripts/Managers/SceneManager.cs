@@ -16,10 +16,10 @@ public partial class SceneManager : Node
         return instance;
     }
 
-    public enum SceneType { MainMenu, Game }
+    public enum SceneType { MainMenu, Game, Debug }
 
-    [Export] private PackedScene mainMenuScene;
     [Export] private PackedScene gameScene;
+    [Export] private PackedScene debugScene;
     [Export] private Label debug;
 
     private Node currentScene;
@@ -27,7 +27,7 @@ public partial class SceneManager : Node
     private Timer transitionTimer;
     private SceneType sceneToLoad;
     private bool isTransitioning = false;
-    private float loadTime = 0.3f;
+    private float loadTime = 0.1f;
 
     // ========================================================================
     // INIT
@@ -87,6 +87,12 @@ public partial class SceneManager : Node
 
         if (pInput.IsActionPressed(Property.INPUT_DEBUG))
             debug.Visible = !debug.Visible;
+
+        if (pInput.IsActionPressed(Property.INPUT_DEBUG_SCENE))
+        {
+            SwitchScene(SceneType.Debug);
+            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
+        }
     }
 
     // ========================================================================
@@ -125,7 +131,7 @@ public partial class SceneManager : Node
         }
 
         isTransitioning = true;
-        float duration = 1.5f;
+        float lDuration = 1.5f;
 
         GameManager lGameManager = GameManager.GetInstance();
         if (lGameManager != null)
@@ -137,32 +143,32 @@ public partial class SceneManager : Node
         Camera lCam = Camera.GetInstance();
         if (lCam != null)
         {
-            Tween tween = CreateTween();
-            tween.SetPauseMode(Tween.TweenPauseMode.Process);
-            tween.TweenProperty(lCam, "global_position", Vector2.Zero, duration)
+            Tween lTween = CreateTween();
+            lTween.SetPauseMode(Tween.TweenPauseMode.Process);
+            lTween.TweenProperty(lCam, "global_position", Vector2.Zero, lDuration)
                 .SetTrans(Tween.TransitionType.Cubic)
                 .SetEase(Tween.EaseType.InOut);
         }
 
         Player lPlayer = Player.GetInstance();
         if (lPlayer != null)
-            lPlayer.AnimatedDespawn(duration);
+            lPlayer.AnimatedDespawn(lDuration);
 
-        Timer timer = new Timer();
-        timer.WaitTime = duration;
-        timer.OneShot = true;
-        AddChild(timer);
+        Timer lTimer = new Timer();
+        lTimer.WaitTime = lDuration;
+        lTimer.OneShot = true;
+        AddChild(lTimer);
 
         Projectiles.ClearAll();
         Enemy.ClearAll(true, true);
 
-        timer.Timeout += () =>
+        lTimer.Timeout += () =>
         {
             isTransitioning = false;
-            timer.QueueFree();
+            lTimer.QueueFree();
             SwitchScene(pNextScene);
         };
-        timer.Start();
+        lTimer.Start();
     }
 
     private void OnTransitionFinished()
@@ -170,11 +176,11 @@ public partial class SceneManager : Node
         PackedScene lTargetScene = null;
         switch (sceneToLoad)
         {
-            case SceneType.MainMenu: 
-                lTargetScene = mainMenuScene;
-                break;
             case SceneType.Game: 
                 lTargetScene = gameScene; 
+                break;
+            case SceneType.Debug:
+                lTargetScene = debugScene; 
                 break;
         }
 

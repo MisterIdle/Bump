@@ -39,8 +39,8 @@ texture = ExtResource("1_es5r2")
 
 [node name="Pall" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_nus37")
-position = Vector2(-3.03382e-05, -187.234)
-scale = Vector2(4.45737, 1.18446)
+position = Vector2(-3.03382e-05, -184.819)
+scale = Vector2(4.45737, 1.2222)
 sprite_frames = SubResource("SpriteFrames_w2oku")
 animation = &"fly"
 frame_progress = 0.499092
