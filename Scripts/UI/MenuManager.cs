@@ -35,6 +35,7 @@ public partial class MenuManager : Control
     [Export] public MenuBase Credits;
 
     public bool nextIsGame = false;
+    public bool loading;
 
     [ExportCategory("Settings")]
     [Export] public float FlipDuration = 0.6f;
@@ -75,6 +76,8 @@ public partial class MenuManager : Control
 
     public void SetMenu(MenuState pNewState)
     {
+        if (!loading) loading = true;
+
         if (currentMenuState == pNewState) return;
 
         previousMenuState = currentMenuState;

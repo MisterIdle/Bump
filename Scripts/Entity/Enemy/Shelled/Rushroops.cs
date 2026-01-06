@@ -52,7 +52,7 @@ public partial class Rushroops : ShelledEnemy
         base.AliveUpdate(pDelta);
 
         if (!isCharging)
-            velocity = new Vector2(angleX, angleY);
+            velocity.X = angleX;
     }
 
     // ========================================================================

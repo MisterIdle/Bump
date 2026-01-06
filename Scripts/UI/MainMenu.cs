@@ -55,7 +55,8 @@ public partial class MainMenu : MenuBase
         base.OnEnter();
 
         ResetTitleVisuals();
-        PlayTitleIntroAnimation();
+
+        StartTitleWaveLoop();
 
         startButton.GrabFocus();
 
@@ -65,13 +66,11 @@ public partial class MainMenu : MenuBase
     public override void OnExit()
     {
         base.OnExit();
-
         introTitleTween?.Kill();
 
         foreach (Tween lTween in waveTweens)
-        {
             lTween?.Kill();
-        }
+
         waveTweens.Clear();
 
         PlayGenericExitAnimation();
@@ -160,27 +159,6 @@ public partial class MainMenu : MenuBase
             lContainer.AddChild(lWrapper);
             generatedLetterLabels.Add(lLetterLabel);
         }
-    }
-
-    private void PlayTitleIntroAnimation()
-    {
-        introTitleTween = CreateTween();
-        introTitleTween.SetParallel(true);
-
-        for (int i = 0; i < generatedLetterLabels.Count; i++)
-        {
-            Label lLabel = generatedLetterLabels[i];
-            float lDelay = i * introLetterSpeed;
-
-            introTitleTween.TweenProperty(lLabel, (string)PropertyName.Scale, Vector2.One, 0.4f)
-                .SetDelay(lDelay)
-                .SetTrans(Tween.TransitionType.Back);
-
-            introTitleTween.TweenProperty(lLabel, (string)PropertyName.Modulate + ":a", 1f, 0.3f)
-                .SetDelay(lDelay);
-        }
-
-        introTitleTween.Chain().TweenCallback(Callable.From(StartTitleWaveLoop));
     }
 
     private void StartTitleWaveLoop()

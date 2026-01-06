@@ -43,7 +43,7 @@ public partial class StateMenu : MenuBase
 
     public override void _Input(InputEvent pEvent)
     {
-        if (pEvent.IsActionPressed(Property.INPUT_UI_PAUSE))
+        if (pEvent.IsActionPressed(Property.INPUT_UI_PAUSE) && !MenuManager.GetInstance().loading)
         {
             MenuManager lManager = MenuManager.GetInstance();
 
@@ -171,11 +171,9 @@ public partial class StateMenu : MenuBase
         Enemy.ClearAll(true, true);
         Projectiles.ClearAll();
 
-        lTween.Finished += () =>
-        {
-            GetTree().Paused = false;
-            SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.MainMenu);
-            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
-        };
+        GetTree().Paused = false;
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
+        SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.MainMenu);
+        AudioManager.GetInstance().StopMusic();
     }
 }

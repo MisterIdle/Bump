@@ -24,10 +24,12 @@ public partial class SceneManager : Node
 
     private Node currentScene;
     private SceneType currentSceneType;
-    private Timer transitionTimer;
     private SceneType sceneToLoad;
     private bool isTransitioning = false;
     private float loadTime = 0.1f;
+
+    public Timer transitionTimer;
+    public Tween transitionTween;
 
     // ========================================================================
     // INIT
@@ -43,9 +45,11 @@ public partial class SceneManager : Node
         }
 
         transitionTimer = new Timer();
-        transitionTimer.OneShot = true;
-        transitionTimer.WaitTime = loadTime;
+
         transitionTimer.Timeout += OnTransitionFinished;
+        transitionTimer.OneShot = true;
+        transitionTimer.WaitTime = 0.2f;
+
         AddChild(transitionTimer);
 
         if (currentSceneType == SceneType.MainMenu)
@@ -104,31 +108,9 @@ public partial class SceneManager : Node
         return currentSceneType;
     }
 
-    private void SwitchScene(SceneType pSceneType)
-    {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        sceneToLoad = pSceneType;
-
-        if (currentScene != null)
-        {
-            RemoveChild(currentScene);
-            currentScene.QueueFree();
-            currentScene = null;
-        }
-
-        transitionTimer.Start();
-    }
-
     public void ChangeScene(SceneType pNextScene)
     {
         if (isTransitioning) return;
-
-        if (currentSceneType != SceneType.Game)
-        {
-            SwitchScene(pNextScene);
-            return;
-        }
 
         isTransitioning = true;
         float lDuration = 1.5f;
@@ -140,35 +122,50 @@ public partial class SceneManager : Node
             GameManager.scrollSpeedVelocity = Vector2.Zero;
         }
 
-        Camera lCam = Camera.GetInstance();
-        if (lCam != null)
-        {
-            Tween lTween = CreateTween();
-            lTween.SetPauseMode(Tween.TweenPauseMode.Process);
-            lTween.TweenProperty(lCam, "global_position", Vector2.Zero, lDuration)
-                .SetTrans(Tween.TransitionType.Cubic)
-                .SetEase(Tween.EaseType.InOut);
-        }
-
         Player lPlayer = Player.GetInstance();
         if (lPlayer != null)
             lPlayer.AnimatedDespawn(lDuration);
 
-        Timer lTimer = new Timer();
-        lTimer.WaitTime = lDuration;
-        lTimer.OneShot = true;
-        AddChild(lTimer);
-
-        Projectiles.ClearAll();
-        Enemy.ClearAll(true, true);
-
-        lTimer.Timeout += () =>
+        Camera lCam = Camera.GetInstance();
+        if (lCam != null)
         {
-            isTransitioning = false;
-            lTimer.QueueFree();
-            SwitchScene(pNextScene);
-        };
-        lTimer.Start();
+            transitionTween?.Kill();
+            transitionTween = CreateTween();
+
+            transitionTween.SetPauseMode(Tween.TweenPauseMode.Process);
+            transitionTween.TweenProperty(lCam, "global_position", Vector2.Zero, lDuration)
+                .SetTrans(Tween.TransitionType.Cubic)
+                .SetEase(Tween.EaseType.InOut);
+        }
+        
+        SwitchScene(pNextScene);
+        
+        transitionTimer.Start();
+    }
+
+    private void SwitchScene(SceneType pSceneType)
+    {
+        sceneToLoad = pSceneType;
+
+        if (currentScene != null)
+        {
+            Camera lCam = Camera.GetInstance();
+            if (lCam != null)
+            {
+                transitionTween.Finished += RemoveScene;
+            } 
+            else
+            {
+                RemoveScene();
+            }
+        }
+    }
+
+    private void RemoveScene()
+    {
+        RemoveChild(currentScene);
+        currentScene.QueueFree();
+        currentScene = null;
     }
 
     private void OnTransitionFinished()
@@ -176,11 +173,11 @@ public partial class SceneManager : Node
         PackedScene lTargetScene = null;
         switch (sceneToLoad)
         {
-            case SceneType.Game: 
-                lTargetScene = gameScene; 
+            case SceneType.Game:
+                lTargetScene = gameScene;
                 break;
             case SceneType.Debug:
-                lTargetScene = debugScene; 
+                lTargetScene = debugScene;
                 break;
         }
 

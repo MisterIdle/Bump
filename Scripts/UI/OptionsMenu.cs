@@ -49,6 +49,7 @@ public partial class OptionsMenu : MenuBase
 
     public override void OnExit() 
     {
+        base.OnExit();
         PlayGenericExitAnimation();
     }
 
@@ -58,7 +59,7 @@ public partial class OptionsMenu : MenuBase
 
     public override void _Input(InputEvent pEvent)
     {
-        if (Visible && pEvent.IsActionPressed(Property.INPUT_UI_BACK))
+        if (Visible && pEvent.IsActionPressed(Property.INPUT_UI_BACK) && !MenuManager.GetInstance().loading)
             OnBackPressed();
     }
 

@@ -56,6 +56,11 @@ public partial class MenuBase : Control
 
         float lDelay = animInitialDelay;
         AnimateControlsRecursive(this, animationTween, lDelay);
+
+        animationTween.Finished += () =>
+        {
+            MenuManager.GetInstance().loading = false;
+        };
     }
 
     private void AnimateControlsRecursive(Node pNode, Tween pTween, float pDelay)

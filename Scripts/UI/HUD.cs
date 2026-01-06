@@ -118,6 +118,7 @@ public partial class HUD : MenuBase
 
     public override void OnExit()
     {
+        base.OnExit();
         PlayExitAnimation(animDurationExit);
     }
 
@@ -219,9 +220,9 @@ public partial class HUD : MenuBase
         Modulate = new Color(1, 1, 1, 0);
         Position = new Vector2(Position.X, originalY - entranceOffsetY);
 
-        if (healthContainer != null) healthContainer.Scale = Vector2.Zero;
-        if (powContainer != null) powContainer.Scale = Vector2.Zero;
-        if (scoreLabel != null) scoreLabel.Scale = Vector2.Zero;
+        healthContainer.Scale = Vector2.Zero;
+        powContainer.Scale = Vector2.Zero;
+        scoreLabel.Scale = Vector2.Zero;
 
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
@@ -245,6 +246,11 @@ public partial class HUD : MenuBase
             lTween.TweenProperty(powContainer, (string)Node2D.PropertyName.Scale, Vector2.One, entranceElementScaleDuration)
                 .SetDelay(entrancePowDelay)
                 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+
+        lTween.Finished += () =>
+        {
+            MenuManager.GetInstance().loading = false;
+        };
     }
 
     public void PlayExitAnimation(float pDuration)

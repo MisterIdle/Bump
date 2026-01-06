@@ -33,9 +33,9 @@ public static class ScaleTime
     // EFFECTS
     // ========================================================================
 
-    public static void SlowMotion(float pTime = 0.2f, float pDuration = 0.2f)
+    public static void SlowMotion(float pScale = 0.01f, float pDuration = 0.3f)
     {
-        targetTimeScale = Mathf.Clamp(pTime, 0f, 1f);
+        targetTimeScale = pScale;
 
         Timer lTimer = new Timer();
 

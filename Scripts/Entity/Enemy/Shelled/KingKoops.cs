@@ -37,7 +37,6 @@ public partial class KingKoops : ShelledEnemy
     [Export] private float dashRecoilSpeed = 2f;
     [Export] private float returnThresholdDistance = 20f;
     [Export] private float dashTiltAnglePos = 25f;
-    [Export] private float dashTiltAngleNeg = -25f;
     [Export] private float dashTiltDuration = 0.1f;
     [Export] private float returnTiltDuration = 0.2f;
 
@@ -75,7 +74,7 @@ public partial class KingKoops : ShelledEnemy
     public bool fightActive = false;
     public bool isInvincible = false;
 
-    private Timer actionNodeTimer;
+    private Timer actionTimer;
     private int beatCounter = 0;
     private Vector2 movingBasePos;
     private Vector2 dashDirection;
@@ -89,10 +88,10 @@ public partial class KingKoops : ShelledEnemy
         base.Initiate();
         affectedByScroll = false;
 
-        actionNodeTimer = new Timer();
-        actionNodeTimer.OneShot = true;
-        actionNodeTimer.Timeout += OnActionTimerTimeout;
-        AddChild(actionNodeTimer);
+        actionTimer = new Timer();
+        actionTimer.OneShot = true;
+        actionTimer.Timeout += OnActionTimeout;
+        AddChild(actionTimer);
 
         musicSync.BeatDetected += OnMusicBeat;
         head.AreaEntered += OnHeadCollide;
@@ -137,25 +136,11 @@ public partial class KingKoops : ShelledEnemy
                 break;
 
             case TickEvent.BeatTypeBoss.Dash:
-                StartDashSequence();
+                StartDash();
                 break;
 
             case TickEvent.BeatTypeBoss.Move:
                 DoGrooveAnimation();
-                break;
-        }
-    }
-
-    private void OnActionTimerTimeout()
-    {
-        switch (currentAction)
-        {
-            case ActionState.PreDash:
-                TriggerDash();
-                break;
-
-            case ActionState.Dashing:
-                StartReturn();
                 break;
         }
     }
@@ -188,6 +173,20 @@ public partial class KingKoops : ShelledEnemy
         }
     }
 
+    private void OnActionTimeout()
+    {
+        switch (currentAction)
+        {
+            case ActionState.PreDash:
+                TriggerDash();
+                break;
+
+            case ActionState.Dashing:
+                StartReturn();
+                break;
+        }
+    }
+
     private void StartIntro()
     {
         AudioManager.GetInstance().StopMusic();
@@ -213,7 +212,7 @@ public partial class KingKoops : ShelledEnemy
         affectedByScroll = true;
 
         animationTimer.Stop();
-        
+
         musicSync.PlayAll();
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.Boss);
     }
@@ -227,8 +226,9 @@ public partial class KingKoops : ShelledEnemy
 
         if (currentPhase == PhaseState.Final)
             EnterPhaseFinal();
+
         else if (currentPhase == PhaseState.Summoning)
-            SpawnEntity(koopsScene, GlobalPosition);
+            SpawnObject(koopsScene, GlobalPosition);
     }
 
     private void EnterPhaseFinal()
@@ -244,7 +244,7 @@ public partial class KingKoops : ShelledEnemy
         currentAction = ActionState.Idle;
         shell.SetShellColor(phaseFinalColor);
 
-        SpawnEntity(specialSpikeScene, GlobalPosition, true, true);
+        SpawnObject(specialSpikeScene, GlobalPosition, true, true);
     }
 
     private void EndEvent(AudioManager.AudioType pSound)
@@ -264,22 +264,22 @@ public partial class KingKoops : ShelledEnemy
             spriteHead.FlipV = false;
     }
 
-    private void StartDashSequence()
+    private void StartDash()
     {
         KillActiveTweens();
         currentAction = ActionState.PreDash;
 
-        actionNodeTimer.WaitTime = dashRecoilDuration;
-        actionNodeTimer.Start();
+        actionTimer.WaitTime = dashRecoilDuration;
+        actionTimer.Start();
 
         affectedByScroll = false;
         facePlayer = false;
 
         currentState = EnemyState.Protected;
-        ApplyTransformInstant(EnemyState.Protected);
+        ApplyTransform(EnemyState.Protected);
 
         if (currentPhase == PhaseState.Summoning)
-            SpawnEntity(koopsScene, GlobalPosition);
+            SpawnObject(koopsScene, GlobalPosition);
 
         Vector2 lPlayerPos = Player.GetInstance().GlobalPosition;
         dashDirection = Utils.DirectionTo(GlobalPosition, lPlayerPos);
@@ -289,25 +289,26 @@ public partial class KingKoops : ShelledEnemy
         spriteHead.FlipV = (dashDirection.X < 0);
     }
 
-    // ... Le reste du code reste inchangé ...
-
     private void TriggerDash()
     {
         KillActiveTweens();
         currentAction = ActionState.Dashing;
 
-        actionNodeTimer.WaitTime = dashDuration;
-        actionNodeTimer.Start();
+        actionTimer.WaitTime = dashDuration;
+        actionTimer.Start();
 
         SwitchState(EnemyState.Outside, true);
 
-        float lTilt = dashDirection.X < 0 ? dashTiltAnglePos : dashTiltAngleNeg;
-        CreateTween().TweenProperty(shell, (string)Node2D.PropertyName.RotationDegrees, lTilt, dashTiltDuration);
+        float lTilt = dashDirection.X < 0 ? dashTiltAnglePos : -dashTiltAnglePos;
+        
+        Tween TiltTween = CreateTween();
+        TiltTween.TweenProperty(shell, (string)PropertyName.RotationDegrees, lTilt, dashTiltDuration);
     }
 
     private void StartReturn()
     {
         KillActiveTweens();
+
         currentAction = ActionState.Returning;
         SwitchState(EnemyState.Protected, false);
     }
@@ -315,14 +316,16 @@ public partial class KingKoops : ShelledEnemy
     private void EndReturn()
     {
         KillActiveTweens();
+
         currentAction = ActionState.Idle;
         velocity = Vector2.Zero;
         GlobalPosition = movingBasePos;
         affectedByScroll = true;
-        ApplyTransformInstant(EnemyState.Protected);
+
+        ApplyTransform(EnemyState.Protected);
     }
 
-    private void SpawnEntity(PackedScene pScene, Vector2 pPos, bool pIsSpike = false, bool pPlaySound = false)
+    private void SpawnObject(PackedScene pScene, Vector2 pPos, bool pIsSpike = false, bool pPlaySound = false)
     {
         if (pPlaySound)
             AudioManager.GetInstance().Play(AudioManager.AudioType.BossShoot);
@@ -344,39 +347,67 @@ public partial class KingKoops : ShelledEnemy
     public void SwitchState(EnemyState pNewState, bool pInstant = false)
     {
         if (currentState == pNewState && !pInstant) return;
+        
         currentState = pNewState;
         shellProjectileProtect = (currentState != EnemyState.Outside);
 
-        if (pInstant) ApplyTransformInstant(currentState);
-        else AnimateParts(currentState);
+        if (pInstant) 
+            ApplyTransform(currentState);
+        else 
+            AnimateParts(currentState);
     }
 
-    private void ApplyTransformInstant(EnemyState pState)
+    private void ApplyTransform(EnemyState pState)
     {
+        visualTween?.Kill();
+        visualTween = CreateTween().SetParallel(true);
+
         bool lIsOutside = (pState == EnemyState.Outside);
 
-        head.Position = lIsOutside ? headOutsidePos : headRetractedPos;
-        head.Scale = lIsOutside ? headOutsideScale : headRetractedScale;
+        Vector2 targetHeadPos = lIsOutside ? headOutsidePos : headRetractedPos;
+        Vector2 targetHeadScale = lIsOutside ? headOutsideScale : headRetractedScale;
+        Vector2 targetShellPos = lIsOutside ? shellOutsidePos : shellRetractedPos;
+        float targetShellRot = lIsOutside ? shellOutsideRot : shellRetractedRot;
 
-        shell.Position = lIsOutside ? shellOutsidePos : shellRetractedPos;
-        shell.RotationDegrees = lIsOutside ? shellOutsideRot : shellRetractedRot;
+        visualTween.TweenProperty(head, (string)PropertyName.Position, targetHeadPos, transitionDuration)
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+
+        visualTween.TweenProperty(head, (string)PropertyName.Scale, targetHeadScale, transitionDuration)
+            .SetTrans(Tween.TransitionType.Sine);
+
+        visualTween.TweenProperty(shell, (string)PropertyName.Position, targetShellPos, transitionDuration)
+            .SetTrans(Tween.TransitionType.Quart)
+            .SetEase(Tween.EaseType.Out);
+
+        visualTween.TweenProperty(shell, (string)PropertyName.RotationDegrees, targetShellRot, transitionDuration)
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
     }
 
     private void AnimateParts(EnemyState pState)
     {
         KillActiveTweens();
+
         bool lIsOutside = (pState == EnemyState.Outside);
 
-        visualTween = CreateTween().SetParallel(true);
-        var lTrans = Tween.TransitionType.Back;
-        var lEase = Tween.EaseType.Out;
+        visualTween = CreateTween();
+        visualTween.SetParallel(true);
 
-        visualTween.TweenProperty(head, (string)Node2D.PropertyName.Position, lIsOutside ? headOutsidePos : headRetractedPos, transitionDuration)
-            .SetTrans(lTrans).SetEase(lEase);
-        visualTween.TweenProperty(shell, (string)Node2D.PropertyName.Position, lIsOutside ? shellOutsidePos : shellRetractedPos, transitionDuration)
-            .SetTrans(lTrans).SetEase(lEase);
-        visualTween.TweenProperty(shell, (string)Node2D.PropertyName.RotationDegrees, lIsOutside ? shellOutsideRot : shellRetractedRot, transitionDuration)
-            .SetTrans(lTrans).SetEase(lEase);
+        Tween.TransitionType lTrans = Tween.TransitionType.Back;
+        Tween.EaseType lEase = Tween.EaseType.Out;
+
+        visualTween.TweenProperty(head, (string)PropertyName.Position, lIsOutside ? headOutsidePos : headRetractedPos, transitionDuration)
+            .SetTrans(lTrans)
+            .SetEase(lEase);
+
+        visualTween.TweenProperty(shell, (string)PropertyName.Position, lIsOutside ? shellOutsidePos : shellRetractedPos, transitionDuration)
+            .SetTrans(lTrans)
+            .SetEase(lEase);
+
+        visualTween.TweenProperty(shell, (string)PropertyName.RotationDegrees, lIsOutside ? shellOutsideRot : shellRetractedRot, transitionDuration)
+            .SetTrans(lTrans)
+            .SetEase(lEase);
     }
 
     private void DoGrooveAnimation()
@@ -384,22 +415,27 @@ public partial class KingKoops : ShelledEnemy
         if (currentAction != ActionState.Idle || isDeath) return;
 
         KillActiveTweens();
+
         beatCounter++;
         float lDir = (beatCounter % 2 == 0) ? 1f : -1f;
 
         visualTween = CreateTween().SetParallel(true);
-        visualTween.TweenProperty(shell, (string)Node2D.PropertyName.Position + ":y", shellRetractedPos.Y - grooveJumpHeight, grooveStepDuration)
+
+        visualTween.TweenProperty(shell, (string)PropertyName.Position + ":y", shellRetractedPos.Y - grooveJumpHeight, grooveStepDuration)
             .SetTrans(Tween.TransitionType.Quad);
-        visualTween.TweenProperty(shell, (string)Node2D.PropertyName.RotationDegrees, shellRetractedRot + (grooveTiltAngle * lDir), grooveStepDuration);
-        visualTween.Chain().TweenProperty(shell, (string)Node2D.PropertyName.Position + ":y", shellRetractedPos.Y, grooveStepDuration)
+
+        visualTween.TweenProperty(shell, (string)PropertyName.RotationDegrees, shellRetractedRot + (grooveTiltAngle * lDir), grooveStepDuration);
+
+        visualTween.Chain().TweenProperty(shell, (string)PropertyName.Position + ":y", shellRetractedPos.Y, grooveStepDuration)
             .SetTrans(Tween.TransitionType.Quad);
-        visualTween.Parallel().TweenProperty(shell, (string)Node2D.PropertyName.RotationDegrees, shellRetractedRot, grooveReturnDuration);
+
+        visualTween.Parallel().TweenProperty(shell, (string)PropertyName.RotationDegrees, shellRetractedRot, grooveReturnDuration);
     }
 
     private void KillActiveTweens()
     {
         visualTween?.Kill();
-        actionNodeTimer?.Stop();
+        actionTimer?.Stop();
     }
 
     public override void EntityHit(int pDamage = 1)
@@ -416,11 +452,11 @@ public partial class KingKoops : ShelledEnemy
 
         EntityHit();
         shell.ShellDamageAnimation();
+        
     }
 
     public override void EntityDeath()
     {
-        // Comparaison avec l'Enum ici aussi
         if (currentPhase != PhaseState.Final) return;
 
         EndEvent(AudioManager.AudioType.BossExplosion);
@@ -437,12 +473,12 @@ public partial class KingKoops : ShelledEnemy
         Player.GetInstance().invincible = true;
 
         animationTimer.WaitTime = deathDelayDuration;
-        animationTimer.Timeout += OnDeathSequenceFinished;
+        animationTimer.Timeout += OnDeathFinished;
 
         animationTimer.Start();
     }
 
-    private void OnDeathSequenceFinished()
+    private void OnDeathFinished()
     {
         CallDeferred(MethodName.CallDeathCleanup);
 
