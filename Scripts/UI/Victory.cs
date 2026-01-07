@@ -2,6 +2,7 @@ using Godot;
 using System;
 
 using Com.IsartDigital.Shmup.NStats;
+using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NHUD;
 
@@ -144,7 +145,9 @@ public partial class Victory : MenuBase
         {
             GetViewport().SetInputAsHandled();
             PlayGenericExitAnimation();
-            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Credits);
+
+            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
+            SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
         }
     }
 
@@ -157,7 +160,7 @@ public partial class Victory : MenuBase
         Visible = true;
 
         HideAllElements();
-        PlayVictorySequence();
+        PlayVictory();
     }
 
     // ========================================================================
@@ -207,75 +210,78 @@ public partial class Victory : MenuBase
     // ANIMATION GLOBAL
     // ========================================================================
 
-    private void PlayVictorySequence()
+    private void PlayVictory()
     {
-        Tween lSequence = CreateTween();
+        Tween lVictoryTween = CreateTween();
 
-        lSequence.TweenInterval(initialDelay);
+        lVictoryTween.TweenInterval(initialDelay);
 
-        lSequence.TweenProperty(titleLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, titleFadeDuration);
-        lSequence.TweenInterval(stepDelay);
+        lVictoryTween.TweenProperty(titleLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, titleFadeDuration);
+        lVictoryTween.TweenInterval(stepDelay);
 
-        AddStatToSequence(lSequence, killCountText, killCountLabel, GameStats.enemyKills, baseScaleKill);
-        AddStatToSequence(lSequence, shotCountText, shotCountLabel, GameStats.shotsFired, baseScaleShot);
-        AddStatToSequence(lSequence, specialCountText, specialCountLabel, GameStats.specialUsed, baseScaleSpecial);
-        AddStatToSequence(lSequence, powCountText, powCountLabel, GameStats.powerUsed, baseScalePow);
+        AddStatToSequence(lVictoryTween, killCountText, killCountLabel, GameStats.enemyKills, baseScaleKill);
+        AddStatToSequence(lVictoryTween, shotCountText, shotCountLabel, GameStats.shotsFired, baseScaleShot);
+        AddStatToSequence(lVictoryTween, specialCountText, specialCountLabel, GameStats.specialUsed, baseScaleSpecial);
+        AddStatToSequence(lVictoryTween, powCountText, powCountLabel, GameStats.powerUsed, baseScalePow);
 
-        lSequence.TweenInterval(stepDelay);
+        lVictoryTween.TweenInterval(stepDelay);
 
-        lSequence.Parallel().TweenProperty(scoreText, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, scoreMinDuration);
+        lVictoryTween.Parallel().TweenProperty(scoreText, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, scoreMinDuration);
 
-        lSequence.Parallel().TweenProperty(scoreLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, scoreMinDuration * 0.5f);
+        lVictoryTween.Parallel().TweenProperty(scoreLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, scoreMinDuration * 0.5f);
 
         float lDynamicDuration = CalculateScoreDuration(GameStats.currentScore);
 
-        lSequence.Parallel().TweenMethod(Callable.From<int>(UpdateScoreVisuals), 0, GameStats.currentScore, lDynamicDuration)
+        lVictoryTween.Parallel().TweenMethod(Callable.From<int>(UpdateScoreVisuals), 0, GameStats.currentScore, lDynamicDuration)
             .SetTrans(Tween.TransitionType.Expo)
             .SetEase(Tween.EaseType.Out);
 
-        lSequence.Chain().TweenProperty(scoreLabel, (string)CanvasItem.PropertyName.Modulate, Colors.White, scoreCoolDownDuration)
+        lVictoryTween.Chain().TweenProperty(scoreLabel, (string)CanvasItem.PropertyName.Modulate, Colors.White, scoreCoolDownDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 
-        lSequence.Parallel().TweenProperty(scoreLabel, (string)Control.PropertyName.Scale, baseScaleScore, scoreCoolDownDuration)
+        lVictoryTween.Parallel().TweenProperty(scoreLabel, (string)Control.PropertyName.Scale, baseScaleScore, scoreCoolDownDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        lSequence.TweenInterval(stepDelay);
+        lVictoryTween.TweenInterval(stepDelay);
 
-        if (rankLabel != null)
+        int lRankIndex = GetRankIndex(GameStats.currentScore);
+        string lRankText = GetRankTitle(lRankIndex);
+        Color lRankColor = GetRankColor(lRankIndex);
+
+        lVictoryTween.TweenCallback(Callable.From(() =>
         {
-            int lRankIndex = GetRankIndex(GameStats.currentScore);
-            string lRankText = GetRankTitle(lRankIndex);
-            Color lRankColor = GetRankColor(lRankIndex);
+            rankLabel.Text = lRankText;
+            rankLabel.Modulate = new Color(lRankColor.R, lRankColor.G, lRankColor.B, ALPHA_TRANSPARENT);
+            rankLabel.PivotOffset = rankLabel.Size * PIVOT_CENTER_RATIO;
+            rankLabel.Scale = baseScaleRank * RANK_SCALE_HUGE_MULT;
+            rankLabel.RotationDegrees = RANK_ROTATION_START;
+        }));
 
-            lSequence.TweenCallback(Callable.From(() =>
-            {
-                rankLabel.Text = lRankText;
-                rankLabel.Modulate = new Color(lRankColor.R, lRankColor.G, lRankColor.B, ALPHA_TRANSPARENT);
-                rankLabel.PivotOffset = rankLabel.Size * PIVOT_CENTER_RATIO;
-                rankLabel.Scale = baseScaleRank * RANK_SCALE_HUGE_MULT;
-                rankLabel.RotationDegrees = RANK_ROTATION_START;
-            }));
+        lVictoryTween.Parallel().TweenProperty(rankLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, ANIM_SLAM_FADE_DURATION);
 
-            lSequence.Parallel().TweenProperty(rankLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, ANIM_SLAM_FADE_DURATION);
+        lVictoryTween.Parallel()
+            .TweenProperty(rankLabel, (string)Control.PropertyName.RotationDegrees, RANK_ROTATION_SLAM, ANIM_SLAM_DURATION)
+            .SetTrans(Tween.TransitionType.Quint)
+            .SetEase(Tween.EaseType.In);
 
-            lSequence.Parallel()
-                .TweenProperty(rankLabel, (string)Control.PropertyName.RotationDegrees, RANK_ROTATION_SLAM, ANIM_SLAM_DURATION)
-                .SetTrans(Tween.TransitionType.Quint)
-                .SetEase(Tween.EaseType.In);
+        lVictoryTween.Parallel()
+            .TweenProperty(rankLabel, (string)Control.PropertyName.Scale, baseScaleRank * RANK_SCALE_SLAM_MULT, ANIM_SLAM_DURATION)
+            .SetTrans(Tween.TransitionType.Quint)
+            .SetEase(Tween.EaseType.In);
 
-            lSequence.Parallel()
-                .TweenProperty(rankLabel, (string)Control.PropertyName.Scale, baseScaleRank * RANK_SCALE_SLAM_MULT, ANIM_SLAM_DURATION)
-                .SetTrans(Tween.TransitionType.Quint)
-                .SetEase(Tween.EaseType.In);
+        lVictoryTween.TweenCallback(Callable.From(ShakeRankLabel));
 
-            lSequence.TweenCallback(Callable.From(ShakeRankLabel));
+        lVictoryTween.TweenProperty(rankLabel, (string)Control.PropertyName.Scale, baseScaleRank, rankStampDuration)
+            .SetTrans(Tween.TransitionType.Elastic)
+            .SetEase(Tween.EaseType.Out);
 
-            lSequence.TweenProperty(rankLabel, (string)Control.PropertyName.Scale, baseScaleRank, rankStampDuration)
-                .SetTrans(Tween.TransitionType.Elastic)
-                .SetEase(Tween.EaseType.Out);
-        }
+        lVictoryTween.Finished += () =>
+        {
+            MenuManager.GetInstance().loading = false;
+        };
+
     }
 
     private void UpdateScoreVisuals(int pCurrentValue)

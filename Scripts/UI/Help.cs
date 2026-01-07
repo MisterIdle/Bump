@@ -28,7 +28,7 @@ public partial class Help : MenuBase
             if (MenuManager.GetInstance().nextIsGame)
             {
                 MenuManager.GetInstance().SetMenu(MenuManager.MenuState.None);
-                SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.Game);
+                SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.Game);
                 AudioManager.GetInstance().StopMusic();
                 MenuManager.GetInstance().nextIsGame = false;
             } 

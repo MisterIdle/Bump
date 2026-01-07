@@ -4,7 +4,12 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
 public partial class Spiko : Spike
 {
-    [Export] public float trackingTime = 1.0f;
+    [ExportGroup("Tracking Settings")]
+    [Export] public float trackingTime = 1.5f;
+
+    [ExportGroup("Dash Settings")]
+    [Export] public float dashSpeedMultiplier = 3.0f;
+    [Export] public Color lockedColor = Colors.OrangeRed;
 
     private Timer trackingTimer;
     private bool isTracking = true;
@@ -19,6 +24,9 @@ public partial class Spiko : Spike
         base.Initiate();
         isTracking = true;
         hasTimerStarted = false;
+
+        Modulate = Colors.White;
+
         SetupTimer();
     }
 
@@ -38,6 +46,9 @@ public partial class Spiko : Spike
     private void OnTrackingTimeout()
     {
         isTracking = false;
+        SelfModulate = lockedColor;
+
+        speed *= dashSpeedMultiplier;
     }
 
     // ========================================================================
@@ -55,12 +66,18 @@ public partial class Spiko : Spike
         }
 
         if (isTracking)
-        {
             base.Update(pDelta);
-        }
         else
         {
+            velocity = Vector2.FromAngle(Rotation);
             GlobalPosition += velocity * speed * pDelta;
         }
+    }
+
+    protected override void Dispose(bool pDisposing)
+    {
+        if (dashSpeedMultiplier > 0) speed /= dashSpeedMultiplier;
+
+        base.Dispose(pDisposing);
     }
 }

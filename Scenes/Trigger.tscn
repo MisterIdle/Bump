@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx6ym2aov4wtf"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/Trigger.cs" id="1_dlag4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jisxp"]
+size = Vector2(74, 2472)
+
+[node name="Trigger" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_dlag4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2045, 461)
+shape = SubResource("RectangleShape2D_jisxp")
+
+[connection signal="area_entered" from="." to="." method="OnCollide"]

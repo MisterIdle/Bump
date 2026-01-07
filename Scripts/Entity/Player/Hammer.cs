@@ -1,27 +1,19 @@
 using Godot;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NToolsBox;
+using Com.IsartDigital.Shmup.NHUD;
+using Com.IsartDigital.Shmup.NData;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
+// Check
+
 public partial class Hammer : GameObject
 {
-    // ========================================================================
-    // ENUMS & CONSTANTS
-    // ========================================================================
-
-    public enum State { Idle, Charging, Swing, Cooldown }
-
-    // Valeurs techniques fixes
     private const float BASE_PITCH = 1.0f;
     private const float MIN_RATIO = 0.0f;
     private const float MAX_RATIO = 1.0f;
 
-    // ========================================================================
-    // VARIABLES
-    // ========================================================================
-
-    public State currentState;
     public bool isActif;
 
     [ExportGroup("References")]
@@ -35,31 +27,27 @@ public partial class Hammer : GameObject
     [Export] private float idleRotation = 120f;
     [Export] private float hammerHideDelay = 0.2f;
 
-    [ExportGroup("Visuals - Colors")]
+    [ExportGroup("Colors")]
     [Export] private Color colorDeadZone = Colors.LightSlateGray;
     [Export] private Color colorAttack = Colors.Red;
     [Export] private Color colorCooldown = Colors.Cyan;
 
-    [ExportGroup("Visuals - Juice & Feel")]
-    [Export(PropertyHint.Range, "0, 2, 0.1")] private float scaleElasticity = 0.2f;      // Durée du rebond élastique
-    [Export(PropertyHint.Range, "1, 2, 0.1")] private float chargeStartScaleMult = 1.2f; // Grossissement au début de la charge (Pop)
-    [Export(PropertyHint.Range, "1, 2, 0.1")] private float attackImpactScaleMult = 1.3f; // Grossissement à l'impact (Hit)
-    [Export(PropertyHint.Range, "0, 1, 0.05")] private float attackImpactDuration = 0.1f; // Vitesse du pop d'impact
-    [Export(PropertyHint.Range, "0, 1, 0.05")] private float returnToIdleDuration = 0.2f; // Vitesse retour taille normale
+    [ExportGroup("Juice")]
+    [Export] private float scaleElasticity = 0.2f;
+    [Export] private float attackImpactScaleMult = 1.3f;
+    [Export] private float attackImpactDuration = 0.1f;
+    [Export] private float returnToIdleDuration = 0.2f;
 
-    [ExportGroup("Visuals - HUD Bump")]
-    [Export] private float hudBumpChargeMult = 1.3f; // Bump de la barre quand on change de phase
-    [Export] private float hudBumpAttackMult = 1.1f; // Bump de la barre quand on attaque
+    [ExportGroup("Bump")]
+    [Export] private float hudBumpChargeMult = 1.3f;
+    [Export] private float hudBumpAttackMult = 1.1f;
 
     [ExportGroup("Attack")]
     public int attackForce;
 
     [ExportGroup("Audio")]
-    [Export] private AudioManager.AudioType chargeSoundType = AudioManager.AudioType.HammerCharge;
-    [Export] private AudioManager.AudioType swingSoundType = AudioManager.AudioType.HammerSwing;
     [Export] private float maxChargePitch = 3.0f;
 
-    // --- Technical ---
     private Tween animationTween;
     private Tween scaleTween;
     private Timer hideTimer;
@@ -73,12 +61,15 @@ public partial class Hammer : GameObject
     private int currentPhaseIndex = -1;
     private HammerData currentPhaseData;
 
+    public enum State { Idle, Charging, Swing, Cooldown }
+    public State currentState;
+
     private static Hammer instance;
 
-    private readonly string propRotation = (string)Node2D.PropertyName.RotationDegrees;
-    private readonly string propScale = (string)Node2D.PropertyName.Scale;
-
-    public static Hammer GetInstance() => instance;
+    public static Hammer GetInstance()
+    {
+        return instance;
+    }
 
     // ========================================================================
     // INIT
@@ -87,23 +78,25 @@ public partial class Hammer : GameObject
     public override void _Ready()
     {
         if (instance == null) instance = this;
-        else { QueueFree(); return; }
+        else 
+        { 
+            QueueFree(); 
+            return; 
+        }
+
+        string lBusSFX = "SFX";
 
         sfxPlayer = new AudioStreamPlayer();
-        sfxPlayer.Bus = "SFX";
+        sfxPlayer.Bus = lBusSFX;
         AddChild(sfxPlayer);
 
         hideTimer = new Timer();
+
         hideTimer.OneShot = true;
         hideTimer.WaitTime = hammerHideDelay;
         hideTimer.Timeout += FinishAttackAnimation;
-        AddChild(hideTimer);
 
-        if (phases == null || phases.Length == 0)
-        {
-            GD.PrintErr("HAMMER: Aucune phase assignée !");
-            SetProcess(false);
-        }
+        AddChild(hideTimer);
     }
 
     public override void Initiate()
@@ -112,10 +105,9 @@ public partial class Hammer : GameObject
         enable = false;
 
         baseScale = sprite.Scale;
-        if (phases != null && phases.Length > 0)
-        {
+
+        if (phases.Length > 0)
             sprite.Scale = baseScale * phases[0].scale;
-        }
 
         currentState = State.Idle;
         totalChargeTime = 0;
@@ -129,7 +121,10 @@ public partial class Hammer : GameObject
         SetRotation(idleRotation, 0);
     }
 
-    public void SetPlayer(Player pPlayer) => player = pPlayer;
+    public void SetPlayer(Player pPlayer)
+    {
+        player = pPlayer;
+    }
 
     // ========================================================================
     // STATE MACHINE
@@ -177,7 +172,6 @@ public partial class Hammer : GameObject
         totalChargeTime = 0;
         currentPhaseIndex = -1;
         currentPhaseData = null;
-        attackForce = 0;
 
         totalMaxTimeCache = GetTotalMaxChargeTime();
 
@@ -187,48 +181,42 @@ public partial class Hammer : GameObject
 
         Effect.SquashStretch(player.sprite, player.baseSpriteScale, false);
 
-        PlaySoundWithPitch(chargeSoundType, BASE_PITCH);
+        PlaySoundWithPitch(AudioManager.AudioType.HammerCharge, BASE_PITCH);
 
         if (phases.Length > 0)
         {
             float lFirstTarget = phases[0].targetChargeRotation;
-            float lDuration = minChargeDuration + phases[0].Duration;
+            float lDuration = minChargeDuration + phases[0].duration;
             SetRotation(lFirstTarget, lDuration);
-
-            // Pop initial de charge (Variable Exportée)
-            SetScale(phases[0].scale * chargeStartScaleMult, scaleElasticity);
         }
     }
 
     private void UpdateChargingLogic(float pDelta)
     {
-        totalChargeTime += pDelta;
-        progressBar.Value = totalChargeTime;
-
-        // === AUDIO PITCH DYNAMIQUE ===
-        float lGlobalRatio = Mathf.Clamp(totalChargeTime / totalMaxTimeCache, MIN_RATIO, MAX_RATIO);
-
-        // Acceleration quadratique (EaseIn)
-        float lPitchMultiplier = lGlobalRatio * lGlobalRatio;
-        sfxPlayer.PitchScale = Mathf.Lerp(BASE_PITCH, maxChargePitch, lPitchMultiplier);
-        // =============================
-
-        if (totalChargeTime < minChargeDuration) return;
-
         float lActiveTime = totalChargeTime - minChargeDuration;
         float lAccumulatedDuration = 0f;
         int lNewIndex = -1;
         float lProgressInPhase = 0f;
 
+        totalChargeTime += pDelta;
+        progressBar.Value = totalChargeTime;
+
+        float lGlobalRatio = Mathf.Clamp(totalChargeTime / totalMaxTimeCache, MIN_RATIO, MAX_RATIO);
+
+        float lPitchMultiplier = lGlobalRatio * lGlobalRatio;
+        sfxPlayer.PitchScale = Mathf.Lerp(BASE_PITCH, maxChargePitch, lPitchMultiplier);
+
+        if (totalChargeTime < minChargeDuration) return;
+
         for (int i = 0; i < phases.Length; i++)
         {
-            if (lActiveTime < lAccumulatedDuration + phases[i].Duration)
+            if (lActiveTime < lAccumulatedDuration + phases[i].duration)
             {
                 lNewIndex = i;
-                lProgressInPhase = (lActiveTime - lAccumulatedDuration) / phases[i].Duration;
+                lProgressInPhase = (lActiveTime - lAccumulatedDuration) / phases[i].duration;
                 break;
             }
-            lAccumulatedDuration += phases[i].Duration;
+            lAccumulatedDuration += phases[i].duration;
         }
 
         if (lNewIndex == -1)
@@ -244,7 +232,7 @@ public partial class Hammer : GameObject
 
             Effect.BumpHUD(progressBar, progressBar.Scale, hudBumpChargeMult);
 
-            SetRotation(currentPhaseData.targetChargeRotation, currentPhaseData.Duration);
+            SetRotation(currentPhaseData.targetChargeRotation, currentPhaseData.duration);
             SetScale(currentPhaseData.scale, scaleElasticity);
         }
 
@@ -261,8 +249,11 @@ public partial class Hammer : GameObject
     private void UpdateColorsOnly(float pProgress)
     {
         Color lStartColor;
-        if (currentPhaseIndex == 0) lStartColor = colorDeadZone;
-        else lStartColor = phases[currentPhaseIndex - 1].barColor;
+
+        if (currentPhaseIndex == 0) 
+            lStartColor = colorDeadZone;
+        else
+            lStartColor = phases[currentPhaseIndex - 1].barColor;
 
         progressBar.TintProgress = lStartColor.Lerp(currentPhaseData.barColor, pProgress);
     }
@@ -271,13 +262,11 @@ public partial class Hammer : GameObject
     {
         if (totalChargeTime < minChargeDuration)
         {
-            CancelCharge();
+            ResetToIdle();
             return;
         }
         StartSwing();
     }
-
-    private void CancelCharge() => ResetToIdle();
 
     // ========================================================================
     // ATTACK & COOLDOWN
@@ -285,8 +274,6 @@ public partial class Hammer : GameObject
 
     private void StartSwing()
     {
-        if (currentPhaseData == null) { CancelCharge(); return; }
-
         currentState = State.Swing;
         cooldownDuration = totalChargeTime;
         cooldownTimer = cooldownDuration;
@@ -297,15 +284,17 @@ public partial class Hammer : GameObject
         player.Dash(currentPhaseData.dashForce, Vector2.Right, false);
         player.invincible = true;
 
-        // Bump HUD Attack (Variable Exportée)
         Effect.BumpHUD(progressBar, progressBar.Scale, hudBumpAttackMult);
 
-        PlayHammerSoundForDuration(swingSoundType, currentPhaseData.swingDuration);
+        Effect.BumpHUD(HUD.GetInstance(), HUD.GetInstance().Scale, hudBumpAttackMult);
+
+        PlayHammerSoundDuration(AudioManager.AudioType.HammerSwing, currentPhaseData.swingDuration);
 
         animationTween = SetRotation(currentPhaseData.targetSwingRotation, currentPhaseData.swingDuration);
         animationTween.Finished += FinishAttack;
 
-        // Scale Impact Attack (Variables Exportées)
+        GD.Print(attackForce);
+
         SetScale(currentPhaseData.scale * attackImpactScaleMult, attackImpactDuration);
     }
 
@@ -314,9 +303,11 @@ public partial class Hammer : GameObject
         isActif = false;
         collision.Disabled = true;
 
-        float lBaseScaleMultiplier = (phases != null && phases.Length > 0) ? phases[0].scale : 1.0f;
+        float lBaseScaleMultiplier = phases.Length > 0 ? phases[0].scale : 1.0f;
 
         SetScale(lBaseScaleMultiplier, returnToIdleDuration);
+
+        attackForce = 0;
 
         hideTimer.Start();
         currentState = State.Cooldown;
@@ -343,9 +334,10 @@ public partial class Hammer : GameObject
 
     public void ResetToIdle()
     {
-        if (sfxPlayer.Playing) sfxPlayer.Stop();
+        if (sfxPlayer.Playing) 
+            sfxPlayer.Stop();
 
-        float lBaseScaleMultiplier = (phases != null && phases.Length > 0) ? phases[0].scale : 1.0f;
+        float lBaseScaleMultiplier = phases.Length > 0 ? phases[0].scale : 1.0f;
 
         SetScale(lBaseScaleMultiplier, returnToIdleDuration);
 
@@ -367,10 +359,10 @@ public partial class Hammer : GameObject
     private float GetTotalMaxChargeTime()
     {
         float lTotal = minChargeDuration;
-        if (phases != null)
-        {
-            foreach (var phase in phases) lTotal += phase.Duration;
-        }
+        
+        foreach (HammerData phase in phases) 
+            lTotal += phase.duration;
+
         return lTotal;
     }
 
@@ -386,7 +378,7 @@ public partial class Hammer : GameObject
         }
 
         animationTween = CreateTween();
-        animationTween.TweenProperty(sprite, propRotation, pTarget, pTime)
+        animationTween.TweenProperty(sprite, (string)PropertyName.RotationDegrees, pTarget, pTime)
               .SetEase(Tween.EaseType.Out)
               .SetTrans(Tween.TransitionType.Back);
 
@@ -407,7 +399,7 @@ public partial class Hammer : GameObject
             return;
         }
 
-        scaleTween.TweenProperty(sprite, propScale, lTargetScale, pTime)
+        scaleTween.TweenProperty(sprite, (string)PropertyName.Scale, lTargetScale, pTime)
               .SetEase(Tween.EaseType.Out)
               .SetTrans(Tween.TransitionType.Back);
     }
@@ -415,7 +407,6 @@ public partial class Hammer : GameObject
     private void PlaySoundWithPitch(AudioManager.AudioType pType, float pPitch)
     {
         AudioStream lStream = AudioManager.GetInstance().GetStream(pType);
-        if (lStream == null) return;
 
         if (sfxPlayer.Stream != lStream || !sfxPlayer.Playing)
         {
@@ -425,15 +416,15 @@ public partial class Hammer : GameObject
         sfxPlayer.PitchScale = pPitch;
     }
 
-    private void PlayHammerSoundForDuration(AudioManager.AudioType pType, float pTargetDuration)
+    private void PlayHammerSoundDuration(AudioManager.AudioType pType, float pTargetDuration)
     {
         AudioStream lStream = AudioManager.GetInstance().GetStream(pType);
-        if (lStream == null) return;
 
         sfxPlayer.Stop();
         sfxPlayer.Stream = lStream;
 
         float lOriginalDuration = (float)lStream.GetLength();
+
         if (lOriginalDuration > 0 && pTargetDuration > 0)
             sfxPlayer.PitchScale = lOriginalDuration / pTargetDuration;
         else

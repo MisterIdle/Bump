@@ -3,7 +3,6 @@ using System;
 
 using Com.IsartDigital.Shmup.NToolsBox;
 using Com.IsartDigital.Shmup.NManager;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
 
@@ -29,11 +28,13 @@ public partial class Entity : Movable
     // ========================================================================
     // INIT
     // ========================================================================
+
     public override void Initiate()
     {
         base.Initiate();
 
         invincibleTimer = new Timer();
+        
         invincibleTimer.OneShot = true;
         invincibleTimer.Timeout += EndInvincible;
 
@@ -87,8 +88,6 @@ public partial class Entity : Movable
         AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion);
 
         health -= pDamage;
-
-        GD.Print(health);
 
         if (health <= 0)
             EntityDeath();

@@ -29,7 +29,6 @@ public partial class Spike : Projectiles
         Spike lSpike = (Spike)pScene.Instantiate();
 
         lSpike.Position = pPos;
-
         lSpike.target = pTarget;
 
         lSpike.Initiate();
@@ -48,7 +47,7 @@ public partial class Spike : Projectiles
 
         if (!isActive) return;
 
-        Vector2 lDirection = (target.Position - Position).Normalized();
+        Vector2 lDirection = Utils.DirectionTo(Position, target.Position);
         float lTargetAngle = lDirection.Angle();
 
         Rotation = Mathf.LerpAngle(Rotation, lTargetAngle, rotationSpeed * pDelta);

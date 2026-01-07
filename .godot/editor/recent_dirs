@@ -1,8 +1,9 @@
+res://Scenes
+res://Scenes/LevelDesign
 res://Assets/Ressources
 res://Scripts/UI
 res://Scripts/Utils/Effects
 res://
-res://Scenes/LevelDesign
 res://Scenes/MainScenes
 res://Scripts/Entity/Enemy/Normal
 res://Scripts/Managers
@@ -13,7 +14,6 @@ res://Assets/Shader
 res://Scripts/Projectiles
 res://Scripts/Entity/Enemy
 res://Scenes/Entity/Enemy
-res://Scenes
 res://Assets/Localization
 res://Assets/Background
 res://Assets

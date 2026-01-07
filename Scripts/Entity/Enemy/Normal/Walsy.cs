@@ -4,6 +4,8 @@ using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
+// CHECK
+
 public partial class Walsy : Enemy
 {
     private AnimatedSprite2D animatedSprite;

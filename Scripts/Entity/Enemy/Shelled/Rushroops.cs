@@ -1,5 +1,4 @@
 using Godot;
-
 using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
@@ -7,14 +6,16 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 public partial class Rushroops : ShelledEnemy
 {
     [ExportGroup("Rushroops Specifics")]
-    [Export] private float chargeWait = 15f;
-    [Export] private float chargeSpeed = 300f;
+    [Export] private float chargeWait = 5f;
+    [Export] private float chargeDuration = 1.5f;
+    [Export] private float chargeSpeed = 600f;
     [Export] private float recoilDistance = -25f;
     [Export] private float recoilDuration = 1f;
     [Export] private Vector2 basePosShell;
 
     private Timer chargeTimer;
     private bool isCharging = false;
+    private float normalSpeed;
 
     // ========================================================================
     // INIT
@@ -24,16 +25,19 @@ public partial class Rushroops : ShelledEnemy
     {
         base.Initiate();
 
+        normalSpeed = speed;
+
         chargeTimer = new Timer();
-        AddChild(chargeTimer);
         chargeTimer.WaitTime = chargeWait;
-        chargeTimer.Autostart = true;
+        chargeTimer.OneShot = true;
         chargeTimer.Timeout += StartCharge;
+
+        AddChild(chargeTimer);
         chargeTimer.Start();
 
-        shell.SetShellColor(Colors.Blue);
+        shell?.SetShellColor(Colors.Blue);
 
-        StartSpikeTimer();
+        StartSpike();
     }
 
     public static Rushroops Create(PackedScene pScene, Vector2 pPos)
@@ -52,39 +56,67 @@ public partial class Rushroops : ShelledEnemy
         base.AliveUpdate(pDelta);
 
         if (!isCharging)
-            velocity = new Vector2(angleX, angleY);
+            velocity.X = angleX;
     }
 
     // ========================================================================
-    // ATTACK
+    // ATTACK (CHARGE LOOP)
     // ========================================================================
 
     private void StartCharge()
     {
-        if (!isCharging) 
-            isCharging = true;
+        if (isCharging || isDeath) return;
 
-        chargeTimer.Stop();
-        StopSpikeRoutine();
-        chargeTimer.Stop();
+        isCharging = true;
+
+        StopSpike();
 
         shellProjectileProtect = true;
-        facePlayer = false;
-        wing.SetSpeedDouble(true);
+        wing?.SetSpeedDouble(true);
 
         Effect.SquashStretch(this, baseScale, false);
 
-        Vector2 lDirection = playerDirection.Normalized();
-        Vector2 lRecoil = Position - lDirection * recoilDistance;
-
-        speed = chargeSpeed;
-        velocity = lDirection;
+        Vector2 lRecoil = GlobalPosition - playerDirection * recoilDistance;
 
         Tween lTween = CreateTween();
-        lTween.Parallel().TweenProperty(this, "position", lRecoil, recoilDuration)
-             .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
-        lTween.Parallel().TweenProperty(shell, "position", basePosShell, recoilDuration)
-            .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+
+        lTween.Parallel().TweenProperty(this, (string)PropertyName.GlobalPosition, lRecoil, recoilDuration)
+             .SetTrans(Tween.TransitionType.Back)
+             .SetEase(Tween.EaseType.Out);
+
+        lTween.Parallel().TweenProperty(shell, (string)PropertyName.Position, basePosShell, recoilDuration)
+           .SetTrans(Tween.TransitionType.Back)
+           .SetEase(Tween.EaseType.Out);
+
+        lTween.Finished += () =>
+        {
+            if (isDeath) return;
+
+            facePlayer = false;
+
+            speed = chargeSpeed;
+            velocity = playerDirection;
+
+            GetTree().CreateTimer(chargeDuration).Timeout += StopCharge;
+        };
+    }
+
+    private void StopCharge()
+    {
+        if (isDeath) return;
+
+        isCharging = false;
+
+        speed = normalSpeed;
+        velocity = Vector2.Zero;
+        facePlayer = true;
+
+        shellProjectileProtect = false;
+        wing?.SetSpeedDouble(false);
+
+        StartSpike();
+
+        chargeTimer.Start(chargeWait);
     }
 
     // ========================================================================

@@ -76,20 +76,6 @@ texture = ExtResource("3_fehtv")
 expand_mode = 3
 flip_h = true
 
-[node name="TextureRect4" type="TextureRect" parent="Health"]
-self_modulate = Color(1, 0.346577, 0.280009, 1)
-layout_mode = 2
-texture = ExtResource("3_fehtv")
-expand_mode = 3
-flip_h = true
-
-[node name="TextureRect5" type="TextureRect" parent="Health"]
-self_modulate = Color(1, 0.346577, 0.280009, 1)
-layout_mode = 2
-texture = ExtResource("3_fehtv")
-expand_mode = 3
-flip_h = true
-
 [node name="Pow" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 1
@@ -152,6 +138,7 @@ vertical_alignment = 1
 modulate = Color(1, 0, 0, 1)
 layout_mode = 2
 theme = SubResource("Theme_jta2v")
+step = 1.0
 
 [node name="GodMode" type="Label" parent="."]
 visible = false
@@ -170,7 +157,7 @@ offset_top = 487.0
 offset_right = 1606.0
 offset_bottom = 608.0
 pivot_offset = Vector2(623, 60)
-text = "UI_GAMEOVER_INGAME"
+text = "ID_GAMEOVER"
 label_settings = SubResource("LabelSettings_viltm")
 horizontal_alignment = 1
 vertical_alignment = 1

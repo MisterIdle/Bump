@@ -6,6 +6,8 @@ using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 
+// CHECK
+
 public partial class HeartCollectible : Collectibles
 {
 

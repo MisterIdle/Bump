@@ -2,6 +2,8 @@ using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
+// CHECK
+
 public partial class Koops : ShelledEnemy
 {
     private enum TypeEnum { Green, Red }
@@ -34,7 +36,9 @@ public partial class Koops : ShelledEnemy
     {
         base.AliveUpdate(pDelta);
 
-        if (type == TypeEnum.Green) velocity.Y = angleY;
-        else velocity.X = angleX;
+        if (type == TypeEnum.Green) 
+            velocity.Y = angleY;
+        else 
+            velocity.X = angleX;
     }
 }

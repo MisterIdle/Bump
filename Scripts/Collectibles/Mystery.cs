@@ -5,6 +5,8 @@ using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 
+// CHECK
+
 public partial class Mystery : Movable
 {
     [Export] private PackedScene FlowerScene;

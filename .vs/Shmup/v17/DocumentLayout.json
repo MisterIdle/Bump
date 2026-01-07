@@ -1,222 +1,58 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\",
+  "WorkspaceRootPath": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\player\\hammer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\player\\hammer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\managers\\scenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\managers\\scenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\scenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\statemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\statemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\managers\\gameobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\gameobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\optionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\optionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\ui\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\player\\hammerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\player\\hammerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\managers\\gamestats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\gamestats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\managers\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\shelled\\kingkoops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\kingkoops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\shelled\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\normal\\walsy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\normal\\walsy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\normal\\firebar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\normal\\firebar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\collectibles\\powcollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\collectibles\\powcollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\collectibles\\mystery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\collectibles\\mystery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\collectibles\\heartcollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\collectibles\\heartcollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\collectibles\\flowercollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\collectibles\\flowercollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\collectibles\\collectibles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\collectibles\\collectibles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\collectibles\\coin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\collectibles\\coin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\updown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\updown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\help.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\help.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\credits.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\credits.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\menubase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\menubase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\victory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\victory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\bubblescore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\bubblescore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\projectiles\\projectiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\projectiles\\projectiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\shelled\\sykoops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\sykoops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\shelled\\shelledenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\shelledenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\shelled\\rushroops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\rushroops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\movable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\movable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\gameobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\gameobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\shelled\\shell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\shell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\enemy\\shelled\\koops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\enemy\\shelled\\koops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\property\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\property\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\projectiles\\shot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\projectiles\\shot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\managers\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\entity\\player\\pow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\player\\pow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\audio\\tickevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\audio\\tickevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\scaletime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\scaletime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\particule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\particule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\projectiles\\spike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\projectiles\\spike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\trigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\trigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\effect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\effect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\utils\\effects\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\wing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\wing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\entity\\movable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\entity\\movable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\pall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\utils\\effects\\effect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\effect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\utils\\effects\\pall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\pall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\biome.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\utils\\effects\\biome.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\biome.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\projectiles\\spiko.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\projectiles\\spiko.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\managers\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\ui\\switchimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\switchimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\managers\\trigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\managers\\trigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\scripts\\utils\\effects\\updowncontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\utils\\effects\\updowncontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|c:\\users\\alexy\\desktop\\supashmup\\scripts\\ui\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1474110-C82C-494D-8AE5-4153E2F72B90}|Shmup.csproj|solutionrelative:scripts\\ui\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scenes\\MainScenes\\Trigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scenes\\MainScenes\\Trigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -226,664 +62,177 @@
       "DocumentGroups": [
         {
           "DockedWidth": 470,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "ShelledEnemy.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\ShelledEnemy.cs",
-              "ViewState": "AgIAAPQAAAAAAAAAAAAIwNcAAAA2AAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "Movable.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Entity\\Movable.cs",
+              "RelativeDocumentMoniker": "Scripts\\Entity\\Movable.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Entity\\Movable.cs",
+              "RelativeToolTip": "Scripts\\Entity\\Movable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T04:33:54.111Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "HammerData.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Player\\HammerData.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Player\\HammerData.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Player\\HammerData.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Player\\HammerData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T09:53:37.664Z",
+              "WhenOpened": "2026-01-07T17:27:23.734Z",
+              "IsPinned": true,
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Hammer.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Player\\Hammer.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Player\\Hammer.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Player\\Hammer.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Player\\Hammer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:03:50.433Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Entity.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Entity.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Entity.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Entity.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Entity.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAIA2wFIAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:56:35.296Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Camera.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\Camera.cs",
-              "RelativeDocumentMoniker": "Scripts\\Managers\\Camera.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\Camera.cs",
-              "RelativeToolTip": "Scripts\\Managers\\Camera.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:59:07.002Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "GameManager.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\GameManager.cs",
-              "RelativeDocumentMoniker": "Scripts\\Managers\\GameManager.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\GameManager.cs",
-              "RelativeToolTip": "Scripts\\Managers\\GameManager.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwB0AAAAoAAAAAAAAAA==",
+              "Title": "GameObject.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\GameObject.cs",
+              "RelativeDocumentMoniker": "Scripts\\Managers\\GameObject.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\GameObject.cs",
+              "RelativeToolTip": "Scripts\\Managers\\GameObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:37:09.484Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "GameStats.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\GameStats.cs",
-              "RelativeDocumentMoniker": "Scripts\\Managers\\GameStats.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\GameStats.cs",
-              "RelativeToolTip": "Scripts\\Managers\\GameStats.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwBYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T02:44:16.855Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MenuManager.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\MenuManager.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\MenuManager.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\MenuManager.cs",
-              "RelativeToolTip": "Scripts\\UI\\MenuManager.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAqwLIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:25:27.319Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MainMenu.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\MainMenu.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\MainMenu.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\MainMenu.cs",
-              "RelativeToolTip": "Scripts\\UI\\MainMenu.cs",
-              "ViewState": "AgIAAKwAAAAAAAAAAAAQwL0AAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T08:23:58.794Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "OptionsMenu.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\OptionsMenu.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\OptionsMenu.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\OptionsMenu.cs",
-              "RelativeToolTip": "Scripts\\UI\\OptionsMenu.cs",
-              "ViewState": "AgIAAHEAAAAAAAAAAAAgwIoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:20:39.761Z",
+              "WhenOpened": "2026-01-07T18:34:04.803Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "StateMenu.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\StateMenu.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\StateMenu.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\StateMenu.cs",
-              "RelativeToolTip": "Scripts\\UI\\StateMenu.cs",
-              "ViewState": "AgIAAJkAAAAAAAAAAAAQwLIAAAABAAAAAAAAAA==",
+              "Title": "MenuManager.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\UI\\MenuManager.cs",
+              "RelativeDocumentMoniker": "Scripts\\UI\\MenuManager.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\UI\\MenuManager.cs",
+              "RelativeToolTip": "Scripts\\UI\\MenuManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:23:22.736Z",
+              "WhenOpened": "2026-01-07T18:34:01.661Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SceneManager.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\SceneManager.cs",
-              "RelativeDocumentMoniker": "Scripts\\Managers\\SceneManager.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\SceneManager.cs",
-              "RelativeToolTip": "Scripts\\Managers\\SceneManager.cs",
-              "ViewState": "AgIAALIAAAAAAAAAAAAgwMYAAAABAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Utils.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Utils\\Effects\\Utils.cs",
+              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Utils.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Utils\\Effects\\Utils.cs",
+              "RelativeToolTip": "Scripts\\Utils\\Effects\\Utils.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAmwDsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T09:01:21.991Z",
+              "WhenOpened": "2026-01-07T18:30:21.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Effect.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Utils\\Effects\\Effect.cs",
+              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Effect.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Utils\\Effects\\Effect.cs",
+              "RelativeToolTip": "Scripts\\Utils\\Effects\\Effect.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T18:30:20.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Pall.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Utils\\Effects\\Pall.cs",
+              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Pall.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Utils\\Effects\\Pall.cs",
+              "RelativeToolTip": "Scripts\\Utils\\Effects\\Pall.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T18:30:19.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Biome.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Utils\\Effects\\Biome.cs",
+              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Biome.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Utils\\Effects\\Biome.cs",
+              "RelativeToolTip": "Scripts\\Utils\\Effects\\Biome.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T18:30:18.948Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SceneManager.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\SceneManager.cs",
+              "RelativeDocumentMoniker": "Scripts\\Managers\\SceneManager.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\SceneManager.cs",
+              "RelativeToolTip": "Scripts\\Managers\\SceneManager.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACIAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T18:27:49.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Camera.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\Camera.cs",
+              "RelativeDocumentMoniker": "Scripts\\Managers\\Camera.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\Camera.cs",
+              "RelativeToolTip": "Scripts\\Managers\\Camera.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T18:27:39.659Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "KingKoops.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\KingKoops.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\KingKoops.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\KingKoops.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\KingKoops.cs",
-              "ViewState": "AgIAALgBAAAAAAAAAAAiwMkBAAAAAAAAAAAAAA==",
+              "Title": "Trigger.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\Trigger.cs",
+              "RelativeDocumentMoniker": "Scripts\\Managers\\Trigger.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\Trigger.cs",
+              "RelativeToolTip": "Scripts\\Managers\\Trigger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T10:56:57Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Mystery.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\Mystery.cs",
-              "RelativeDocumentMoniker": "Scripts\\Collectibles\\Mystery.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\Mystery.cs",
-              "RelativeToolTip": "Scripts\\Collectibles\\Mystery.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAwwDEAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T06:22:15.27Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "PowCollectible.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\PowCollectible.cs",
-              "RelativeDocumentMoniker": "Scripts\\Collectibles\\PowCollectible.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\PowCollectible.cs",
-              "RelativeToolTip": "Scripts\\Collectibles\\PowCollectible.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwAgAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:29:30.899Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Walsy.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Normal\\Walsy.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Normal\\Walsy.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Normal\\Walsy.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Normal\\Walsy.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAwwDkAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:30:22.569Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Firebar.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Normal\\Firebar.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Normal\\Firebar.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Normal\\Firebar.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Normal\\Firebar.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:29:49.073Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "HeartCollectible.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\HeartCollectible.cs",
-              "RelativeDocumentMoniker": "Scripts\\Collectibles\\HeartCollectible.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\HeartCollectible.cs",
-              "RelativeToolTip": "Scripts\\Collectibles\\HeartCollectible.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:27:56.311Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "FlowerCollectible.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\FlowerCollectible.cs",
-              "RelativeDocumentMoniker": "Scripts\\Collectibles\\FlowerCollectible.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\FlowerCollectible.cs",
-              "RelativeToolTip": "Scripts\\Collectibles\\FlowerCollectible.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwDAAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:27:23.702Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Collectibles.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\Collectibles.cs",
-              "RelativeDocumentMoniker": "Scripts\\Collectibles\\Collectibles.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\Collectibles.cs",
-              "RelativeToolTip": "Scripts\\Collectibles\\Collectibles.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAowEMAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T20:28:52.594Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Coin.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\Coin.cs",
-              "RelativeDocumentMoniker": "Scripts\\Collectibles\\Coin.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Collectibles\\Coin.cs",
-              "RelativeToolTip": "Scripts\\Collectibles\\Coin.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T03:07:06.777Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "SwitchImage.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\SwitchImage.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\SwitchImage.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\SwitchImage.cs",
-              "RelativeToolTip": "Scripts\\UI\\SwitchImage.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T10:10:12.877Z"
+              "WhenOpened": "2026-01-07T18:23:44.579Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "Enemy.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Enemy.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Enemy.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Enemy.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\Enemy.cs",
-              "ViewState": "AgIAAHQAAAAAAAAAAAAIwBoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:37:15.162Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
-              "Title": "UpDownControl.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\UpDownControl.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\UpDownControl.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\UpDownControl.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\UpDownControl.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T09:44:08.943Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "UpDown.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\UpDown.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\UpDown.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\UpDown.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\UpDown.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAwwCEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T06:29:08.712Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Help.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\Help.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\Help.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\Help.cs",
-              "RelativeToolTip": "Scripts\\UI\\Help.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAgwB0AAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T08:21:44.852Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Credits.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\Credits.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\Credits.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\Credits.cs",
-              "RelativeToolTip": "Scripts\\UI\\Credits.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBkAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T09:05:39.212Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "MenuBase.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\MenuBase.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\MenuBase.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\MenuBase.cs",
-              "RelativeToolTip": "Scripts\\UI\\MenuBase.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAcwFcAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:25:27.783Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
               "Title": "HUD.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\HUD.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\UI\\HUD.cs",
               "RelativeDocumentMoniker": "Scripts\\UI\\HUD.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\HUD.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\UI\\HUD.cs",
               "RelativeToolTip": "Scripts\\UI\\HUD.cs",
-              "ViewState": "AgIAAB0BAAAAAAAAAAAwwDgBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKQAAAAAAAAAAAAAAK0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T22:16:31.494Z"
+              "WhenOpened": "2026-01-07T18:20:21.684Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Victory.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\Victory.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\Victory.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\Victory.cs",
-              "RelativeToolTip": "Scripts\\UI\\Victory.cs",
-              "ViewState": "AgIAAHwBAAAAAAAAAAAowIcBAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\GameManager.cs",
+              "RelativeDocumentMoniker": "Scripts\\Managers\\GameManager.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scripts\\Managers\\GameManager.cs",
+              "RelativeToolTip": "Scripts\\Managers\\GameManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T02:39:13.126Z"
+              "WhenOpened": "2026-01-07T18:17:21.348Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Projectiles.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Projectiles\\Projectiles.cs",
-              "RelativeDocumentMoniker": "Scripts\\Projectiles\\Projectiles.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Projectiles\\Projectiles.cs",
-              "RelativeToolTip": "Scripts\\Projectiles\\Projectiles.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAAAC0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T09:03:35.639Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "BubbleScore.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\BubbleScore.cs",
-              "RelativeDocumentMoniker": "Scripts\\UI\\BubbleScore.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\UI\\BubbleScore.cs",
-              "RelativeToolTip": "Scripts\\UI\\BubbleScore.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwAIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-03T23:59:01.847Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Sykoops.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Sykoops.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Sykoops.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Sykoops.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\Sykoops.cs",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAqwIgAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:43:44.265Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "Rushroops.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Rushroops.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Rushroops.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Rushroops.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\Rushroops.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAAAF0AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:42:29.978Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "Movable.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Movable.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Movable.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Movable.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Movable.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAowE4AAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:58:04.879Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "GameObject.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\GameObject.cs",
-              "RelativeDocumentMoniker": "Scripts\\GameObject.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\GameObject.cs",
-              "RelativeToolTip": "Scripts\\GameObject.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwAoAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:03:43.722Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "Shell.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Shell.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Shell.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Shell.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\Shell.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAkwDYAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:43:00.436Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "Koops.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Koops.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Enemy\\Shelled\\Koops.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Enemy\\Shelled\\Koops.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Enemy\\Shelled\\Koops.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T06:11:05.493Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "Property.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Property\\Property.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Property\\Property.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Property\\Property.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Property\\Property.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwB0AAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T02:57:32.343Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Player\\Player.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Player\\Player.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Player\\Player.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Player\\Player.cs",
-              "ViewState": "AgIAAGoBAAAAAAAAAAAowHYBAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:37:19.248Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "Shot.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Projectiles\\Shot.cs",
-              "RelativeDocumentMoniker": "Scripts\\Projectiles\\Shot.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Projectiles\\Shot.cs",
-              "RelativeToolTip": "Scripts\\Projectiles\\Shot.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwAMAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T03:09:26.701Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "AudioManager.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\AudioManager.cs",
-              "RelativeDocumentMoniker": "Scripts\\Managers\\AudioManager.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Managers\\AudioManager.cs",
-              "RelativeToolTip": "Scripts\\Managers\\AudioManager.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAqwFcAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T19:19:22.599Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "Pow.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Player\\Pow.cs",
-              "RelativeDocumentMoniker": "Scripts\\Entity\\Player\\Pow.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Entity\\Player\\Pow.cs",
-              "RelativeToolTip": "Scripts\\Entity\\Player\\Pow.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAAwFgAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:56:17.969Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "TickEvent.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Audio\\TickEvent.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Audio\\TickEvent.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Audio\\TickEvent.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Audio\\TickEvent.cs",
-              "ViewState": "AgIAAGIAAAAAAAAAAAAAwG8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:26:00.239Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "ScaleTime.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\ScaleTime.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\ScaleTime.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\ScaleTime.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\ScaleTime.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T03:10:18.025Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "Particule.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Particule.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Particule.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Particule.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\Particule.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwAMAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:25:38.697Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 44,
-              "Title": "Spike.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Projectiles\\Spike.cs",
-              "RelativeDocumentMoniker": "Scripts\\Projectiles\\Spike.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Projectiles\\Spike.cs",
-              "RelativeToolTip": "Scripts\\Projectiles\\Spike.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAgwAQAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T09:04:21.567Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 12,
               "Title": "Trigger.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Trigger.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Trigger.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Trigger.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Trigger.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scenes\\MainScenes\\Trigger.cs",
+              "RelativeDocumentMoniker": "Scenes\\MainScenes\\Trigger.cs",
+              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup\\Scenes\\MainScenes\\Trigger.cs",
+              "RelativeToolTip": "Scenes\\MainScenes\\Trigger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:03:28.616Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
-              "Title": "Effect.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Effect.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Effect.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Effect.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\Effect.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:08:24.101Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 47,
-              "Title": "Utils.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Utils.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Utils.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Utils.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\Utils.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:25:33.826Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "Wing.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Wing.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Wing.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Wing.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\Wing.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:25:33.126Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 49,
-              "Title": "Pall.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Pall.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Pall.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Pall.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\Pall.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T06:25:56.828Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "Biome.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Biome.cs",
-              "RelativeDocumentMoniker": "Scripts\\Utils\\Effects\\Biome.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Utils\\Effects\\Biome.cs",
-              "RelativeToolTip": "Scripts\\Utils\\Effects\\Biome.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T08:23:27.362Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
-              "Title": "Spiko.cs",
-              "DocumentMoniker": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Projectiles\\Spiko.cs",
-              "RelativeDocumentMoniker": "Scripts\\Projectiles\\Spiko.cs",
-              "ToolTip": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Scripts\\Projectiles\\Spiko.cs",
-              "RelativeToolTip": "Scripts\\Projectiles\\Spiko.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T09:04:44.366Z"
+              "WhenOpened": "2026-01-07T18:14:26.953Z",
+              "EditorCaption": ""
             }
           ]
         }

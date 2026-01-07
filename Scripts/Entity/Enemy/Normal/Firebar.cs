@@ -5,6 +5,8 @@ using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
 
 namespace Com.IsartDigital.Shmup.NGameObject;
 
+// CHECK
+
 public partial class Firebar : GameObject
 {
     [Export] private float rotationSpeed = 45;

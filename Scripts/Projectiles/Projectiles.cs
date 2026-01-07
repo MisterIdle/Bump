@@ -7,7 +7,7 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
 public partial class Projectiles : Movable
 {
-    [Export] private float lifeTime = 5;
+    [Export] private float lifeTime = 10;
     [Export] protected PackedScene popScene;
     [Export] protected float rotationSpeed;
     public bool isActive;
@@ -46,9 +46,8 @@ public partial class Projectiles : Movable
 
     public void Destory()
     {
-        if (!IsInstanceValid(this)) return;
+        if (!IsInstanceValid(this) || IsQueuedForDeletion()) return;
 
-        if (IsQueuedForDeletion()) return;
         CallDeferred(MethodName.QueueFree);
     }
 }

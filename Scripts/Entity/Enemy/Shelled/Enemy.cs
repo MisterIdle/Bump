@@ -9,6 +9,8 @@ using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
+// CHECK
+
 public partial class Enemy : Entity
 {
     [Export] protected int hammerScore = 1000;
@@ -107,10 +109,7 @@ public partial class Enemy : Entity
         GameManager.CreateHealthCollectible(GlobalPosition);
 
         if (killedByHammer)
-        {
             Particule.Create(popScene, GlobalPosition);
-            GD.Print("oui hammer 2");
-        }
 
         int lFinalScore = killedByHammer ? score + hammerScore : score;
 

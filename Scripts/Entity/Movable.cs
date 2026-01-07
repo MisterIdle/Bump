@@ -1,5 +1,4 @@
 using Godot;
-
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NToolsBox;
 
@@ -9,14 +8,8 @@ public partial class Movable : GameObject
 {
     [Export] protected int score = 1000;
 
-    public enum MoveDirection { None, Left, Right }
-
-    [ExportCategory("Direction")]
-    [Export] public MoveDirection direction;
-
     [ExportCategory("Speed")]
     [Export] public float speed;
-    [Export] public bool affectedByScroll;
     [Export] private float lerpFactor = 0.05f;
 
     [ExportCategory("Oscillation")]
@@ -30,19 +23,14 @@ public partial class Movable : GameObject
     protected Vector2 currentVelocity;
     protected Vector2 velocity;
 
-    // ========================================================================
-    // INIT
-    // ========================================================================
+    public enum MoveDirection { None, Left, Right }
+    [Export] public MoveDirection direction;
 
     public override void Initiate()
     {
         base.Initiate();
         velocity = GetDirectionVector();
     }
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
 
     protected override void Update(float pDelta)
     {
@@ -54,16 +42,15 @@ public partial class Movable : GameObject
         angleX = Mathf.Sin(elapsedTime * frequency) * amplitude;
         angleY = Mathf.Cos(elapsedTime * frequency) * amplitude;
 
-        if (affectedByScroll)
-            lTargetVelocity += GameManager.scrollSpeedVelocity;
-
         currentVelocity = currentVelocity.Lerp(lTargetVelocity, lerpFactor);
         Position += currentVelocity * pDelta;
-    }
 
-    // ========================================================================
-    // UTILS
-    // ========================================================================
+        if (Utils.OutOfBoundAxes(GlobalPosition, 100f).X == -1)
+        {
+            if (this is not Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer.Player)
+                QueueFree();
+        }
+    }
 
     private Vector2 GetDirectionVector()
     {

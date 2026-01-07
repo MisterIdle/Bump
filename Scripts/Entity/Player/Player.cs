@@ -1,18 +1,18 @@
 using Godot;
-using System;
 
+using Com.IsartDigital.Shmup.NData;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NHUD;
-using Com.IsartDigital.Shmup.NStats;
 using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NStats;
 using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
+// Check
+
 public partial class Player : Entity
 {
-    public enum State { Spawn, Normal, Dash, Knockback }
-
     private static Player instance;
 
     [ExportCategory("Components")]
@@ -21,8 +21,11 @@ public partial class Player : Entity
     [Export] private Marker2D muzzle;
     [Export] private Hammer hammer;
 
-    [ExportCategory("Stats")]
-    [Export] private int maxHealth = 5;
+    [ExportCategory("Progression")]
+    [Export] private PlayerLevelData[] levels;
+
+    [ExportCategory("Base Stats")]
+    [Export] private int maxHealth = 3;
     [Export] private bool godMode;
     [Export] private float flashTime = 0.2f;
 
@@ -31,6 +34,7 @@ public partial class Player : Entity
     [Export] private float alphaNormal = 1f;
     [Export] private float alphaInvincible = 0.1f;
     [Export] private float alphaTweenTime = 0.1f;
+    [Export] private float rotationLerpSpeed = 10f;
 
     [ExportCategory("Spawn Animation")]
     [Export] private float dropDuration = 1.0f;
@@ -42,27 +46,11 @@ public partial class Player : Entity
     [Export] private float spawnRotationAmplitude = 10f;
     [Export] private float spawnWaveDuration = 0.2f;
 
-    [ExportGroup("Colors")]
-    [Export] private Color levelAColor;
-    [Export] private Color levelBColor;
-    [Export] private Color levelCColor;
-
     [ExportCategory("Movement")]
     [Export] private float dashMultiplier = 3f;
     [Export] private float backDash = 0.2f;
 
     [ExportCategory("Combat")]
-    [ExportGroup("Shooting")]
-    [Export] private PackedScene shotScene;
-    [Export] private PackedScene fireBallScene;
-    [Export] private float baseShotSpace = 200f;
-    [Export] private float shotSpaceLevelDivide = 1.5f;
-    [Export] private float shotBaseSpeed = 600f;
-    [Export] private float shotSpeedMultiplierLevelB = 1.1f;
-    [Export] private float shotSpeedMultiplierLevelC = 1.3f;
-    [Export] private float shotScaleLevelB = 1.1f;
-    [Export] private float shotScaleLevelC = 1.3f;
-
     [ExportGroup("PowerUps")]
     [Export] private int powNum = 1;
     [Export] private PackedScene powScene;
@@ -73,12 +61,13 @@ public partial class Player : Entity
     [Export] private float deathTimerDuration = 3f;
 
     public int level = 1;
+    public enum State { Spawn, Normal, Dash, Knockback }
     public State currentState;
 
     private int minPow = 1;
     private int maxPow = 3;
     private int minLevel = 1;
-    private int maxLevel = 3;
+    private int maxLevel => levels != null ? levels.Length : 1;
 
     private bool isOutSide;
     private float dashSpeed;
@@ -93,18 +82,12 @@ public partial class Player : Entity
 
     private const int MARGIN = 50;
 
-    private Vector2 targetPosition;
-
     public static Player GetInstance()
     {
         return instance;
     }
 
     public Player() : base() { }
-
-    // ========================================================================
-    // INIT
-    // ========================================================================
 
     public override void _Ready()
     {
@@ -116,14 +99,32 @@ public partial class Player : Entity
         }
     }
 
+    private PlayerLevelData GetCurrentLevelData()
+    {
+        if (levels == null || levels.Length == 0) 
+            return null;
+        
+        int lIndex = Mathf.Clamp(level - 1, 0, levels.Length - 1);
+        
+        return levels[lIndex];
+    }
+
+    private PlayerShotData GetCurrentShotData()
+    {
+        PlayerLevelData lData = GetCurrentLevelData();
+        
+        if (lData == null) 
+            return null;
+        
+        return lData.shot;
+    }
+
     public override void Initiate()
     {
         base.Initiate();
-
         GameStats.Reset();
 
         currentState = State.Spawn;
-
         finalSpawnPosition = Position;
         Position = new Vector2(finalSpawnPosition.X, -minSpawnOffset);
 
@@ -137,15 +138,13 @@ public partial class Player : Entity
 
         UpdateLevelParameters();
 
+        health = maxHealth;
+
         AnimatedSpawn();
 
         HUD.GetInstance().UpdateHealth(health);
         HUD.GetInstance().UpdatePow(powNum);
     }
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
 
     protected override void Update(float pDelta)
     {
@@ -155,83 +154,70 @@ public partial class Player : Entity
 
     protected override void AliveUpdate(float pDelta)
     {
-        if (currentState == State.Spawn)
-            return;
+        if (currentState == State.Spawn) return;
 
         base.AliveUpdate(pDelta);
-        Move(pDelta);
+
         hammer.Attack(pDelta);
-        DebugInput();
-        GameInput();
+        Move(pDelta);
+        UpdateRotation(pDelta);
     }
 
-    // ========================================================================
-    // INPUT
-    // ========================================================================
-
-    private void GameInput()
+    public override void _Input(InputEvent @event)
     {
-        if (currentState == State.Knockback)
-            return;
+        if (currentState != State.Knockback || currentState != State.Spawn)
+        {            
+            if (Input.IsActionJustPressed(Property.INPUT_SMARTBOMB)) 
+                Pow();
+            
+            if (CanFire()) 
+                Fire();
+        }
 
-        if (Input.IsActionJustPressed(Property.INPUT_GOD))
+        if (Input.IsActionJustPressed(Property.INPUT_GOD)) 
             ToggleGodMode();
-
-        if (Input.IsActionJustPressed(Property.INPUT_SMARTBOMB))
-            Bomb();
-
-        if (CanFire())
-            Fire();
-    }
-
-    private void DebugInput()
-    {
-        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_UP))
+        
+        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_UP)) 
             LevelUp(true);
-
-        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_DOWN))
+        
+        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_DOWN)) 
             LevelUp(false);
-
-        if (Input.IsActionJustPressed(Property.INPUT_POW_UP))
+        
+        if (Input.IsActionJustPressed(Property.INPUT_POW_UP)) 
             AddPow();
-
+        
         if (Input.IsActionJustPressed(Property.INPUT_POW_DOWN))
         {
             powNum--;
             HUD.GetInstance().UpdatePow(powNum);
         }
-
-        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_UP))
+        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_UP)) 
             AddHealth();
-
-        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_DOWN))
+        
+        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_DOWN)) 
             HitCheckInvincible();
-
+        
         if (Input.IsActionJustPressed(Property.INPUT_WIN))
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
     }
 
-    // ========================================================================
-    // SPAWN
-    // ========================================================================
 
     private void AnimatedSpawn()
     {
-        if (spawnTween != null) spawnTween.Kill();
+        spawnTween?.Kill();
         spawnTween = CreateTween();
 
         Vector2 lOvershootPos = finalSpawnPosition + new Vector2(0, entranceOvershoot);
 
-        spawnTween.TweenProperty(this, "position", lOvershootPos, dropDuration * 0.7f)
+        spawnTween.TweenProperty(this, (string)PropertyName.Position, lOvershootPos, dropDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 
-        spawnTween.TweenProperty(this, "position", finalSpawnPosition, dropDuration * 0.3f)
+        spawnTween.TweenProperty(this, (string)PropertyName.Position, finalSpawnPosition, dropDuration)
             .SetTrans(Tween.TransitionType.Bounce)
             .SetEase(Tween.EaseType.In);
 
         spawnTween.Finished += OnSpawnFinished;
-
         StartSpawnWobble();
     }
 
@@ -243,44 +229,43 @@ public partial class Player : Entity
         wobbleTween = CreateTween();
         wobbleTween.SetLoops();
 
-        wobbleTween.TweenProperty(sprite, "position:y", -spawnWaveAmplitude, spawnWaveDuration * 0.5f)
+        wobbleTween.TweenProperty(sprite, (string)PropertyName.Position + ":y", -spawnWaveAmplitude, spawnWaveDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
 
-        wobbleTween.Parallel().TweenProperty(sprite, "rotation_degrees", spawnRotationAmplitude, spawnWaveDuration * 0.5f)
+        wobbleTween.Parallel().TweenProperty(sprite, (string)PropertyName.RotationDegrees, spawnRotationAmplitude, spawnWaveDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
 
-        wobbleTween.Chain().TweenProperty(sprite, "position:y", spawnWaveAmplitude, spawnWaveDuration * 0.5f)
+        wobbleTween.Chain().TweenProperty(sprite, (string)PropertyName.Position + ":y", spawnWaveAmplitude, spawnWaveDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
 
-        wobbleTween.Parallel().TweenProperty(sprite, "rotation_degrees", -spawnRotationAmplitude, spawnWaveDuration * 0.5f)
+        wobbleTween.Parallel().TweenProperty(sprite, (string)PropertyName.RotationDegrees, -spawnRotationAmplitude, spawnWaveDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
     }
 
     public void AnimatedDespawn(float pDuration)
     {
-        if (isDeath)
-            return;
+        if (isDeath) return;
 
         currentState = State.Spawn;
-
+        
         wobbleTween?.Kill();
         movementTimer?.Stop();
 
         sprite.Position = Vector2.Zero;
         sprite.Rotation = 0;
-
-        if (spawnTween != null) spawnTween.Kill();
+        
+        spawnTween?.Kill();
         spawnTween = CreateTween();
-
-        spawnTween.TweenProperty(this, "position:y", finalSpawnPosition.Y + entranceOvershoot, pDuration * 0.3f)
+        
+        spawnTween.TweenProperty(this, (string)PropertyName.Position + ":y", finalSpawnPosition.Y + entranceOvershoot, pDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 
-        spawnTween.Chain().TweenProperty(this, "position:y", -minSpawnOffset, pDuration * 0.7f)
+        spawnTween.Chain().TweenProperty(this, (string)PropertyName.Position + ":y", -minSpawnOffset, pDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.In);
     }
@@ -288,11 +273,11 @@ public partial class Player : Entity
     private void OnSpawnFinished()
     {
         wobbleTween?.Kill();
+        Tween lResetTween = CreateTween();
+        lResetTween.SetParallel(true);
 
-        Tween resetTween = CreateTween();
-        resetTween.SetParallel(true);
-        resetTween.TweenProperty(sprite, "position", Vector2.Zero, 0.1f);
-        resetTween.TweenProperty(sprite, "rotation", 0f, 0.1f);
+        lResetTween.TweenProperty(sprite, (string)PropertyName.Position, Vector2.Zero, 0);
+        lResetTween.TweenProperty(sprite, (string)PropertyName.Rotation, 0f, 0);
 
         currentState = State.Normal;
         EndInvincible();
@@ -301,79 +286,65 @@ public partial class Player : Entity
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.Level);
     }
 
-
-    // ========================================================================
-    // MOVEMENT
-    // ========================================================================
-
     private void Move(float pDelta)
     {
+        PlayerLevelData lData = GetCurrentLevelData();
+        float currentSpeedMultiplier = lData != null ? lData.moveSpeedMultiplier : 1f;
+
         if (currentState == State.Dash || currentState == State.Knockback)
             velocity = dashDirection * dashMultiplier;
 
         else if (velocity != Vector2.Zero)
-            velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN);
-
+            velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN) * currentSpeedMultiplier;
+        
         else
             velocity.Y = angleY;
     }
 
     public void Dash(float pDuration, Vector2 pDirection, bool pOpposite = false)
     {
-        if (currentState != State.Normal)
-        {
-            return;
-        }
+        if (currentState != State.Normal) return;
 
         dashDirection = pOpposite ? (Position - pDirection).Normalized() : pDirection.Normalized();
+
         currentState = State.Dash;
         dashSpeed = speed * dashMultiplier;
+
         movementTimer.Start(pDuration);
     }
 
     public void ApplyKnockback(float pDuration, Vector2 pDirection)
     {
-        if (currentState == State.Spawn)
-            return;
+        if (currentState == State.Spawn) return;
 
         dashDirection = pDirection.Normalized();
         currentState = State.Knockback;
+
         movementTimer.Start(pDuration);
     }
 
     private void OnMovementTimerTimeout()
     {
-        if (currentState == State.Dash || currentState == State.Knockback)
+        if (currentState == State.Dash || currentState == State.Knockback) 
             currentState = State.Normal;
     }
 
-    // ========================================================================
-    // ATTACK
-    // ========================================================================
-
     private void Fire()
     {
-        Shot lShot;
-
-        switch (level)
-        {
-            case 1:
-                lShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right, 0.1f);
-                break;
-            case 2:
-                lShot = Shot.Create(shotScene, muzzle.GlobalPosition, Vector2.Right, 0.05f);
-                break;
-            case 3:
-                lShot = Shot.Create(fireBallScene, muzzle.GlobalPosition, Vector2.Right);
-                break;
-            default:
-                throw new InvalidOperationException();
-        }
+        PlayerShotData lShotData = GetCurrentShotData();
+        if (lShotData == null) return;
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerShoot);
-
         Effect.BumpScale(sprite, baseSpriteScale);
         Effect.SquashStretch(sprite, baseSpriteScale, true, false, 0.8f, 1f);
+
+        float lSpreadRad = Mathf.DegToRad(lShotData.spreadAngle);
+        float lRandomAngle = (float)GD.RandRange(-lSpreadRad, lSpreadRad);
+
+        Shot lShot = Shot.Create(lShotData.shotScene, muzzle.GlobalPosition, Vector2.Right);
+
+        if (lShot is Movable lMovableShot)
+            lMovableShot.speed = lShotData.speed;
 
         GameManager.GetInstance().gameContainer.AddChild(lShot);
         lastShot = lShot;
@@ -381,45 +352,40 @@ public partial class Player : Entity
 
     private bool CanFire()
     {
-        if (!Input.IsActionPressed(Property.INPUT_SHOT) || hammer.isActif)
+        if (!Input.IsActionPressed(Property.INPUT_SHOT) || hammer.isActif) 
             return false;
 
-        if (!IsInstanceValid(lastShot))
+        if (!IsInstanceValid(lastShot)) 
             return true;
 
-        float lShotSpace = baseShotSpace / (level * shotSpaceLevelDivide);
-        return lastShot.Position.X - Position.X > lShotSpace;
+        PlayerShotData lShotData = GetCurrentShotData();
+        
+        if (lShotData == null) 
+            return false;
+
+        return lastShot.Position.X - Position.X > lShotData.minSpaceBetweenShots;
     }
 
-    private void Bomb()
+    private void Pow()
     {
-        if (powNum <= 0)
-        {
-            return;
-        }
+        if (powNum <= 0) return;
 
-        Pow lPow = Pow.Create(powScene);
+        Pow lPow = NPlayer.Pow.Create(powScene);
         GameManager.GetInstance().gameContainer.AddChild(lPow);
 
-        if (!godMode)
+        if (!godMode) 
             powNum--;
 
         HUD.GetInstance().UpdatePow(powNum);
     }
 
-    // ========================================================================
-    // BEHAVIOR
-    // ========================================================================
-
     private void OutOfBound()
     {
-        if (currentState == State.Spawn)
-            return;
+        if (currentState == State.Spawn) return;
 
         Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
 
-        if (lOut == Vector2.Zero)
-            return;
+        if (lOut == Vector2.Zero) return;
 
         if (isDeath)
         {
@@ -433,10 +399,10 @@ public partial class Player : Entity
 
         Vector2 lKnockbackDir = Vector2.Zero;
 
-        if (lOut.X != 0)
+        if (lOut.X != 0) 
             lKnockbackDir.X = -lOut.X;
 
-        if (lOut.Y != 0)
+        if (lOut.Y != 0) 
             lKnockbackDir.Y = -lOut.Y;
 
         ApplyKnockback(backDash, lKnockbackDir);
@@ -455,29 +421,19 @@ public partial class Player : Entity
 
     private void UpdateLevelParameters()
     {
-        switch (level)
-        {
-            case 1:
-                sprite.SelfModulate = levelAColor;
-                break;
-            case 2:
-                sprite.SelfModulate = levelBColor;
-                break;
-            case 3:
-                sprite.SelfModulate = levelCColor;
-                break;
-        }
+        PlayerLevelData lData = GetCurrentLevelData();
+        sprite.SelfModulate = lData.playerColor;
     }
 
     public void AddHealth()
     {
-        if (health >= maxHealth)
-            return;
+        if (health >= maxHealth) return;
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.PowerLife);
+
         health = Mathf.Min(health + 1, maxHealth);
+
         HUD.GetInstance().UpdateHealth(health);
-        GD.Print("HEALTH:" + health);
         Effect.FlashColor(sprite, Colors.Green);
         Effect.BumpScale(this, baseScale);
         ScaleTime.SlowMotion();
@@ -485,13 +441,12 @@ public partial class Player : Entity
 
     public void AddPow()
     {
-        if (powNum >= maxPow)
-            return;
-
+        if (powNum >= maxPow) return;
         AudioManager.GetInstance().Play(AudioManager.AudioType.PowerUpPow);
+
         powNum = Mathf.Min(powNum + 1, maxPow);
+
         HUD.GetInstance().UpdatePow(powNum);
-        GD.Print("POW:" + powNum);
         Effect.BumpScale(this, baseScale);
         ScaleTime.SlowMotion();
     }
@@ -500,39 +455,41 @@ public partial class Player : Entity
     {
         godMode = !godMode;
         collision.Disabled = godMode;
-        GD.Print("GOD MODE: " + godMode);
 
         Modulate = godMode ? Colors.Gold : Colors.White;
-
         HUD.GetInstance().SetGodMode(godMode);
     }
 
-    // ========================================================================
-    // ANIMATION
-    // ========================================================================
-
     private void Blink()
     {
-        if (invincibleTween != null)
-        {
-            invincibleTween.Kill();
-        }
+        invincibleTween?.Kill();
 
         invincibleTween = CreateTween();
         invincibleTween.SetLoops();
 
-        invincibleTween.TweenProperty(sprite, "modulate:a", alphaInvincible, alphaTweenTime)
+        invincibleTween.TweenProperty(sprite, (string)PropertyName.Modulate + ":a", alphaInvincible, alphaTweenTime)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
 
-        invincibleTween.TweenProperty(sprite, "modulate:a", alphaNormal, alphaTweenTime)
+        invincibleTween.TweenProperty(sprite, (string)PropertyName.Modulate + ":a", alphaNormal, alphaTweenTime)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
     }
 
-    // ========================================================================
-    // HIT / DEATH
-    // ========================================================================
+    private void UpdateRotation(float pDelta)
+    {
+        float lTargetAngle = 0f;
+
+        PlayerLevelData lData = GetCurrentLevelData();
+        float currentRotSpeed = lData.rotationSpeed;
+
+        if (velocity.X > 0) 
+            lTargetAngle = currentRotSpeed;
+        else if (velocity.X < 0) 
+            lTargetAngle = -currentRotSpeed;
+
+        sprite.RotationDegrees = Mathf.Lerp(sprite.RotationDegrees, lTargetAngle, rotationLerpSpeed * pDelta);
+    }
 
     private void HitCheckInvincible()
     {
@@ -554,44 +511,36 @@ public partial class Player : Entity
     public void InstantDeath()
     {
         if (isDeath) return;
-
+        
         godMode = false;
         invincible = false;
+        
         if (invincibleTimer != null) invincibleTimer.Stop();
-
         health = 0;
-        HUD.GetInstance().UpdateHealth(0);
 
+        HUD.GetInstance().UpdateHealth(health);
         EntityDeath();
     }
 
-
     protected override void EndInvincible()
     {
-        if (invincibleTween != null)
-        {
-            invincibleTween.Kill();
-        }
-
+        invincibleTween?.Kill();
+        
         invincible = false;
+        
         sprite.Modulate = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, alphaNormal);
     }
 
-    // ========================================================================
-    // COLLIDE
-    // ========================================================================
-
     public override void EntityHit(int pDamage = 1)
     {
-        if (godMode || currentState == State.Spawn)
-            return;
+        if (godMode || currentState == State.Spawn) return;
 
         base.EntityHit(pDamage);
-
-        if (health <= 0)
-            SetDeadState();
+        
+        if (health <= 0) SetDeadState();
 
         LevelUp(false);
+        
         HUD.GetInstance().UpdateHealth(health);
         StartInvincible(invincibleTime);
     }
@@ -600,9 +549,11 @@ public partial class Player : Entity
     {
         invincibleTween?.Kill();
         spawnTween?.Kill();
-
+        
         sprite.Modulate = Colors.White;
+        
         movementTimer.Stop();
+        
         velocity = Vector2.Zero;
         AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerExplosion);
     }
@@ -610,23 +561,25 @@ public partial class Player : Entity
     private void TriggerGameOverSequence()
     {
         isOutSide = true;
+        
         Particule.Create(popPlayerDeath, GlobalPosition);
-
+        
         Timer lTimer = new Timer();
         lTimer.WaitTime = deathTimerDuration;
-        ScaleTime.SlowMotion(deathSlowMoScale, (int)deathTimerDuration);
+        lTimer.Timeout += AfterDeath;
 
         AddChild(lTimer);
-        lTimer.Timeout += AfterDeath;
         lTimer.Start();
 
+        ScaleTime.SlowMotion(deathSlowMoScale, (int)deathTimerDuration);
+        
         HUD.GetInstance().PlayGameOver();
         AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerExplosion);
     }
 
-    private void AfterDeath()
+    private void AfterDeath() 
     {
-        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.GameOver);
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.GameOver); 
     }
 
     protected override void OnCollide(Area2D pArea)
@@ -635,12 +588,11 @@ public partial class Player : Entity
 
         HitCheckInvincible();
 
-        Vector2 lDirection = (Position - pArea.GlobalPosition).Normalized();
+        Vector2 lDirection = Utils.DirectionTo(pArea.GlobalPosition, Position);
         ApplyKnockback(backDash, lDirection);
-
+        
         velocity = Vector2.Zero;
     }
-
 
     protected override void Dispose(bool pDisposing)
     {

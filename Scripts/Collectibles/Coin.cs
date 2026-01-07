@@ -3,6 +3,8 @@ using System;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 
+// CHECK
+
 public partial class Coin : Collectibles
 {
     // ========================================================================

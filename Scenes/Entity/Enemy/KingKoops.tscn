@@ -52,19 +52,20 @@ shellOutsideRot = 15.0
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
 useSpikes = true
+autoFire = false
 spikeScene = ExtResource("2_5scan")
 spikeContainer = NodePath("Shell/Spike")
 numSpikes = 12
 spikeRadius = 155.0
 hammerScore = 10000
-health = 80
+health = 100
 popScene = ExtResource("2_3do05")
 score = 15000
-direction = 1
 speed = 50.0
 affectedByScroll = true
 frequency = 5.0
 amplitude = 5.0
+direction = 1
 sprite = NodePath("Sprite")
 
 [node name="Music" type="Node2D" parent="."]

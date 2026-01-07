@@ -7,6 +7,8 @@ using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 
+// CHECK
+
 public partial class FlowerCollectible : Collectibles
 {
     [Export] private NodePath spritePath;
@@ -46,19 +48,6 @@ public partial class FlowerCollectible : Collectibles
         return lCollectible;
     }
 
-    private Color GetColorForLevel(int pLevel)
-    {
-        switch (pLevel)
-        {
-            case 2:
-                return Colors.White;
-            case 3:
-                return Colors.Red;
-            default:
-                return Colors.White;
-        }
-    }
-
     // ========================================================================
     // COLLIDE
     // ========================================================================
@@ -74,7 +63,7 @@ public partial class FlowerCollectible : Collectibles
         if (lLevel != lastLevel)
         {
             lastLevel = lLevel;
-            sharedColor = GetColorForLevel(lLevel);
+            sharedColor = lLevel == 2 || lLevel == 3 ? Colors.Red : Colors.White; 
             material.SetShaderParameter(COLOR_CONST, sharedColor);
         }
 

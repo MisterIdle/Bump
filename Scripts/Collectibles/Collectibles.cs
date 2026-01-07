@@ -1,8 +1,11 @@
 using Godot;
+
 using Com.IsartDigital.Shmup.NToolsBox;
 using Com.IsartDigital.Shmup.NHUD;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
+
+// CHECK
 
 public partial class Collectibles : Movable
 {

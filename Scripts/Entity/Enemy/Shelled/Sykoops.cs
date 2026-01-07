@@ -4,17 +4,22 @@ using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
+// Check
+
 public partial class Sykoops : ShelledEnemy
 {
     private enum ChaseState { Patrolling, Approaching, Chasing, Abandoned }
     private ChaseState chaseState = ChaseState.Patrolling;
 
-    [ExportCategory("Sykoops AI")]
+    [ExportCategory("Logic")]
     [Export] private int chaseDistance = 500;
-    [Export] private int approchDistance = 200;
+    [Export] private int approchDistance = 400;
 
     private Timer behindTimer;
     private bool haveAbandoned;
+
+    private int playerDistanceMin = 600;
+
     private const float MAX_BEHIND_TIME = 10f;
     private const float MARGIN = -75f;
 
@@ -24,16 +29,14 @@ public partial class Sykoops : ShelledEnemy
 
     public override void Initiate()
     {
-        useSpikes = true;
-        spikeRadius = 25f;
-        fireRate = 3.5f;
-
         base.Initiate();
 
         behindTimer = new Timer();
+
         behindTimer.WaitTime = MAX_BEHIND_TIME;
         behindTimer.OneShot = true;
         behindTimer.Timeout += BehindStop;
+
         AddChild(behindTimer);
 
         shell.SetShellColor(Colors.Black);
@@ -57,7 +60,7 @@ public partial class Sykoops : ShelledEnemy
         switch (chaseState)
         {
             case ChaseState.Patrolling:
-                if (globalPlayerDistance <= 600)
+                if (globalPlayerDistance <= playerDistanceMin)
                 {
                     chaseState = ChaseState.Approaching;
                     Effect.BumpScale(this, baseScale);
@@ -66,7 +69,8 @@ public partial class Sykoops : ShelledEnemy
 
             case ChaseState.Approaching:
                 velocity = playerDirection;
-                StartSpikeTimer();
+                StartSpike();
+
                 if (globalPlayerDistance <= approchDistance)
                 {
                     chaseState = ChaseState.Chasing;
@@ -80,7 +84,8 @@ public partial class Sykoops : ShelledEnemy
                 break;
 
             case ChaseState.Abandoned:
-                if (!haveAbandoned) Abandonned();
+                if (!haveAbandoned) 
+                    Abandonned();
                 break;
         }
 
@@ -97,13 +102,9 @@ public partial class Sykoops : ShelledEnemy
         velocity = lTargetDirection;
 
         if (!faceLeft)
-        {
             if (behindTimer.IsStopped()) behindTimer.Start();
-        }
         else
-        {
             behindTimer.Stop();
-        }
 
         GlobalPosition = Utils.ClampToScreen(GlobalPosition, MARGIN, MARGIN);
     }
@@ -116,14 +117,16 @@ public partial class Sykoops : ShelledEnemy
     {
         wing.SetSpeedDouble(false);
         chaseState = ChaseState.Abandoned;
-        StopSpikeRoutine();
+        StopSpike();
     }
 
     private void Abandonned()
     {
         haveAbandoned = true;
         facePlayer = false;
+
         Flip(true);
+
         velocity = Vector2.Left;
         velocity.Y = angleY;
     }

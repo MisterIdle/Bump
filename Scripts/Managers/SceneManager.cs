@@ -2,11 +2,57 @@ using Godot;
 
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NManager;
+
+/// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+
+/// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// /// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
+/// 
+/// <summary>
+/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
+/// </summary>
 
 public partial class SceneManager : Node
 {
@@ -16,17 +62,18 @@ public partial class SceneManager : Node
         return instance;
     }
 
-    public enum SceneType { MainMenu, Game, Debug }
-
     [Export] private PackedScene gameScene;
     [Export] private PackedScene debugScene;
     [Export] private Label debug;
 
     private Node currentScene;
+
+    public enum SceneType { MainMenu, Game, Debug }
     private SceneType currentSceneType;
     private SceneType sceneToLoad;
+    
     private bool isTransitioning = false;
-    private float loadTime = 0.1f;
+    private float loadTime = 0.2f;
 
     public Timer transitionTimer;
     public Tween transitionTween;
@@ -62,7 +109,7 @@ public partial class SceneManager : Node
 
     public override void _Process(double pDelta)
     {
-        if (debug == null || !debug.Visible) return;
+        if (!debug.Visible) return;
 
         string lText =
             $"Scene : {currentSceneType}\n" +
@@ -76,7 +123,10 @@ public partial class SceneManager : Node
 
         Hammer lHammer = Hammer.GetInstance();
         if (lHammer != null)
+        {
             lText += $"Hammer State : {lHammer.currentState}\n";
+            lText += $"Hammer Attack : {lHammer.attackForce}\n";
+        }
 
         debug.Text = lText;
     }
@@ -87,8 +137,6 @@ public partial class SceneManager : Node
 
     public override void _Input(InputEvent pInput)
     {
-        if (debug == null) return;
-
         if (pInput.IsActionPressed(Property.INPUT_DEBUG))
             debug.Visible = !debug.Visible;
 
@@ -108,7 +156,7 @@ public partial class SceneManager : Node
         return currentSceneType;
     }
 
-    public void ChangeScene(SceneType pNextScene)
+    public void ChangeGlobalScene(SceneType pNextScene)
     {
         if (isTransitioning) return;
 
@@ -133,7 +181,7 @@ public partial class SceneManager : Node
             transitionTween = CreateTween();
 
             transitionTween.SetPauseMode(Tween.TweenPauseMode.Process);
-            transitionTween.TweenProperty(lCam, "global_position", Vector2.Zero, lDuration)
+            transitionTween.TweenProperty(lCam, (string)Node2D.PropertyName.GlobalPosition, Vector2.Zero, lDuration)
                 .SetTrans(Tween.TransitionType.Cubic)
                 .SetEase(Tween.EaseType.InOut);
         }
@@ -150,14 +198,11 @@ public partial class SceneManager : Node
         if (currentScene != null)
         {
             Camera lCam = Camera.GetInstance();
+
             if (lCam != null)
-            {
                 transitionTween.Finished += RemoveScene;
-            }
             else
-            {
                 RemoveScene();
-            }
         }
     }
 
@@ -171,6 +216,7 @@ public partial class SceneManager : Node
     private void OnTransitionFinished()
     {
         PackedScene lTargetScene = null;
+
         switch (sceneToLoad)
         {
             case SceneType.Game:

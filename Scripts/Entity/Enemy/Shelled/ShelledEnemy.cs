@@ -1,27 +1,32 @@
 using Godot;
 using System.Collections.Generic;
-
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
-using Com.IsartDigital.Shmup.NToolsBox;
-using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+
 public partial class ShelledEnemy : Enemy
 {
+    public enum FirePattern { Random, LeftToRight, RightToLeft }
+
     [ExportGroup("Base Settings")]
     [Export] public bool shellProjectileProtect;
     [Export] protected bool facePlayer;
     [Export] protected NodePath shellPath;
     [Export] protected NodePath wingPath;
 
-    [ExportGroup("Shared Spike System")]
+    [ExportGroup("Spike System")]
     [Export] protected bool useSpikes = false;
+    [Export] protected bool autoFire = true;
+    [Export] protected FirePattern firePattern = FirePattern.Random;
     [Export] protected PackedScene spikeScene;
     [Export] protected Node2D spikeContainer;
     [Export] protected int numSpikes = 5;
     [Export] protected float spikeRadius = 25f;
-    [Export] protected float fireRate = 3.5f;
+    [Export] protected float fireRate = 0.5f;
+    [Export] protected float reloadTime = 3.5f;
     [Export] protected float shotPreDelay = 0.5f;
     [Export] protected float spikeAdvanceMultiplier = 1.3f;
     [Export] protected float spikeSizeMultiplier = 1.2f;
@@ -30,9 +35,9 @@ public partial class ShelledEnemy : Enemy
     [Export] protected Color spikeFlashColor = Colors.Red;
 
     protected List<Spike> spikesList = new List<Spike>();
-    private List<Spike> chargingSpikes = new List<Spike>();
+    private List<Spike> chargingSpikesList = new List<Spike>();
 
-    protected Timer spikeAutoFireTimer;
+    protected Timer spikeFireTimer;
     private Tween fireTween;
     private int lastShotIndex = -1;
 
@@ -59,11 +64,13 @@ public partial class ShelledEnemy : Enemy
 
     protected void SetupSpikeSystem()
     {
-        spikeAutoFireTimer = new Timer();
-        spikeAutoFireTimer.WaitTime = fireRate;
-        spikeAutoFireTimer.OneShot = true;
-        spikeAutoFireTimer.Timeout += TryFireRandomSpike;
-        AddChild(spikeAutoFireTimer);
+        spikeFireTimer = new Timer();
+
+        spikeFireTimer.WaitTime = reloadTime;
+        spikeFireTimer.OneShot = true;
+        spikeFireTimer.Timeout += TryFireSpike;
+
+        AddChild(spikeFireTimer);
     }
 
     // ========================================================================
@@ -92,137 +99,175 @@ public partial class ShelledEnemy : Enemy
     // ATTACK
     // ========================================================================
 
-    public void StartSpikeTimer()
+    public void StartSpike()
     {
         if (!useSpikes) return;
+
         CallDeferred(MethodName.SpawnSpikes);
-        spikeAutoFireTimer.Start();
+        
+        if (autoFire) 
+            spikeFireTimer.Start(reloadTime);
     }
 
-    public void StopSpikeRoutine()
+    public void StopSpike()
     {
-        spikeAutoFireTimer?.Stop();
+        spikeFireTimer?.Stop();
     }
 
     protected void SpawnSpikes()
     {
-        chargingSpikes.Clear();
+        chargingSpikesList.Clear();
 
-        float startAngle = -Mathf.Pi / 6;
-        float endAngle = 5 * -Mathf.Pi / 6;
-        float angleStep = 0;
+        float lStartAngle = -Mathf.Pi / 6;
+        float lEndAngle = 5 * -Mathf.Pi / 6;
+        float lAngleStep = 0;
 
-        if (numSpikes > 1)
-            angleStep = (endAngle - startAngle) / (numSpikes - 1);
-        else
-            startAngle = -Mathf.Pi / 2;
+        lAngleStep = (lEndAngle - lStartAngle) / (numSpikes - 1);
 
         for (int i = 0; i < numSpikes; i++)
         {
             if (i < spikesList.Count && IsInstanceValid(spikesList[i]) && !spikesList[i].isActive)
                 continue;
 
-            float angle = startAngle + (i * angleStep);
-            Vector2 localPos = new Vector2(Mathf.Cos(angle) * spikeRadius, Mathf.Sin(angle) * spikeRadius);
+            float lAngle = lStartAngle + (i * lAngleStep);
+            Vector2 lPos = new Vector2(Mathf.Cos(lAngle) * spikeRadius, Mathf.Sin(lAngle) * spikeRadius);
 
-            Spike lSpike = Spike.Create(spikeScene, Player.GetInstance(), localPos);
-            lSpike.Rotation = angle;
+            Spike lSpike = Spike.Create(spikeScene, Player.GetInstance(), lPos);
+            lSpike.Rotation = lAngle;
             lSpike.sprite.SelfModulate = spikeBaseColor;
 
-            if (i < spikesList.Count) spikesList[i] = lSpike;
-            else spikesList.Add(lSpike);
+            if (i < spikesList.Count)
+                spikesList[i] = lSpike;
+            else
+                spikesList.Add(lSpike);
 
             spikeContainer.AddChild(lSpike);
+
             lSpike.lifeTimer.Stop();
 
             lSpike.Position = Vector2.Zero;
-            CreateTween().TweenProperty(lSpike, "position", localPos * spikeAdvanceMultiplier, shotPreDelay)
-                .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+
+            CreateTween().TweenProperty(lSpike, (string)PropertyName.Position, lPos * spikeAdvanceMultiplier, shotPreDelay)
+                .SetTrans(Tween.TransitionType.Back)
+                .SetEase(Tween.EaseType.Out);
         }
     }
 
-    protected void TryFireRandomSpike()
+    protected void TryFireSpike()
     {
         if (isDeath) return;
 
-        List<int> readyIndices = new List<int>();
+        List<int> lReadyList = new List<int>();
+
         for (int i = 0; i < spikesList.Count; i++)
         {
-            if (IsInstanceValid(spikesList[i]) && !spikesList[i].isActive && !chargingSpikes.Contains(spikesList[i]))
-                readyIndices.Add(i);
+            if (IsInstanceValid(spikesList[i]) && !spikesList[i].isActive && !chargingSpikesList.Contains(spikesList[i]))
+                lReadyList.Add(i);
         }
 
-        if (readyIndices.Count == 0)
+        if (lReadyList.Count == 0)
         {
-            int activeOrChargingCount = 0;
-            foreach (var s in spikesList) if (s != null && (s.isActive || chargingSpikes.Contains(s))) activeOrChargingCount++;
+            int lActiveOrCharging = 0;
 
-            if (activeOrChargingCount == spikesList.Count)
+            foreach (Spike lSpike in spikesList)
             {
-                bool allFired = true;
-                foreach (var s in spikesList) if (s != null && !s.isActive) allFired = false;
+                if (lSpike != null && (lSpike.isActive || chargingSpikesList.Contains(lSpike)))
+                    lActiveOrCharging++;
+            }
 
-                if (allFired)
+            if (lActiveOrCharging == spikesList.Count)
+            {
+                bool lAllFire = true;
+
+                foreach (Spike lSpike in spikesList)
+                {
+                    if (lSpike != null && !lSpike.isActive)
+                        lAllFire = false;
+                }
+
+                if (lAllFire)
                 {
                     SpawnSpikes();
-                    spikeAutoFireTimer.Start(0.5f);
+                    if (autoFire) 
+                        spikeFireTimer.Start(reloadTime);
                     return;
                 }
             }
 
-            spikeAutoFireTimer.Start(0.1f);
+            if (autoFire) 
+                spikeFireTimer.Start(reloadTime);
             return;
         }
 
-        int randomIndex = readyIndices[GameManager.rand.RandiRange(0, readyIndices.Count - 1)];
+        int lSelectedSpikeIndex = -1;
 
-        if (readyIndices.Count > 1 && randomIndex == lastShotIndex)
-            randomIndex = readyIndices[(readyIndices.IndexOf(randomIndex) + 1) % readyIndices.Count];
+        switch (firePattern)
+        {
+            case FirePattern.Random:
+                lSelectedSpikeIndex = lReadyList[GameManager.rand.RandiRange(0, lReadyList.Count - 1)];
+                break;
 
-        lastShotIndex = randomIndex;
-        FireSpikeSequence(spikesList[randomIndex]);
+            case FirePattern.LeftToRight:
+                lSelectedSpikeIndex = lReadyList[lReadyList.Count - 1];
+                break;
 
-        spikeAutoFireTimer.Start(fireRate);
+            case FirePattern.RightToLeft:
+                lSelectedSpikeIndex = lReadyList[0];
+                break;
+        }
+
+        lastShotIndex = lSelectedSpikeIndex;
+
+        FireSpike(spikesList[lSelectedSpikeIndex]);
+
+        if (autoFire) 
+            spikeFireTimer.Start(fireRate);
     }
 
-    protected void FireSpikeSequence(Spike spike)
+    protected void FireSpike(Spike pSpike)
     {
-        if (isDeath || !IsInstanceValid(spike)) return;
+        if (isDeath || !IsInstanceValid(pSpike)) return;
 
-        chargingSpikes.Add(spike);
+        chargingSpikesList.Add(pSpike);
 
-        Tween lTween = CreateTween();
-        lTween.TweenProperty(spike.sprite, "self_modulate", spikeFlashColor, shotPreDelay)
-         .SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
-        lTween.Finished += () => LaunchSpike(spike);
+        Tween lFireTween = CreateTween();
+
+        lFireTween.TweenProperty(pSpike.sprite, (string)PropertyName.SelfModulate, spikeFlashColor, shotPreDelay)
+            .SetTrans(Tween.TransitionType.Quad)
+            .SetEase(Tween.EaseType.In);
+
+        lFireTween.Finished += () => LaunchSpike(pSpike);
     }
 
-    private void LaunchSpike(Spike spike)
+    private void LaunchSpike(Spike pSpike)
     {
-        if (chargingSpikes.Contains(spike))
-            chargingSpikes.Remove(spike);
+        float lTimeSpike = 0.2f;
 
-        if (!IsInstanceValid(spike) || spike.isActive) return;
+        if (chargingSpikesList.Contains(pSpike))
+            chargingSpikesList.Remove(pSpike);
 
-        spike.isActive = true;
-        spike.sprite.SelfModulate = spikeFlashColor;
+        if (!IsInstanceValid(pSpike) || pSpike.isActive) return;
+
+        pSpike.isActive = true;
+        pSpike.sprite.SelfModulate = spikeFlashColor;
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyShoot);
 
-        Vector2 globalPos = spike.GlobalPosition;
-        float globalRot = spike.GlobalRotation;
+        Vector2 lGlobalPos = pSpike.GlobalPosition;
+        float lGlobalRot = pSpike.GlobalRotation;
 
-        spikeContainer.RemoveChild(spike);
-        GameManager.GetInstance().projectilesContainer.AddChild(spike);
+        spikeContainer.RemoveChild(pSpike);
+        GameManager.GetInstance().projectilesContainer.AddChild(pSpike);
 
-        spike.GlobalPosition = globalPos;
-        spike.GlobalRotation = globalRot;
+        pSpike.GlobalPosition = lGlobalPos;
+        pSpike.GlobalRotation = lGlobalRot;
 
-        spike.lifeTimer.Start();
-        spike.particles.Emitting = true;
-        spike.collision.Disabled = false;
+        pSpike.lifeTimer.Start();
+        pSpike.particles.Emitting = true;
+        pSpike.collision.Disabled = false;
 
-        CreateTween().TweenProperty(spike, "scale", spike.Scale * spikeSizeMultiplier, 0.2f);
+        Tween lTween = CreateTween();
+        lTween.TweenProperty(pSpike, (string)PropertyName.Scale, pSpike.Scale * spikeSizeMultiplier, lTimeSpike);
     }
 
     // ========================================================================
@@ -244,20 +289,29 @@ public partial class ShelledEnemy : Enemy
     {
         base.EntityDeath();
 
-        StopSpikeRoutine();
+        StopSpike();
         fireTween?.Kill();
-        chargingSpikes.Clear();
+        chargingSpikesList.Clear();
     }
 
     protected override void OnCollide(Area2D pArea)
     {
-        if ((pArea is Projectiles || (pArea is Player lPlayer && lPlayer.invincible)) && shellProjectileProtect)
+        if (!shellProjectileProtect)
+        {
+            base.OnCollide(pArea);
+            shell?.ShellProtectAnimation();
+        }
+
+        if (pArea is Projectiles)
         {
             shell?.ShellProtectAnimation();
             return;
         }
 
-        base.OnCollide(pArea);
-        shell?.ShellDamageAnimation();
+        if (pArea is Player lPlayer && lPlayer.invincible)
+        {
+            shell?.ShellProtectAnimation();
+            return;
+        }
     }
 }

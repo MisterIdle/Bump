@@ -30,13 +30,14 @@ public partial class HUD : MenuBase
     [Export] public Color activeColor = new Color(1, 1, 1, 1.0f);
     [Export] public Color inactiveColor = new Color(1, 1, 1, 0.2f);
     [Export] public Color bossDamageColor = new Color(1, 0.2f, 0.2f, 1.0f);
+    [Export] public Color invisibleColor = new Color(1, 1, 11, 0);
 
-    [ExportCategory("Anim - Score")]
-    [Export(PropertyHint.Range, "0.1, 2.0")] public float popDuration = 0.25f;
-    [Export(PropertyHint.Range, "1.0, 3.0")] public float popScaleFactor = 1.5f;
-    [Export(PropertyHint.Range, "0.1, 5.0")] public float scoreCountDuration = 0.5f;
+    [ExportCategory("Score")]
+    [Export] public float popDuration = 0.25f;
+    [Export] public float popScaleFactor = 1.5f;
+    [Export] public float scoreCountDuration = 0.5f;
 
-    [ExportCategory("Anim - Entrance")]
+    [ExportCategory("Entrance")]
     [Export] public float entranceOffsetY = 50f;
     [Export] public float entranceFadeDuration = 0.5f;
     [Export] public float entranceMoveDuration = 0.6f;
@@ -45,17 +46,17 @@ public partial class HUD : MenuBase
     [Export] public float entranceScoreDelay = 0.2f;
     [Export] public float entrancePowDelay = 0.3f;
 
-    [ExportCategory("Anim - Exit")]
+    [ExportCategory("Exit")]
     [Export] public float exitOffsetY = 150f;
     [Export] public float exitModulateMult = 0.8f;
 
-    [ExportCategory("Anim - Boss")]
+    [ExportCategory("Boss")]
     [Export] public float bossFadeDuration = 0.5f;
     [Export] public float bossFillDuration = 1.2f;
     [Export] public float bossHitDuration = 0.4f;
     [Export] public float bossColorReturnDuration = 0.3f;
 
-    [ExportCategory("Anim - Game Over")]
+    [ExportCategory("Game Over")]
     [Export] public float gameOverFallDuration = 1.0f;
     [Export] public float gameOverStartOffsetY = 100f;
 
@@ -81,9 +82,9 @@ public partial class HUD : MenuBase
         originalY = Position.Y;
 
         bossBarOriginalX = bossTextureBar.Position.X;
-        bossTextureBar.Modulate = new Color(1, 1, 1, 0);
+        bossTextureBar.Modulate = invisibleColor;
 
-        bossLabel.Modulate = new Color(1, 1, 1, 0);
+        bossLabel.Modulate = invisibleColor;
 
         gameOverOriginalY = gameoverLabel.Position.Y;
         gameoverLabel.Visible = false;
@@ -93,8 +94,6 @@ public partial class HUD : MenuBase
 
     public BubbleScore CreateBubbleScore(Vector2 pPos, int pScore)
     {
-        if (bubbleScore == null) return null;
-
         BubbleScore lBubbleScore = (BubbleScore)bubbleScore.Instantiate();
         lBubbleScore.Position = pPos;
         lBubbleScore.score = pScore;
@@ -124,7 +123,7 @@ public partial class HUD : MenuBase
 
     private void SetScoreText(int pValue)
     {
-        if (scoreLabel != null) scoreLabel.Text = pValue.ToString();
+        scoreLabel.Text = pValue.ToString();
     }
 
     public void UpdateHealth(int pCurrentHealth)
@@ -148,25 +147,25 @@ public partial class HUD : MenuBase
         bossTextureBar.MaxValue = pMaxHealth;
         bossTextureBar.Value = 0;
 
+        float lDefault = 1;
+
         Tween lTween = CreateTween();
 
-        lTween.TweenProperty(bossTextureBar, (string)CanvasItem.PropertyName.Modulate + ":a", 1.0f, bossFadeDuration);
+        lTween.TweenProperty(bossTextureBar, (string)PropertyName.Modulate + ":a", lDefault, bossFadeDuration);
+        lTween.Parallel();
 
-        if (bossLabel != null)
-        {
-            lTween.Parallel().TweenProperty(bossLabel, (string)CanvasItem.PropertyName.Modulate + ":a", 1.0f, bossFadeDuration);
-        }
+        lTween.TweenProperty(bossLabel, (string)PropertyName.Modulate + ":a", lDefault, bossFadeDuration);
 
-        lTween.Chain().TweenProperty(bossTextureBar, "value", pMaxHealth, bossFillDuration)
+        lTween.Chain().TweenProperty(bossTextureBar, (string)TextureProgressBar.PropertyName.Value, pMaxHealth, bossFillDuration)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.Out);
     }
 
     public void HideBossBattle()
     {
-        bossTextureBar.Modulate = new Color(1, 1, 1, 0);
+        bossTextureBar.Modulate = invisibleColor;
         bossTextureBar.Value = 0;
-        bossLabel.Modulate = new Color(1, 1, 1, 0);
+        bossLabel.Modulate = invisibleColor; 
     }
 
     public void UpdateBossHealth(int pCurrentHealth)
@@ -176,7 +175,7 @@ public partial class HUD : MenuBase
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
 
-        lTween.TweenProperty(bossTextureBar, "value", pCurrentHealth, bossHitDuration)
+        lTween.TweenProperty(bossTextureBar, (string)ProgressBar.PropertyName.Value, pCurrentHealth, bossHitDuration)
             .SetTrans(Tween.TransitionType.Elastic)
             .SetEase(Tween.EaseType.Out);
 
@@ -189,6 +188,7 @@ public partial class HUD : MenuBase
     // ========================================================================
     // ANIMATION HUD
     // ========================================================================
+
 
     public void AnimatedScore(int pNewScore)
     {
@@ -203,16 +203,16 @@ public partial class HUD : MenuBase
         lTween.SetParallel(true);
 
         lTween.TweenMethod(Callable.From<int>(SetScoreText), lCurrentScore, lTargetScore, scoreCountDuration)
-              .SetEase(Tween.EaseType.Out)
-              .SetTrans(Tween.TransitionType.Cubic);
+            .SetEase(Tween.EaseType.Out)
+            .SetTrans(Tween.TransitionType.Cubic);
 
         lTween.TweenProperty(scoreLabel, (string)PropertyName.Scale, originalScale * popScaleFactor, popDuration)
-              .SetTrans(Tween.TransitionType.Back)
-              .SetEase(Tween.EaseType.Out);
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
 
         lTween.Chain().TweenProperty(scoreLabel, (string)PropertyName.Scale, originalScale, popDuration)
-              .SetTrans(Tween.TransitionType.Back)
-              .SetEase(Tween.EaseType.In);
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.In);
     }
 
     public void PlayEntranceAnimation()

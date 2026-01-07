@@ -156,7 +156,7 @@ public partial class StateMenu : MenuBase
         {
             GetTree().Paused = false;
             MenuManager.GetInstance().nextIsGame = true;
-            SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.MainMenu);
+            SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
         };
 
@@ -173,7 +173,7 @@ public partial class StateMenu : MenuBase
 
         GetTree().Paused = false;
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
-        SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.MainMenu);
+        SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
         AudioManager.GetInstance().StopMusic();
     }
 }

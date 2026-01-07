@@ -25,14 +25,7 @@ public partial class Credits : MenuBase
             GetViewport().SetInputAsHandled();
 
             MenuManager lManager = MenuManager.GetInstance();
-
-            if (lManager.previousMenuState == MenuManager.MenuState.MainMenu || lManager.previousMenuState == MenuManager.MenuState.None)
-                lManager.SetMenu(MenuManager.MenuState.MainMenu);
-            else
-            {
-                lManager.SetMenu(MenuManager.MenuState.MainMenu);
-                SceneManager.GetInstance().ChangeScene(SceneManager.SceneType.MainMenu);
-            }
+            lManager.SetMenu(MenuManager.MenuState.MainMenu);
         }
     }
 }

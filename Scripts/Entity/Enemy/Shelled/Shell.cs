@@ -1,18 +1,21 @@
+using Com.IsartDigital.Shmup.NManager;
 using Godot;
 
-using Com.IsartDigital.Shmup.NManager;
-
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+
 public partial class Shell : Sprite2D
 {
     [Export] public float protectAnimAngle = 20f;
     [Export] public float protectAnimTime = 0.1f;
     [Export] public float damageAnimAngle = 10f;
     [Export] public float damageAnimTime = 0.05f;
+    [Export] public float destructionDistance = 0.05f;
+    [Export] public float destructionPosTime = 0.2f;
 
     private float baseShellRotation = 0f;
     private ShaderMaterial material;
     private Color baseColor;
+
     private const string COLOR_CONST = "New";
 
     // ========================================================================
@@ -28,9 +31,10 @@ public partial class Shell : Sprite2D
     private void CheckMaterial()
     {
         if (material != null) return;
-        if (Material is ShaderMaterial sm)
+
+        if (Material is ShaderMaterial lShaderMaterial)
         {
-            material = (ShaderMaterial)sm.Duplicate();
+            material = (ShaderMaterial)lShaderMaterial.Duplicate();
             Material = material;
         }
     }
@@ -39,6 +43,12 @@ public partial class Shell : Sprite2D
     // ANIMATION & COLORS
     // ========================================================================
 
+    private void ChangeShellColor(Color pColor)
+    {
+        CheckMaterial();
+        material?.SetShaderParameter(COLOR_CONST, pColor);
+    }
+
     public void SetShellColor(Color pColor)
     {
         CheckMaterial();
@@ -46,41 +56,38 @@ public partial class Shell : Sprite2D
         material?.SetShaderParameter(COLOR_CONST, pColor);
     }
 
-    public void ChangeShellColor(Color pColor)
-    {
-        CheckMaterial();
-        material?.SetShaderParameter(COLOR_CONST, pColor);
-    }
-
     public void ShellProtectAnimation()
     {
-        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion, 3.5f);
+        float pPitch = 3.5f;
+        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion, pPitch);
 
-        Tween lTween = CreateTween();
-        lTween.TweenProperty(this, "rotation_degrees", baseShellRotation + protectAnimAngle, protectAnimTime);
-        lTween.TweenProperty(this, "rotation_degrees", baseShellRotation - protectAnimAngle, protectAnimTime);
-        lTween.TweenProperty(this, "rotation_degrees", baseShellRotation, protectAnimTime);
+        Tween lProtectTween = CreateTween();
+
+        lProtectTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation + protectAnimAngle, protectAnimTime);
+        lProtectTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation - protectAnimAngle, protectAnimTime);
+        lProtectTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation, protectAnimTime);
     }
 
     public void ShellDamageAnimation()
     {
-        Tween lTween = CreateTween();
-        ChangeShellColor(Colors.Red);
+        Tween lDamageTween = CreateTween();
+        ChangeShellColor(Colors.DarkRed);
 
-        lTween.TweenProperty(this, "rotation_degrees", baseShellRotation + damageAnimAngle, damageAnimTime);
-        lTween.TweenProperty(this, "rotation_degrees", baseShellRotation - damageAnimAngle, damageAnimTime);
-        lTween.TweenProperty(this, "rotation_degrees", baseShellRotation, damageAnimTime);
+        lDamageTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation + damageAnimAngle, damageAnimTime);
+        lDamageTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation - damageAnimAngle, damageAnimTime);
+        lDamageTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation, damageAnimTime);
 
-        lTween.Finished += () => ChangeShellColor(baseColor);
+        lDamageTween.Finished += () => ChangeShellColor(baseColor);
     }
 
     public void ShellDestructionAnimation()
     {
-        Tween lTween = CreateTween();
-        lTween.Parallel().TweenProperty(this, "position:y", Position.Y * 0.5f, 0.2f)
-              .SetTrans(Tween.TransitionType.Sine)
-              .SetEase(Tween.EaseType.Out);
+        Tween lDestructionTween = CreateTween();
 
-        lTween.Finished += () => ChangeShellColor(Colors.Gray);
+        lDestructionTween.Parallel().TweenProperty(this, (string)PropertyName.Position + ":y", -destructionDistance, destructionPosTime)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.Out);
+
+        lDestructionTween.Finished += () => ChangeShellColor(Colors.Gray);
     }
 }

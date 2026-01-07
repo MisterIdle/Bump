@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://tuj17od45vsb"]
+[gd_scene load_steps=24 format=3 uid="uid://tuj17od45vsb"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.cs" id="1_3gwtq"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/PlayerLevelData.cs" id="2_0fou4"]
 [ext_resource type="PackedScene" uid="uid://bh4iqwgyl5hjm" path="res://Scenes/Projectiles/Shot.tscn" id="2_1sndv"]
 [ext_resource type="PackedScene" uid="uid://chlkbc1trkddg" path="res://Scenes/Particules/BigPlayer.tscn" id="2_4m44y"]
 [ext_resource type="PackedScene" uid="uid://cgyguuakuyjb2" path="res://Scenes/Projectiles/Fireball.tscn" id="2_w6786"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/PlayerShotData.cs" id="3_8vhug"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="3_20icr"]
 [ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Entity/Player/Pow.tscn" id="4_0ve0x"]
 [ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="6_1xct8"]
@@ -13,6 +15,51 @@
 [ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Visual/RetroMario-Regular.otf" id="13_3fptg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p48nk"]
+
+[sub_resource type="Resource" id="Resource_g71o3"]
+script = ExtResource("3_8vhug")
+shotScene = ExtResource("2_1sndv")
+speed = 500.0
+lifeTime = 10.0
+spreadAngle = 15.0
+minSpaceBetweenShots = 400.0
+
+[sub_resource type="Resource" id="Resource_brr4n"]
+script = ExtResource("2_0fou4")
+shot = SubResource("Resource_g71o3")
+playerColor = Color(0.999999, 0.805603, 0.753092, 1)
+rotationSpeed = 5.0
+moveSpeedMultiplier = 0.8
+
+[sub_resource type="Resource" id="Resource_qw7va"]
+script = ExtResource("3_8vhug")
+shotScene = ExtResource("2_1sndv")
+speed = 700.0
+lifeTime = 10.0
+spreadAngle = 5.0
+minSpaceBetweenShots = 600.0
+
+[sub_resource type="Resource" id="Resource_3ucia"]
+script = ExtResource("2_0fou4")
+shot = SubResource("Resource_qw7va")
+playerColor = Color(0.869713, 0.606181, 0.367282, 1)
+rotationSpeed = 15.0
+moveSpeedMultiplier = 1.2
+
+[sub_resource type="Resource" id="Resource_ojgrv"]
+script = ExtResource("3_8vhug")
+shotScene = ExtResource("2_w6786")
+speed = 1000.0
+lifeTime = 10.0
+spreadAngle = 0.0
+minSpaceBetweenShots = 400.0
+
+[sub_resource type="Resource" id="Resource_gky4d"]
+script = ExtResource("2_0fou4")
+shot = SubResource("Resource_ojgrv")
+playerColor = Color(1, 0.387565, 0.323131, 1)
+rotationSpeed = 20.0
+moveSpeedMultiplier = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b28bx"]
 
@@ -32,12 +79,7 @@ collision = NodePath("CollisionShape2D")
 nose = NodePath("Propyot/Nose")
 muzzle = NodePath("Muzzle")
 hammer = NodePath("Hammer")
-levelAColor = Color(0.903883, 0.815625, 0.505521, 1)
-levelBColor = Color(0.898039, 0.643137, 0.415686, 1)
-levelCColor = Color(0.984129, 0.571491, 0.543701, 1)
-shotScene = ExtResource("2_1sndv")
-fireBallScene = ExtResource("2_w6786")
-baseShotSpace = 1500.0
+levels = Array[Object]([SubResource("Resource_brr4n"), SubResource("Resource_3ucia"), SubResource("Resource_gky4d")])
 powScene = ExtResource("4_0ve0x")
 popPlayerDeath = ExtResource("2_4m44y")
 health = 3
@@ -50,7 +92,7 @@ amplitude = 0.2
 sprite = NodePath("Propyot")
 
 [node name="Propyot" type="Sprite2D" parent="."]
-self_modulate = Color(0.898039, 0.643137, 0.415686, 1)
+self_modulate = Color(0.366595, 0.366595, 0.366595, 1)
 material = SubResource("ShaderMaterial_b28bx")
 position = Vector2(0, -4.76837e-07)
 scale = Vector2(0.2, 0.171)

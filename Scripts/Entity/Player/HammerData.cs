@@ -1,11 +1,11 @@
 ﻿using Godot;
 
-namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+namespace Com.IsartDigital.Shmup.NData;
 
 [GlobalClass]
 public partial class HammerData : Resource
 {
-    [Export] public float Duration = 1.0f;
+    [Export] public float duration = 1.0f;
 
     [ExportGroup("Visuals")]
     [Export] public float targetChargeRotation = 0f;
