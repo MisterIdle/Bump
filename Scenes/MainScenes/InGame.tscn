@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="3_066wh"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
 [ext_resource type="PackedScene" uid="uid://b37b3k3mvq3nd" path="res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn" id="3_lw5r1"]
-[ext_resource type="PackedScene" uid="uid://c1u0rdsgn8dhl" path="res://Scenes/Entity/Enemy/Rushroops.tscn" id="6_vuwg4"]
+[ext_resource type="PackedScene" uid="uid://c8ld0qn7el4g3" path="res://FIX.tscn" id="7_cg6qg"]
 
 [node name="InGame" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [675.0]
@@ -23,14 +23,7 @@ enemyContainer = NodePath("../GameContainer/EnemyContainer")
 [node name="GameContainer" type="Node2D" parent="."]
 
 [node name="Player" parent="GameContainer" instance=ExtResource("3_l0emo")]
-z_as_relative = false
-position = Vector2(1253, 533)
-dropDuration = 2.0
-entranceOvershoot = -5.0
-minSpawnOffset = 200.0
-spawnRotationAmplitude = 3.0
-spawnWaveDuration = 0.8
-health = 1
+position = Vector2(1061, 540)
 
 [node name="Camera" type="Camera2D" parent="GameContainer"]
 anchor_mode = 0
@@ -46,5 +39,5 @@ script = ExtResource("3_066wh")
 
 [node name="ProjectilesContainer" type="Node2D" parent="GameContainer"]
 
-[node name="Rushroops" parent="." instance=ExtResource("6_vuwg4")]
-position = Vector2(2215, 582)
+[node name="KingKoops" parent="." instance=ExtResource("7_cg6qg")]
+position = Vector2(2902, 534)

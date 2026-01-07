@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://7710phv1wm7k"]
 
-[ext_resource type="Texture2D" uid="uid://balbovoayhgbc" path="res://Assets/Sprites/Walsy1.svg" id="1_nejyb"]
+[ext_resource type="Texture2D" uid="uid://b8r6p7g6ampq0" path="res://Assets/Sprites/WalsyA.png" id="1_3o4ia"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Particule.cs" id="2_3o7k7"]
 
 [sub_resource type="Gradient" id="Gradient_6mws0"]
@@ -25,7 +25,7 @@ process_mode = 1
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_honob")
-texture = ExtResource("1_nejyb")
+texture = ExtResource("1_3o4ia")
 lifetime = 0.2
 one_shot = true
 explosiveness = 1.0

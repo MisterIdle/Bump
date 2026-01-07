@@ -71,7 +71,6 @@ public partial class Sykoops : ShelledEnemy
                 {
                     chaseState = ChaseState.Chasing;
                     Effect.BumpScale(this, baseScale);
-                    wing.SetSpeedDouble(true);
                 }
                 break;
 
@@ -114,7 +113,6 @@ public partial class Sykoops : ShelledEnemy
 
     private void BehindStop()
     {
-        wing.SetSpeedDouble(false);
         chaseState = ChaseState.Abandoned;
         StopSpikeRoutine();
     }

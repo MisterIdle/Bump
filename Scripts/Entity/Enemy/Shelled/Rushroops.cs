@@ -70,7 +70,6 @@ public partial class Rushroops : ShelledEnemy
 
         shellProjectileProtect = true;
         facePlayer = false;
-        wing.SetSpeedDouble(true);
 
         Effect.SquashStretch(this, baseScale, false);
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://4wsw7s3qogxl"]
 
 [ext_resource type="Script" path="res://Scripts/Collectibles/PowCollectible.cs" id="1_o1hps"]
-[ext_resource type="Texture2D" uid="uid://ey818jhxedis" path="res://Assets/Sprites/Pow.svg" id="2_u747g"]
+[ext_resource type="Texture2D" uid="uid://gdpoiemopd05" path="res://Assets/Sprites/SquareRound.png" id="2_1bgv7"]
 [ext_resource type="PackedScene" uid="uid://dihh2tvaur1gt" path="res://Scenes/LevelDesign/Collectibles/Bubble.tscn" id="3_vltsb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iob1c"]
@@ -21,8 +21,8 @@ visible = false
 shape = SubResource("CircleShape2D_iob1c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_u747g")
+self_modulate = Color(0, 1, 0, 1)
+texture = ExtResource("2_1bgv7")
 
 [node name="Bubble" parent="." instance=ExtResource("3_vltsb")]
 scale = Vector2(0.3, 0.285)

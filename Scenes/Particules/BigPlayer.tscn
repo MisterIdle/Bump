@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://chlkbc1trkddg"]
 
-[ext_resource type="Texture2D" uid="uid://balbovoayhgbc" path="res://Assets/Sprites/Walsy1.svg" id="1_32fky"]
+[ext_resource type="Texture2D" uid="uid://b8r6p7g6ampq0" path="res://Assets/Sprites/WalsyA.png" id="1_okri5"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Particule.cs" id="2_qlket"]
 
 [sub_resource type="Gradient" id="Gradient_s21nq"]
@@ -27,7 +27,7 @@ rotation = -1.5708
 emitting = false
 amount = 450
 process_material = SubResource("ParticleProcessMaterial_0fnuw")
-texture = ExtResource("1_32fky")
+texture = ExtResource("1_okri5")
 one_shot = true
 explosiveness = 0.9
 fixed_fps = 60

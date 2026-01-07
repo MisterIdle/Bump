@@ -1,53 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpnv46wqjqrmf"]
+[gd_scene load_steps=5 format=3 uid="uid://bpnv46wqjqrmf"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Shelled/Koops.cs" id="1_8e6h4"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_ba4au"]
-[ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Accessory/Shell.tscn" id="2_ew2ps"]
-[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="3_c5enl"]
-[ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Accessory/Wing.tscn" id="4_5sc2o"]
-[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="4_hns10"]
-[ext_resource type="Texture2D" uid="uid://6w6omdow8uui" path="res://Assets/Sprites/KoopsShell.svg" id="6_jm6e0"]
-[ext_resource type="Texture2D" uid="uid://ch56y4afitww2" path="res://Assets/Sprites/WingA.svg" id="8_b37dn"]
+[ext_resource type="Texture2D" uid="uid://c3o8j15onstgi" path="res://Assets/Sprites/Circle.png" id="3_c5enl"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mxo1"]
-size = Vector2(56, 73)
+[sub_resource type="CircleShape2D" id="CircleShape2D_2vabu"]
+radius = 32.1403
 
 [node name="Koops" type="Area2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_8e6h4")
-shellPath = NodePath("Shell")
-wingPath = NodePath("Shell/Wing")
 popScene = ExtResource("2_ba4au")
 direction = 1
 speed = 100.0
 sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-modulate = Color(0.988235, 0.788235, 0.0627451, 1)
-position = Vector2(0, 3)
-scale = Vector2(0.153926, 0.115668)
 texture = ExtResource("3_c5enl")
 
-[node name="Eye" parent="Sprite" instance=ExtResource("4_hns10")]
-position = Vector2(-175.409, -15.6213)
-scale = Vector2(0.256, 0.0997078)
-
-[node name="Shell" parent="." instance=ExtResource("2_ew2ps")]
-position = Vector2(5, -15)
-rotation = 0.255717
-scale = Vector2(0.180579, 0.2)
-texture = ExtResource("6_jm6e0")
-
-[node name="Wing" parent="Shell" instance=ExtResource("4_5sc2o")]
-position = Vector2(9.5598, 13.2475)
-rotation = -0.23181
-scale = Vector2(0.452109, 0.415997)
-skew = -0.0500398
-texture = ExtResource("8_b37dn")
-offset = Vector2(231.127, -200.313)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -7.5)
-shape = SubResource("RectangleShape2D_5mxo1")
+texture_filter = 1
+shape = SubResource("CircleShape2D_2vabu")

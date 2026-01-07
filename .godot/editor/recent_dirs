@@ -1,14 +1,15 @@
+res://Scripts/Entity/Player
+res://
+res://Assets/Sprites
+res://Assets/Shader
 res://Scripts/UI
 res://Scripts/Utils/Effects
-res://
 res://Scenes/LevelDesign
 res://Scenes/MainScenes
 res://Scripts/Entity/Enemy/Normal
 res://Scripts/Managers
 res://Scenes/UI
-res://Scenes/Entity/Accessory
 res://Scripts/Utils
-res://Assets/Shader
 res://Scripts/Projectiles
 res://Scripts/Entity/Enemy
 res://Scenes/Entity/Enemy
@@ -19,4 +20,3 @@ res://Assets
 res://Scripts/Collectibles
 res://Scenes/Projectiles
 res://Scenes/Entity/Player
-res://Scripts/Entity/Player

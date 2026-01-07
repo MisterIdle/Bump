@@ -13,7 +13,6 @@ public partial class ShelledEnemy : Enemy
     [Export] public bool shellProjectileProtect;
     [Export] protected bool facePlayer;
     [Export] protected NodePath shellPath;
-    [Export] protected NodePath wingPath;
 
     [ExportGroup("Shared Spike System")]
     [Export] protected bool useSpikes = false;
@@ -37,7 +36,6 @@ public partial class ShelledEnemy : Enemy
     private int lastShotIndex = -1;
 
     protected Shell shell;
-    protected Wing wing;
     protected Vector2 playerDirection;
     protected Vector2 playerPos;
     protected bool faceLeft;
@@ -51,7 +49,6 @@ public partial class ShelledEnemy : Enemy
         base.Initiate();
 
         shell = GetNodeOrNull<Shell>(shellPath);
-        wing = GetNodeOrNull<Wing>(wingPath);
 
         if (useSpikes)
             SetupSpikeSystem();
@@ -236,7 +233,6 @@ public partial class ShelledEnemy : Enemy
         if (health <= 0)
         {
             shell?.ShellDestructionAnimation();
-            wing?.SetSpeedDouble(true);
         }
     }
 

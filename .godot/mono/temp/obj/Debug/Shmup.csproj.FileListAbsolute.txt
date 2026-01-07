@@ -52,3 +52,21 @@ C:\Users\Alexy\Desktop\Nouveau dossier\SupaShmup\.godot\mono\temp\obj\Debug\refi
 C:\Users\Alexy\Desktop\Nouveau dossier\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.pdb
 C:\Users\Alexy\Desktop\Nouveau dossier\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.genruntimeconfig.cache
 C:\Users\Alexy\Desktop\Nouveau dossier\SupaShmup\.godot\mono\temp\obj\Debug\ref\Shmup.dll
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\bin\Debug\Shmup.deps.json
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\bin\Debug\Shmup.runtimeconfig.json
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\bin\Debug\Shmup.dll
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\bin\Debug\Shmup.pdb
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\bin\Debug\GodotSharp.dll
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.csproj.AssemblyReference.cache
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.AssemblyInfoInputs.cache
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.AssemblyInfo.cs
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.csproj.CoreCompileInputs.cache
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.sourcelink.json
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.csproj.Up2Date
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.dll
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\refint\Shmup.dll
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.pdb
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\Shmup.genruntimeconfig.cache
+E:\Projets\Godot\SupaShmup\.godot\mono\temp\obj\Debug\ref\Shmup.dll

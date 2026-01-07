@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/Projectiles/Spiko.cs" id="1_g25i0"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_5aqwd"]
-[ext_resource type="Texture2D" uid="uid://degjrhvteie7t" path="res://Assets/Sprites/Spike.svg" id="2_xq3wf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iofpb"]
+load_path = "res://.godot/imported/Spike.svg-23a4a4943f704def93936f5552b6d113.ctex"
 
 [sub_resource type="Gradient" id="Gradient_8thpy"]
 colors = PackedColorArray(1, 0.756863, 0.239216, 1, 1, 1, 1, 1)
@@ -41,7 +43,7 @@ sprite = NodePath("Sprite2D")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.5708
 scale = Vector2(0.029, 0.048)
-texture = ExtResource("2_xq3wf")
+texture = SubResource("CompressedTexture2D_iofpb")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-10, -5.04871e-29)

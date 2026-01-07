@@ -1,50 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://dqrqjbxsydh3h"]
+[gd_scene load_steps=6 format=3 uid="uid://dqrqjbxsydh3h"]
 
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Biome.cs" id="1_1e1ru"]
-[ext_resource type="Texture2D" uid="uid://bxfstxfe7810l" path="res://Assets/Sprites/Pliiar.svg" id="1_7pveb"]
-[ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="1_8bawd"]
-[ext_resource type="Texture2D" uid="uid://c01k8dltwfsov" path="res://Assets/Sprites/Cloud2.svg" id="1_wvi84"]
-[ext_resource type="Texture2D" uid="uid://bjxslnaao1p7m" path="res://Assets/Sprites/Pliiar2.svg" id="1_xxge3"]
 [ext_resource type="Texture2D" uid="uid://bc4b332utdrr6" path="res://Assets/Background/BaseBackground.tres" id="2_l1edh"]
 [ext_resource type="Texture2D" uid="uid://n8m0k0lsm63f" path="res://Assets/Background/MainMenuBackground.tres" id="2_xhf8x"]
 [ext_resource type="Texture2D" uid="uid://drdspxyl7r0m7" path="res://Assets/Background/SnowBackground.tres" id="4_f21eg"]
-[ext_resource type="Shader" uid="uid://bne3w1ms8y0g6" path="res://Assets/Shader/ColorSwap.tres" id="4_u20jj"]
-[ext_resource type="Script" path="res://Scripts/Utils/Effects/UpDown.cs" id="5_22u1i"]
-[ext_resource type="Texture2D" uid="uid://cbvttxmxltkqy" path="res://Assets/Sprites/Cloud3.svg" id="5_vjew8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n0kl1"]
 texture = ExtResource("2_l1edh")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4wsax"]
-shader = ExtResource("1_8bawd")
-shader_parameter/Frequency = 20.0
-shader_parameter/Speed = 0.5
-shader_parameter/Amplitude = 0.02
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7rcv"]
-shader = ExtResource("4_u20jj")
-shader_parameter/New = Color(0.45098, 0.658824, 0.517647, 1)
-shader_parameter/Seuil = 0.1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_umlv3"]
-shader = ExtResource("4_u20jj")
-shader_parameter/New = Color(0.824708, 0.441688, 0.401484, 1)
-shader_parameter/Seuil = 0.1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ikq34"]
-shader = ExtResource("4_u20jj")
-shader_parameter/New = Color(0.764565, 0.707261, 1, 1)
-shader_parameter/Seuil = 0.1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wo4x6"]
-shader = ExtResource("4_u20jj")
-shader_parameter/New = Color(0.498665, 0.831845, 0.999601, 1)
-shader_parameter/Seuil = 0.1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wevyv"]
-shader = ExtResource("4_u20jj")
-shader_parameter/New = Color(0.877289, 0.630137, 0.245146, 1)
-shader_parameter/Seuil = 0.1
 
 [node name="Background" type="ParallaxBackground"]
 
@@ -60,137 +22,6 @@ GradientSnow = ExtResource("4_f21eg")
 panel = NodePath("../Panel")
 
 [node name="Panel" type="Panel" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_n0kl1")
-
-[node name="Middle" type="ParallaxLayer" parent="."]
-z_index = 4096
-motion_scale = Vector2(0.4, 0.4)
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Cloud6" type="Sprite2D" parent="Middle"]
-modulate = Color(0.807085, 0.936627, 1, 1)
-material = SubResource("ShaderMaterial_4wsax")
-position = Vector2(1354, 977)
-scale = Vector2(0.616736, 0.509297)
-texture = ExtResource("5_vjew8")
-script = ExtResource("5_22u1i")
-amplitude = 1.0
-speed = 0.5
-
-[node name="Middle4" type="ParallaxLayer" parent="."]
-z_index = 4096
-motion_scale = Vector2(0.2, 0.2)
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Cloud4" type="Sprite2D" parent="Middle4"]
-modulate = Color(0.807085, 0.936627, 1, 1)
-material = SubResource("ShaderMaterial_4wsax")
-position = Vector2(540, 1031)
-scale = Vector2(0.616736, 0.509297)
-texture = ExtResource("5_vjew8")
-script = ExtResource("5_22u1i")
-speed = 0.3
-
-[node name="PillarMiddle" type="ParallaxLayer" parent="."]
-z_index = 4096
-motion_scale = Vector2(0.05, 0.05)
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Pliiar2" type="Sprite2D" parent="PillarMiddle"]
-material = SubResource("ShaderMaterial_e7rcv")
-position = Vector2(231, 731)
-texture = ExtResource("1_xxge3")
-flip_h = true
-script = ExtResource("5_22u1i")
-speed = 0.5
-
-[node name="Pliiar4" type="Sprite2D" parent="PillarMiddle"]
-material = SubResource("ShaderMaterial_umlv3")
-position = Vector2(1541, 764)
-rotation = 0.101229
-texture = ExtResource("1_xxge3")
-script = ExtResource("5_22u1i")
-speed = 0.1
-
-[node name="Pliiar3" type="Sprite2D" parent="PillarMiddle"]
-material = SubResource("ShaderMaterial_ikq34")
-position = Vector2(1111, 915)
-rotation = -0.0698132
-scale = Vector2(0.640831, 0.617825)
-texture = ExtResource("1_xxge3")
-script = ExtResource("5_22u1i")
-speed = 0.2
-
-[node name="PillarMiddle2" type="ParallaxLayer" parent="."]
-z_index = 4096
-motion_scale = Vector2(0.1, 0.1)
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Pliiar6" type="Sprite2D" parent="PillarMiddle2"]
-material = SubResource("ShaderMaterial_wo4x6")
-position = Vector2(1814, 904)
-rotation = -0.207694
-scale = Vector2(0.640831, 0.617825)
-texture = ExtResource("1_xxge3")
-flip_h = true
-script = ExtResource("5_22u1i")
-speed = 0.2
-
-[node name="Pliiar5" type="Sprite2D" parent="PillarMiddle2"]
-material = SubResource("ShaderMaterial_wevyv")
-position = Vector2(685, 970)
-rotation = 0.413643
-scale = Vector2(0.640831, 0.617825)
-texture = ExtResource("1_7pveb")
-script = ExtResource("5_22u1i")
-speed = 0.1
-
-[node name="Horizon2" type="ParallaxLayer" parent="."]
-z_index = 4096
-motion_scale = Vector2(0.1, 0.1)
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Cloud7" type="Sprite2D" parent="Horizon2"]
-modulate = Color(0.912289, 0.912289, 0.912289, 1)
-material = SubResource("ShaderMaterial_4wsax")
-position = Vector2(243.469, 299)
-scale = Vector2(0.350271, 0.394628)
-texture = ExtResource("5_vjew8")
-flip_h = true
-script = ExtResource("5_22u1i")
-amplitude = 10.0
-speed = 0.3
-
-[node name="Cloud5" type="Sprite2D" parent="Horizon2"]
-modulate = Color(0.912289, 0.912289, 0.912289, 1)
-material = SubResource("ShaderMaterial_4wsax")
-position = Vector2(1220, 446)
-scale = Vector2(0.418388, 0.309401)
-texture = ExtResource("1_wvi84")
-flip_h = true
-script = ExtResource("5_22u1i")
-amplitude = 5.0
-speed = 0.1
-
-[node name="Horizon" type="ParallaxLayer" parent="."]
-z_index = 4096
-motion_scale = Vector2(0.2, 0.2)
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Cloud2" type="Sprite2D" parent="Horizon"]
-material = SubResource("ShaderMaterial_4wsax")
-position = Vector2(507, 1072)
-scale = Vector2(0.929752, 0.902893)
-texture = ExtResource("1_wvi84")
-flip_h = true
-
-[node name="Panel2" type="Panel" parent="."]
-modulate = Color(1, 1, 1, 0.392157)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

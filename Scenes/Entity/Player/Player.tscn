@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://tuj17od45vsb"]
+[gd_scene load_steps=11 format=3 uid="uid://tuj17od45vsb"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.cs" id="1_3gwtq"]
 [ext_resource type="PackedScene" uid="uid://bh4iqwgyl5hjm" path="res://Scenes/Projectiles/Shot.tscn" id="2_1sndv"]
@@ -6,30 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://cgyguuakuyjb2" path="res://Scenes/Projectiles/Fireball.tscn" id="2_w6786"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="3_20icr"]
 [ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Entity/Player/Pow.tscn" id="4_0ve0x"]
-[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="6_1xct8"]
 [ext_resource type="PackedScene" uid="uid://b5f4s4npvvkep" path="res://Scenes/Entity/Player/Hammer.tscn" id="6_n43dq"]
-[ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="8_8qn4a"]
-[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="8_xd46q"]
-[ext_resource type="FontFile" uid="uid://faq425cxomdm" path="res://Assets/Visual/RetroMario-Regular.otf" id="13_3fptg"]
+[ext_resource type="Texture2D" uid="uid://x8faxoy3didw" path="res://Assets/Sprites/Square.png" id="7_js4r2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p48nk"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b28bx"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_c0y2u"]
-font = ExtResource("13_3fptg")
-font_size = 1490
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onibu"]
 radius = 40.5494
 
-[node name="Player" type="Area2D" node_paths=PackedStringArray("collision", "nose", "muzzle", "hammer", "sprite")]
+[node name="Player" type="Area2D" node_paths=PackedStringArray("collision", "muzzle", "hammer", "sprite")]
 z_index = 100
 material = SubResource("ShaderMaterial_p48nk")
 collision_mask = 6
 script = ExtResource("1_3gwtq")
 collision = NodePath("CollisionShape2D")
-nose = NodePath("Propyot/Nose")
 muzzle = NodePath("Muzzle")
 hammer = NodePath("Hammer")
 levelAColor = Color(0.903883, 0.815625, 0.505521, 1)
@@ -46,52 +36,13 @@ popScene = ExtResource("3_20icr")
 score = 0
 speed = 400.0
 affectedByScroll = true
+lerpFactor = 0.007
 amplitude = 0.2
 sprite = NodePath("Propyot")
 
 [node name="Propyot" type="Sprite2D" parent="."]
-self_modulate = Color(0.898039, 0.643137, 0.415686, 1)
-material = SubResource("ShaderMaterial_b28bx")
-position = Vector2(0, -4.76837e-07)
-scale = Vector2(0.2, 0.171)
-texture = ExtResource("6_1xct8")
-
-[node name="Pall" parent="Propyot" instance=ExtResource("8_8qn4a")]
-position = Vector2(0, -298.246)
-
-[node name="Eye" parent="Propyot" instance=ExtResource("8_xd46q")]
-self_modulate = Color(1, 1, 1, 1)
-position = Vector2(99.492, -133.601)
-scale = Vector2(0.368513, 0.222311)
-
-[node name="Subeye" type="Sprite2D" parent="Propyot/Eye"]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(0, -98.0411)
-rotation = -1.5708
-scale = Vector2(0.476026, 0.625861)
-texture = ExtResource("6_1xct8")
-
-[node name="Nose" type="Sprite2D" parent="Propyot"]
-position = Vector2(205, 1.90735e-06)
-scale = Vector2(0.425114, 0.37959)
-texture = ExtResource("6_1xct8")
-
-[node name="Label" type="Label" parent="Propyot"]
-anchors_preset = -1
-anchor_left = 0.321
-anchor_top = 0.319
-anchor_right = 0.321
-anchor_bottom = 0.319
-offset_left = -325.364
-offset_top = -341.53
-offset_right = 1349.64
-offset_bottom = 1646.47
-scale = Vector2(0.1, 0.1)
-pivot_offset = Vector2(-0.32, 0)
-text = "17"
-label_settings = SubResource("LabelSettings_c0y2u")
-horizontal_alignment = 1
-vertical_alignment = 1
+self_modulate = Color(0.935302, 0.61817, 0.436418, 1)
+texture = ExtResource("7_js4r2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
