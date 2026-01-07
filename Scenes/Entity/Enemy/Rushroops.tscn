@@ -38,9 +38,9 @@ hammerScore = 2000
 health = 9
 popScene = ExtResource("3_uicja")
 score = 5000
+direction = 2
 speed = 25.0
 affectedByScroll = true
-direction = 2
 sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]

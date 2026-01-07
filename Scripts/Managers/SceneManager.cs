@@ -1,58 +1,9 @@
 using Godot;
-
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NManager;
-
-/// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-
-/// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// /// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
-/// 
-/// <summary>
-/// A MODIF LE PARALLAX LAYER CAR FAUT MODIF LEURS MERDE
-/// </summary>
 
 public partial class SceneManager : Node
 {
@@ -64,6 +15,7 @@ public partial class SceneManager : Node
 
     [Export] private PackedScene gameScene;
     [Export] private PackedScene debugScene;
+
     [Export] private Label debug;
 
     private Node currentScene;
@@ -71,16 +23,12 @@ public partial class SceneManager : Node
     public enum SceneType { MainMenu, Game, Debug }
     private SceneType currentSceneType;
     private SceneType sceneToLoad;
-    
+
     private bool isTransitioning = false;
     private float loadTime = 0.2f;
 
     public Timer transitionTimer;
     public Tween transitionTween;
-
-    // ========================================================================
-    // INIT
-    // ========================================================================
 
     public override void _Ready()
     {
@@ -102,10 +50,6 @@ public partial class SceneManager : Node
         if (currentSceneType == SceneType.MainMenu)
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
     }
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
 
     public override void _Process(double pDelta)
     {
@@ -131,10 +75,6 @@ public partial class SceneManager : Node
         debug.Text = lText;
     }
 
-    // ========================================================================
-    // INPUT
-    // ========================================================================
-
     public override void _Input(InputEvent pInput)
     {
         if (pInput.IsActionPressed(Property.INPUT_DEBUG))
@@ -146,10 +86,6 @@ public partial class SceneManager : Node
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
         }
     }
-
-    // ========================================================================
-    // SCENE
-    // ========================================================================
 
     public SceneType GetCurrentSceneType()
     {
@@ -167,7 +103,6 @@ public partial class SceneManager : Node
         if (lGameManager != null)
         {
             lGameManager.scrollSpeed = 0f;
-            GameManager.scrollSpeedVelocity = Vector2.Zero;
         }
 
         Player lPlayer = Player.GetInstance();
