@@ -88,6 +88,8 @@ public partial class Entity : Movable
 
         health -= pDamage;
 
+        GD.Print(health);
+
         if (health <= 0)
             EntityDeath();
     }

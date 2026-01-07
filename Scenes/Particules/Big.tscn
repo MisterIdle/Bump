@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bhnuaia2dpuey"]
 
+[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="1_21i7s"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Particule.cs" id="1_fwsfw"]
-[ext_resource type="Texture2D" uid="uid://c3o8j15onstgi" path="res://Assets/Sprites/Circle.png" id="1_n6q1l"]
 
 [sub_resource type="Gradient" id="Gradient_aopg1"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -31,7 +31,7 @@ process_mode = 1
 emitting = false
 amount = 80
 process_material = SubResource("ParticleProcessMaterial_40r7s")
-texture = ExtResource("1_n6q1l")
+texture = ExtResource("1_21i7s")
 lifetime = 3.0
 one_shot = true
 explosiveness = 1.0

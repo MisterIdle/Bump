@@ -52,7 +52,7 @@ public partial class Rushroops : ShelledEnemy
         base.AliveUpdate(pDelta);
 
         if (!isCharging)
-            velocity.X = angleX;
+            velocity = new Vector2(angleX, angleY);
     }
 
     // ========================================================================
@@ -70,6 +70,7 @@ public partial class Rushroops : ShelledEnemy
 
         shellProjectileProtect = true;
         facePlayer = false;
+        wing.SetSpeedDouble(true);
 
         Effect.SquashStretch(this, baseScale, false);
 

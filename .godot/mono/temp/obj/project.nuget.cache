@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Wf81mkIbefo=",
+  "dgSpecHash": "6uU02ImLiX4=",
   "success": true,
-  "projectFilePath": "E:\\Projets\\Godot\\SupaShmup\\Shmup.csproj",
+  "projectFilePath": "C:\\Users\\Alexy\\Desktop\\SupaShmup-649f381cfa07cfcabf0a9d9a120edec969a5b158\\Shmup.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\alexy\\.nuget\\packages\\godot.sourcegenerators\\4.2.2\\godot.sourcegenerators.4.2.2.nupkg.sha512",
-    "C:\\Users\\alexy\\.nuget\\packages\\godotsharp\\4.2.2\\godotsharp.4.2.2.nupkg.sha512",
-    "C:\\Users\\alexy\\.nuget\\packages\\godotsharpeditor\\4.2.2\\godotsharpeditor.4.2.2.nupkg.sha512"
+    "C:\\Users\\Alexy\\.nuget\\packages\\godot.sourcegenerators\\4.2.2\\godot.sourcegenerators.4.2.2.nupkg.sha512",
+    "C:\\Users\\Alexy\\.nuget\\packages\\godotsharp\\4.2.2\\godotsharp.4.2.2.nupkg.sha512",
+    "C:\\Users\\Alexy\\.nuget\\packages\\godotsharpeditor\\4.2.2\\godotsharpeditor.4.2.2.nupkg.sha512"
   ],
   "logs": []
 }

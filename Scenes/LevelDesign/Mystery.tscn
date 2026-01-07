@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://r5xghrumtfq"]
+[gd_scene load_steps=7 format=3 uid="uid://r5xghrumtfq"]
 
 [ext_resource type="Script" path="res://Scripts/Collectibles/Mystery.cs" id="1_0b4wq"]
+[ext_resource type="Texture2D" uid="uid://dsqii3nras2tl" path="res://Assets/Sprites/Mystery.svg" id="1_lqnu7"]
 [ext_resource type="PackedScene" uid="uid://do2aw1mr5kjlj" path="res://Scenes/LevelDesign/Collectibles/FlowerCollectible.tscn" id="2_fna3a"]
 [ext_resource type="PackedScene" uid="uid://4wsw7s3qogxl" path="res://Scenes/LevelDesign/Collectibles/PowCollectible.tscn" id="3_ueqnq"]
-[ext_resource type="Texture2D" uid="uid://x8faxoy3didw" path="res://Assets/Sprites/Square.png" id="4_jnvf3"]
+[ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="5_oy7mm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4spx"]
-size = Vector2(64, 64)
+size = Vector2(118, 118)
 
 [node name="Mystery" type="Area2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 8
@@ -24,4 +25,9 @@ sprite = NodePath("Mystery")
 shape = SubResource("RectangleShape2D_m4spx")
 
 [node name="Mystery" type="Sprite2D" parent="."]
-texture = ExtResource("4_jnvf3")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_lqnu7")
+
+[node name="Pall" parent="." instance=ExtResource("5_oy7mm")]
+position = Vector2(-0.0256664, -73.7813)
+scale = Vector2(0.248242, 0.1414)

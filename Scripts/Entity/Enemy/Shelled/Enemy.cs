@@ -15,10 +15,10 @@ public partial class Enemy : Entity
 
     [Export] private int outOfBoundMargin = 500;
 
-    private float cameraShakeIntensity = 10f;
-    private float cameraShakeDuration = 1f;
-    private float cameraShakeFrequency = 1f;
-    private float cameraShakeRandomness = 2f;
+    [Export] private float cameraShakeIntensity = 2f;
+    [Export] private float cameraShakeDuration = 0.2f;
+    [Export] private float cameraShakeFrequency = 1f;
+    [Export] private float cameraShakeRandomness = 2f;
 
     [Export] private float squashStretchDuration = 0.4f;
 
@@ -107,7 +107,10 @@ public partial class Enemy : Entity
         GameManager.CreateHealthCollectible(GlobalPosition);
 
         if (killedByHammer)
+        {
             Particule.Create(popScene, GlobalPosition);
+            GD.Print("oui hammer 2");
+        }
 
         int lFinalScore = killedByHammer ? score + hammerScore : score;
 
@@ -123,7 +126,7 @@ public partial class Enemy : Entity
             killedByHammer = true;
             EntityHit(Hammer.GetInstance().attackForce);
 
-            Effect.ShakeCamera(cameraShakeIntensity, cameraShakeDuration, cameraShakeFrequency, cameraShakeRandomness);
+            Effect.Shake(cameraShakeIntensity, cameraShakeDuration, cameraShakeFrequency, cameraShakeRandomness);
             ScaleTime.SlowMotion();
             Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
         }

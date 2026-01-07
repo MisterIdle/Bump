@@ -137,9 +137,9 @@ public partial class SceneManager : Node
                 .SetTrans(Tween.TransitionType.Cubic)
                 .SetEase(Tween.EaseType.InOut);
         }
-        
+
         SwitchScene(pNextScene);
-        
+
         transitionTimer.Start();
     }
 
@@ -153,7 +153,7 @@ public partial class SceneManager : Node
             if (lCam != null)
             {
                 transitionTween.Finished += RemoveScene;
-            } 
+            }
             else
             {
                 RemoveScene();

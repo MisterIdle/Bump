@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Pow.cs" id="1_1d0vc"]
 [ext_resource type="PackedScene" uid="uid://bhnuaia2dpuey" path="res://Scenes/Particules/Big.tscn" id="2_7ay6i"]
-[ext_resource type="Texture2D" uid="uid://nyhwun3u51bc" path="res://Assets/Sprites/Pow.png" id="3_115ao"]
+[ext_resource type="Texture2D" uid="uid://ey818jhxedis" path="res://Assets/Sprites/Pow.svg" id="3_v8jas"]
 [ext_resource type="PackedScene" uid="uid://dihh2tvaur1gt" path="res://Scenes/LevelDesign/Collectibles/Bubble.tscn" id="4_jo7to"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vuduw"]
@@ -21,8 +21,8 @@ disabled = true
 
 [node name="Pow" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(4, 4)
-texture = ExtResource("3_115ao")
+scale = Vector2(2, 2)
+texture = ExtResource("3_v8jas")
 
 [node name="Bubble" parent="." instance=ExtResource("4_jo7to")]
 position = Vector2(2, -1)

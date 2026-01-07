@@ -1,16 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3hgpjemtaphm"]
+[gd_scene load_steps=9 format=3 uid="uid://d3hgpjemtaphm"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Normal/Walsy.cs" id="1_hjhdx"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_1hute"]
-[ext_resource type="Texture2D" uid="uid://b8r6p7g6ampq0" path="res://Assets/Sprites/WalsyA.png" id="3_5vl4g"]
-[ext_resource type="Texture2D" uid="uid://bcxkc5mlomlll" path="res://Assets/Sprites/WalsyB.png" id="4_l2rhq"]
-[ext_resource type="Texture2D" uid="uid://dd7xliifw26me" path="res://Assets/Sprites/WalsyC.png" id="5_4ifg0"]
+[ext_resource type="Texture2D" uid="uid://balbovoayhgbc" path="res://Assets/Sprites/Walsy1.svg" id="3_s2sc3"]
+[ext_resource type="Texture2D" uid="uid://cwtdfbbvejkka" path="res://Assets/Sprites/Walsy2.svg" id="4_l2rhq"]
+[ext_resource type="Texture2D" uid="uid://uuo01432cp50" path="res://Assets/Sprites/Walsy3.svg" id="5_4ifg0"]
+[ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="6_71uop"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kwmnh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_5vl4g")
+"texture": ExtResource("3_s2sc3")
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_l2rhq")
@@ -41,6 +42,14 @@ scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_kwmnh")
 animation = &"hit"
 frame_progress = 0.759977
+
+[node name="Eye" parent="SpriteAnimated" instance=ExtResource("6_71uop")]
+position = Vector2(-16.6667, -5.92119e-14)
+scale = Vector2(0.0752811, 0.027)
+
+[node name="Eye2" parent="SpriteAnimated" instance=ExtResource("6_71uop")]
+position = Vector2(15, -1.19213e-13)
+scale = Vector2(0.0752811, 0.027)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

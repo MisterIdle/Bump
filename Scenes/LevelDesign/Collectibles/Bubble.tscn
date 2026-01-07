@@ -12,5 +12,5 @@ shader_parameter/FresnelPower = 12.0
 
 [node name="Bubble" type="Sprite2D"]
 material = SubResource("ShaderMaterial_a7hk7")
-scale = Vector2(0.3, 0.3)
+scale = Vector2(1, 1.15289)
 texture = ExtResource("1_7epxn")

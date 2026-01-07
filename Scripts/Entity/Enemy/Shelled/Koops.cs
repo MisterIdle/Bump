@@ -2,7 +2,7 @@ using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
-public partial class Koops : Enemy
+public partial class Koops : ShelledEnemy
 {
     private enum TypeEnum { Green, Red }
     [Export] private TypeEnum type;
@@ -16,7 +16,7 @@ public partial class Koops : Enemy
         base.Initiate();
 
         Color lTargetColor = (type == TypeEnum.Green) ? Colors.Green : Colors.Red;
-        sprite.SelfModulate = lTargetColor;
+        shell.SetShellColor(lTargetColor);
     }
 
     public static Koops Create(PackedScene pScene, Vector2 pPos)
@@ -34,9 +34,7 @@ public partial class Koops : Enemy
     {
         base.AliveUpdate(pDelta);
 
-        if (type == TypeEnum.Green) 
-            velocity.Y = angleY;
-        else 
-            velocity.X = angleX;
+        if (type == TypeEnum.Green) velocity.Y = angleY;
+        else velocity.X = angleX;
     }
 }

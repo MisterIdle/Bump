@@ -17,6 +17,7 @@ public partial class Player : Entity
 
     [ExportCategory("Components")]
     [Export] public CollisionShape2D collision;
+    [Export] private Sprite2D nose;
     [Export] private Marker2D muzzle;
     [Export] private Hammer hammer;
 
@@ -49,7 +50,6 @@ public partial class Player : Entity
     [ExportCategory("Movement")]
     [Export] private float dashMultiplier = 3f;
     [Export] private float backDash = 0.2f;
-    [Export] private float dashCurveHeight = 150f;
 
     [ExportCategory("Combat")]
     [ExportGroup("Shooting")]

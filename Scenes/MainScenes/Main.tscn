@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
 [ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/UI/Parallax.tscn" id="2_ajko8"]
 [ext_resource type="PackedScene" uid="uid://eijl1ptqfcr5" path="res://Scenes/MainScenes/InGame.tscn" id="2_ppwvp"]
-[ext_resource type="PackedScene" uid="uid://y0p204y3sd1g" path="res://Scenes/UI/Menu.tscn" id="4_go1sy"]
+[ext_resource type="PackedScene" uid="uid://y0p204y3sd1g" path="res://Scenes/LevelDesign/Menu.tscn" id="4_go1sy"]
 [ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="5_xyu4v"]
 [ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="8_etrpp"]
 [ext_resource type="PackedScene" uid="uid://b26o5ieubh6fc" path="res://Scenes/MainScenes/Debug.tscn" id="8_l7wn5"]

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://nbe361qcfaqr"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Player/HammerData.cs" id="1_q24tw"]
+
+[resource]
+script = ExtResource("1_q24tw")

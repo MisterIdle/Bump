@@ -30,7 +30,7 @@ public partial class Hammer : GameObject
     private Player player;
 
     [ExportGroup("Configuration")]
-    [Export] private HammerPhase[] phases;
+    [Export] private HammerData[] phases;
     [Export] private float minChargeDuration = 0.5f;
     [Export] private float idleRotation = 120f;
     [Export] private float hammerHideDelay = 0.2f;
@@ -71,7 +71,7 @@ public partial class Hammer : GameObject
     private float cooldownTimer;
 
     private int currentPhaseIndex = -1;
-    private HammerPhase currentPhaseData;
+    private HammerData currentPhaseData;
 
     private static Hammer instance;
 
@@ -114,7 +114,7 @@ public partial class Hammer : GameObject
         baseScale = sprite.Scale;
         if (phases != null && phases.Length > 0)
         {
-            sprite.Scale = baseScale * phases[0].Scale;
+            sprite.Scale = baseScale * phases[0].scale;
         }
 
         currentState = State.Idle;
@@ -191,12 +191,12 @@ public partial class Hammer : GameObject
 
         if (phases.Length > 0)
         {
-            float lFirstTarget = phases[0].TargetChargeRotation;
+            float lFirstTarget = phases[0].targetChargeRotation;
             float lDuration = minChargeDuration + phases[0].Duration;
             SetRotation(lFirstTarget, lDuration);
 
             // Pop initial de charge (Variable Exportée)
-            SetScale(phases[0].Scale * chargeStartScaleMult, scaleElasticity);
+            SetScale(phases[0].scale * chargeStartScaleMult, scaleElasticity);
         }
     }
 
@@ -244,8 +244,8 @@ public partial class Hammer : GameObject
 
             Effect.BumpHUD(progressBar, progressBar.Scale, hudBumpChargeMult);
 
-            SetRotation(currentPhaseData.TargetChargeRotation, currentPhaseData.Duration);
-            SetScale(currentPhaseData.Scale, scaleElasticity);
+            SetRotation(currentPhaseData.targetChargeRotation, currentPhaseData.Duration);
+            SetScale(currentPhaseData.scale, scaleElasticity);
         }
 
         UpdateColorsOnly(lProgressInPhase);
@@ -255,16 +255,16 @@ public partial class Hammer : GameObject
     {
         currentPhaseIndex = pIndex;
         currentPhaseData = phases[currentPhaseIndex];
-        attackForce = currentPhaseData.Force;
+        attackForce = currentPhaseData.force;
     }
 
     private void UpdateColorsOnly(float pProgress)
     {
         Color lStartColor;
         if (currentPhaseIndex == 0) lStartColor = colorDeadZone;
-        else lStartColor = phases[currentPhaseIndex - 1].BarColor;
+        else lStartColor = phases[currentPhaseIndex - 1].barColor;
 
-        progressBar.TintProgress = lStartColor.Lerp(currentPhaseData.BarColor, pProgress);
+        progressBar.TintProgress = lStartColor.Lerp(currentPhaseData.barColor, pProgress);
     }
 
     private void TryReleaseAttack()
@@ -294,19 +294,19 @@ public partial class Hammer : GameObject
         collision.Disabled = false;
         progressBar.TintProgress = colorAttack;
 
-        player.Dash(currentPhaseData.DashForce, Vector2.Right, false);
+        player.Dash(currentPhaseData.dashForce, Vector2.Right, false);
         player.invincible = true;
 
         // Bump HUD Attack (Variable Exportée)
         Effect.BumpHUD(progressBar, progressBar.Scale, hudBumpAttackMult);
 
-        PlayHammerSoundForDuration(swingSoundType, currentPhaseData.SwingDuration);
+        PlayHammerSoundForDuration(swingSoundType, currentPhaseData.swingDuration);
 
-        animationTween = SetRotation(currentPhaseData.TargetSwingRotation, currentPhaseData.SwingDuration);
+        animationTween = SetRotation(currentPhaseData.targetSwingRotation, currentPhaseData.swingDuration);
         animationTween.Finished += FinishAttack;
 
         // Scale Impact Attack (Variables Exportées)
-        SetScale(currentPhaseData.Scale * attackImpactScaleMult, attackImpactDuration);
+        SetScale(currentPhaseData.scale * attackImpactScaleMult, attackImpactDuration);
     }
 
     private void FinishAttack()
@@ -314,7 +314,7 @@ public partial class Hammer : GameObject
         isActif = false;
         collision.Disabled = true;
 
-        float lBaseScaleMultiplier = (phases != null && phases.Length > 0) ? phases[0].Scale : 1.0f;
+        float lBaseScaleMultiplier = (phases != null && phases.Length > 0) ? phases[0].scale : 1.0f;
 
         SetScale(lBaseScaleMultiplier, returnToIdleDuration);
 
@@ -345,7 +345,7 @@ public partial class Hammer : GameObject
     {
         if (sfxPlayer.Playing) sfxPlayer.Stop();
 
-        float lBaseScaleMultiplier = (phases != null && phases.Length > 0) ? phases[0].Scale : 1.0f;
+        float lBaseScaleMultiplier = (phases != null && phases.Length > 0) ? phases[0].scale : 1.0f;
 
         SetScale(lBaseScaleMultiplier, returnToIdleDuration);
 

@@ -75,7 +75,7 @@ public partial class Pow : GameObject
         Tween lTween = Effect.SquashStretch(sprite, baseSpriteScale, false, true, 0.5f);
 
         Effect.FlashColor(this, Colors.Red);
-        Effect.ShakeCamera(35, 1.2f);
+        Effect.Shake(35, 1.2f);
         ScaleTime.SlowMotion();
 
         Particule.Create(pop, Position);

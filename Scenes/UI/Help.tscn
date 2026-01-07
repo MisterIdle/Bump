@@ -1,20 +1,35 @@
-[gd_scene load_steps=17 format=3 uid="uid://c16bdke1sxf5b"]
+[gd_scene load_steps=32 format=3 uid="uid://c16bdke1sxf5b"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Help.cs" id="1_ri3yv"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/UpDownControl.cs" id="2_nf2hw"]
-[ext_resource type="Texture2D" uid="uid://c3o8j15onstgi" path="res://Assets/Sprites/Circle.png" id="5_evhpa"]
-[ext_resource type="Texture2D" uid="uid://laiij1asj2np" path="res://Assets/Sprites/Donut.png" id="5_ss55s"]
+[ext_resource type="Texture2D" uid="uid://dlqsadwi6sql2" path="res://Assets/Sprites/Square.svg" id="2_y6gg7"]
+[ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="3_1uv68"]
+[ext_resource type="Texture2D" uid="uid://dcn073f6lvho8" path="res://Assets/Sprites/Xbox Series/xbox_button_b.png" id="5_evhpa"]
+[ext_resource type="Texture2D" uid="uid://1qh4cluyloxy" path="res://Assets/Sprites/Xbox Series/xbox_button_color_a.png" id="5_ss55s"]
 [ext_resource type="Script" path="res://Scripts/UI/SwitchImage.cs" id="6_krie2"]
-[ext_resource type="Texture2D" uid="uid://bcxkc5mlomlll" path="res://Assets/Sprites/WalsyB.png" id="9_63pif"]
+[ext_resource type="Texture2D" uid="uid://bdvw2gse642ew" path="res://Assets/Sprites/Keyboard & Mouse/keyboard.png" id="7_bpus6"]
+[ext_resource type="Texture2D" uid="uid://blbx8lr00a7to" path="res://Assets/Sprites/Xbox Series/controller_xboxone.png" id="8_k8ekm"]
+[ext_resource type="Texture2D" uid="uid://dl6akcudfu4wc" path="res://Assets/Sprites/Xbox Series/controller_xboxseries.png" id="9_6r34v"]
+[ext_resource type="Texture2D" uid="uid://do205pj2a7xn7" path="res://Assets/Sprites/Xbox Series/xbox_button_color_a_outline.png" id="9_63pif"]
 [ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="9_t4tf8"]
-[ext_resource type="Texture2D" uid="uid://ch3t5cu3t34xf" path="res://Assets/Sprites/Triangle.png" id="12_lmleo"]
-[ext_resource type="Texture2D" uid="uid://gdpoiemopd05" path="res://Assets/Sprites/SquareRound.png" id="15_3hapl"]
-[ext_resource type="Texture2D" uid="uid://b8r6p7g6ampq0" path="res://Assets/Sprites/WalsyA.png" id="18_p7wyr"]
-[ext_resource type="Texture2D" uid="uid://dd7xliifw26me" path="res://Assets/Sprites/WalsyC.png" id="26_twueu"]
-[ext_resource type="Texture2D" uid="uid://iqr87fwfgqui" path="res://Assets/Sprites/Flower.png" id="27_wnshb"]
-[ext_resource type="Texture2D" uid="uid://dl8tfhsyh71g2" path="res://Assets/Sprites/Heart.png" id="28_mnlsm"]
-[ext_resource type="Texture2D" uid="uid://nyhwun3u51bc" path="res://Assets/Sprites/Pow.png" id="29_psaxp"]
-[ext_resource type="Texture2D" uid="uid://brfphi7m0u4q0" path="res://Assets/Sprites/Shot.png" id="30_3i1f5"]
+[ext_resource type="Texture2D" uid="uid://b2c55sid55fq1" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_arrows_horizontal.png" id="10_tpwlp"]
+[ext_resource type="Texture2D" uid="uid://dqxhgnpiab6yh" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_arrows_vertical.png" id="11_eww3p"]
+[ext_resource type="Texture2D" uid="uid://boig0mku33mh0" path="res://Assets/Sprites/Xbox Series/xbox_stick_l_horizontal.png" id="12_lmleo"]
+[ext_resource type="Texture2D" uid="uid://btp3rf6qljb57" path="res://Assets/Sprites/Xbox Series/xbox_stick_l_vertical.png" id="13_4jwms"]
+[ext_resource type="Texture2D" uid="uid://dy1oltcjnmqin" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_m.png" id="15_3hapl"]
+[ext_resource type="Texture2D" uid="uid://culie0lr6ei3k" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_m_outline.png" id="16_af6ip"]
+[ext_resource type="Texture2D" uid="uid://bjgmk342cxnam" path="res://Assets/Sprites/Xbox Series/xbox_button_color_b.png" id="17_fxr4b"]
+[ext_resource type="Texture2D" uid="uid://ouljmqir725e" path="res://Assets/Sprites/Xbox Series/xbox_button_color_b_outline.png" id="18_p7wyr"]
+[ext_resource type="Texture2D" uid="uid://dov8yps5mqdxi" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_k.png" id="19_kbdt1"]
+[ext_resource type="Texture2D" uid="uid://djrxpfum6e1oa" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_k_outline.png" id="20_r3b8n"]
+[ext_resource type="Texture2D" uid="uid://ovo0opgdckpr" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_l.png" id="23_l20yd"]
+[ext_resource type="Texture2D" uid="uid://tksjktpe4dqx" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_l_outline.png" id="24_pavdf"]
+[ext_resource type="Texture2D" uid="uid://bt7ec6ljmu018" path="res://Assets/Sprites/Xbox Series/xbox_button_color_x.png" id="25_cxdpa"]
+[ext_resource type="Texture2D" uid="uid://bbm6a4a1kdiw3" path="res://Assets/Sprites/Xbox Series/xbox_button_color_x_outline.png" id="26_twueu"]
+[ext_resource type="Texture2D" uid="uid://bscb1e5mwbf8r" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_g.png" id="27_wnshb"]
+[ext_resource type="Texture2D" uid="uid://bp7hkvj2o21fo" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_g_outline.png" id="28_mnlsm"]
+[ext_resource type="Texture2D" uid="uid://cixgqyw012bdn" path="res://Assets/Sprites/Xbox Series/xbox_elite_paddle_top_right.png" id="29_psaxp"]
+[ext_resource type="Texture2D" uid="uid://c57dk8hwfad25" path="res://Assets/Sprites/Xbox Series/xbox_elite_paddle_top_right_outline.png" id="30_3i1f5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_btbue"]
 font = ExtResource("9_t4tf8")
@@ -55,7 +70,7 @@ offset_right = -121.0
 offset_bottom = -91.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_evhpa")
+texture = ExtResource("2_y6gg7")
 
 [node name="Top" type="TextureRect" parent="Global/Back2"]
 self_modulate = Color(0, 0, 0, 1)
@@ -64,8 +79,16 @@ offset_left = 14.0
 offset_top = 14.0
 offset_right = 1640.0
 offset_bottom = 759.0
-texture = ExtResource("5_evhpa")
+texture = ExtResource("2_y6gg7")
 expand_mode = 1
+
+[node name="Pall" parent="Global/Back2" instance=ExtResource("3_1uv68")]
+position = Vector2(61.6874, -49.178)
+scale = Vector2(0.44801, 0.305049)
+
+[node name="Pall2" parent="Global/Back2" instance=ExtResource("3_1uv68")]
+position = Vector2(1585, -56)
+scale = Vector2(0.44801, 0.305049)
 
 [node name="What" type="HBoxContainer" parent="Global/Back2"]
 layout_mode = 0
@@ -80,10 +103,10 @@ layout_mode = 2
 texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
-keyboardIconA = ExtResource("9_63pif")
-keyboardIconB = ExtResource("9_63pif")
-controllerIconA = ExtResource("9_63pif")
-_controllerIconB = ExtResource("26_twueu")
+keyboardIconA = ExtResource("7_bpus6")
+keyboardIconB = ExtResource("7_bpus6")
+controllerIconA = ExtResource("8_k8ekm")
+_controllerIconB = ExtResource("9_6r34v")
 
 [node name="Move" type="HBoxContainer" parent="Global/Back2"]
 layout_mode = 0
@@ -98,10 +121,10 @@ layout_mode = 2
 texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
-keyboardIconA = ExtResource("18_p7wyr")
-keyboardIconB = ExtResource("5_evhpa")
+keyboardIconA = ExtResource("10_tpwlp")
+keyboardIconB = ExtResource("11_eww3p")
 controllerIconA = ExtResource("12_lmleo")
-_controllerIconB = ExtResource("15_3hapl")
+_controllerIconB = ExtResource("13_4jwms")
 
 [node name="Label" type="Label" parent="Global/Back2/Move"]
 layout_mode = 2
@@ -131,8 +154,8 @@ texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("15_3hapl")
-keyboardIconB = ExtResource("18_p7wyr")
-controllerIconA = ExtResource("9_63pif")
+keyboardIconB = ExtResource("16_af6ip")
+controllerIconA = ExtResource("17_fxr4b")
 _controllerIconB = ExtResource("18_p7wyr")
 
 [node name="Shot" type="HBoxContainer" parent="Global/Back2"]
@@ -148,8 +171,8 @@ layout_mode = 2
 texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
-keyboardIconA = ExtResource("26_twueu")
-keyboardIconB = ExtResource("5_ss55s")
+keyboardIconA = ExtResource("19_kbdt1")
+keyboardIconB = ExtResource("20_r3b8n")
 controllerIconA = ExtResource("5_ss55s")
 _controllerIconB = ExtResource("9_63pif")
 
@@ -180,9 +203,9 @@ layout_mode = 2
 texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
-keyboardIconA = ExtResource("28_mnlsm")
-keyboardIconB = ExtResource("27_wnshb")
-controllerIconA = ExtResource("29_psaxp")
+keyboardIconA = ExtResource("23_l20yd")
+keyboardIconB = ExtResource("24_pavdf")
+controllerIconA = ExtResource("25_cxdpa")
 _controllerIconB = ExtResource("26_twueu")
 
 [node name="GodMod" type="HBoxContainer" parent="Global/Back2"]

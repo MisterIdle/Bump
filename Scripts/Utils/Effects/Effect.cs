@@ -102,7 +102,7 @@ public static class Effect
         Input.StartJoyVibration(pDevice, pWeak, pStrong, pTime);
     }
 
-    public static void ShakeCamera(float pForce, float pTime, float pX = 1, float pY = 1, float pStep = 0.025f)
+    public static void Shake(float pForce, float pTime, float pX = 1, float pY = 1, float pStep = 0.025f)
     {
         Camera pSelf = Camera.GetInstance();
         pSelf.Offset = Vector2.Zero;
@@ -117,9 +117,9 @@ public static class Effect
         {
             float lTime = 1f - (float)i / (pSteps - 1);
 
-            Vector2 lOffset = new Vector2(GameManager.rand.RandfRange(-pX, pX), GameManager.rand.RandfRange(-pY, pY)) * pForce * lTime;
+            Vector2 offset = new Vector2(GameManager.rand.RandfRange(-pX, pX), GameManager.rand.RandfRange(-pY, pY)) * pForce * lTime;
 
-            lTween.TweenProperty(pSelf, offsetProperty, lOffset, pStepDuration)
+            lTween.TweenProperty(pSelf, offsetProperty, offset, pStepDuration)
                   .SetTrans(Tween.TransitionType.Sine)
                   .SetEase(Tween.EaseType.InOut);
         }
