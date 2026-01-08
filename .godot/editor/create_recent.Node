@@ -1,3 +1,4 @@
+Sprite2D
 ParallaxLayer
 CollisionShape2D
 Area2D
@@ -5,7 +6,6 @@ HBoxContainer
 VBoxContainer
 Label
 TextureRect
-Sprite2D
 Control
 AnimatedSprite2D
 TextureProgressBar

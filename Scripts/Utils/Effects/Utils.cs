@@ -27,26 +27,38 @@ public static class Utils
 
     public static bool IsOutOfBound(Vector2 pPos, float pMargin = 0, bool pCheckX = true, bool pCheckY = true)
     {
-        Rect2 lScreen = Camera.GetInstance().GetScreenRect();
+        Camera lCamera = Camera.GetInstance();
+        if (lCamera == null) return false;
 
-        if (pMargin != 0)
-            lScreen = lScreen.Grow(pMargin);
+        Vector2 lCamPos = lCamera.GlobalPosition;
+        Vector2 lSize = lCamera.GetViewportRect().Size;
 
-        bool lIsOutX = pPos.X < lScreen.Position.X || pPos.X > lScreen.End.X;
-        bool lIsOutY = pPos.Y < lScreen.Position.Y || pPos.Y > lScreen.End.Y;
+        float lLeft = lCamPos.X - pMargin;
+        float lRight = lCamPos.X + lSize.X + pMargin;
+        float lTop = lCamPos.Y - pMargin;
+        float lBottom = lCamPos.Y + lSize.Y + pMargin;
+
+        bool lIsOutX = pPos.X < lLeft || pPos.X > lRight;
+        bool lIsOutY = pPos.Y < lTop || pPos.Y > lBottom;
 
         return (pCheckX && lIsOutX) || (pCheckY && lIsOutY);
     }
 
     public static Vector2 ClampToScreen(Vector2 pPos, float pMargin = 0)
     {
-        Rect2 lScreen = Camera.GetInstance().GetScreenRect();
+        Camera lCamera = Camera.GetInstance();
+        if (lCamera == null) return pPos;
 
-        if (pMargin != 0) 
-            lScreen = lScreen.Grow(pMargin);
+        Vector2 lCamPos = lCamera.GlobalPosition;
+        Vector2 lSize = lCamera.GetViewportRect().Size;
 
-        pPos.X = Mathf.Clamp(pPos.X, lScreen.Position.X, lScreen.End.X);
-        pPos.Y = Mathf.Clamp(pPos.Y, lScreen.Position.Y, lScreen.End.Y);
+        float lMinX = lCamPos.X - pMargin;
+        float lMaxX = lCamPos.X + lSize.X + pMargin;
+        float lMinY = lCamPos.Y - pMargin;
+        float lMaxY = lCamPos.Y + lSize.Y + pMargin;
+
+        pPos.X = Mathf.Clamp(pPos.X, lMinX, lMaxX);
+        pPos.Y = Mathf.Clamp(pPos.Y, lMinY, lMaxY);
 
         return pPos;
     }

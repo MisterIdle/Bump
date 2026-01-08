@@ -155,8 +155,8 @@ public partial class KingKoops : ShelledEnemy
         switch (currentPhase)
         {
             case PhaseState.Normal:
-                
-                GlobalPosition = Camera.GetInstance().GetScreenRect().GetCenter();
+
+                Position = Camera.GetInstance().GetScreenCenter();
 
                 break;
             case PhaseState.Aggressive:
@@ -234,16 +234,12 @@ public partial class KingKoops : ShelledEnemy
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.BossPreExplosion);
 
-        Rect2 lScreen = Camera.GetInstance().GetScreenRect();
-
         if (currentPhase == PhaseState.Aggressive || currentPhase == PhaseState.Summoning)
         {
-            movingBasePos = new Vector2(lScreen.End.X * 0.85f, lScreen.Size.Y * 0.4f);
             StartReturn();
         }
         else if (currentPhase == PhaseState.Final)
         {
-            movingBasePos = lScreen.GetCenter();
             StartReturn();
             EnterPhaseFinal();
         }

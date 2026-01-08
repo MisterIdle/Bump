@@ -101,7 +101,6 @@ scale = Vector2(2.13333, 3.65714)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stick/Hammer/HammerCollision"]
 position = Vector2(1, -91.711)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_iyntb")
 disabled = true
 

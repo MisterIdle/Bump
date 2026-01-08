@@ -1,16 +1,15 @@
 using Godot;
-using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NManager;
 
 public partial class Camera : Camera2D
 {
-    private static Camera instance;
-
     [Export] public float scrollSpeed = 100.0f;
-
     public bool isScrolling = false;
 
+    [Export] private Sprite2D centre;
+
+    private static Camera instance;
     public static Camera GetInstance()
     {
         return instance;
@@ -19,111 +18,35 @@ public partial class Camera : Camera2D
     public override void _Ready()
     {
         if (instance == null) instance = this;
-        else
-        {
-            QueueFree();
-            return;
+        else 
+        { 
+            QueueFree(); 
+            return; 
         }
-    }
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
-
-
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    // METTTRE A JOUR LE SCRREN RECT SELON LA VITESS !!
-    public Rect2 GetScreenRect()
-    {
-        GD.Print(GetViewportRect());
-
-        return GetViewportRect();
     }
 
     public override void _Process(double delta)
     {
-        GetScreenRect();
-
         if (!isScrolling) return;
+
+        centre.GlobalPosition = GetScreenCenter();
+
         Position += new Vector2(scrollSpeed * (float)delta, 0);
+    }
+
+    public Vector2 GetScreenCenter()
+    {
+        return GlobalPosition + (GetViewportRect().Size / 2f);
+    }
+
+    public float GetTop()
+    {
+        return GlobalPosition.Y;
+    }
+
+    public float GetBottom()
+    {
+        return GlobalPosition.Y + GetViewportRect().Size.Y;
     }
 
     public void ResetPosition()
@@ -131,9 +54,9 @@ public partial class Camera : Camera2D
         Position = Vector2.Zero;
     }
 
-    protected override void Dispose(bool pDisposing)
+    protected override void Dispose(bool disposing)
     {
         instance = null;
-        base.Dispose(pDisposing);
+        base.Dispose(disposing);
     }
 }

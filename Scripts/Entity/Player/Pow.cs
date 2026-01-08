@@ -1,8 +1,8 @@
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+using Godot;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NToolsBox;
-using Godot;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
@@ -22,10 +22,6 @@ public partial class Pow : GameObject
 
     private Vector2 targetPosition;
 
-    // ========================================================================
-    // INIT
-    // ========================================================================
-
     public override void _Ready()
     {
         base._Ready();
@@ -36,17 +32,19 @@ public partial class Pow : GameObject
     {
         Pow lPow = (Pow)pScene.Instantiate();
 
-        Rect2 lScreen = Camera.GetInstance().GetScreenRect();
-        Vector2 lCenter = lScreen.GetCenter();
+        Camera lCamera = Camera.GetInstance();
 
+        if (lCamera == null) return lPow;
+
+        Vector2 lCenter = lCamera.GetScreenCenter();
         float lSpawnY;
+
         if (GameManager.rand.Randf() < 0.5f)
-            lSpawnY = lScreen.Position.Y - lPow.minSpawnOffset;
+            lSpawnY = lCamera.GetTop() - lPow.minSpawnOffset;
         else
-            lSpawnY = lScreen.End.Y + lPow.minSpawnOffset;
+            lSpawnY = lCamera.GetBottom() + lPow.minSpawnOffset;
 
         lPow.Position = new Vector2(lCenter.X, lSpawnY);
-
         lPow.targetPosition = new Vector2(lCenter.X + lPow.entranceXOffsetTarget, lCenter.Y);
 
         lPow.Initiate();
@@ -54,21 +52,17 @@ public partial class Pow : GameObject
         return lPow;
     }
 
-    // ========================================================================
-    // ANIMATION
-    // ========================================================================
-
     private void StartEntranceAnimation()
     {
         Tween lShowTween = CreateTween();
 
         Vector2 lEntrancePos = targetPosition + new Vector2(0, entranceMore);
 
-        lShowTween.TweenProperty(this, (string)PropertyName.Position, lEntrancePos, dropDuration * 0.7f)
+        lShowTween.TweenProperty(this, "position", lEntrancePos, dropDuration * 0.7f)
               .SetTrans(Tween.TransitionType.Sine)
               .SetEase(Tween.EaseType.Out);
 
-        lShowTween.TweenProperty(this, (string)PropertyName.Position, targetPosition, dropDuration * 0.3f)
+        lShowTween.TweenProperty(this, "position", targetPosition, dropDuration * 0.3f)
               .SetTrans(Tween.TransitionType.Bounce)
               .SetEase(Tween.EaseType.In);
 
@@ -81,9 +75,10 @@ public partial class Pow : GameObject
 
         Effect.FlashColor(this, Colors.Red);
         Effect.Shake(shakeForce, shakeDuration);
+
         ScaleTime.SlowMotion();
 
-        Particule.Create(pop, Position);
+        if (pop != null) Particule.Create(pop, Position);
 
         lExplosionTween.Finished += StartExplosionSequence;
     }

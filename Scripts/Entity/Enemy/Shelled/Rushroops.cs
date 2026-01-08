@@ -21,6 +21,9 @@ public partial class Rushroops : ShelledEnemy
     // INIT
     // ========================================================================
 
+
+    // PHASE !!! DASH > Tir durant le reload > attend puis dash, etc
+
     public override void Initiate()
     {
         base.Initiate();

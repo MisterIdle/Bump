@@ -3,8 +3,6 @@ using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
-// CHECK
-
 public partial class Koops : ShelledEnemy
 {
     private enum TypeEnum { Green, Red }
