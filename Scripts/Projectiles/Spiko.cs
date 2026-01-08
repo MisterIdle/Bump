@@ -73,11 +73,4 @@ public partial class Spiko : Spike
             GlobalPosition += velocity * speed * pDelta;
         }
     }
-
-    protected override void Dispose(bool pDisposing)
-    {
-        if (dashSpeedMultiplier > 0) speed /= dashSpeedMultiplier;
-
-        base.Dispose(pDisposing);
-    }
 }

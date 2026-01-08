@@ -1,8 +1,9 @@
-using Godot;
-
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NToolsBox;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
@@ -24,11 +25,13 @@ public partial class Spike : Projectiles
         base.Initiate();
     }
 
-    public static Spike Create(PackedScene pScene, Entity pTarget, Vector2 pPos)
+    public static Spike Create(Node2D pSpikeContainer, PackedScene pScene, Entity pTarget, Vector2 pPos)
     {
         Spike lSpike = (Spike)pScene.Instantiate();
 
-        lSpike.Position = pPos;
+        pSpikeContainer.AddChild(lSpike);
+
+        lSpike.GlobalPosition = pPos;
         lSpike.target = pTarget;
 
         lSpike.Initiate();
@@ -72,10 +75,5 @@ public partial class Spike : Projectiles
             return;
 
         QueueFree();
-    }
-
-    protected override void Dispose(bool pDisposing)
-    {
-        Particule.Create(popScene, GlobalPosition);
     }
 }

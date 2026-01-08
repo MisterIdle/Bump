@@ -16,6 +16,8 @@ public partial class SceneManager : Node
     [Export] private PackedScene gameScene;
     [Export] private PackedScene debugScene;
 
+    [Export] private ParallaxLayer gameLayer;
+
     [Export] private Label debug;
 
     private Node currentScene;
@@ -99,12 +101,6 @@ public partial class SceneManager : Node
         isTransitioning = true;
         float lDuration = 1.5f;
 
-        GameManager lGameManager = GameManager.GetInstance();
-        if (lGameManager != null)
-        {
-            lGameManager.scrollSpeed = 0f;
-        }
-
         Player lPlayer = Player.GetInstance();
         if (lPlayer != null)
             lPlayer.AnimatedDespawn(lDuration);
@@ -112,6 +108,8 @@ public partial class SceneManager : Node
         Camera lCam = Camera.GetInstance();
         if (lCam != null)
         {
+            lCam.isScrolling = false;
+
             transitionTween?.Kill();
             transitionTween = CreateTween();
 
@@ -143,7 +141,7 @@ public partial class SceneManager : Node
 
     private void RemoveScene()
     {
-        RemoveChild(currentScene);
+        gameLayer.RemoveChild(currentScene);
         currentScene.QueueFree();
         currentScene = null;
     }
@@ -165,11 +163,21 @@ public partial class SceneManager : Node
         if (lTargetScene != null)
         {
             currentScene = lTargetScene.Instantiate();
-            AddChild(currentScene);
+            gameLayer.AddChild(currentScene);
             currentSceneType = sceneToLoad;
         }
 
         isTransitioning = false;
+
+        if (currentSceneType == SceneType.Game)
+        {
+            Camera lCam = Camera.GetInstance();
+            if (lCam != null)
+            {
+                lCam.ResetPosition();
+                lCam.isScrolling = true;
+            }
+        }
     }
 
     protected override void Dispose(bool pDisposing)

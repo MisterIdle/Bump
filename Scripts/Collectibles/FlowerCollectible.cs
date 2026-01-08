@@ -4,6 +4,7 @@ using System;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NToolsBox;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 
@@ -40,9 +41,10 @@ public partial class FlowerCollectible : Collectibles
     public static FlowerCollectible Create(PackedScene pScene, Vector2 pPos)
     {
         FlowerCollectible lCollectible = (FlowerCollectible)pScene.Instantiate();
-        lCollectible.Position = pPos;
 
         GameManager.GetInstance().gameContainer.AddChild(lCollectible);
+        lCollectible.GlobalPosition = pPos;
+
         lCollectible.Initiate();
 
         return lCollectible;

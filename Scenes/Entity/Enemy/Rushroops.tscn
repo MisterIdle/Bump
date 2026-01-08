@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://b4qvr8v83bkpl" path="res://Assets/Sprites/RushroopsShell.svg" id="6_e4aot"]
 [ext_resource type="Texture2D" uid="uid://c7qylpeql6dhh" path="res://Assets/Sprites/WingB.svg" id="9_wvkay"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4a4u"]
-size = Vector2(83, 103)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ulede"]
+radius = 91.1661
 
 [node name="Rushroops" type="Area2D" node_paths=PackedStringArray("spikeContainer", "sprite")]
 collision_layer = 2
@@ -38,9 +38,9 @@ hammerScore = 2000
 health = 9
 popScene = ExtResource("3_uicja")
 score = 5000
-direction = 2
-speed = 25.0
-affectedByScroll = true
+direction = 1
+speed = 100.0
+affectedByScroll = false
 sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -77,6 +77,5 @@ scale = Vector2(7, 7)
 position = Vector2(-56, 18)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -15.5)
-shape = SubResource("RectangleShape2D_u4a4u")
+shape = SubResource("CircleShape2D_ulede")

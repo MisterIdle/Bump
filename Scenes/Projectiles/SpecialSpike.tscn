@@ -35,6 +35,7 @@ lifeTime = 99999.0
 popScene = ExtResource("2_1o8py")
 rotationSpeed = 5.0
 speed = 1000.0
+affectedByScroll = false
 sprite = NodePath("Sprite2D")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]

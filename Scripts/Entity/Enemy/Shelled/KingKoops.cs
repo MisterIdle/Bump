@@ -1,15 +1,12 @@
-using Godot;
-
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NMusic;
 using Com.IsartDigital.Shmup.NToolsBox;
-using Com.IsartDigital.Shmup.NHUD;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
-
-// CHECK
 
 public partial class KingKoops : ShelledEnemy
 {
@@ -27,7 +24,7 @@ public partial class KingKoops : ShelledEnemy
     [ExportCategory("Combat Stats")]
     [Export] private float introDuration = 3.0f;
     [Export] private float transitionDuration = 0.4f;
-    [Export] private float screenMargin = -250f;
+    [Export] private float screenMargin = -150f;
     [Export] private float deathDelayDuration = 3.0f;
 
     [ExportCategory("Dash Behavior")]
@@ -89,7 +86,6 @@ public partial class KingKoops : ShelledEnemy
     public override void Initiate()
     {
         base.Initiate();
-        affectedByScroll = false;
 
         actionTimer = new Timer();
         actionTimer.OneShot = true;
@@ -104,26 +100,14 @@ public partial class KingKoops : ShelledEnemy
 
     protected override void AliveUpdate(float pDelta)
     {
-        if (fightActive)
-            movingBasePos += GameManager.scrollSpeedVelocity * pDelta;
-
         Action(pDelta);
+        PhaseAction(pDelta);
 
         base.AliveUpdate(pDelta);
-
-        if (fightActive && currentAction == ActionState.Idle)
-            GlobalPosition = Utils.ClampToScreen(GlobalPosition, screenMargin, screenMargin);
     }
 
     private void OnMusicBeat(TickEvent.BeatTypeBoss pType)
     {
-        if (!fightActive || isDeath || currentPhase >= PhaseState.Final)
-        {
-            if (pType == TickEvent.BeatTypeBoss.Move)
-                DoGrooveAnimation();
-            return;
-        }
-
         switch (pType)
         {
             case TickEvent.BeatTypeBoss.Phase:
@@ -162,14 +146,38 @@ public partial class KingKoops : ShelledEnemy
         }
     }
 
+    bool left;
+
+    private void PhaseAction(float pDelta)
+    {
+        if (!fightActive) return;
+
+        switch (currentPhase)
+        {
+            case PhaseState.Normal:
+                
+                GlobalPosition = Camera.GetInstance().GetScreenRect().GetCenter();
+
+                break;
+            case PhaseState.Aggressive:
+            case PhaseState.Summoning:
+            case PhaseState.Final:
+                velocity.X = 0;
+                break;
+        }
+    }
+
     private void Action(float pDelta)
     {
         switch (currentAction)
         {
             case ActionState.Idle:
                 velocity.Y = angleY;
+
                 if (fightActive)
+                {
                     UpdateIdlePosition(pDelta);
+                }
                 break;
 
             case ActionState.PreDash:
@@ -182,10 +190,12 @@ public partial class KingKoops : ShelledEnemy
 
             case ActionState.Returning:
                 Vector2 lToHome = movingBasePos - GlobalPosition;
-                velocity = lToHome.Normalized() * (returnSpeed + (GameManager.GetInstance().scrollSpeed * returnSpeedScroll));
+                velocity = lToHome.Normalized() * (returnSpeed * returnSpeedScroll * 1000f);
 
                 if (GlobalPosition.DistanceTo(movingBasePos) < returnThresholdDistance)
+                {
                     EndReturn();
+                }
                 break;
         }
     }
@@ -199,12 +209,10 @@ public partial class KingKoops : ShelledEnemy
         SwitchState(EnemyState.Protected, true);
 
         animationTimer = new Timer();
-
         animationTimer.WaitTime = introDuration;
         animationTimer.Timeout += OnIntroFinished;
 
         GameManager.GetInstance().gameContainer.AddChild(animationTimer);
-
         animationTimer.Start();
     }
 
@@ -212,7 +220,6 @@ public partial class KingKoops : ShelledEnemy
     {
         movingBasePos = GlobalPosition;
         fightActive = true;
-        affectedByScroll = true;
 
         animationTimer.Stop();
 
@@ -227,11 +234,24 @@ public partial class KingKoops : ShelledEnemy
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.BossPreExplosion);
 
-        if (currentPhase == PhaseState.Final)
-            EnterPhaseFinal();
+        Rect2 lScreen = Camera.GetInstance().GetScreenRect();
 
-        else if (currentPhase == PhaseState.Summoning)
-            SpawnEntity(koopsScene, GlobalPosition);
+        if (currentPhase == PhaseState.Aggressive || currentPhase == PhaseState.Summoning)
+        {
+            movingBasePos = new Vector2(lScreen.End.X * 0.85f, lScreen.Size.Y * 0.4f);
+            StartReturn();
+        }
+        else if (currentPhase == PhaseState.Final)
+        {
+            movingBasePos = lScreen.GetCenter();
+            StartReturn();
+            EnterPhaseFinal();
+        }
+
+        if (currentPhase == PhaseState.Summoning && currentPhase != PhaseState.Final)
+        {
+            SpawnObject(koopsScene, GlobalPosition);
+        }
     }
 
     private void EnterPhaseFinal()
@@ -247,7 +267,7 @@ public partial class KingKoops : ShelledEnemy
         currentAction = ActionState.Idle;
         shell.SetShellColor(phaseFinalColor);
 
-        SpawnEntity(specialSpikeScene, GlobalPosition, true, true);
+        SpawnObject(specialSpikeScene, GlobalPosition, true, true);
     }
 
     private void EndEvent(AudioManager.AudioType pSound)
@@ -264,7 +284,9 @@ public partial class KingKoops : ShelledEnemy
     {
         head.Rotation = Mathf.LerpAngle(head.Rotation, 0, pDelta * headRotationLerpSpeed);
         if (Mathf.Abs(head.Rotation) < headFlipThreshold && spriteHead != null)
+        {
             spriteHead.FlipV = false;
+        }
     }
 
     private void StartDash()
@@ -275,14 +297,15 @@ public partial class KingKoops : ShelledEnemy
         actionTimer.WaitTime = dashRecoilDuration;
         actionTimer.Start();
 
-        affectedByScroll = false;
         facePlayer = false;
 
         currentState = EnemyState.Protected;
         ApplyTransformInstant(EnemyState.Protected);
 
         if (currentPhase == PhaseState.Summoning)
-            SpawnEntity(koopsScene, GlobalPosition);
+        {
+            SpawnObject(koopsScene, GlobalPosition);
+        }
 
         Vector2 lPlayerPos = Player.GetInstance().GlobalPosition;
         dashDirection = Utils.DirectionTo(GlobalPosition, lPlayerPos);
@@ -320,26 +343,25 @@ public partial class KingKoops : ShelledEnemy
         currentAction = ActionState.Idle;
         velocity = Vector2.Zero;
         GlobalPosition = movingBasePos;
-        affectedByScroll = true;
 
         ApplyTransformInstant(EnemyState.Protected);
     }
 
-    private void SpawnEntity(PackedScene pScene, Vector2 pPos, bool pIsSpike = false, bool pPlaySound = false)
+    private void SpawnObject(PackedScene pScene, Vector2 pPos, bool pIsSpike = false, bool pPlaySound = false)
     {
         if (pPlaySound)
+        {
             AudioManager.GetInstance().Play(AudioManager.AudioType.BossShoot);
+        }
 
         if (pIsSpike)
         {
-            Spike lSpike = Spike.Create(pScene, Player.GetInstance(), pPos);
-            lSpike.isActive = true;
-            GameManager.GetInstance().projectilesContainer.AddChild(lSpike);
+            Spike lFinalSpike = Spike.Create(spikeContainer, pScene, Player.GetInstance(), pPos);
+            lFinalSpike.isActive = true;
         }
         else
         {
             Koops lKoops = Koops.Create(pScene, pPos);
-            GameManager.GetInstance().enemyContainer.AddChild(lKoops);
             lKoops.Initiate();
         }
     }
@@ -351,10 +373,14 @@ public partial class KingKoops : ShelledEnemy
         currentState = pNewState;
         shellProjectileProtect = (currentState != EnemyState.Outside);
 
-        if (pInstant) 
+        if (pInstant)
+        {
             ApplyTransformInstant(currentState);
-        else 
+        }
+        else
+        {
             AnimateParts(currentState);
+        }
     }
 
     private void ApplyTransformInstant(EnemyState pState)
@@ -439,10 +465,13 @@ public partial class KingKoops : ShelledEnemy
         int lDamage;
 
         if (pArea.Owner is Hammer)
+        {
             lDamage = Hammer.GetInstance().attackForce;
+        }
         else
+        {
             lDamage = 1;
-
+        }
 
         EntityHit(lDamage);
         shell.ShellDamageAnimation();

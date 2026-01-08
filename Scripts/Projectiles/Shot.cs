@@ -24,10 +24,11 @@ public partial class Shot : Projectiles
     public static Shot Create(PackedScene pScene, Vector2 pPos, Vector2 pWay, float pAngle = 0)
     {
         Shot lShot = (Shot)pScene.Instantiate();
+        
+        GameManager.GetInstance().gameContainer.AddChild(lShot);
+        lShot.GlobalPosition = pPos;
 
-        lShot.Position = pPos;
         lShot.SetInitialMovement(pAngle, pWay);
-
         lShot.Initiate();
 
         return lShot;
@@ -49,6 +50,5 @@ public partial class Shot : Projectiles
     {
         base.OnCollide(pArea);
         QueueFree();
-        Particule.Create(popScene, Position);
     }
 }

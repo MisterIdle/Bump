@@ -17,9 +17,10 @@ public partial class PowCollectible : Collectibles
     public static PowCollectible Create(PackedScene pScene, Vector2 pPos)
     {
         PowCollectible lCollectible = (PowCollectible)pScene.Instantiate();
-        lCollectible.Position = pPos;
 
         GameManager.GetInstance().gameContainer.AddChild(lCollectible);
+        lCollectible.GlobalPosition = pPos;
+
         lCollectible.Initiate();
 
         return lCollectible;

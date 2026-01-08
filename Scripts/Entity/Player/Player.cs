@@ -1,5 +1,4 @@
 using Godot;
-
 using Com.IsartDigital.Shmup.NData;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NHUD;
@@ -8,8 +7,6 @@ using Com.IsartDigital.Shmup.NStats;
 using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
-
-// Check
 
 public partial class Player : Entity
 {
@@ -339,14 +336,15 @@ public partial class Player : Entity
         Effect.SquashStretch(sprite, baseSpriteScale, true, false, 0.8f, 1f);
 
         float lSpreadRad = Mathf.DegToRad(lShotData.spreadAngle);
-        float lRandomAngle = (float)GD.RandRange(-lSpreadRad, lSpreadRad);
+        float lRandomAngle = GameManager.rand.RandfRange(-lSpreadRad, lSpreadRad);
+
+        Node lContainer = GameManager.GetInstance().gameContainer;
 
         Shot lShot = Shot.Create(lShotData.shotScene, muzzle.GlobalPosition, Vector2.Right);
 
         if (lShot is Movable lMovableShot)
             lMovableShot.speed = lShotData.speed;
 
-        GameManager.GetInstance().gameContainer.AddChild(lShot);
         lastShot = lShot;
     }
 
@@ -363,7 +361,7 @@ public partial class Player : Entity
         if (lShotData == null) 
             return false;
 
-        return lastShot.Position.X - Position.X > lShotData.minSpaceBetweenShots;
+        return lastShot.GlobalPosition.X - GlobalPosition.X > lShotData.minSpaceBetweenShots;
     }
 
     private void Pow()
@@ -383,30 +381,30 @@ public partial class Player : Entity
     {
         if (currentState == State.Spawn) return;
 
-        Vector2 lOut = Utils.OutOfBoundAxes(Position, MARGIN, MARGIN);
-
-        if (lOut == Vector2.Zero) return;
-
         if (isDeath)
         {
-            if (!isOutSide && lOut.Y > 0)
+            if (Utils.IsOutOfBound(Position, MARGIN))
             {
-                isOutSide = true;
-                TriggerGameOverSequence();
+                if (!isOutSide)
+                {
+                    isOutSide = true;
+                    TriggerGameOverSequence();
+                }
             }
             return;
         }
 
-        Vector2 lKnockbackDir = Vector2.Zero;
+        Vector2 lClampedPosition = Utils.ClampToScreen(Position, MARGIN);
 
-        if (lOut.X != 0) 
-            lKnockbackDir.X = -lOut.X;
-
-        if (lOut.Y != 0) 
-            lKnockbackDir.Y = -lOut.Y;
-
-        ApplyKnockback(backDash, lKnockbackDir);
-        HitCheckInvincible();
+        if (Position != lClampedPosition)
+        {
+            Vector2 lKnockbackDir = Utils.DirectionTo(Position, lClampedPosition);
+            
+            Position = lClampedPosition;
+            
+            ApplyKnockback(backDash, lKnockbackDir);
+            HitCheckInvincible();
+        }
     }
 
     public void LevelUp(bool pUp)

@@ -132,7 +132,7 @@ public partial class ShelledEnemy : Enemy
             float lAngle = lStartAngle + (i * lAngleStep);
             Vector2 lPos = new Vector2(Mathf.Cos(lAngle) * spikeRadius, Mathf.Sin(lAngle) * spikeRadius);
 
-            Spike lSpike = Spike.Create(spikeScene, Player.GetInstance(), lPos);
+            Spike lSpike = Spike.Create(spikeContainer, spikeScene, Player.GetInstance(), lPos);
             lSpike.Rotation = lAngle;
             lSpike.sprite.SelfModulate = spikeBaseColor;
 
@@ -140,8 +140,6 @@ public partial class ShelledEnemy : Enemy
                 spikesList[i] = lSpike;
             else
                 spikesList.Add(lSpike);
-
-            spikeContainer.AddChild(lSpike);
 
             lSpike.lifeTimer.Stop();
 
@@ -296,10 +294,10 @@ public partial class ShelledEnemy : Enemy
 
     protected override void OnCollide(Area2D pArea)
     {
-        if (!shellProjectileProtect)
+        if (!shellProjectileProtect || pArea.Owner is Hammer)
         {
             base.OnCollide(pArea);
-            shell?.ShellProtectAnimation();
+            shell?.ShellDamageAnimation();
         }
 
         if (pArea is Projectiles)

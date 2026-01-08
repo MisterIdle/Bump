@@ -21,40 +21,33 @@ public static class Utils
         return Mathf.RadToDeg((pTo - pFrom).Angle());
     }
 
-    public static Vector2 OutOfBoundAxes(Vector2 pPos, float pMarginX = 0, float pMarginY = 0)
+    // ========================================================================
+    // SCREEN UTILS
+    // ========================================================================
+
+    public static bool IsOutOfBound(Vector2 pPos, float pMargin = 0, bool pCheckX = true, bool pCheckY = true)
     {
-        Vector2 lAxes = Vector2.Zero;
+        Rect2 lScreen = Camera.GetInstance().GetScreenRect();
 
-        Camera lCam = Camera.GetInstance();
-        if (lCam == null) return lAxes;
+        if (pMargin != 0)
+            lScreen = lScreen.Grow(pMargin);
 
-        Vector2 lViewportSize = GameManager.GetInstance().GetViewportRect().Size;
-        Vector2 lTopLeft = lCam.GetScreenCenterPosition() - (lViewportSize / 2);
+        bool lIsOutX = pPos.X < lScreen.Position.X || pPos.X > lScreen.End.X;
+        bool lIsOutY = pPos.Y < lScreen.Position.Y || pPos.Y > lScreen.End.Y;
 
-        if (pPos.X < lTopLeft.X - pMarginX)
-            lAxes.X = -1;
-        else if (pPos.X > lTopLeft.X + lViewportSize.X + pMarginX)
-            lAxes.X = 1;
-
-        if (pPos.Y < lTopLeft.Y - pMarginY)
-            lAxes.Y = -1;
-        else if (pPos.Y > lTopLeft.Y + lViewportSize.Y + pMarginY)
-            lAxes.Y = 1;
-
-        return lAxes;
+        return (pCheckX && lIsOutX) || (pCheckY && lIsOutY);
     }
 
-    public static Vector2 ClampToScreen(Vector2 pPos, float pMarginX = 0, float pMarginY = 0)
+    public static Vector2 ClampToScreen(Vector2 pPos, float pMargin = 0)
     {
-        Camera lCam = Camera.GetInstance();
-        if (lCam == null) return pPos;
+        Rect2 lScreen = Camera.GetInstance().GetScreenRect();
 
-        Vector2 lViewportSize = GameManager.GetInstance().GetViewportRect().Size;
-        Vector2 lTopLeft = lCam.GetScreenCenterPosition() - (lViewportSize / 2);
+        if (pMargin != 0) 
+            lScreen = lScreen.Grow(pMargin);
 
-        float lClampX = Mathf.Clamp(pPos.X, lTopLeft.X + pMarginX, lTopLeft.X + lViewportSize.X - pMarginX);
-        float lClampY = Mathf.Clamp(pPos.Y, lTopLeft.Y + pMarginY, lTopLeft.Y + lViewportSize.Y - pMarginY);
+        pPos.X = Mathf.Clamp(pPos.X, lScreen.Position.X, lScreen.End.X);
+        pPos.Y = Mathf.Clamp(pPos.Y, lScreen.Position.Y, lScreen.End.Y);
 
-        return new Vector2(lClampX, lClampY);
+        return pPos;
     }
 }

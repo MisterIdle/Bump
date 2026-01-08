@@ -35,6 +35,7 @@ lifeTime = 25.0
 popScene = ExtResource("2_jkt41")
 rotationSpeed = 0.7
 speed = 400.0
+affectedByScroll = false
 sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

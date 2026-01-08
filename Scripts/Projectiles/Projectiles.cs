@@ -1,7 +1,7 @@
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
 using Godot;
 using System.Collections.Generic;
-
-using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
@@ -49,5 +49,10 @@ public partial class Projectiles : Movable
         if (!IsInstanceValid(this) || IsQueuedForDeletion()) return;
 
         CallDeferred(MethodName.QueueFree);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        Particule.Create(popScene, GlobalPosition);
     }
 }

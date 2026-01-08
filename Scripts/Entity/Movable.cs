@@ -1,5 +1,4 @@
 using Godot;
-
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NToolsBox;
 
@@ -16,7 +15,9 @@ public partial class Movable : GameObject
 
     [ExportCategory("Speed")]
     [Export] public float speed;
-    [Export] public bool affectedByScroll;
+
+    [Export] public bool affectedByScroll = true;
+
     [Export] private float lerpFactor = 0.05f;
 
     [ExportCategory("Oscillation")]
@@ -46,19 +47,22 @@ public partial class Movable : GameObject
 
     protected override void Update(float pDelta)
     {
-        pDelta = ScaleTime.GetDelta(pDelta);
-        elapsedTime += pDelta;
+        float lGameDelta = ScaleTime.GetDelta(pDelta);
+        elapsedTime += lGameDelta;
 
         Vector2 lTargetVelocity = velocity * speed;
 
         angleX = Mathf.Sin(elapsedTime * frequency) * amplitude;
         angleY = Mathf.Cos(elapsedTime * frequency) * amplitude;
 
-        if (affectedByScroll)
-            lTargetVelocity += GameManager.scrollSpeedVelocity;
-
         currentVelocity = currentVelocity.Lerp(lTargetVelocity, lerpFactor);
-        Position += currentVelocity * pDelta;
+
+        Vector2 lMotion = currentVelocity * lGameDelta;
+
+        if (affectedByScroll)
+            lMotion.X += Camera.GetInstance().scrollSpeed * lGameDelta;
+
+        GlobalPosition += lMotion;
     }
 
     // ========================================================================
@@ -75,8 +79,10 @@ public partial class Movable : GameObject
             case MoveDirection.Right:
                 velocity = Vector2.Right;
                 break;
-            default:
+            case MoveDirection.None:
                 velocity = Vector2.Zero;
+                break;
+            default:
                 break;
         }
 

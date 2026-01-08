@@ -62,10 +62,10 @@ health = 100
 popScene = ExtResource("2_3do05")
 score = 15000
 direction = 1
-speed = 50.0
-affectedByScroll = true
-frequency = 5.0
-amplitude = 5.0
+speed = 100.0
+affectedByScroll = false
+frequency = 0.0
+amplitude = 0.0
 sprite = NodePath("Sprite")
 
 [node name="Music" type="Node2D" parent="."]

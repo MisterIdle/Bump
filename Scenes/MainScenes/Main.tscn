@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://xglysqus4mmt"]
+[gd_scene load_steps=34 format=3 uid="uid://xglysqus4mmt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
 [ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/UI/Parallax.tscn" id="2_ajko8"]
 [ext_resource type="PackedScene" uid="uid://eijl1ptqfcr5" path="res://Scenes/MainScenes/InGame.tscn" id="2_ppwvp"]
+[ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="4_7q78q"]
 [ext_resource type="PackedScene" uid="uid://y0p204y3sd1g" path="res://Scenes/LevelDesign/Menu.tscn" id="4_go1sy"]
 [ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="5_xyu4v"]
 [ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="8_etrpp"]
@@ -31,6 +32,12 @@
 [ext_resource type="AudioStream" uid="uid://cjk5su63pas8a" path="res://Assets/Audio/Music/level_loop.wav" id="30_aoy5c"]
 [ext_resource type="AudioStream" uid="uid://8uvq7rajeufg" path="res://Assets/Audio/Music/boss_loop.wav" id="31_2n0gp"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_sgn7q"]
+font = ExtResource("5_xyu4v")
+font_size = 25
+outline_size = 3
+outline_color = Color(1, 0, 0, 1)
+
 [sub_resource type="Environment" id="Environment_k772t"]
 background_mode = 3
 glow_enabled = true
@@ -43,17 +50,34 @@ adjustment_enabled = true
 adjustment_contrast = 1.05
 adjustment_saturation = 1.2
 
-[sub_resource type="LabelSettings" id="LabelSettings_sgn7q"]
-font = ExtResource("5_xyu4v")
-font_size = 25
-outline_size = 3
-outline_color = Color(1, 0, 0, 1)
-
-[node name="Main" type="Node2D" node_paths=PackedStringArray("debug")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("gameLayer", "debug")]
 script = ExtResource("1_ij506")
 gameScene = ExtResource("2_ppwvp")
 debugScene = ExtResource("8_l7wn5")
+gameLayer = NodePath("Background/Game")
 debug = NodePath("Background/Info")
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+position_smoothing_enabled = true
+editor_draw_drag_margin = true
+script = ExtResource("4_7q78q")
+
+[node name="Background" parent="." instance=ExtResource("2_ajko8")]
+
+[node name="Info" type="Label" parent="Background"]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -792.0
+offset_right = 1022.0
+offset_bottom = -751.0
+grow_vertical = 0
+text = "DEBUG MENU (IN GAME ONLY)"
+label_settings = SubResource("LabelSettings_sgn7q")
+vertical_alignment = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k772t")
@@ -80,19 +104,3 @@ levelMusic = ExtResource("30_aoy5c")
 bossMusic = ExtResource("31_2n0gp")
 
 [node name="Menu" parent="." instance=ExtResource("4_go1sy")]
-
-[node name="Background" parent="." instance=ExtResource("2_ajko8")]
-
-[node name="Info" type="Label" parent="Background"]
-visible = false
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = -792.0
-offset_right = 1022.0
-offset_bottom = -751.0
-grow_vertical = 0
-text = "DEBUG MENU (IN GAME ONLY)"
-label_settings = SubResource("LabelSettings_sgn7q")
-vertical_alignment = 1

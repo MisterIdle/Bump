@@ -87,7 +87,6 @@ invincibleTime = 2.0
 popScene = ExtResource("3_20icr")
 score = 0
 speed = 400.0
-affectedByScroll = true
 amplitude = 0.2
 sprite = NodePath("Propyot")
 

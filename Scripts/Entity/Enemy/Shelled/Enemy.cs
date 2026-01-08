@@ -41,8 +41,7 @@ public partial class Enemy : Entity
 
         globalPlayerDistance = Utils.DistanceTo(this, Player.GetInstance());
 
-        Vector2 lOutAxis = Utils.OutOfBoundAxes(Position, outOfBoundMargin, outOfBoundMargin);
-        if (lOutAxis != Vector2.Zero && this is not KingKoops)
+        if (Utils.IsOutOfBound(Position, outOfBoundMargin) && this is not KingKoops)
         {
             health = 0;
             QueueFree();

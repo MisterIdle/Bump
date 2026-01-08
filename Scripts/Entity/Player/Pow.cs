@@ -20,8 +20,6 @@ public partial class Pow : GameObject
 
     [Export] private PackedScene pop;
 
-    private int index;
-
     private Vector2 targetPosition;
 
     // ========================================================================
@@ -30,6 +28,7 @@ public partial class Pow : GameObject
 
     public override void _Ready()
     {
+        base._Ready();
         StartEntranceAnimation();
     }
 
@@ -37,15 +36,18 @@ public partial class Pow : GameObject
     {
         Pow lPow = (Pow)pScene.Instantiate();
 
-        Vector2 lScreenCenter = GameManager.GetInstance().screenSizeCenterX;
+        Rect2 lScreen = Camera.GetInstance().GetScreenRect();
+        Vector2 lCenter = lScreen.GetCenter();
 
-        float lSpawnY = (GameManager.rand.Randf() < 0.5f) ? -lPow.minSpawnOffset : GameManager.GetInstance().screenSize.Y + lPow.minSpawnOffset;
-        float lSpawnX = lScreenCenter.X;
+        float lSpawnY;
+        if (GameManager.rand.Randf() < 0.5f)
+            lSpawnY = lScreen.Position.Y - lPow.minSpawnOffset;
+        else
+            lSpawnY = lScreen.End.Y + lPow.minSpawnOffset;
 
-        lPow.Position = new Vector2(lSpawnX, lSpawnY);
+        lPow.Position = new Vector2(lCenter.X, lSpawnY);
 
-        float lTargetY = GameManager.GetInstance().screenSize.Y / 2;
-        lPow.targetPosition = new Vector2(lScreenCenter.X + lPow.entranceXOffsetTarget, lTargetY);
+        lPow.targetPosition = new Vector2(lCenter.X + lPow.entranceXOffsetTarget, lCenter.Y);
 
         lPow.Initiate();
 
@@ -61,6 +63,7 @@ public partial class Pow : GameObject
         Tween lShowTween = CreateTween();
 
         Vector2 lEntrancePos = targetPosition + new Vector2(0, entranceMore);
+
         lShowTween.TweenProperty(this, (string)PropertyName.Position, lEntrancePos, dropDuration * 0.7f)
               .SetTrans(Tween.TransitionType.Sine)
               .SetEase(Tween.EaseType.Out);

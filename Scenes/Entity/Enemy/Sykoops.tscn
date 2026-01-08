@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cay1l5qagqn4h" path="res://Assets/Sprites/WingC.svg" id="9_5svoe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_memyj"]
-radius = 55.6529
+radius = 79.0569
 
 [node name="Sykoops" type="Area2D" node_paths=PackedStringArray("spikeContainer", "sprite")]
 collision_layer = 2
@@ -27,12 +27,14 @@ useSpikes = true
 spikeScene = ExtResource("2_0qrcg")
 spikeContainer = NodePath("Shell/Spike")
 spikeRadius = 50.0
+fireRate = 1.5
+reloadTime = 1.0
 spikeSizeMultiplier = 2.2
 health = 9
 popScene = ExtResource("3_g7d3s")
 score = 10000
-speed = 250.0
-affectedByScroll = true
+direction = 1
+speed = 100.0
 amplitude = 0.3
 sprite = NodePath("Sprite")
 
@@ -63,6 +65,5 @@ position = Vector2(-6.66667, 68.4411)
 scale = Vector2(7, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_memyj")

@@ -1,3 +1,4 @@
+using Com.IsartDigital.Shmup.NManager;
 using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
@@ -24,6 +25,9 @@ public partial class Koops : ShelledEnemy
     public static Koops Create(PackedScene pScene, Vector2 pPos)
     {
         Koops lKoops = (Koops)pScene.Instantiate();
+
+        GameManager.GetInstance().enemyContainer.AddChild(lKoops);
+
         lKoops.GlobalPosition = pPos;
         return lKoops;
     }

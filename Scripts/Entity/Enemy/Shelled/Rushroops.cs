@@ -40,13 +40,6 @@ public partial class Rushroops : ShelledEnemy
         StartSpike();
     }
 
-    public static Rushroops Create(PackedScene pScene, Vector2 pPos)
-    {
-        Rushroops lRushroops = (Rushroops)pScene.Instantiate();
-        lRushroops.GlobalPosition = pPos;
-        return lRushroops;
-    }
-
     // ========================================================================
     // UPDATE
     // ========================================================================

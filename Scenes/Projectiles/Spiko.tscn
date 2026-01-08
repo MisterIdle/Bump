@@ -37,6 +37,7 @@ lifeTime = 15.0
 popScene = ExtResource("2_5aqwd")
 rotationSpeed = 10.0
 speed = 600.0
+affectedByScroll = false
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

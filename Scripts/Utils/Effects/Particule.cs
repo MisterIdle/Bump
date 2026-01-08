@@ -1,16 +1,11 @@
-using Godot;
-using System;
-
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NManager;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NToolsBox;
 
 public partial class Particule : GpuParticles2D
 {
-    // ========================================================================
-    // INIT
-    // ========================================================================
-
     public override void _Ready()
     {
         Emitting = true;
@@ -21,8 +16,8 @@ public partial class Particule : GpuParticles2D
     {
         Particule lParticule = (Particule)pScene.Instantiate();
 
-        lParticule.Position = pPos;
         GameManager.GetInstance().gameContainer.AddChild(lParticule);
+        lParticule.Position = pPos;
 
         return lParticule;
     }

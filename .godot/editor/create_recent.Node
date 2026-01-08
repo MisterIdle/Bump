@@ -1,6 +1,6 @@
+ParallaxLayer
 CollisionShape2D
 Area2D
-ParallaxLayer
 HBoxContainer
 VBoxContainer
 Label

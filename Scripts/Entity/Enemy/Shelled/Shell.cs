@@ -9,7 +9,7 @@ public partial class Shell : Sprite2D
     [Export] public float protectAnimTime = 0.1f;
     [Export] public float damageAnimAngle = 10f;
     [Export] public float damageAnimTime = 0.05f;
-    [Export] public float destructionDistance = 0.05f;
+    [Export] public float destructionDistance = 0.03f;
     [Export] public float destructionPosTime = 0.2f;
 
     private float baseShellRotation = 0f;

@@ -28,7 +28,6 @@ script = ExtResource("1_23rss")
 popScene = ExtResource("2_tdqh7")
 direction = 2
 speed = 500.0
-affectedByScroll = true
 sprite = NodePath("Sprite2D")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]

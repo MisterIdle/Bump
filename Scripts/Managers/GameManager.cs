@@ -6,10 +6,6 @@ namespace Com.IsartDigital.Shmup.NManager;
 
 public partial class GameManager : Node2D
 {
-    [ExportCategory("Scroll")]
-    [Export] public float scrollSpeed = 250f;
-    public static Vector2 scrollSpeedVelocity;
-
     [ExportCategory("Base enable")]
     [Export] public GameObject[] forceEnable;
 
@@ -21,9 +17,6 @@ public partial class GameManager : Node2D
     [Export] public Node2D gameContainer;
     [Export] public Node2D projectilesContainer;
     [Export] public Node2D enemyContainer;
-
-    public Vector2 screenSize;
-    public Vector2 screenSizeCenterX;
 
     public static RandomNumberGenerator rand = new RandomNumberGenerator();
 
@@ -53,28 +46,14 @@ public partial class GameManager : Node2D
     }
 
     // ========================================================================
-    // UPDATE
-    // ========================================================================
-
-    public override void _Process(double pDelta)
-    {
-        Vector2 lViewportSize = GetViewportRect().Size;
-        Vector2 lCameraPos = Camera.GetInstance().GlobalPosition;
-
-        screenSize = lViewportSize + lCameraPos;
-        screenSizeCenterX = new Vector2(lCameraPos.X + (lViewportSize.X / 2), 0);
-
-        scrollSpeedVelocity = Vector2.Right * scrollSpeed;
-    }
-
-    // ========================================================================
     // COLLECTIBLE
     // ========================================================================
 
     public static void CreateHealthCollectible(Vector2 pPos)
     {
         GameManager lSelf = GetInstance();
-        lSelf.CallDeferred(nameof(CallCreateHealthCollectible), pPos);
+        if (lSelf != null)
+            lSelf.CallDeferred(nameof(CallCreateHealthCollectible), pPos);
     }
 
     private void CallCreateHealthCollectible(Vector2 pPos)
@@ -82,7 +61,9 @@ public partial class GameManager : Node2D
         int lChance = rand.RandiRange(0, 100);
 
         if (lChance < healthPercent)
+        {
             HeartCollectible.Create(healthScene, pPos);
+        }
     }
 
     protected override void Dispose(bool pDisposing)

@@ -1,15 +1,13 @@
-[gd_scene load_steps=32 format=3 uid="uid://c16bdke1sxf5b"]
+[gd_scene load_steps=30 format=3 uid="uid://c16bdke1sxf5b"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Help.cs" id="1_ri3yv"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/UpDownControl.cs" id="2_nf2hw"]
 [ext_resource type="Texture2D" uid="uid://dlqsadwi6sql2" path="res://Assets/Sprites/Square.svg" id="2_y6gg7"]
 [ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="3_1uv68"]
-[ext_resource type="Texture2D" uid="uid://dcn073f6lvho8" path="res://Assets/Sprites/Xbox Series/xbox_button_b.png" id="5_evhpa"]
 [ext_resource type="Texture2D" uid="uid://1qh4cluyloxy" path="res://Assets/Sprites/Xbox Series/xbox_button_color_a.png" id="5_ss55s"]
 [ext_resource type="Script" path="res://Scripts/UI/SwitchImage.cs" id="6_krie2"]
 [ext_resource type="Texture2D" uid="uid://bdvw2gse642ew" path="res://Assets/Sprites/Keyboard & Mouse/keyboard.png" id="7_bpus6"]
 [ext_resource type="Texture2D" uid="uid://blbx8lr00a7to" path="res://Assets/Sprites/Xbox Series/controller_xboxone.png" id="8_k8ekm"]
-[ext_resource type="Texture2D" uid="uid://dl6akcudfu4wc" path="res://Assets/Sprites/Xbox Series/controller_xboxseries.png" id="9_6r34v"]
 [ext_resource type="Texture2D" uid="uid://do205pj2a7xn7" path="res://Assets/Sprites/Xbox Series/xbox_button_color_a_outline.png" id="9_63pif"]
 [ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="9_t4tf8"]
 [ext_resource type="Texture2D" uid="uid://b2c55sid55fq1" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_arrows_horizontal.png" id="10_tpwlp"]
@@ -100,13 +98,12 @@ alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Global/Back2/What"]
 layout_mode = 2
-texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("7_bpus6")
 keyboardIconB = ExtResource("7_bpus6")
 controllerIconA = ExtResource("8_k8ekm")
-_controllerIconB = ExtResource("9_6r34v")
+_controllerIconB = ExtResource("8_k8ekm")
 
 [node name="Move" type="HBoxContainer" parent="Global/Back2"]
 layout_mode = 0
@@ -118,7 +115,6 @@ alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Global/Back2/Move"]
 layout_mode = 2
-texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("10_tpwlp")
@@ -150,7 +146,6 @@ vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Global/Back2/Special"]
 layout_mode = 2
-texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("15_3hapl")
@@ -168,7 +163,6 @@ alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Global/Back2/Shot"]
 layout_mode = 2
-texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("19_kbdt1")
@@ -200,7 +194,6 @@ vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Global/Back2/Bombe"]
 layout_mode = 2
-texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("23_l20yd")
@@ -226,7 +219,6 @@ vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Global/Back2/GodMod"]
 layout_mode = 2
-texture = ExtResource("5_evhpa")
 expand_mode = 3
 script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("27_wnshb")

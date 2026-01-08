@@ -44,7 +44,7 @@ swingDuration = 1.0
 radius = 11.4018
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iyntb"]
-size = Vector2(221.461, 158.578)
+size = Vector2(262.716, 174.742)
 
 [node name="Hammer" type="Area2D" node_paths=PackedStringArray("progressBar", "collision", "sprite")]
 script = ExtResource("1_80qmo")
@@ -60,7 +60,6 @@ shape = SubResource("CircleShape2D_sisb5")
 disabled = true
 
 [node name="Stick" type="Sprite2D" parent="."]
-visible = false
 self_modulate = Color(1, 0.587438, 0.34091, 1)
 position = Vector2(-0.215406, -1.83105e-05)
 rotation = 2.0944
@@ -101,8 +100,8 @@ position = Vector2(-2.37824, 432.627)
 scale = Vector2(2.13333, 3.65714)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stick/Hammer/HammerCollision"]
-visible = false
-position = Vector2(0.999997, -91.711)
+position = Vector2(1, -91.711)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_iyntb")
 disabled = true
 
