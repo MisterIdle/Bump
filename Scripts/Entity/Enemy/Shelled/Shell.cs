@@ -5,18 +5,28 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 public partial class Shell : Sprite2D
 {
+    [ExportGroup("Animation Settings")]
     [Export] public float protectAnimAngle = 20f;
     [Export] public float protectAnimTime = 0.1f;
+
     [Export] public float damageAnimAngle = 10f;
     [Export] public float damageAnimTime = 0.05f;
+
     [Export] public float destructionDistance = 0.03f;
     [Export] public float destructionPosTime = 0.2f;
+
+    [ExportGroup("Color Settings")]
+    [Export] public float colorTransitionDuration = 0.2f;
+    [Export] public float damageFlashDuration = 0.1f;
 
     private float baseShellRotation = 0f;
     private ShaderMaterial material;
     private Color baseColor;
 
+    private Tween colorTween;
+
     private const string COLOR_CONST = "New";
+    private const string SHADER_PARAM_PATH = "shader_parameter/" + COLOR_CONST;
 
     // ========================================================================
     // INIT
@@ -26,6 +36,11 @@ public partial class Shell : Sprite2D
     {
         CheckMaterial();
         baseShellRotation = RotationDegrees;
+
+        if (material != null)
+        {
+            baseColor = (Color)material.GetShaderParameter(COLOR_CONST);
+        }
     }
 
     private void CheckMaterial()
@@ -43,17 +58,23 @@ public partial class Shell : Sprite2D
     // ANIMATION & COLORS
     // ========================================================================
 
-    private void ChangeShellColor(Color pColor)
+    private void ShellColor(Color pTargetColor, float pDuration)
     {
         CheckMaterial();
-        material?.SetShaderParameter(COLOR_CONST, pColor);
+        if (material == null) return;
+
+        colorTween?.Kill();
+        colorTween = CreateTween();
+
+        colorTween.TweenProperty(material, SHADER_PARAM_PATH, pTargetColor, pDuration)
+                  .SetTrans(Tween.TransitionType.Sine)
+                  .SetEase(Tween.EaseType.Out);
     }
 
     public void SetShellColor(Color pColor)
     {
-        CheckMaterial();
         baseColor = pColor;
-        material?.SetShaderParameter(COLOR_CONST, pColor);
+        ShellColor(baseColor, colorTransitionDuration);
     }
 
     public void ShellProtectAnimation()
@@ -71,13 +92,14 @@ public partial class Shell : Sprite2D
     public void ShellDamageAnimation()
     {
         Tween lDamageTween = CreateTween();
-        ChangeShellColor(Colors.DarkRed);
+
+        ShellColor(Colors.DarkRed, damageFlashDuration);
 
         lDamageTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation + damageAnimAngle, damageAnimTime);
         lDamageTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation - damageAnimAngle, damageAnimTime);
         lDamageTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation, damageAnimTime);
 
-        lDamageTween.Finished += () => ChangeShellColor(baseColor);
+        lDamageTween.Finished += () => ShellColor(baseColor, colorTransitionDuration);
     }
 
     public void ShellDestructionAnimation()
@@ -88,6 +110,7 @@ public partial class Shell : Sprite2D
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 
-        lDestructionTween.Finished += () => ChangeShellColor(Colors.Gray);
+        // Transition vers le gris
+        lDestructionTween.Finished += () => ShellColor(Colors.Gray, colorTransitionDuration);
     }
 }

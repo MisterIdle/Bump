@@ -75,11 +75,10 @@ public partial class Player : Entity
     private Tween spawnTween;
     private Tween wobbleTween;
 
-    // IMPORTANT : lastShot peut contenir une référence vers un objet détruit
     private Shot lastShot;
     private Timer movementTimer;
 
-    private const int MARGIN = 50;
+    private const int MARGIN = -15;
 
     public static Player GetInstance()
     {
@@ -156,13 +155,9 @@ public partial class Player : Entity
         hammer.Attack(pDelta);
         Move(pDelta);
         UpdateRotation(pDelta);
-    }
 
-    public override void _Input(InputEvent pEvent)
-    {
-        if (isDeath || !IsInstanceValid(this)) return;
 
-        if (currentState != State.Knockback && currentState != State.Spawn)
+        if (currentState != State.Spawn)
         {
             if (Input.IsActionJustPressed(Property.INPUT_SMARTBOMB))
                 Pow();
@@ -170,7 +165,10 @@ public partial class Player : Entity
             if (CanFire())
                 Fire();
         }
+    }
 
+    public override void _Input(InputEvent pEvent)
+    {
         if (Input.IsActionJustPressed(Property.INPUT_GOD))
             ToggleGodMode();
 
@@ -340,12 +338,6 @@ public partial class Player : Entity
 
         Shot lShot = Shot.Create(lShotData.shotScene, muzzle.GlobalPosition, Vector2.Right);
 
-        if (!IsInstanceValid(lShot) || !lShot.IsInsideTree())
-        {
-            lastShot = null;
-            return;
-        }
-
         if (lShot is Movable lMovableShot)
             lMovableShot.speed = lShotData.speed;
 
@@ -357,25 +349,19 @@ public partial class Player : Entity
         if (!Input.IsActionPressed(Property.INPUT_SHOT) || hammer.isActif)
             return false;
 
-        if (!IsInstanceValid(lastShot))
-            return true;
-
-        if (lastShot.IsQueuedForDeletion())
-            return true;
-
-        if (!lastShot.IsInsideTree())
-            return true;
-
-        if (!IsInsideTree())
-            return false;
-
         PlayerShotData lShotData = GetCurrentShotData();
         if (lShotData == null)
             return false;
 
-        return lastShot.Position.X - Position.X > lShotData.minSpaceBetweenShots;
-    }
+        if (!IsInstanceValid(lastShot) || !lastShot.IsInsideTree())
+        {
+            lastShot = null;
+            return true;
+        }
 
+        float lDistance = lastShot.GlobalPosition.X - muzzle.GlobalPosition.X;
+        return lDistance > lShotData.minSpaceBetweenShots;
+    }
 
 
     private void Pow()
@@ -394,7 +380,7 @@ public partial class Player : Entity
     private void OutOfBound()
     {
         if (currentState == State.Spawn) return;
-
+        
         if (isDeath)
         {
             if (Utils.IsOutOfBound(Position, MARGIN))

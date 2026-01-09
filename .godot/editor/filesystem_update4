@@ -19,6 +19,8 @@ res://Scenes/Entity/Player/Hammer.tscn
 res://Scenes/Entity/Enemy/Koops.tscn
 res://Scenes/Entity/Enemy/Sykoops.tscn
 res://Scenes/Entity/Enemy/Rushroops.tscn
+res://Scenes/Entity/Accessory/Pall.tscn
+res://Scenes/Projectiles/SpecialSpike.tscn
 res://Scripts/Entity/Player/PlayerLevelData.cs
 res://Scripts/Managers/GameObject.cs
 res://Scripts/Collectibles/PowCollectible.cs

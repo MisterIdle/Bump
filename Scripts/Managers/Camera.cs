@@ -7,8 +7,6 @@ public partial class Camera : Camera2D
     [Export] public float scrollSpeed = 100.0f;
     public bool isScrolling = false;
 
-    [Export] private Sprite2D centre;
-
     private static Camera instance;
     public static Camera GetInstance()
     {
@@ -28,8 +26,6 @@ public partial class Camera : Camera2D
     public override void _Process(double delta)
     {
         if (!isScrolling) return;
-
-        centre.GlobalPosition = GetScreenCenter();
 
         Position += new Vector2(scrollSpeed * (float)delta, 0);
     }

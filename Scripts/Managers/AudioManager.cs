@@ -4,7 +4,7 @@ namespace Com.IsartDigital.Shmup.NManager;
 
 public partial class AudioManager : Node
 {
-    public static AudioManager instance;
+    private static AudioManager instance;
 
     public enum AudioType
     {
@@ -206,18 +206,26 @@ public partial class AudioManager : Node
 
     private void OnMusicFinished()
     {
-        if (musicPlayer.Stream != null)
-            musicPlayer.Play();
+        musicPlayer.Play();
     }
 
     private AudioStream ResolveMusic(MusicType pType)
     {
         switch (pType)
         {
-            case MusicType.Menu: return uiMusic;
-            case MusicType.Level: return levelMusic;
-            case MusicType.Boss: return bossMusic;
+            case MusicType.Menu: 
+                return uiMusic;
+            case MusicType.Level: 
+                return levelMusic;
+            case MusicType.Boss: 
+                return bossMusic;
             default: return null;
         }
+    }
+
+    public void SetMusicPaused(bool pIsPaused)
+    {
+        musicPlayer.StreamPaused = pIsPaused;
+        GD.Print(musicPlayer.StreamPaused);
     }
 }

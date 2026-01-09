@@ -1,6 +1,6 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1767954876
-default_bus_layout.tres::AudioBusLayout::8997335368170410425::1767947894::0::1::::<><>::
+::res://::1767978096
+default_bus_layout.tres::AudioBusLayout::8997335368170410425::1767976083::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1767866912::0::1::::<><>::
 icon.svg::CompressedTexture2D::2151939024578303497::1767866912::1767866912::1::::<><>::
 Temp.txt::TextFile::-1::1767866912::0::1::::<><>::
@@ -32,18 +32,18 @@ powerup_life.wav::AudioStreamWAV::124930413362623742::1767866911::1767866911::1:
 ui_click.wav::AudioStreamWAV::6330601540855150560::1767866911::1767866911::1::::<><>::
 ui_pause.wav::AudioStreamWAV::9103649029904238537::1767866911::1767866911::1::::<><>::
 ui_start.wav::AudioStreamWAV::1221745225031605350::1767866911::1767866911::1::::<><>::
-::res://Assets/Background/::1767953518
-BaseBackground.tres::GradientTexture2D::2586777558356763181::1767953518::0::1::::<><>::
-MainMenuBackground.tres::GradientTexture2D::981353246317177561::1767953518::0::1::::<><>::
-SnowBackground.tres::GradientTexture2D::8359786464622012036::1767953518::0::1::::<><>::
+::res://Assets/Background/::1767960254
+BaseBackground.tres::GradientTexture2D::2586777558356763181::1767960254::0::1::::<><>::
+MainMenuBackground.tres::GradientTexture2D::981353246317177561::1767960254::0::1::::<><>::
+SnowBackground.tres::GradientTexture2D::8359786464622012036::1767960254::0::1::::<><>::
 ::res://Assets/Localization/::1767866911
 translate.csv::::-1::1767866911::1767866911::1::::<><>::
 translate.en.translation::OptimizedTranslation::8379626248240074920::1767866911::0::1::::<><>::
 translate.fr.translation::OptimizedTranslation::411677831023420280::1767866911::0::1::::<><>::
-::res://Assets/Shader/::1767953518
-Bubble.tres::VisualShader::3200498348581765806::1767953518::0::1::::<><>::
-ColorSwap.tres::VisualShader::3308873910274795743::1767953518::0::1::::<><>::
-Distortion.tres::VisualShader::3366327475020480156::1767953518::0::1::::<><>::
+::res://Assets/Shader/::1767960254
+Bubble.tres::VisualShader::3200498348581765806::1767960254::0::1::::<><>::
+ColorSwap.tres::VisualShader::3308873910274795743::1767960254::0::1::::<><>::
+Distortion.tres::VisualShader::3366327475020480156::1767960254::0::1::::<><>::
 ::res://Assets/Sprites/::1767866911
 BaseHammer.svg::CompressedTexture2D::1296027372695203215::1767866911::1767866911::1::::<><>::
 ChampiFace.svg::CompressedTexture2D::6854465204482864330::1767866911::1767866911::1::::<><>::
@@ -154,12 +154,12 @@ xbox_stick_side_l.png::CompressedTexture2D::3841913692300066342::1767866911::176
 xbox_stick_side_r.png::CompressedTexture2D::8050704541384216410::1767866911::1767866911::1::::<><>::
 xbox_stick_top_l.png::CompressedTexture2D::9041043260269718111::1767866911::1767866911::1::::<><>::
 xbox_stick_top_r.png::CompressedTexture2D::6972047501591316349::1767866911::1767866911::1::::<><>::
-::res://Assets/Visual/::1767953518
+::res://Assets/Visual/::1767960254
 HUDText.tres::LabelSettings::8010909355557916836::1767866911::0::1::::<><>::uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf
 Magic Red.otf::FontFile::5820489335106948383::1767866911::1767866911::1::::<><>::
 RetroMario-Regular.otf::FontFile::351968942694424514::1767866911::1767866911::1::::<><>::
 Steak Melt.otf::FontFile::7734141396005134550::1767866911::1767866911::1::::<><>::
-Theme.tres::Theme::2711139981502672168::1767953518::0::1::::<><>::uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf
+Theme.tres::Theme::2711139981502672168::1767960254::0::1::::<><>::uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf
 ::res://Audio/::1767866912
 ::res://Audio/Music/::1767866912
 boss_loop.wav::AudioStreamWAV::4200884174509787520::1767866912::1767866912::1::::<><>::
@@ -169,23 +169,23 @@ TickMove.ogg::AudioStreamOggVorbis::1903397387692635354::1767866912::1767866912:
 TickPhase.ogg::AudioStreamOggVorbis::5575692308382873535::1767866912::1767866912::1::::<><>::
 TickReload.ogg::AudioStreamOggVorbis::5384712579968683993::1767866912::1767866912::1::::<><>::
 TickShoot.ogg::AudioStreamOggVorbis::2249147549532878351::1767866912::1767866912::1::::<><>::
-::res://Scenes/::1767954856
-Trigger.tscn::PackedScene::4066239853892731611::1767954856::0::1::::<><>::res://Scripts/Managers/Trigger.cs
+::res://Scenes/::1767978042
+Trigger.tscn::PackedScene::4066239853892731611::1767978042::0::1::::<><>::res://Scripts/Managers/Trigger.cs
 ::res://Scenes/Entity/::1767866912
-::res://Scenes/Entity/Accessory/::1767948902
+::res://Scenes/Entity/Accessory/::1767978042
 Eye.tscn::PackedScene::2712413525323463927::1767866912::0::1::::<><>::uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg
-Pall.tscn::PackedScene::1043006734623268817::1767866912::0::1::::<><>::uid://chijx5hb0iwny::::res://Assets/Sprites/StickHammer.svg<>res://Scripts/Utils/Effects/Pall.cs<>uid://pfbacar5ib3v::::res://Assets/Sprites/Palll1.svg<>uid://x0tb8vshaev6::::res://Assets/Sprites/Palll2.svg<>uid://31vh4twefb6a::::res://Assets/Sprites/Palll3.svg<>uid://cp6ulypumawqu::::res://Assets/Sprites/Palll4.svg<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg
+Pall.tscn::PackedScene::1043006734623268817::1767978042::0::1::::<><>::uid://chijx5hb0iwny::::res://Assets/Sprites/StickHammer.svg<>res://Scripts/Utils/Effects/Pall.cs<>uid://pfbacar5ib3v::::res://Assets/Sprites/Palll1.svg<>uid://x0tb8vshaev6::::res://Assets/Sprites/Palll2.svg<>uid://31vh4twefb6a::::res://Assets/Sprites/Palll3.svg<>uid://cp6ulypumawqu::::res://Assets/Sprites/Palll4.svg<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg
 Shell.tscn::PackedScene::7541417747406445970::1767948902::0::1::::<><>::uid://bne3w1ms8y0g6::::res://Assets/Shader/ColorSwap.tres<>res://Scripts/Entity/Enemy/Shelled/Shell.cs
 Wing.tscn::PackedScene::6171464477188444198::1767866912::0::1::::<><>::res://Scripts/Utils/Effects/Wing.cs
-::res://Scenes/Entity/Enemy/::1767954857
-KingKoops.tscn::PackedScene::9074057441565519844::1767954856::0::1::::<><>::res://Scripts/Entity/Enemy/Shelled/KingKoops.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://c6edobewh573n::::res://Scenes/Projectiles/KingSpike.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://bpnv46wqjqrmf::::res://Scenes/Entity/Enemy/Koops.tscn<>uid://banbfq53ggh01::::res://Scenes/Projectiles/SpecialSpike.tscn<>res://Scripts/Utils/Audio/TickEvent.cs<>uid://dxxryf6kj1q33::::res://Assets/Sprites/KingKoopsHeadOpen.svg<>uid://dfpebwbwcjafa::::res://Scenes/Entity/Accessory/Shell.tscn<>uid://2eaxaqkn3j7g::::res://Audio/TickTracks/TickMove.ogg<>uid://bne3w1ms8y0g6::::res://Assets/Shader/ColorSwap.tres<>uid://7breqb5ux3ix::::res://Audio/TickTracks/TickShoot.ogg<>uid://qxf57u6hdqtj::::res://Assets/Sprites/KingKoopsShell.svg<>uid://8e2fmfxuo2ss::::res://Audio/TickTracks/TickDash.ogg<>uid://ciynouqd46de4::::res://Audio/TickTracks/TickReload.ogg<>uid://clo53qm775ol8::::res://Audio/TickTracks/TickPhase.ogg<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://ct6reay04483s::::res://Scenes/Entity/Accessory/Wing.tscn
-Koops.tscn::PackedScene::3467418756886895985::1767954856::0::1::::<><>::res://Scripts/Entity/Enemy/Shelled/Koops.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://dfpebwbwcjafa::::res://Scenes/Entity/Accessory/Shell.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://ct6reay04483s::::res://Scenes/Entity/Accessory/Wing.tscn<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://6w6omdow8uui::::res://Assets/Sprites/KoopsShell.svg<>uid://ch56y4afitww2::::res://Assets/Sprites/WingA.svg
-Rushroops.tscn::PackedScene::6640587326039600029::1767954857::0::1::::<><>::res://Scripts/Entity/Enemy/Shelled/Rushroops.cs<>uid://c0nfx3v8low78::::res://Scenes/Projectiles/Spiko.tscn<>uid://dfpebwbwcjafa::::res://Scenes/Entity/Accessory/Shell.tscn<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://ct6reay04483s::::res://Scenes/Entity/Accessory/Wing.tscn<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://b4qvr8v83bkpl::::res://Assets/Sprites/RushroopsShell.svg<>uid://c7qylpeql6dhh::::res://Assets/Sprites/WingB.svg
-Sykoops.tscn::PackedScene::1831829914007473407::1767954856::0::1::::<><>::res://Scripts/Entity/Enemy/Shelled/Sykoops.cs<>uid://mt782a2qgaf5::::res://Scenes/Projectiles/Spike.tscn<>uid://dfpebwbwcjafa::::res://Scenes/Entity/Accessory/Shell.tscn<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://ct6reay04483s::::res://Scenes/Entity/Accessory/Wing.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://dmjeu3nvnmh05::::res://Assets/Sprites/SykoopsShell.svg<>uid://cay1l5qagqn4h::::res://Assets/Sprites/WingC.svg
+::res://Scenes/Entity/Enemy/::1767978042
+KingKoops.tscn::PackedScene::9074057441565519844::1767978042::0::1::::<><>::res://Scripts/Entity/Enemy/Shelled/KingKoops.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://c6edobewh573n::::res://Scenes/Projectiles/KingSpike.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://bpnv46wqjqrmf::::res://Scenes/Entity/Enemy/Koops.tscn<>uid://banbfq53ggh01::::res://Scenes/Projectiles/SpecialSpike.tscn<>res://Scripts/Utils/Audio/TickEvent.cs<>uid://dxxryf6kj1q33::::res://Assets/Sprites/KingKoopsHeadOpen.svg<>uid://dfpebwbwcjafa::::res://Scenes/Entity/Accessory/Shell.tscn<>uid://2eaxaqkn3j7g::::res://Audio/TickTracks/TickMove.ogg<>uid://bne3w1ms8y0g6::::res://Assets/Shader/ColorSwap.tres<>uid://7breqb5ux3ix::::res://Audio/TickTracks/TickShoot.ogg<>uid://qxf57u6hdqtj::::res://Assets/Sprites/KingKoopsShell.svg<>uid://8e2fmfxuo2ss::::res://Audio/TickTracks/TickDash.ogg<>uid://ciynouqd46de4::::res://Audio/TickTracks/TickReload.ogg<>uid://clo53qm775ol8::::res://Audio/TickTracks/TickPhase.ogg<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://ct6reay04483s::::res://Scenes/Entity/Accessory/Wing.tscn
+Koops.tscn::PackedScene::3467418756886895985::1767978042::0::1::::<><>::res://Scripts/Entity/Enemy/Shelled/Koops.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://dfpebwbwcjafa::::res://Scenes/Entity/Accessory/Shell.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://ct6reay04483s::::res://Scenes/Entity/Accessory/Wing.tscn<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://6w6omdow8uui::::res://Assets/Sprites/KoopsShell.svg<>uid://ch56y4afitww2::::res://Assets/Sprites/WingA.svg
+Rushroops.tscn::PackedScene::6640587326039600029::1767978042::0::1::::<><>::res://Scripts/Entity/Enemy/Shelled/Rushroops.cs<>uid://c0nfx3v8low78::::res://Scenes/Projectiles/Spiko.tscn<>uid://dfpebwbwcjafa::::res://Scenes/Entity/Accessory/Shell.tscn<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://ct6reay04483s::::res://Scenes/Entity/Accessory/Wing.tscn<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://b4qvr8v83bkpl::::res://Assets/Sprites/RushroopsShell.svg<>uid://c7qylpeql6dhh::::res://Assets/Sprites/WingB.svg
+Sykoops.tscn::PackedScene::1831829914007473407::1767978042::0::1::::<><>::res://Scripts/Entity/Enemy/Shelled/Sykoops.cs<>uid://mt782a2qgaf5::::res://Scenes/Projectiles/Spike.tscn<>uid://dfpebwbwcjafa::::res://Scenes/Entity/Accessory/Shell.tscn<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://ct6reay04483s::::res://Scenes/Entity/Accessory/Wing.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://dmjeu3nvnmh05::::res://Assets/Sprites/SykoopsShell.svg<>uid://cay1l5qagqn4h::::res://Assets/Sprites/WingC.svg
 Walsy.tscn::PackedScene::9139391885547802598::1767866912::0::1::::<><>::res://Scripts/Entity/Enemy/Normal/Walsy.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://balbovoayhgbc::::res://Assets/Sprites/Walsy1.svg<>uid://cwtdfbbvejkka::::res://Assets/Sprites/Walsy2.svg<>uid://uuo01432cp50::::res://Assets/Sprites/Walsy3.svg<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn
-::res://Scenes/Entity/Player/::1767954856
-Hammer.tscn::PackedScene::4504202362654930135::1767954856::0::1::::<><>::res://Scripts/Entity/Player/Hammer.cs<>res://Scripts/Entity/Player/HammerData.cs<>uid://chijx5hb0iwny::::res://Assets/Sprites/StickHammer.svg<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://sp2m78ssnpch::::res://Assets/Sprites/BaseHammer.svg<>uid://b8jvfwynwltxi::::res://Assets/Sprites/Progress.svg
-Player.tscn::PackedScene::1375470170330966745::1767954856::0::1::::<><>::res://Scripts/Entity/Player/Player.cs<>res://Scripts/Entity/Player/PlayerLevelData.cs<>uid://bh4iqwgyl5hjm::::res://Scenes/Projectiles/Shot.tscn<>uid://chlkbc1trkddg::::res://Scenes/Particules/BigPlayer.tscn<>uid://cgyguuakuyjb2::::res://Scenes/Projectiles/Fireball.tscn<>res://Scripts/Entity/Player/PlayerShotData.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://808ccomvyg1::::res://Scenes/Entity/Player/Pow.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://b5f4s4npvvkep::::res://Scenes/Entity/Player/Hammer.tscn<>uid://o4ify3cehgll::::res://Scenes/Entity/Accessory/Pall.tscn<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://faq425cxomdm::::res://Assets/Visual/RetroMario-Regular.otf
+::res://Scenes/Entity/Player/::1767978042
+Hammer.tscn::PackedScene::4504202362654930135::1767978042::0::1::::<><>::res://Scripts/Entity/Player/Hammer.cs<>res://Scripts/Entity/Player/HammerData.cs<>uid://chijx5hb0iwny::::res://Assets/Sprites/StickHammer.svg<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://sp2m78ssnpch::::res://Assets/Sprites/BaseHammer.svg<>uid://b8jvfwynwltxi::::res://Assets/Sprites/Progress.svg
+Player.tscn::PackedScene::1375470170330966745::1767978042::0::1::::<><>::res://Scripts/Entity/Player/Player.cs<>res://Scripts/Entity/Player/PlayerLevelData.cs<>uid://bh4iqwgyl5hjm::::res://Scenes/Projectiles/Shot.tscn<>uid://chlkbc1trkddg::::res://Scenes/Particules/BigPlayer.tscn<>uid://cgyguuakuyjb2::::res://Scenes/Projectiles/Fireball.tscn<>res://Scripts/Entity/Player/PlayerShotData.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://808ccomvyg1::::res://Scenes/Entity/Player/Pow.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://b5f4s4npvvkep::::res://Scenes/Entity/Player/Hammer.tscn<>uid://o4ify3cehgll::::res://Scenes/Entity/Accessory/Pall.tscn<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://faq425cxomdm::::res://Assets/Visual/RetroMario-Regular.otf
 Pow.tscn::PackedScene::69701430691290222::1767866912::0::1::::<><>::res://Scripts/Entity/Player/Pow.cs<>uid://bhnuaia2dpuey::::res://Scenes/Particules/Big.tscn<>uid://ey818jhxedis::::res://Assets/Sprites/Pow.svg<>uid://dihh2tvaur1gt::::res://Scenes/LevelDesign/Collectibles/Bubble.tscn
 ::res://Scenes/LevelDesign/::1767948902
 Firebar.tscn::PackedScene::2764744973006331142::1767866912::0::1::::<><>::res://Scripts/Entity/Enemy/Normal/Firebar.cs<>uid://bn7w6lp8rdhwm::::res://Assets/Shader/Distortion.tres<>uid://dlqsadwi6sql2::::res://Assets/Sprites/Square.svg<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg
@@ -198,10 +198,10 @@ Coin.tscn::PackedScene::7384312888032887418::1767866912::0::1::::<><>::res://Scr
 FlowerCollectible.tscn::PackedScene::8197684733794931059::1767866912::0::1::::<><>::res://Scripts/Collectibles/FlowerCollectible.cs<>uid://5ivxp33pe70e::::res://Assets/Sprites/FlowerUp.svg<>uid://bne3w1ms8y0g6::::res://Assets/Shader/ColorSwap.tres<>uid://w2q7lcnv04p2::::res://Assets/Sprites/FlowerUpHead.svg<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn<>uid://dihh2tvaur1gt::::res://Scenes/LevelDesign/Collectibles/Bubble.tscn
 HeartCollectible.tscn::PackedScene::4417879681971999101::1767866912::0::1::::<><>::res://Scripts/Collectibles/HeartCollectible.cs<>uid://bne3w1ms8y0g6::::res://Assets/Shader/ColorSwap.tres<>uid://dihh2tvaur1gt::::res://Scenes/LevelDesign/Collectibles/Bubble.tscn<>uid://bsujowb0bwmye::::res://Assets/Sprites/ChampiHeadHeart.svg<>uid://c4wmbm1s0x8yo::::res://Assets/Sprites/ChampiFace.svg<>uid://bev6b38a5whed::::res://Scenes/Entity/Accessory/Eye.tscn
 PowCollectible.tscn::PackedScene::2082026679275773601::1767866912::0::1::::<><>::res://Scripts/Collectibles/PowCollectible.cs<>uid://ey818jhxedis::::res://Assets/Sprites/Pow.svg<>uid://dihh2tvaur1gt::::res://Scenes/LevelDesign/Collectibles/Bubble.tscn
-::res://Scenes/MainScenes/::1767954856
+::res://Scenes/MainScenes/::1767978041
 Debug.tscn::PackedScene::4346419211288080624::1767866912::0::1::::<><>::res://Scripts/Managers/GameManager.cs<>uid://b37b3k3mvq3nd::::res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn<>uid://tuj17od45vsb::::res://Scenes/Entity/Player/Player.tscn<>res://Scripts/Managers/Camera.cs<>uid://y0p204y3sd1g::::res://Scenes/LevelDesign/Menu.tscn<>uid://d2jsnu1okwcj1::::res://Scenes/Entity/Enemy/KingKoops.tscn<>uid://ceb8ljhl5g73k::::res://Scenes/LevelDesign/Obstacle.tscn<>uid://d3hgpjemtaphm::::res://Scenes/Entity/Enemy/Walsy.tscn<>uid://bpnv46wqjqrmf::::res://Scenes/Entity/Enemy/Koops.tscn<>uid://c1u0rdsgn8dhl::::res://Scenes/Entity/Enemy/Rushroops.tscn<>uid://1dl8asfcved8::::res://Scenes/Entity/Enemy/Sykoops.tscn<>uid://r5xghrumtfq::::res://Scenes/LevelDesign/Mystery.tscn
-InGame.tscn::PackedScene::297837882916483632::1767954856::0::1::::<><>::res://Scripts/Managers/GameManager.cs<>uid://tuj17od45vsb::::res://Scenes/Entity/Player/Player.tscn<>uid://b37b3k3mvq3nd::::res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn<>uid://c1u0rdsgn8dhl::::res://Scenes/Entity/Enemy/Rushroops.tscn<>uid://bpnv46wqjqrmf::::res://Scenes/Entity/Enemy/Koops.tscn
-Main.tscn::PackedScene::1627441387244341987::1767954856::0::1::::<><>::res://Scripts/Managers/SceneManager.cs<>uid://dqrqjbxsydh3h::::res://Scenes/UI/Parallax.tscn<>uid://eijl1ptqfcr5::::res://Scenes/MainScenes/InGame.tscn<>res://Scripts/Managers/Camera.cs<>uid://y0p204y3sd1g::::res://Scenes/LevelDesign/Menu.tscn<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf<>res://Scripts/Managers/AudioManager.cs<>uid://b26o5ieubh6fc::::res://Scenes/MainScenes/Debug.tscn<>uid://clfqvvglxi1dx::::res://Assets/Audio/SFX/player_shoot0.wav<>uid://cd0yhy3tun3qx::::res://Assets/Audio/SFX/player_shoot1.wav<>uid://ce12adqmef45::::res://Assets/Audio/SFX/player_shoot2.wav<>uid://qeg3ni5nxu5i::::res://Assets/Audio/SFX/player_shoot3.wav<>uid://bw4hbiuto4dsv::::res://Assets/Audio/SFX/player_explosion.wav<>uid://c6jwcbfchxt2f::::res://Assets/Audio/SFX/loselife.wav<>uid://rlw8gf34mp6o::::res://Assets/Audio/SFX/chargeswing_hammer.wav<>uid://bkkiqot632e8j::::res://Assets/Audio/SFX/powerup_bomb.wav<>uid://b1rt6aus5pyc::::res://Assets/Audio/SFX/powerup_life.wav<>uid://cmt4oelgj88s4::::res://Assets/Audio/SFX/enemy0_explosion0.wav<>uid://dqs62fpol5hwl::::res://Assets/Audio/SFX/enemy0_explosion1.wav<>uid://bnofcnce8tjft::::res://Assets/Audio/SFX/enemy0_explosion2.wav<>uid://bwq61mrc7lobr::::res://Assets/Audio/SFX/enemy0_explosion3.wav<>uid://ddtjeeohdcorb::::res://Assets/Audio/SFX/enemy_shoot.wav<>uid://dmybao481uaq2::::res://Assets/Audio/SFX/boss_shoot.wav<>uid://cak08tolipn2k::::res://Assets/Audio/SFX/boss_pre_explosion.wav<>uid://c44pvbtmhijkw::::res://Assets/Audio/SFX/boss_explosion.wav<>uid://cwguc2lhrrbxw::::res://Assets/Audio/SFX/ui_click.wav<>uid://d2x41fq71qcqb::::res://Assets/Audio/SFX/ui_pause.wav<>uid://rn2727nnkexi::::res://Assets/Audio/SFX/ui_start.wav<>uid://dfvdt8c316hmf::::res://Assets/Audio/Music/ui_loop.wav<>uid://cjk5su63pas8a::::res://Assets/Audio/Music/level_loop.wav<>uid://8uvq7rajeufg::::res://Assets/Audio/Music/boss_loop.wav<>uid://dlqsadwi6sql2::::res://Assets/Sprites/Square.svg
+InGame.tscn::PackedScene::297837882916483632::1767978041::0::1::::<><>::res://Scripts/Managers/GameManager.cs<>uid://tuj17od45vsb::::res://Scenes/Entity/Player/Player.tscn<>uid://b37b3k3mvq3nd::::res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn<>uid://d2jsnu1okwcj1::::res://Scenes/Entity/Enemy/KingKoops.tscn
+Main.tscn::PackedScene::1627441387244341987::1767978041::0::1::::<><>::res://Scripts/Managers/SceneManager.cs<>uid://dqrqjbxsydh3h::::res://Scenes/UI/Parallax.tscn<>uid://eijl1ptqfcr5::::res://Scenes/MainScenes/InGame.tscn<>res://Scripts/Managers/Camera.cs<>uid://y0p204y3sd1g::::res://Scenes/LevelDesign/Menu.tscn<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf<>res://Scripts/Managers/AudioManager.cs<>uid://b26o5ieubh6fc::::res://Scenes/MainScenes/Debug.tscn<>uid://clfqvvglxi1dx::::res://Assets/Audio/SFX/player_shoot0.wav<>uid://cd0yhy3tun3qx::::res://Assets/Audio/SFX/player_shoot1.wav<>uid://ce12adqmef45::::res://Assets/Audio/SFX/player_shoot2.wav<>uid://qeg3ni5nxu5i::::res://Assets/Audio/SFX/player_shoot3.wav<>uid://bw4hbiuto4dsv::::res://Assets/Audio/SFX/player_explosion.wav<>uid://c6jwcbfchxt2f::::res://Assets/Audio/SFX/loselife.wav<>uid://rlw8gf34mp6o::::res://Assets/Audio/SFX/chargeswing_hammer.wav<>uid://bkkiqot632e8j::::res://Assets/Audio/SFX/powerup_bomb.wav<>uid://b1rt6aus5pyc::::res://Assets/Audio/SFX/powerup_life.wav<>uid://cmt4oelgj88s4::::res://Assets/Audio/SFX/enemy0_explosion0.wav<>uid://dqs62fpol5hwl::::res://Assets/Audio/SFX/enemy0_explosion1.wav<>uid://bnofcnce8tjft::::res://Assets/Audio/SFX/enemy0_explosion2.wav<>uid://bwq61mrc7lobr::::res://Assets/Audio/SFX/enemy0_explosion3.wav<>uid://ddtjeeohdcorb::::res://Assets/Audio/SFX/enemy_shoot.wav<>uid://dmybao481uaq2::::res://Assets/Audio/SFX/boss_shoot.wav<>uid://cak08tolipn2k::::res://Assets/Audio/SFX/boss_pre_explosion.wav<>uid://c44pvbtmhijkw::::res://Assets/Audio/SFX/boss_explosion.wav<>uid://cwguc2lhrrbxw::::res://Assets/Audio/SFX/ui_click.wav<>uid://d2x41fq71qcqb::::res://Assets/Audio/SFX/ui_pause.wav<>uid://rn2727nnkexi::::res://Assets/Audio/SFX/ui_start.wav<>uid://dfvdt8c316hmf::::res://Assets/Audio/Music/ui_loop.wav<>uid://cjk5su63pas8a::::res://Assets/Audio/Music/level_loop.wav<>uid://8uvq7rajeufg::::res://Assets/Audio/Music/boss_loop.wav
 Options.tscn::PackedScene::960396453564897004::1767866912::0::1::::<><>::res://Scripts/UI/OptionsMenu.cs<>uid://bevkcx1prmt5q::::res://Assets/Visual/Theme.tres<>uid://du7dhp8gt5irs::::res://Assets/Sprites/france.png<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf
 ::res://Scenes/Particules/::1767954370
 Big.tscn::PackedScene::2905794261235613560::1767880733::0::1::::<><>::uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>res://Scripts/Utils/Effects/Particule.cs
@@ -210,21 +210,21 @@ Pop.tscn::PackedScene::6245083306986019891::1767866912::0::1::::<><>::uid://balb
 PopShot.tscn::PackedScene::2313727170860150954::1767954370::0::1::::<><>::uid://balbovoayhgbc::::res://Assets/Sprites/Walsy1.svg<>res://Scripts/Utils/Effects/Particule.cs
 PopSpike.tscn::PackedScene::2495998388444369752::1767866912::0::1::::<><>::res://Scripts/Utils/Effects/Particule.cs
 Snow.tscn::PackedScene::1286764573103788093::1767866912::0::1::::<><>::
-::res://Scenes/Projectiles/::1767954856
+::res://Scenes/Projectiles/::1767978042
 Fireball.tscn::PackedScene::5243920564095565345::1767866912::0::1::::<><>::res://Scripts/Projectiles/Shot.cs<>uid://7710phv1wm7k::::res://Scenes/Particules/PopShot.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg<>uid://bn7w6lp8rdhwm::::res://Assets/Shader/Distortion.tres
-KingSpike.tscn::PackedScene::6957160242987131621::1767954856::0::1::::<><>::res://Scripts/Projectiles/Spiko.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://degjrhvteie7t::::res://Assets/Sprites/Spike.svg
+KingSpike.tscn::PackedScene::6957160242987131621::1767978042::0::1::::<><>::res://Scripts/Projectiles/Spiko.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://degjrhvteie7t::::res://Assets/Sprites/Spike.svg
 Shot.tscn::PackedScene::2938125018560538362::1767954370::0::1::::<><>::res://Scripts/Projectiles/Shot.cs<>uid://7710phv1wm7k::::res://Scenes/Particules/PopShot.tscn<>uid://bryrgk6b60nqc::::res://Assets/Sprites/Circle.svg
-SpecialSpike.tscn::PackedScene::2413328128456358552::1767948902::0::1::::<><>::res://Scripts/Projectiles/Spike.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://degjrhvteie7t::::res://Assets/Sprites/Spike.svg
-Spike.tscn::PackedScene::883492595329740504::1767954856::0::1::::<><>::res://Scripts/Projectiles/Spike.cs<>uid://7710phv1wm7k::::res://Scenes/Particules/PopShot.tscn<>uid://degjrhvteie7t::::res://Assets/Sprites/Spike.svg
-Spiko.tscn::PackedScene::6554745531972775993::1767954856::0::1::::<><>::res://Scripts/Projectiles/Spiko.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://degjrhvteie7t::::res://Assets/Sprites/Spike.svg
-::res://Scenes/UI/::1767954856
+SpecialSpike.tscn::PackedScene::2413328128456358552::1767978042::0::1::::<><>::res://Scripts/Projectiles/Spike.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://degjrhvteie7t::::res://Assets/Sprites/Spike.svg
+Spike.tscn::PackedScene::883492595329740504::1767978041::0::1::::<><>::res://Scripts/Projectiles/Spike.cs<>uid://7710phv1wm7k::::res://Scenes/Particules/PopShot.tscn<>uid://degjrhvteie7t::::res://Assets/Sprites/Spike.svg
+Spiko.tscn::PackedScene::6554745531972775993::1767978041::0::1::::<><>::res://Scripts/Projectiles/Spiko.cs<>uid://cu8fuy0ur81dn::::res://Scenes/Particules/Pop.tscn<>uid://degjrhvteie7t::::res://Assets/Sprites/Spike.svg
+::res://Scenes/UI/::1767978042
 BubbleScore.tscn::PackedScene::1748171485384532884::1767866912::0::1::::<><>::res://Scripts/UI/BubbleScore.cs<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf
 Credits.tscn::PackedScene::8283736803048773364::1767866912::0::1::::<><>::uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf<>res://Scripts/UI/Credits.cs<>uid://faq425cxomdm::::res://Assets/Visual/RetroMario-Regular.otf
 Help.tscn::PackedScene::6661813619344383273::1767892641::0::1::::<><>::res://Scripts/UI/Help.cs<>res://Scripts/Utils/Effects/UpDownControl.cs<>uid://dlqsadwi6sql2::::res://Assets/Sprites/Square.svg<>uid://o4ify3cehgll::::res://Scenes/Entity/Accessory/Pall.tscn<>uid://1qh4cluyloxy::::res://Assets/Sprites/Xbox Series/xbox_button_color_a.png<>res://Scripts/UI/SwitchImage.cs<>uid://bdvw2gse642ew::::res://Assets/Sprites/Keyboard & Mouse/keyboard.png<>uid://blbx8lr00a7to::::res://Assets/Sprites/Xbox Series/controller_xboxone.png<>uid://do205pj2a7xn7::::res://Assets/Sprites/Xbox Series/xbox_button_color_a_outline.png<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf<>uid://b2c55sid55fq1::::res://Assets/Sprites/Keyboard & Mouse/keyboard_arrows_horizontal.png<>uid://dqxhgnpiab6yh::::res://Assets/Sprites/Keyboard & Mouse/keyboard_arrows_vertical.png<>uid://boig0mku33mh0::::res://Assets/Sprites/Xbox Series/xbox_stick_l_horizontal.png<>uid://btp3rf6qljb57::::res://Assets/Sprites/Xbox Series/xbox_stick_l_vertical.png<>uid://dy1oltcjnmqin::::res://Assets/Sprites/Keyboard & Mouse/keyboard_m.png<>uid://culie0lr6ei3k::::res://Assets/Sprites/Keyboard & Mouse/keyboard_m_outline.png<>uid://bjgmk342cxnam::::res://Assets/Sprites/Xbox Series/xbox_button_color_b.png<>uid://ouljmqir725e::::res://Assets/Sprites/Xbox Series/xbox_button_color_b_outline.png<>uid://dov8yps5mqdxi::::res://Assets/Sprites/Keyboard & Mouse/keyboard_k.png<>uid://djrxpfum6e1oa::::res://Assets/Sprites/Keyboard & Mouse/keyboard_k_outline.png<>uid://ovo0opgdckpr::::res://Assets/Sprites/Keyboard & Mouse/keyboard_l.png<>uid://tksjktpe4dqx::::res://Assets/Sprites/Keyboard & Mouse/keyboard_l_outline.png<>uid://bt7ec6ljmu018::::res://Assets/Sprites/Xbox Series/xbox_button_color_x.png<>uid://bbm6a4a1kdiw3::::res://Assets/Sprites/Xbox Series/xbox_button_color_x_outline.png<>uid://bscb1e5mwbf8r::::res://Assets/Sprites/Keyboard & Mouse/keyboard_g.png<>uid://bp7hkvj2o21fo::::res://Assets/Sprites/Keyboard & Mouse/keyboard_g_outline.png<>uid://cixgqyw012bdn::::res://Assets/Sprites/Xbox Series/xbox_elite_paddle_top_right.png<>uid://c57dk8hwfad25::::res://Assets/Sprites/Xbox Series/xbox_elite_paddle_top_right_outline.png
 HUD.tscn::PackedScene::7674156010839251496::1767880733::0::1::::<><>::res://Scripts/UI/HUD.cs<>uid://y53encm32pb5::::res://Scenes/UI/BubbleScore.tscn<>uid://dvvkm1ljuicwb::::res://Assets/Sprites/Heart.svg<>uid://ey818jhxedis::::res://Assets/Sprites/Pow.svg<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf<>uid://faq425cxomdm::::res://Assets/Visual/RetroMario-Regular.otf
-MainMenu.tscn::PackedScene::2524059097837657644::1767954856::0::1::::<><>::res://Scripts/UI/MainMenu.cs<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf<>uid://bevkcx1prmt5q::::res://Assets/Visual/Theme.tres
+MainMenu.tscn::PackedScene::2524059097837657644::1767978041::0::1::::<><>::res://Scripts/UI/MainMenu.cs<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf<>uid://bevkcx1prmt5q::::res://Assets/Visual/Theme.tres
 MenuManager.tscn::PackedScene::6072843483769727154::1767892641::0::1::::<><>::res://Scripts/UI/MenuManager.cs<>uid://bb7w5cthb6nj5::::res://Scenes/UI/MainMenu.tscn<>uid://b51rjhcg40x8i::::res://Scenes/UI/StateMenu.tscn<>uid://nxhubg31nl61::::res://Scenes/MainScenes/Options.tscn<>uid://dqax61yn7lfom::::res://Scenes/UI/Credits.tscn<>uid://c7tvjipthkfkw::::res://Scenes/UI/Victory.tscn<>uid://c16bdke1sxf5b::::res://Scenes/UI/Help.tscn
-Parallax.tscn::PackedScene::8318365604040133363::1767954856::0::1::::<><>::res://Scripts/Utils/Effects/Biome.cs<>uid://bxfstxfe7810l::::res://Assets/Sprites/Pliiar.svg<>uid://bn7w6lp8rdhwm::::res://Assets/Shader/Distortion.tres<>uid://bx6ym2aov4wtf::::res://Scenes/Trigger.tscn<>uid://c01k8dltwfsov::::res://Assets/Sprites/Cloud2.svg<>uid://bjxslnaao1p7m::::res://Assets/Sprites/Pliiar2.svg<>uid://bc4b332utdrr6::::res://Assets/Background/BaseBackground.tres<>uid://n8m0k0lsm63f::::res://Assets/Background/MainMenuBackground.tres<>uid://drdspxyl7r0m7::::res://Assets/Background/SnowBackground.tres<>uid://bne3w1ms8y0g6::::res://Assets/Shader/ColorSwap.tres<>res://Scripts/Utils/Effects/UpDown.cs<>uid://cbvttxmxltkqy::::res://Assets/Sprites/Cloud3.svg
+Parallax.tscn::PackedScene::8318365604040133363::1767978042::0::1::::<><>::res://Scripts/Utils/Effects/Biome.cs<>uid://bxfstxfe7810l::::res://Assets/Sprites/Pliiar.svg<>uid://bn7w6lp8rdhwm::::res://Assets/Shader/Distortion.tres<>uid://bx6ym2aov4wtf::::res://Scenes/Trigger.tscn<>uid://c01k8dltwfsov::::res://Assets/Sprites/Cloud2.svg<>uid://bjxslnaao1p7m::::res://Assets/Sprites/Pliiar2.svg<>uid://bc4b332utdrr6::::res://Assets/Background/BaseBackground.tres<>uid://n8m0k0lsm63f::::res://Assets/Background/MainMenuBackground.tres<>uid://drdspxyl7r0m7::::res://Assets/Background/SnowBackground.tres<>uid://bne3w1ms8y0g6::::res://Assets/Shader/ColorSwap.tres<>res://Scripts/Utils/Effects/UpDown.cs<>uid://cbvttxmxltkqy::::res://Assets/Sprites/Cloud3.svg
 StateMenu.tscn::PackedScene::4546808446527237150::1767866912::0::1::::<><>::res://Scripts/UI/StateMenu.cs<>uid://bevkcx1prmt5q::::res://Assets/Visual/Theme.tres<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf
 Victory.tscn::PackedScene::7059399114355507934::1767866912::0::1::::<><>::uid://faq425cxomdm::::res://Assets/Visual/RetroMario-Regular.otf<>res://Scripts/UI/Victory.cs<>uid://digqgcylu0nq1::::res://Assets/Visual/Steak Melt.otf
 ::res://Scripts/::1767866912
@@ -235,65 +235,65 @@ FlowerCollectible.cs::CSharpScript::-1::1767893746::0::1::::<>Area2D<>::
 HeartCollectible.cs::CSharpScript::-1::1767872727::0::1::::<>Area2D<>::
 Mystery.cs::CSharpScript::-1::1767874355::0::1::::<>Area2D<>::
 PowCollectible.cs::CSharpScript::-1::1767894212::0::1::::<>Area2D<>::
-::res://Scripts/Entity/::1767895325
-Entity.cs::CSharpScript::-1::1767893019::0::1::::<>Area2D<>::
-Movable.cs::CSharpScript::-1::1767895325::0::1::::<>Area2D<>::
+::res://Scripts/Entity/::1767964915
+Entity.cs::CSharpScript::-1::1767956877::0::1::::<>Area2D<>::
+Movable.cs::CSharpScript::-1::1767964915::0::1::::<>Area2D<>::
 ::res://Scripts/Entity/Enemy/::1767866912
 ::res://Scripts/Entity/Enemy/Normal/::1767866912
 Firebar.cs::CSharpScript::-1::1767866912::0::1::::<>Area2D<>::
 Walsy.cs::CSharpScript::-1::1767866912::0::1::::<>Area2D<>::
-::res://Scripts/Entity/Enemy/Shelled/::1767954776
-Enemy.cs::CSharpScript::-1::1767952683::0::1::::<>Area2D<>::
-KingKoops.cs::CSharpScript::-1::1767949260::0::1::::<>Area2D<>::
-Koops.cs::CSharpScript::-1::1767945840::0::1::::<>Area2D<>::
-Rushroops.cs::CSharpScript::-1::1767954776::0::1::::<>Area2D<>::
-Shell.cs::CSharpScript::-1::1767893364::0::1::::<>Sprite2D<>::
-ShelledEnemy.cs::CSharpScript::-1::1767893279::0::1::::<>Area2D<>::
-Sykoops.cs::CSharpScript::-1::1767954400::0::1::::<>Area2D<>::
-::res://Scripts/Entity/Player/::1767954284
+::res://Scripts/Entity/Enemy/Shelled/::1767976916
+Enemy.cs::CSharpScript::-1::1767957230::0::1::::<>Area2D<>::
+KingKoops.cs::CSharpScript::-1::1767976825::0::1::::<>Area2D<>::
+Koops.cs::CSharpScript::-1::1767976916::0::1::::<>Area2D<>::
+Rushroops.cs::CSharpScript::-1::1767973537::0::1::::<>Area2D<>::
+Shell.cs::CSharpScript::-1::1767971778::0::1::::<>Sprite2D<>::
+ShelledEnemy.cs::CSharpScript::-1::1767972959::0::1::::<>Area2D<>::
+Sykoops.cs::CSharpScript::-1::1767965097::0::1::::<>Area2D<>::
+::res://Scripts/Entity/Player/::1767978040
 Hammer.cs::CSharpScript::-1::1767950176::0::1::::<>Area2D<>::
 HammerData.cs::CSharpScript::-1::1767866912::0::1::::HammerData<>Resource<>::
-Player.cs::CSharpScript::-1::1767954284::0::1::::<>Area2D<>::
+Player.cs::CSharpScript::-1::1767978040::0::1::::<>Area2D<>::
 PlayerLevelData.cs::CSharpScript::-1::1767866912::0::1::::PlayerLevelData<>Resource<>::
 PlayerShotData.cs::CSharpScript::-1::1767866912::0::1::::PlayerShotData<>Resource<>::
 Pow.cs::CSharpScript::-1::1767945840::0::1::::<>Area2D<>::
-::res://Scripts/Managers/::1767946842
-AudioManager.cs::CSharpScript::-1::1767866912::0::1::::<>Node<>::
-Camera.cs::CSharpScript::-1::1767946842::0::1::::<>Camera2D<>::
+::res://Scripts/Managers/::1767976137
+AudioManager.cs::CSharpScript::-1::1767966814::0::1::::<>Node<>::
+Camera.cs::CSharpScript::-1::1767976137::0::1::::<>Camera2D<>::
 GameManager.cs::CSharpScript::-1::1767897719::0::1::::<>Node2D<>::
 GameObject.cs::CSharpScript::-1::1767866912::0::1::::<>Area2D<>::
 GameStats.cs::CSharpScript::-1::1767866912::0::1::::<><>::
-SceneManager.cs::CSharpScript::-1::1767868053::0::1::::<>Node<>::
+SceneManager.cs::CSharpScript::-1::1767973457::0::1::::<>Node<>::
 Trigger.cs::CSharpScript::-1::1767866912::0::1::::<>Area2D<>::
-::res://Scripts/Projectiles/::1767893575
+::res://Scripts/Projectiles/::1767973620
 Projectiles.cs::CSharpScript::-1::1767893575::0::1::::<>Area2D<>::
 Shot.cs::CSharpScript::-1::1767893557::0::1::::<>Area2D<>::
-Spike.cs::CSharpScript::-1::1767893535::0::1::::<>Area2D<>::
+Spike.cs::CSharpScript::-1::1767973620::0::1::::<>Area2D<>::
 Spiko.cs::CSharpScript::-1::1767893562::0::1::::<>Area2D<>::
-::res://Scripts/UI/::1767866912
-BubbleScore.cs::CSharpScript::-1::1767866912::0::1::::<>Node2D<>::
+::res://Scripts/UI/::1767966649
+BubbleScore.cs::CSharpScript::-1::1767966649::0::1::::<>Node2D<>::
 Credits.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
 Help.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
 HUD.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
 MainMenu.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
 MenuBase.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
 MenuManager.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
-OptionsMenu.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
+OptionsMenu.cs::CSharpScript::-1::1767963404::0::1::::<>Control<>::
 StateMenu.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
 SwitchImage.cs::CSharpScript::-1::1767866912::0::1::::<>TextureRect<>::
 Victory.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
 ::res://Scripts/Utils/::1767866912
 ::res://Scripts/Utils/Audio/::1767866912
 TickEvent.cs::CSharpScript::-1::1767866912::0::1::::<>Node2D<>::
-::res://Scripts/Utils/Effects/::1767954754
+::res://Scripts/Utils/Effects/::1767957234
 Biome.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
-Effect.cs::CSharpScript::-1::1767866912::0::1::::<><>::
+Effect.cs::CSharpScript::-1::1767957234::0::1::::<><>::
 Pall.cs::CSharpScript::-1::1767866912::0::1::::<>AnimatedSprite2D<>::
-Particule.cs::CSharpScript::-1::1767954754::0::1::::<>GPUParticles2D<>::
-ScaleTime.cs::CSharpScript::-1::1767866912::0::1::::<><>::
+Particule.cs::CSharpScript::-1::1767955922::0::1::::<>GPUParticles2D<>::
+ScaleTime.cs::CSharpScript::-1::1767956801::0::1::::<><>::
 UpDown.cs::CSharpScript::-1::1767866912::0::1::::<>Sprite2D<>::
 UpDownControl.cs::CSharpScript::-1::1767866912::0::1::::<>Control<>::
-Utils.cs::CSharpScript::-1::1767945840::0::1::::<><>::
+Utils.cs::CSharpScript::-1::1767956136::0::1::::<><>::
 Wing.cs::CSharpScript::-1::1767866912::0::1::::<>Sprite2D<>::
 ::res://Scripts/Utils/Property/::1767866912
 Property.cs::CSharpScript::-1::1767866912::0::1::::<><>::

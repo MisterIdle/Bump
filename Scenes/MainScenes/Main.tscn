@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://xglysqus4mmt"]
+[gd_scene load_steps=34 format=3 uid="uid://xglysqus4mmt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
 [ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/UI/Parallax.tscn" id="2_ajko8"]
@@ -31,7 +31,6 @@
 [ext_resource type="AudioStream" uid="uid://dfvdt8c316hmf" path="res://Assets/Audio/Music/ui_loop.wav" id="29_xbd85"]
 [ext_resource type="AudioStream" uid="uid://cjk5su63pas8a" path="res://Assets/Audio/Music/level_loop.wav" id="30_aoy5c"]
 [ext_resource type="AudioStream" uid="uid://8uvq7rajeufg" path="res://Assets/Audio/Music/boss_loop.wav" id="31_2n0gp"]
-[ext_resource type="Texture2D" uid="uid://dlqsadwi6sql2" path="res://Assets/Sprites/Square.svg" id="32_mpqm7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sgn7q"]
 font = ExtResource("5_xyu4v")
@@ -58,12 +57,11 @@ debugScene = ExtResource("8_l7wn5")
 gameLayer = NodePath("Background/Game")
 debug = NodePath("Background/Info")
 
-[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("centre")]
+[node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
 position_smoothing_enabled = true
 editor_draw_drag_margin = true
 script = ExtResource("4_7q78q")
-centre = NodePath("../Centre")
 
 [node name="Background" parent="." instance=ExtResource("2_ajko8")]
 
@@ -105,7 +103,3 @@ levelMusic = ExtResource("30_aoy5c")
 bossMusic = ExtResource("31_2n0gp")
 
 [node name="Menu" parent="." instance=ExtResource("4_go1sy")]
-
-[node name="Centre" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("32_mpqm7")

@@ -5,18 +5,26 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 public partial class Koops : ShelledEnemy
 {
-    private enum TypeEnum { Green, Red }
-    [Export] private TypeEnum type;
+    private enum TypeEnum { Green, Red, Blue }
 
-    // ========================================================================
-    // INIT
-    // ========================================================================
+    [Export] private TypeEnum type;
 
     public override void Initiate()
     {
         base.Initiate();
 
-        Color lTargetColor = (type == TypeEnum.Green) ? Colors.Green : Colors.Red;
+        Color lTargetColor = Colors.White;
+
+        switch (type)
+        {
+            case TypeEnum.Green:
+                lTargetColor = Colors.Green;
+                break;
+            case TypeEnum.Red:
+                lTargetColor = Colors.Red;
+                break;
+        }
+
         shell.SetShellColor(lTargetColor);
     }
 
@@ -27,20 +35,23 @@ public partial class Koops : ShelledEnemy
         GameManager.GetInstance().enemyContainer.AddChild(lKoops);
 
         lKoops.GlobalPosition = pPos;
+        lKoops.type = TypeEnum.Green;
+        lKoops.facePlayer = true;
+
         return lKoops;
     }
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
 
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
 
-        if (type == TypeEnum.Green) 
+        if (facePlayer)
+            direction = faceLeft ? direction = MoveDirection.Left : direction = MoveDirection.Right;
+
+        if (type == TypeEnum.Green)
             velocity.Y = angleY;
-        else 
+        else if (type == TypeEnum.Red)
             velocity.X = angleX;
     }
+
 }

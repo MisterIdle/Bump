@@ -45,7 +45,7 @@ public partial class SceneManager : Node
 
         transitionTimer.Timeout += OnTransitionFinished;
         transitionTimer.OneShot = true;
-        transitionTimer.WaitTime = 0.2f;
+        transitionTimer.WaitTime = 1f;
 
         AddChild(transitionTimer);
 
@@ -99,7 +99,7 @@ public partial class SceneManager : Node
         if (isTransitioning) return;
 
         isTransitioning = true;
-        float lDuration = 1.5f;
+        float lDuration = 0.5f;
 
         Player lPlayer = Player.GetInstance();
         if (lPlayer != null)
@@ -120,13 +120,13 @@ public partial class SceneManager : Node
         }
 
         SwitchScene(pNextScene);
-
-        transitionTimer.Start();
     }
 
     private void SwitchScene(SceneType pSceneType)
     {
         sceneToLoad = pSceneType;
+
+        transitionTimer.Start();
 
         if (currentScene != null)
         {
@@ -141,9 +141,12 @@ public partial class SceneManager : Node
 
     private void RemoveScene()
     {
-        gameLayer.RemoveChild(currentScene);
-        currentScene.QueueFree();
-        currentScene = null;
+        if (currentScene != null)
+        {
+            gameLayer.RemoveChild(currentScene);
+            currentScene.QueueFree();
+            currentScene = null;
+        }
     }
 
     private void OnTransitionFinished()

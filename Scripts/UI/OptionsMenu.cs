@@ -127,9 +127,9 @@ public partial class OptionsMenu : MenuBase
         DisplayServer.WindowSetVsyncMode(pIsCheck ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
     }
 
-    private void ChangeLocale(string localeCode)
+    private void ChangeLocale(string lLocaleCode)
     {
-        TranslationServer.SetLocale(localeCode);
+        TranslationServer.SetLocale(lLocaleCode);
     }
 
     private void OnBackPressed()

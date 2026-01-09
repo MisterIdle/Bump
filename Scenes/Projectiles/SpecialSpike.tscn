@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://degjrhvteie7t" path="res://Assets/Sprites/Spike.svg" id="3_jxxla"]
 
 [sub_resource type="Gradient" id="Gradient_8dv0w"]
-colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.74902, 0, 0.74902, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_66d8l"]
 gradient = SubResource("Gradient_8dv0w")
@@ -51,7 +51,7 @@ visibility_rect = Rect2(-1000, -1000, 2000, 2000)
 shape = SubResource("RectangleShape2D_ddgd6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 1)
+modulate = Color(0.75046, 0.000433562, 0.750455, 1)
 position = Vector2(-2.38419e-07, 2.38419e-07)
 rotation = -1.5708
 scale = Vector2(0.359143, 0.362968)

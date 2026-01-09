@@ -80,6 +80,8 @@ public partial class StateMenu : MenuBase
 
         if (resumeButton.Visible) resumeButton.GrabFocus();
         else restartButton.GrabFocus();
+
+        AudioManager.GetInstance().SetMusicPaused(true);
     }
 
     public override void OnExit()
@@ -91,6 +93,8 @@ public partial class StateMenu : MenuBase
 
         PlayGenericExitAnimation();
         base.OnExit();
+
+        AudioManager.GetInstance().SetMusicPaused(false);
     }
 
     // ========================================================================
