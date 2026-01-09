@@ -1,6 +1,7 @@
 ﻿using Godot;
 
 using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
 
 namespace Com.IsartDigital.Shmup.NToolsBox;
 
@@ -117,9 +118,9 @@ public static class Effect
         {
             float lTime = 1f - (float)i / (pSteps - 1);
 
-            Vector2 offset = new Vector2(GameManager.rand.RandfRange(-pX, pX), GameManager.rand.RandfRange(-pY, pY)) * pForce * lTime;
+            Vector2 lOffset = new Vector2(GameManager.rand.RandfRange(-pX, pX), GameManager.rand.RandfRange(-pY, pY)) * pForce * lTime;
 
-            lTween.TweenProperty(pSelf, offsetProperty, offset, pStepDuration)
+            lTween.TweenProperty(pSelf, offsetProperty, lOffset, pStepDuration)
                   .SetTrans(Tween.TransitionType.Sine)
                   .SetEase(Tween.EaseType.InOut);
         }

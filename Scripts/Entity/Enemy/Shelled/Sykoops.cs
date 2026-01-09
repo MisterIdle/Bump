@@ -25,8 +25,6 @@ public partial class Sykoops : ShelledEnemy
     public override void Initiate()
     {
         useSpikes = true;
-        spikeRadius = 25f;
-        fireRate = 3.5f;
 
         base.Initiate();
 
@@ -113,15 +111,5 @@ public partial class Sykoops : ShelledEnemy
         Flip(true);
         direction = MoveDirection.Left;
         velocity.Y = angleY;
-    }
-
-    // ========================================================================
-    // COLLIDE
-    // ========================================================================
-
-    public override void EntityHit(int pDamage)
-    {
-        base.EntityHit(pDamage);
-        //StartInvincible(invincibleTime);
     }
 }

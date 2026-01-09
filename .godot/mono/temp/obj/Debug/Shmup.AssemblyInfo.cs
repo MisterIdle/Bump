@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Shmup")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d159ef1990ce7ad2c25fb2af4cf0002edfc0c37")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2803abc6f8dd0d6b75a071f3f3f850d96db57960")]
 [assembly: System.Reflection.AssemblyProductAttribute("Shmup")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Shmup")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -15,7 +15,7 @@ public partial class Enemy : Entity
 {
     [Export] protected int hammerScore = 1000;
 
-    [Export] private int outOfBoundMargin = 500;
+    [Export] private int outOfBoundMargin = 150;
 
     [Export] private float cameraShakeIntensity = 2f;
     [Export] private float cameraShakeDuration = 0.2f;
@@ -99,6 +99,12 @@ public partial class Enemy : Entity
     // COLLIDE
     // ========================================================================
 
+    public override void EntityHit(int pDamage)
+    {
+        base.EntityHit(pDamage);
+        StartInvincible(invincibleTime);
+    }
+
     public override void EntityDeath()
     {
         base.EntityDeath();
@@ -108,7 +114,7 @@ public partial class Enemy : Entity
         GameManager.CreateHealthCollectible(GlobalPosition);
 
         if (killedByHammer)
-            Particule.Create(popScene, GlobalPosition);
+            Particule.Create(popScene, Position);
 
         int lFinalScore = killedByHammer ? score + hammerScore : score;
 
@@ -131,7 +137,7 @@ public partial class Enemy : Entity
         else
         {
             killedByHammer = false;
-            EntityHit();
+            EntityHit(1);
         }
     }
 }

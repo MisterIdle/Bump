@@ -16,7 +16,7 @@ public partial class Entity : Movable
     [ExportCategory("Death")]
     [Export] public bool isDeath;
     [Export] protected float fallDeath = 20f;
-    [Export] protected float deathJump = 5f;
+    [Export] protected float deathJump = 10f;
     [Export] private float deathRotationSpeed = 60f;
     [Export] private float deathGravity = 20f;
 

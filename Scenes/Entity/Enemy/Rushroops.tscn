@@ -13,15 +13,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ulede"]
 radius = 91.1661
 
-[node name="Rushroops" type="Area2D" node_paths=PackedStringArray("spikeContainer", "sprite")]
+[node name="Rushroops" type="Area2D" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite")]
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_flvy1")
-chargeDuration = 0.3
-chargeSpeed = 1200.0
+headVisuals = NodePath("Sprite")
+dashDuration = 0.8
 recoilDistance = 200.0
-recoilDuration = 1.2
-basePosShell = Vector2(0, -10)
+shellPosOut = Vector2(6, -40)
+shellPosIn = Vector2(6, -10)
 facePlayer = true
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
@@ -30,12 +30,12 @@ firePattern = 1
 spikeScene = ExtResource("2_m1mku")
 spikeContainer = NodePath("Shell/Spike")
 fireRate = 0.2
-reloadTime = 2.0
+reloadTime = 1.0
 shotPreDelay = 0.2
 spikeSizeMultiplier = 2.2
 spikeFlashColor = Color(1, 0.755861, 0.238522, 1)
 hammerScore = 2000
-health = 9
+health = 10
 popScene = ExtResource("3_uicja")
 score = 5000
 direction = 1
@@ -45,7 +45,7 @@ sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(0.988235, 0.592157, 0.0627451, 1)
-position = Vector2(2, 5)
+position = Vector2(0, 4)
 scale = Vector2(0.274702, 0.131609)
 texture = ExtResource("4_iq1nb")
 
@@ -54,7 +54,7 @@ position = Vector2(-141.972, -22.7948)
 scale = Vector2(0.432008, 0.109267)
 
 [node name="Shell" parent="." instance=ExtResource("2_yupoy")]
-position = Vector2(6.43327, -39)
+position = Vector2(6, -39)
 scale = Vector2(0.370111, 0.29972)
 texture = ExtResource("6_e4aot")
 

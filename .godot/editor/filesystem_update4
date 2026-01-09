@@ -11,15 +11,14 @@ res://Scenes/MainScenes/InGame.tscn
 res://Scenes/Projectiles/Spiko.tscn
 res://Scenes/Projectiles/Spike.tscn
 res://Scenes/Trigger.tscn
-res://Scenes/Entity/Enemy/Koops.tscn
-res://Scenes/Entity/Enemy/Rushroops.tscn
-res://Scenes/Entity/Enemy/Sykoops.tscn
-res://Scenes/Entity/Player/Hammer.tscn
-res://Scenes/Projectiles/SpecialSpike.tscn
-res://Scenes/Entity/Accessory/Shell.tscn
-res://Scenes/LevelDesign/Mystery.tscn
 res://Scenes/Entity/Enemy/KingKoops.tscn
 res://Scenes/Projectiles/KingSpike.tscn
+res://Scenes/UI/Parallax.tscn
+res://Scenes/Entity/Player/Player.tscn
+res://Scenes/Entity/Player/Hammer.tscn
+res://Scenes/Entity/Enemy/Koops.tscn
+res://Scenes/Entity/Enemy/Sykoops.tscn
+res://Scenes/Entity/Enemy/Rushroops.tscn
 res://Scripts/Entity/Player/PlayerLevelData.cs
 res://Scripts/Managers/GameObject.cs
 res://Scripts/Collectibles/PowCollectible.cs
@@ -71,4 +70,3 @@ res://Scripts/Projectiles/Spiko.cs
 res://Scripts/Utils/Effects/Wing.cs
 res://Scripts/Collectibles/HeartCollectible.cs
 res://Scripts/UI/StateMenu.cs
-res://Scenes/UI/Parallax.tscn

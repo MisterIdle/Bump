@@ -74,6 +74,8 @@ public partial class Player : Entity
     private Tween invincibleTween;
     private Tween spawnTween;
     private Tween wobbleTween;
+
+    // IMPORTANT : lastShot peut contenir une référence vers un objet détruit
     private Shot lastShot;
     private Timer movementTimer;
 
@@ -98,21 +100,17 @@ public partial class Player : Entity
 
     private PlayerLevelData GetCurrentLevelData()
     {
-        if (levels == null || levels.Length == 0) 
+        if (levels == null || levels.Length == 0)
             return null;
-        
+
         int lIndex = Mathf.Clamp(level - 1, 0, levels.Length - 1);
-        
         return levels[lIndex];
     }
 
     private PlayerShotData GetCurrentShotData()
     {
         PlayerLevelData lData = GetCurrentLevelData();
-        
-        if (lData == null) 
-            return null;
-        
+        if (lData == null) return null;
         return lData.shot;
     }
 
@@ -160,40 +158,42 @@ public partial class Player : Entity
         UpdateRotation(pDelta);
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _Input(InputEvent pEvent)
     {
-        if (currentState != State.Knockback || currentState != State.Spawn)
-        {            
-            if (Input.IsActionJustPressed(Property.INPUT_SMARTBOMB)) 
+        if (isDeath || !IsInstanceValid(this)) return;
+
+        if (currentState != State.Knockback && currentState != State.Spawn)
+        {
+            if (Input.IsActionJustPressed(Property.INPUT_SMARTBOMB))
                 Pow();
-            
-            if (CanFire()) 
+
+            if (CanFire())
                 Fire();
         }
 
-        if (Input.IsActionJustPressed(Property.INPUT_GOD)) 
+        if (Input.IsActionJustPressed(Property.INPUT_GOD))
             ToggleGodMode();
-        
-        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_UP)) 
+
+        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_UP))
             LevelUp(true);
-        
-        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_DOWN)) 
+
+        if (Input.IsActionJustPressed(Property.INPUT_LEVEL_DOWN))
             LevelUp(false);
-        
-        if (Input.IsActionJustPressed(Property.INPUT_POW_UP)) 
+
+        if (Input.IsActionJustPressed(Property.INPUT_POW_UP))
             AddPow();
-        
+
         if (Input.IsActionJustPressed(Property.INPUT_POW_DOWN))
         {
             powNum--;
             HUD.GetInstance().UpdatePow(powNum);
         }
-        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_UP)) 
+        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_UP))
             AddHealth();
-        
-        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_DOWN)) 
+
+        if (Input.IsActionJustPressed(Property.INPUT_HEALTH_DOWN))
             HitCheckInvincible();
-        
+
         if (Input.IsActionJustPressed(Property.INPUT_WIN))
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
     }
@@ -248,16 +248,16 @@ public partial class Player : Entity
         if (isDeath) return;
 
         currentState = State.Spawn;
-        
+
         wobbleTween?.Kill();
         movementTimer?.Stop();
 
         sprite.Position = Vector2.Zero;
         sprite.Rotation = 0;
-        
+
         spawnTween?.Kill();
         spawnTween = CreateTween();
-        
+
         spawnTween.TweenProperty(this, (string)PropertyName.Position + ":y", finalSpawnPosition.Y + entranceOvershoot, pDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
@@ -293,7 +293,7 @@ public partial class Player : Entity
 
         else if (velocity != Vector2.Zero)
             velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN) * currentSpeedMultiplier;
-        
+
         else
             velocity.Y = angleY;
     }
@@ -322,7 +322,7 @@ public partial class Player : Entity
 
     private void OnMovementTimerTimeout()
     {
-        if (currentState == State.Dash || currentState == State.Knockback) 
+        if (currentState == State.Dash || currentState == State.Knockback)
             currentState = State.Normal;
     }
 
@@ -338,9 +338,13 @@ public partial class Player : Entity
         float lSpreadRad = Mathf.DegToRad(lShotData.spreadAngle);
         float lRandomAngle = GameManager.rand.RandfRange(-lSpreadRad, lSpreadRad);
 
-        Node lContainer = GameManager.GetInstance().gameContainer;
-
         Shot lShot = Shot.Create(lShotData.shotScene, muzzle.GlobalPosition, Vector2.Right);
+
+        if (!IsInstanceValid(lShot) || !lShot.IsInsideTree())
+        {
+            lastShot = null;
+            return;
+        }
 
         if (lShot is Movable lMovableShot)
             lMovableShot.speed = lShotData.speed;
@@ -350,19 +354,29 @@ public partial class Player : Entity
 
     private bool CanFire()
     {
-        if (!Input.IsActionPressed(Property.INPUT_SHOT) || hammer.isActif) 
+        if (!Input.IsActionPressed(Property.INPUT_SHOT) || hammer.isActif)
             return false;
 
-        if (!IsInstanceValid(lastShot)) 
+        if (!IsInstanceValid(lastShot))
             return true;
 
-        PlayerShotData lShotData = GetCurrentShotData();
-        
-        if (lShotData == null) 
+        if (lastShot.IsQueuedForDeletion())
+            return true;
+
+        if (!lastShot.IsInsideTree())
+            return true;
+
+        if (!IsInsideTree())
             return false;
 
-        return lastShot.GlobalPosition.X - GlobalPosition.X > lShotData.minSpaceBetweenShots;
+        PlayerShotData lShotData = GetCurrentShotData();
+        if (lShotData == null)
+            return false;
+
+        return lastShot.Position.X - Position.X > lShotData.minSpaceBetweenShots;
     }
+
+
 
     private void Pow()
     {
@@ -371,7 +385,7 @@ public partial class Player : Entity
         Pow lPow = NPlayer.Pow.Create(powScene);
         GameManager.GetInstance().gameContainer.AddChild(lPow);
 
-        if (!godMode) 
+        if (!godMode)
             powNum--;
 
         HUD.GetInstance().UpdatePow(powNum);
@@ -399,9 +413,9 @@ public partial class Player : Entity
         if (Position != lClampedPosition)
         {
             Vector2 lKnockbackDir = Utils.DirectionTo(Position, lClampedPosition);
-            
+
             Position = lClampedPosition;
-            
+
             ApplyKnockback(backDash, lKnockbackDir);
             HitCheckInvincible();
         }
@@ -481,9 +495,9 @@ public partial class Player : Entity
         PlayerLevelData lData = GetCurrentLevelData();
         float currentRotSpeed = lData.rotationSpeed;
 
-        if (velocity.X > 0) 
+        if (velocity.X > 0)
             lTargetAngle = currentRotSpeed;
-        else if (velocity.X < 0) 
+        else if (velocity.X < 0)
             lTargetAngle = -currentRotSpeed;
 
         sprite.RotationDegrees = Mathf.Lerp(sprite.RotationDegrees, lTargetAngle, rotationLerpSpeed * pDelta);
@@ -509,10 +523,10 @@ public partial class Player : Entity
     public void InstantDeath()
     {
         if (isDeath) return;
-        
+
         godMode = false;
         invincible = false;
-        
+
         if (invincibleTimer != null) invincibleTimer.Stop();
         health = 0;
 
@@ -523,9 +537,9 @@ public partial class Player : Entity
     protected override void EndInvincible()
     {
         invincibleTween?.Kill();
-        
+
         invincible = false;
-        
+
         sprite.Modulate = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, alphaNormal);
     }
 
@@ -534,11 +548,11 @@ public partial class Player : Entity
         if (godMode || currentState == State.Spawn) return;
 
         base.EntityHit(pDamage);
-        
+
         if (health <= 0) SetDeadState();
 
         LevelUp(false);
-        
+
         HUD.GetInstance().UpdateHealth(health);
         StartInvincible(invincibleTime);
     }
@@ -547,11 +561,11 @@ public partial class Player : Entity
     {
         invincibleTween?.Kill();
         spawnTween?.Kill();
-        
+
         sprite.Modulate = Colors.White;
-        
+
         movementTimer.Stop();
-        
+
         velocity = Vector2.Zero;
         AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerExplosion);
     }
@@ -559,9 +573,9 @@ public partial class Player : Entity
     private void TriggerGameOverSequence()
     {
         isOutSide = true;
-        
+
         Particule.Create(popPlayerDeath, GlobalPosition);
-        
+
         Timer lTimer = new Timer();
         lTimer.WaitTime = deathTimerDuration;
         lTimer.Timeout += AfterDeath;
@@ -570,14 +584,14 @@ public partial class Player : Entity
         lTimer.Start();
 
         ScaleTime.SlowMotion(deathSlowMoScale, (int)deathTimerDuration);
-        
+
         HUD.GetInstance().PlayGameOver();
         AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerExplosion);
     }
 
-    private void AfterDeath() 
+    private void AfterDeath()
     {
-        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.GameOver); 
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.GameOver);
     }
 
     protected override void OnCollide(Area2D pArea)
@@ -586,9 +600,9 @@ public partial class Player : Entity
 
         HitCheckInvincible();
 
-        Vector2 lDirection = Utils.DirectionTo(pArea.GlobalPosition, Position);
+        Vector2 lDirection = Utils.DirectionTo(pArea.Position, Position);
         ApplyKnockback(backDash, lDirection);
-        
+
         velocity = Vector2.Zero;
     }
 

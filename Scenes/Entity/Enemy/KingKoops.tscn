@@ -40,6 +40,7 @@ spriteHead = NodePath("Head/HeadSprite")
 musicSync = NodePath("Music")
 koopsScene = ExtResource("2_xtkh5")
 specialSpikeScene = ExtResource("3_ef5sv")
+headRetractedScale = Vector2(0, 0)
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
 useSpikes = true
@@ -55,8 +56,6 @@ score = 15000
 direction = 1
 speed = 100.0
 affectedByScroll = false
-frequency = 0.0
-amplitude = 0.0
 sprite = NodePath("Sprite")
 
 [node name="Music" type="Node2D" parent="."]

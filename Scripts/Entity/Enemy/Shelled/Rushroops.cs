@@ -1,127 +1,199 @@
-using Godot;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 using Com.IsartDigital.Shmup.NToolsBox;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 public partial class Rushroops : ShelledEnemy
 {
-    [ExportGroup("Rushroops Specifics")]
-    [Export] private float chargeWait = 5f;
-    [Export] private float chargeDuration = 1.5f;
-    [Export] private float chargeSpeed = 600f;
-    [Export] private float recoilDistance = -25f;
-    [Export] private float recoilDuration = 1f;
-    [Export] private Vector2 basePosShell;
+    [ExportGroup("Animation Settings")]
+    [Export] private Node2D headVisuals;
+    [Export] private float headHideOffset = 20f;
+    [Export] private float headOutDuration = 0.4f;
+    [Export] private float headInDuration = 0.3f;
 
-    private Timer chargeTimer;
-    private bool isCharging = false;
-    private float normalSpeed;
+    [ExportGroup("State Timings")]
+    [Export] private float spawnDuration = 5.0f;
+    [Export] private float shootDuration = 2.0f;
+    [Export] private float preDashDuration = 0.8f;
+    [Export] private float dashDuration = 0.4f;
+    [Export] private float recoveryDuration = 1.0f;
 
-    // ========================================================================
-    // INIT
-    // ========================================================================
+    [ExportGroup("Physics Settings")]
+    [Export] private float dashSpeed = 800f;
+    [Export] private float recoilDistance = 50f;
+    [Export] private float deceleration = 5f;
 
+    private enum EnemyState { Spawn, Shooting, PreDash, Dashing, Recovery }
+    private EnemyState currentState;
+    private Timer stateTimer;
 
-    // PHASE !!! DASH > Tir durant le reload > attend puis dash, etc
+    private float defaultSpeed;
+    private Tween animationTween;
+    [Export] private Vector2 shellPosOut;
+    [Export] private Vector2 shellPosIn;
 
     public override void Initiate()
     {
         base.Initiate();
-
-        normalSpeed = speed;
-
-        chargeTimer = new Timer();
-        chargeTimer.WaitTime = chargeWait;
-        chargeTimer.OneShot = true;
-        chargeTimer.Timeout += StartCharge;
-
-        AddChild(chargeTimer);
-        chargeTimer.Start();
+        defaultSpeed = speed;
+        baseScale = Scale;
 
         shell?.SetShellColor(Colors.Blue);
 
-        StartSpike();
-    }
+        stateTimer = new Timer();
+        stateTimer.OneShot = true;
+        stateTimer.Timeout += OnStateTimerTimeout;
+        AddChild(stateTimer);
 
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
+        ChangeState(EnemyState.Spawn);
+    }
 
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
 
-        if (!isCharging)
-            velocity.X = angleX;
-    }
-
-    // ========================================================================
-    // ATTACK (CHARGE LOOP)
-    // ========================================================================
-
-    private void StartCharge()
-    {
-        if (isCharging || isDeath) return;
-
-        isCharging = true;
-
-        StopSpike();
-
-        shellProjectileProtect = true;
-        wing?.SetSpeedDouble(true);
-
-        Effect.SquashStretch(this, baseScale, false);
-
-        Vector2 lRecoil = GlobalPosition - playerDirection * recoilDistance;
-
-        Tween lTween = CreateTween();
-
-        lTween.Parallel().TweenProperty(this, (string)PropertyName.GlobalPosition, lRecoil, recoilDuration)
-             .SetTrans(Tween.TransitionType.Back)
-             .SetEase(Tween.EaseType.Out);
-
-        lTween.Parallel().TweenProperty(shell, (string)PropertyName.Position, basePosShell, recoilDuration)
-           .SetTrans(Tween.TransitionType.Back)
-           .SetEase(Tween.EaseType.Out);
-
-        lTween.Finished += () =>
+        switch (currentState)
         {
-            if (isDeath) return;
+            case EnemyState.Spawn:
+                velocity.X = angleX;
+                break;
 
-            facePlayer = false;
+            case EnemyState.Shooting:
+                velocity.X = angleX;
+                break;
 
-            speed = chargeSpeed;
-            velocity = playerDirection;
+            case EnemyState.PreDash:
+                velocity = Vector2.Zero;
+                break;
 
-            GetTree().CreateTimer(chargeDuration).Timeout += StopCharge;
-        };
+            case EnemyState.Dashing:
+                break;
+
+            case EnemyState.Recovery:
+                velocity = velocity.Lerp(Vector2.Zero, deceleration * pDelta);
+                break;
+        }
     }
 
-    private void StopCharge()
+    private void ChangeState(EnemyState pNewState)
+    {
+        currentState = pNewState;
+
+        switch (currentState)
+        {
+            case EnemyState.Spawn:
+                speed = defaultSpeed;
+                shellProjectileProtect = true;
+
+                shell.Position = shellPosOut;
+
+                stateTimer.Start(spawnDuration);
+                break;
+
+            case EnemyState.Shooting:
+                speed = defaultSpeed;
+                shellProjectileProtect = false;
+                wing?.SetSpeedDouble(false);
+
+                AnimateHead(true);
+                StartSpike();
+                stateTimer.Start(shootDuration);
+                break;
+
+            case EnemyState.PreDash:
+                StopSpike();
+                shellProjectileProtect = true;
+                shell?.SetShellColor(Colors.DarkBlue);
+                wing?.SetSpeedDouble(true);
+                PerformChargeAnimation();
+
+                stateTimer.Start(preDashDuration);
+                break;
+
+            case EnemyState.Dashing:
+                speed = dashSpeed;
+                velocity = playerDirection.Normalized();
+
+                stateTimer.Start(dashDuration);
+                break;
+
+            case EnemyState.Recovery:
+                wing?.SetSpeedDouble(false);
+                shell?.SetShellColor(Colors.Blue);
+
+                stateTimer.Start(recoveryDuration);
+                break;
+        }
+    }
+
+    private void OnStateTimerTimeout()
     {
         if (isDeath) return;
 
-        isCharging = false;
+        switch (currentState)
+        {
+            case EnemyState.Spawn:
+                ChangeState(EnemyState.Shooting);
+                break;
 
-        speed = normalSpeed;
-        velocity = Vector2.Zero;
-        facePlayer = true;
+            case EnemyState.Shooting:
+                ChangeState(EnemyState.PreDash);
+                break;
 
-        shellProjectileProtect = false;
-        wing?.SetSpeedDouble(false);
+            case EnemyState.PreDash:
+                ChangeState(EnemyState.Dashing);
+                break;
 
-        StartSpike();
+            case EnemyState.Dashing:
+                ChangeState(EnemyState.Recovery);
+                break;
 
-        chargeTimer.Start(chargeWait);
+            case EnemyState.Recovery:
+                ChangeState(EnemyState.Shooting);
+                break;
+        }
     }
 
-    // ========================================================================
-    // COLLIDE
-    // ========================================================================
+    private void AnimateHead(bool pIsOut)
+    {
+        animationTween?.Kill();
+        animationTween = CreateTween();
+
+        if (pIsOut)
+        {
+            animationTween.TweenProperty(shell, "position", shellPosOut, headOutDuration)
+                          .SetTrans(Tween.TransitionType.Back)
+                          .SetEase(Tween.EaseType.Out);
+        }
+        else
+        {
+            animationTween.TweenProperty(shell, "position", shellPosIn, headInDuration)
+                          .SetTrans(Tween.TransitionType.Back)
+                          .SetEase(Tween.EaseType.In);
+        }
+    }
+
+    private void PerformChargeAnimation()
+    {
+        Vector2 lRecoilPos = GlobalPosition - (playerDirection.Normalized() * recoilDistance);
+
+        animationTween?.Kill();
+        animationTween = CreateTween();
+
+        animationTween.Parallel().TweenProperty(this, "global_position", lRecoilPos, preDashDuration)
+                      .SetTrans(Tween.TransitionType.Back)
+                      .SetEase(Tween.EaseType.Out);
+
+        animationTween.Parallel().TweenProperty(shell, "position", shellPosIn, preDashDuration)
+                      .SetTrans(Tween.TransitionType.Back)
+                      .SetEase(Tween.EaseType.Out);
+    }
 
     public override void EntityDeath()
     {
-        chargeTimer?.Stop();
+        stateTimer?.Stop();
+        animationTween?.Kill();
         base.EntityDeath();
     }
 }

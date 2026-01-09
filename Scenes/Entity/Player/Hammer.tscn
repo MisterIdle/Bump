@@ -60,6 +60,7 @@ shape = SubResource("CircleShape2D_sisb5")
 disabled = true
 
 [node name="Stick" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 0.587438, 0.34091, 1)
 position = Vector2(-0.215406, -1.83105e-05)
 rotation = 2.0944
