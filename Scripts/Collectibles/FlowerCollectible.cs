@@ -45,8 +45,6 @@ public partial class FlowerCollectible : Collectibles
         GameManager.GetInstance().gameContainer.AddChild(lCollectible);
         lCollectible.GlobalPosition = pPos;
 
-        lCollectible.Initiate();
-
         return lCollectible;
     }
 
@@ -65,7 +63,7 @@ public partial class FlowerCollectible : Collectibles
         if (lLevel != lastLevel)
         {
             lastLevel = lLevel;
-            sharedColor = lLevel == 2 || lLevel == 3 ? Colors.Red : Colors.White; 
+            sharedColor = lLevel == 1 ? Colors.White : Colors.Red;
             material.SetShaderParameter(COLOR_CONST, sharedColor);
         }
 

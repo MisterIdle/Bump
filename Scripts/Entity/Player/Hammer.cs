@@ -1,8 +1,9 @@
-using Godot;
-using Com.IsartDigital.Shmup.NManager;
-using Com.IsartDigital.Shmup.NToolsBox;
-using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NData;
+using Com.IsartDigital.Shmup.NHUD;
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NStats;
+using Com.IsartDigital.Shmup.NToolsBox;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
@@ -293,7 +294,7 @@ public partial class Hammer : GameObject
         animationTween = SetRotation(currentPhaseData.targetSwingRotation, currentPhaseData.swingDuration);
         animationTween.Finished += FinishAttack;
 
-        GD.Print(attackForce);
+        GameStats.specialUsed++;
 
         SetScale(currentPhaseData.scale * attackImpactScaleMult, attackImpactDuration);
     }

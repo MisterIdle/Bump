@@ -15,7 +15,7 @@ public partial class Enemy : Entity
 {
     [Export] protected int hammerScore = 1000;
 
-    [Export] private int outOfBoundMargin = 150;
+    [Export] private int outOfBoundMargin = 250;
 
     [Export] private float cameraShakeIntensity = 2f;
     [Export] private float cameraShakeDuration = 0.2f;
@@ -24,12 +24,24 @@ public partial class Enemy : Entity
 
     [Export] private float squashStretchDuration = 0.4f;
 
+    [Export] private float flipCooldownDuration = 0.5f;
+    private Timer flipTimer;
+
     private int bossDamage = 20;
     private int clearAll = 9999;
 
     private bool killedByHammer;
 
     protected float globalPlayerDistance;
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        flipTimer = new Timer();
+        flipTimer.OneShot = true;
+        AddChild(flipTimer);
+    }
 
     // ========================================================================
     // UPDATE
@@ -41,7 +53,7 @@ public partial class Enemy : Entity
 
         globalPlayerDistance = Utils.DistanceTo(this, Player.GetInstance());
 
-        if (Utils.IsOutOfBound(Position, outOfBoundMargin) && this is not KingKoops)
+        if (Utils.IsOutOfBound(Position, outOfBoundMargin))
         {
             health = 0;
             QueueFree();
@@ -76,6 +88,7 @@ public partial class Enemy : Entity
                     continue;
                 }
 
+                lEnemy.health = 0;
                 lEnemy.EntityHit(lEnemy.clearAll);
             }
         }
@@ -87,12 +100,19 @@ public partial class Enemy : Entity
 
     protected void Flip(bool pFaceLeft)
     {
+        if (!flipTimer.IsStopped()) return;
+
+        float lCurrentDirection = Mathf.Sign(Scale.X);
+        float lTargetDirection = pFaceLeft ? 1 : -1;
+        if (lCurrentDirection == lTargetDirection) return;
+
         float lDirection = pFaceLeft ? 1 : -1;
         Scale = new Vector2(Mathf.Abs(baseScale.X) * lDirection, baseScale.Y);
-
         baseScale = Scale;
 
         Effect.SquashStretch(this, baseScale, true);
+
+        flipTimer.Start(flipCooldownDuration);
     }
 
     // ========================================================================

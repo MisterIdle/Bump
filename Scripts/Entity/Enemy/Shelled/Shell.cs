@@ -110,7 +110,6 @@ public partial class Shell : Sprite2D
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 
-        // Transition vers le gris
         lDestructionTween.Finished += () => ShellColor(Colors.Gray, colorTransitionDuration);
     }
 }

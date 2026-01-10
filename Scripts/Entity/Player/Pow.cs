@@ -1,8 +1,9 @@
-using Godot;
-using Com.IsartDigital.Shmup.NManager;
-using Com.IsartDigital.Shmup.NToolsBox;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NStats;
+using Com.IsartDigital.Shmup.NToolsBox;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
@@ -26,6 +27,8 @@ public partial class Pow : GameObject
     {
         base._Ready();
         StartEntranceAnimation();
+
+        GameStats.powerUsed++;
     }
 
     public static Pow Create(PackedScene pScene)

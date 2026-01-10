@@ -19,8 +19,6 @@ public partial class HeartCollectible : Collectibles
         GameManager.GetInstance().gameContainer.AddChild(lCollectible);
         lCollectible.GlobalPosition = pPos;
 
-        lCollectible.Initiate();
-
         return lCollectible;
     }
 

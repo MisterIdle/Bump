@@ -22,6 +22,11 @@ public partial class Collectibles : Movable
     // INIT
     // ========================================================================
 
+    public override void _Ready()
+    {
+        Initiate();
+    }
+
     public override void Initiate()
     {
         base.Initiate();
@@ -73,7 +78,7 @@ public partial class Collectibles : Movable
         lRecoltTween.TweenProperty(this, (string)PropertyName.Modulate + ":a", finalAlpha ,recoltDuration)
             .SetEase(Tween.EaseType.In);
 
-        lRecoltTween.Finished += () => QueueFree();
+        lRecoltTween.Finished += QueueFree;
     }
 
     // ========================================================================

@@ -3,6 +3,7 @@ using System;
 
 using Com.IsartDigital.Shmup.NStats;
 using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
 namespace Com.IsartDigital.Shmup.NHUD;
 
@@ -141,7 +142,12 @@ public partial class Victory : MenuBase
     {
         if (!Visible) return;
 
-        if (pEvent.IsActionPressed(Property.INPUT_UI_PAUSE) && !MenuManager.GetInstance().loading)
+        bool lIsAnyAction = pEvent.IsPressed() &&
+                           (pEvent is InputEventKey ||
+                            pEvent is InputEventMouseButton ||
+                            pEvent is InputEventJoypadButton);
+
+        if (lIsAnyAction && !MenuManager.GetInstance().loading)
         {
             GetViewport().SetInputAsHandled();
             PlayGenericExitAnimation();
@@ -161,6 +167,7 @@ public partial class Victory : MenuBase
 
         HideAllElements();
         PlayVictory();
+        Player.GetInstance().invincible = true;
     }
 
     // ========================================================================
@@ -277,10 +284,7 @@ public partial class Victory : MenuBase
             .SetTrans(Tween.TransitionType.Elastic)
             .SetEase(Tween.EaseType.Out);
 
-        lVictoryTween.Finished += () =>
-        {
-            MenuManager.GetInstance().loading = false;
-        };
+        lVictoryTween.Finished += () => MenuManager.GetInstance().loading = false;
 
     }
 

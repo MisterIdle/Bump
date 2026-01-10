@@ -9,6 +9,10 @@ public partial class Koops : ShelledEnemy
 
     [Export] private TypeEnum type;
 
+    [Export] private float redSpeed = 200;
+    [Export] private float greenSpeed = 100;
+    [Export] private float blueSpeed = 50;
+
     public override void Initiate()
     {
         base.Initiate();
@@ -19,9 +23,15 @@ public partial class Koops : ShelledEnemy
         {
             case TypeEnum.Green:
                 lTargetColor = Colors.Green;
+                speed = greenSpeed;
                 break;
             case TypeEnum.Red:
                 lTargetColor = Colors.Red;
+                speed = redSpeed;
+                break;
+            case TypeEnum.Blue:
+                lTargetColor = Colors.Blue;
+                speed = blueSpeed;
                 break;
         }
 
@@ -34,9 +44,8 @@ public partial class Koops : ShelledEnemy
 
         GameManager.GetInstance().enemyContainer.AddChild(lKoops);
 
-        lKoops.GlobalPosition = pPos;
+        lKoops.Position = pPos;
         lKoops.type = TypeEnum.Green;
-        lKoops.facePlayer = true;
 
         return lKoops;
     }
@@ -45,13 +54,18 @@ public partial class Koops : ShelledEnemy
     {
         base.AliveUpdate(pDelta);
 
-        if (facePlayer)
-            direction = faceLeft ? direction = MoveDirection.Left : direction = MoveDirection.Right;
-
-        if (type == TypeEnum.Green)
-            velocity.Y = angleY;
-        else if (type == TypeEnum.Red)
-            velocity.X = angleX;
+        switch (type)
+        {
+            case TypeEnum.Green:
+                break;
+            case TypeEnum.Red:
+                velocity.Y = angleY;
+                break;
+            case TypeEnum.Blue:
+                velocity = playerDirection;
+                break;
+            default:
+                break;
+        }
     }
-
 }

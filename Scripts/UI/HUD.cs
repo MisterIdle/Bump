@@ -113,6 +113,8 @@ public partial class HUD : MenuBase
         gameoverLabel.Visible = false;
         PlayEntranceAnimation();
         HideBossBattle();
+
+        AudioManager.GetInstance().SetMusicPaused(false);
     }
 
     public override void OnExit()
@@ -247,10 +249,7 @@ public partial class HUD : MenuBase
                 .SetDelay(entrancePowDelay)
                 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
 
-        lTween.Finished += () =>
-        {
-            MenuManager.GetInstance().loading = false;
-        };
+        lTween.Finished += () => MenuManager.GetInstance().loading = false;
     }
 
     public void PlayExitAnimation(float pDuration)

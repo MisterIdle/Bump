@@ -23,11 +23,27 @@ public partial class Camera : Camera2D
         }
     }
 
-    public override void _Process(double delta)
+    public override void _Process(double pDelta)
     {
         if (!isScrolling) return;
 
-        Position += new Vector2(scrollSpeed * (float)delta, 0);
+        Position += new Vector2(scrollSpeed * (float)pDelta, 0);
+    }
+
+    public Vector2 GetRandomSpawnPositionRight(float pOffsetMargin = 50f)
+    {
+        Rect2 lViewportRect = GetViewportRect();
+
+        float lPaddingY = 40.0f;
+
+        float lSpawnX = GlobalPosition.X + lViewportRect.Size.X + pOffsetMargin;
+
+        float lMinY = GlobalPosition.Y + lPaddingY;
+        float lMaxY = GlobalPosition.Y + lViewportRect.Size.Y - lPaddingY;
+
+        float lSpawnY = GameManager.rand.RandfRange(lMinY, lMaxY);
+
+        return new Vector2(lSpawnX, lSpawnY);
     }
 
     public Vector2 GetScreenCenter()

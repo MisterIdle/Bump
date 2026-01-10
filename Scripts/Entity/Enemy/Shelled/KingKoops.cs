@@ -30,19 +30,17 @@ public partial class KingKoops : ShelledEnemy
     [Export] private float preDashDuration = 0.5f;
     [Export] private float dashDuration = 0.5f;
 
-    // A changer un peu le b
-    // A changer un peu le b
-    // A changer un peu le b
-    // A changer un peu le b
     [Export] private float preDashDurationA = 0.5f;
     [Export] private float dashDurationA = 0.5f;
-    [Export] private float preDashDurationB = 0.5f;
-    [Export] private float dashDurationB = 0.5f;
+    [Export] private float preDashDurationB = 0.1f;
+    [Export] private float dashDurationB = 0.2f;
 
     [Export] private float recoveryDuration = 1.0f;
     [Export] private float dashSpeed = 800f;
     [Export] private float recoilDistance = 50f;
     [Export] private float deceleration = 5f;
+
+    [Export] private float timerSpawn = 2.5f;
 
     [ExportCategory("Idle & Visuals")]
     [Export] private float grooveJumpHeight = 25f;
@@ -79,6 +77,7 @@ public partial class KingKoops : ShelledEnemy
 
     private Tween visualTween;
     private Timer animationTimer;
+    private Timer spawnTimer;
 
     public override void Initiate()
     {
@@ -92,6 +91,11 @@ public partial class KingKoops : ShelledEnemy
         dashTimer = new Timer();
         dashTimer.OneShot = true;
         AddChild(dashTimer);
+
+        spawnTimer = new Timer();
+        spawnTimer.Timeout += SpawnKoops;
+        spawnTimer.WaitTime = timerSpawn;
+        AddChild(spawnTimer);
 
         StartIntro();
     }
@@ -140,9 +144,6 @@ public partial class KingKoops : ShelledEnemy
                       .SetEase(Tween.EaseType.Out);
 
         shell.SetShellColor(Colors.DarkRed);
-
-        if (currentPhase == PhaseState.Summoning)
-            SpawnObject(koopsScene, GlobalPosition);
     }
 
     private void ExecuteDash()
@@ -150,7 +151,9 @@ public partial class KingKoops : ShelledEnemy
         dashTimer.Timeout -= ExecuteDash;
 
         currentAction = ActionState.Dashing;
-        dashDirection = playerDirection.Normalized();
+
+        if (currentPhase != PhaseState.Summoning)
+            dashDirection = playerDirection.Normalized();
 
         SwitchState(EnemyState.Outside);
 
@@ -188,6 +191,9 @@ public partial class KingKoops : ShelledEnemy
                 break;
 
             case ActionState.Dashing:
+                if (currentPhase == PhaseState.Summoning)
+                    dashDirection = playerDirection;
+
                 velocity = dashDirection * dashSpeed;
                 break;
 
@@ -299,9 +305,18 @@ public partial class KingKoops : ShelledEnemy
             case PhaseState.Intro:
                 break;
             case PhaseState.Normal:
-                affectedByScroll = true;
+                break;
+            case PhaseState.Aggressive:
+                preDashDuration = preDashDurationA;
+                dashDuration = dashDurationA;
+                break;
+            case PhaseState.Summoning:
+                preDashDuration = preDashDurationB;
+                dashDuration = dashDurationB;
+                spawnTimer.Start();
                 break;
             case PhaseState.Final:
+                spawnTimer.Stop();
                 EnterPhaseFinal();
                 break;
             default:
@@ -345,6 +360,12 @@ public partial class KingKoops : ShelledEnemy
             Koops lKoops = Koops.Create(pScene, pPos);
             lKoops.Initiate();
         }
+    }
+
+    private void SpawnKoops()
+    {
+        Vector2 lSpawnPos = Camera.GetInstance().GetRandomSpawnPositionRight();
+        SpawnObject(koopsScene, lSpawnPos);
     }
 
     public void SwitchState(EnemyState pNewState)
@@ -444,6 +465,8 @@ public partial class KingKoops : ShelledEnemy
     public void OnHeadCollide(Area2D pArea)
     {
         if (isInvincible || isDeath) return;
+
+        // Modif le 1 pour une baseDamage
         int lDamage = (pArea.Owner is Hammer) ? Hammer.GetInstance().attackForce : 1;
         EntityHit(lDamage);
         shell.ShellDamageAnimation();
@@ -474,14 +497,17 @@ public partial class KingKoops : ShelledEnemy
     {
         CallDeferred(MethodName.CallDeathCleanup);
         animationTimer.Stop();
-        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
-        AudioManager.GetInstance().StopMusic();
         QueueFree();
     }
 
     private void CallDeathCleanup()
     {
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
+        AudioManager.GetInstance().StopMusic();
+
         ClearAll(false, false);
         Projectiles.ClearAll();
+
+        GD.Print("CLEAN");
     }
 }

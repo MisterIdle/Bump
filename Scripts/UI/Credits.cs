@@ -20,7 +20,12 @@ public partial class Credits : MenuBase
     {
         if (!Visible) return;
 
-        if (pEvent.IsActionPressed(Property.INPUT_UI_PAUSE) && !MenuManager.GetInstance().loading)
+        bool lIsAnyAction = pEvent.IsPressed() &&
+                           (pEvent is InputEventKey ||
+                            pEvent is InputEventMouseButton ||
+                            pEvent is InputEventJoypadButton);
+
+        if (lIsAnyAction && !MenuManager.GetInstance().loading)
         {
             GetViewport().SetInputAsHandled();
 

@@ -53,16 +53,19 @@ public partial class Walsy : Enemy
     // COLLIDE
     // ========================================================================
 
-    public override void EntityHit(int pDamage)
+    public override void EntityHit(int pDamage = 1)
     {
         base.EntityHit(pDamage);
 
         animatedSprite.Frame++;
 
-        if (health <= 0)
-            QueueFree();
-
         Effect.BumpScale(this, baseScale);
         InverseRotation();
+    }
+
+    public override void EntityDeath()
+    {
+        base.EntityDeath();
+        QueueFree();
     }
 }

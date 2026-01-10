@@ -29,6 +29,7 @@ public static class Property
     public static string INPUT_DEBUG = "DEBUG";
     public static string INPUT_DEBUG_SCENE = "DEBUGSCENE";
     public static string INPUT_WIN = "WIN";
+    public static string INPUT_BOSS = "BOSS";
 
     public static string INPUT_BOSSNORMAL = "BOSSNORMAL";
     public static string INPUT_BOSSPROTECTED = "BOSSPROTECTED";

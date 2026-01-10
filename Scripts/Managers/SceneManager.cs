@@ -1,6 +1,7 @@
 using Godot;
-using Com.IsartDigital.Shmup.NHUD;
+
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NManager;
@@ -27,7 +28,7 @@ public partial class SceneManager : Node
     private SceneType sceneToLoad;
 
     private bool isTransitioning = false;
-    private float loadTime = 0.2f;
+    private float loadTime = 0.4f;
 
     public Timer transitionTimer;
     public Tween transitionTween;
@@ -45,12 +46,9 @@ public partial class SceneManager : Node
 
         transitionTimer.Timeout += OnTransitionFinished;
         transitionTimer.OneShot = true;
-        transitionTimer.WaitTime = 1f;
+        transitionTimer.WaitTime = loadTime;
 
         AddChild(transitionTimer);
-
-        if (currentSceneType == SceneType.MainMenu)
-            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
     }
 
     public override void _Process(double pDelta)
@@ -58,6 +56,7 @@ public partial class SceneManager : Node
         if (!debug.Visible) return;
 
         string lText =
+            $"\n--- [ SYSTEM ] ---\n" +
             $"Scene : {currentSceneType}\n" +
             $"FPS : {Engine.GetFramesPerSecond()}\n" +
             $"Time : {Engine.TimeScale:F2}s\n" +
@@ -65,13 +64,17 @@ public partial class SceneManager : Node
 
         Player lPlayer = Player.GetInstance();
         if (lPlayer != null)
-            lText += $"Player State : {lPlayer.currentState}\n";
+        {
+            lText += $"\n--- [ PLAYER ] ---\n" +
+                $"State : {lPlayer.currentState}\n";
+        }
 
         Hammer lHammer = Hammer.GetInstance();
         if (lHammer != null)
         {
-            lText += $"Hammer State : {lHammer.currentState}\n";
-            lText += $"Hammer Attack : {lHammer.attackForce}\n";
+            lText += $"Hammer ATK : {lHammer.attackForce}\n" +
+                $"Hammer State : {lHammer.currentState}\n" +
+                $"Hammer Attack : {lHammer.attackForce}\n";
         }
 
         debug.Text = lText;
@@ -87,11 +90,6 @@ public partial class SceneManager : Node
             SwitchScene(SceneType.Debug);
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
         }
-    }
-
-    public SceneType GetCurrentSceneType()
-    {
-        return currentSceneType;
     }
 
     public void ChangeGlobalScene(SceneType pNextScene)
@@ -167,12 +165,13 @@ public partial class SceneManager : Node
         {
             currentScene = lTargetScene.Instantiate();
             gameLayer.AddChild(currentScene);
-            currentSceneType = sceneToLoad;
         }
+
+        currentSceneType = sceneToLoad;
 
         isTransitioning = false;
 
-        if (currentSceneType == SceneType.Game)
+        if (currentSceneType != SceneType.MainMenu)
         {
             Camera lCam = Camera.GetInstance();
             if (lCam != null)

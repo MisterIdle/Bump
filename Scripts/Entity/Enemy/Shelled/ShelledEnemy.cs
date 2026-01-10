@@ -14,8 +14,9 @@ public partial class ShelledEnemy : Enemy
     [ExportGroup("Base Settings")]
     [Export] public bool shellProjectileProtect;
     [Export] protected bool facePlayer;
-    [Export] protected NodePath shellPath;
-    [Export] protected NodePath wingPath;
+    [Export] private NodePath shellPath;
+    [Export] private NodePath wingPath;
+    [Export] private NodePath spikeContainerPath;
 
     [ExportGroup("Spike System")]
     [Export] protected bool useSpikes = false;
@@ -55,8 +56,9 @@ public partial class ShelledEnemy : Enemy
     {
         base.Initiate();
 
-        shell = GetNodeOrNull<Shell>(shellPath);
-        wing = GetNodeOrNull<Wing>(wingPath);
+        spikeContainer = (Node2D)GetNodeOrNull(spikeContainerPath);
+        shell = (Shell)GetNode(shellPath);
+        wing = (Wing)GetNode(wingPath);
 
         if (useSpikes)
             SetupSpikeSystem();

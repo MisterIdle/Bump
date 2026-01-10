@@ -27,24 +27,4 @@ public static class GameStats
     {
         currentScore += pAmount;
     }
-
-    public static void AddKill()
-    {
-        enemyKills++;
-    }
-
-    public static void AddShot()
-    {
-        shotsFired++;
-    }
-
-    public static void AddSpecial()
-    {
-        specialUsed++;
-    }
-
-    public static void AddPower()
-    {
-        powerUsed++;
-    }
 }

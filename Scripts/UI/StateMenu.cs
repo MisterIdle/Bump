@@ -78,8 +78,10 @@ public partial class StateMenu : MenuBase
 
         base.OnEnter();
 
-        if (resumeButton.Visible) resumeButton.GrabFocus();
-        else restartButton.GrabFocus();
+        if (resumeButton.Visible) 
+            resumeButton.GrabFocus();
+        else 
+            restartButton.GrabFocus();
 
         AudioManager.GetInstance().SetMusicPaused(true);
     }
@@ -93,8 +95,6 @@ public partial class StateMenu : MenuBase
 
         PlayGenericExitAnimation();
         base.OnExit();
-
-        AudioManager.GetInstance().SetMusicPaused(false);
     }
 
     // ========================================================================
@@ -156,20 +156,22 @@ public partial class StateMenu : MenuBase
         Enemy.ClearAll(true, true);
         Projectiles.ClearAll();
 
-        lTween.Finished += () =>
-        {
-            GetTree().Paused = false;
-            MenuManager.GetInstance().nextIsGame = true;
-            SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
-            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
-        };
+        lTween.Finished += RestartSwitch;
 
         AudioManager.GetInstance().StopMusic();
     }
 
+    private void RestartSwitch()
+    {
+        GetTree().Paused = false;
+        MenuManager.GetInstance().nextIsGame = true;
+        SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
+    }
+
     public void OnMainMenu()
     {
-        CreateTween().TweenProperty(panel, "modulate:a", 0.0f, 0.4f);
+        CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", 0.0f, 0.4f);
         Tween lTween = PlayGenericExitAnimation();
 
         Enemy.ClearAll(true, true);

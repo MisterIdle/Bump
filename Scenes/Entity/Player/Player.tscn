@@ -19,10 +19,6 @@
 [sub_resource type="Resource" id="Resource_g71o3"]
 script = ExtResource("3_8vhug")
 shotScene = ExtResource("2_1sndv")
-speed = 500.0
-lifeTime = 10.0
-spreadAngle = 15.0
-minSpaceBetweenShots = 400.0
 
 [sub_resource type="Resource" id="Resource_brr4n"]
 script = ExtResource("2_0fou4")
@@ -34,10 +30,6 @@ moveSpeedMultiplier = 0.8
 [sub_resource type="Resource" id="Resource_qw7va"]
 script = ExtResource("3_8vhug")
 shotScene = ExtResource("2_1sndv")
-speed = 700.0
-lifeTime = 10.0
-spreadAngle = 5.0
-minSpaceBetweenShots = 600.0
 
 [sub_resource type="Resource" id="Resource_3ucia"]
 script = ExtResource("2_0fou4")
@@ -49,10 +41,6 @@ moveSpeedMultiplier = 1.2
 [sub_resource type="Resource" id="Resource_ojgrv"]
 script = ExtResource("3_8vhug")
 shotScene = ExtResource("2_w6786")
-speed = 1000.0
-lifeTime = 10.0
-spreadAngle = 0.0
-minSpaceBetweenShots = 400.0
 
 [sub_resource type="Resource" id="Resource_gky4d"]
 script = ExtResource("2_0fou4")

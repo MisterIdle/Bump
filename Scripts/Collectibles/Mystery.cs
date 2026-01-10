@@ -49,11 +49,13 @@ public partial class Mystery : Movable
 
         lHitTween = Effect.BumpScale(this, baseScale);
 
-        lHitTween.Finished += () =>
-        {
-            SpawnCollectible();
-            QueueFree();
-        };
+        lHitTween.Finished += HitFinish;
+    }
+
+    private void HitFinish()
+    {
+        SpawnCollectible();
+        QueueFree();
     }
 
     protected override void OnCollide(Area2D pArea)

@@ -23,6 +23,7 @@ shellProjectileProtect = true
 facePlayer = true
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
+spikeContainerPath = NodePath("Shell/Spike")
 useSpikes = true
 spikeScene = ExtResource("2_0qrcg")
 spikeContainer = NodePath("Shell/Spike")
@@ -34,6 +35,7 @@ popScene = ExtResource("3_g7d3s")
 score = 10000
 direction = 1
 speed = 100.0
+affectedByScroll = false
 amplitude = 0.3
 sprite = NodePath("Sprite")
 
@@ -64,5 +66,6 @@ position = Vector2(-6.66667, 68.4411)
 scale = Vector2(7, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_memyj")

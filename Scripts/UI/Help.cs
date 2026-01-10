@@ -18,7 +18,12 @@ public partial class Help : MenuBase
     {
         if (!Visible) return;
 
-        if (pEvent.IsActionPressed(Property.INPUT_UI_PAUSE) && !MenuManager.GetInstance().loading)
+        bool lIsAnyAction = pEvent.IsPressed() &&
+                           (pEvent is InputEventKey ||
+                            pEvent is InputEventMouseButton ||
+                            pEvent is InputEventJoypadButton);
+
+        if (lIsAnyAction && !MenuManager.GetInstance().loading)
         {
             GetViewport().SetInputAsHandled();
             PlayGenericEntryAnimation();
@@ -31,7 +36,7 @@ public partial class Help : MenuBase
                 SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.Game);
                 AudioManager.GetInstance().StopMusic();
                 MenuManager.GetInstance().nextIsGame = false;
-            } 
+            }
             else
             {
                 MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);

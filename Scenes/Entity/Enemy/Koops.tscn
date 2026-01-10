@@ -16,11 +16,14 @@ size = Vector2(56, 73)
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_8e6h4")
+redSpeed = 100.0
+greenSpeed = 200.0
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
 popScene = ExtResource("2_ba4au")
 direction = 1
 speed = 100.0
+affectedByScroll = false
 sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]

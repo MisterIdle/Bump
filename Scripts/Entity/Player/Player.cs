@@ -57,6 +57,8 @@ public partial class Player : Entity
     [Export] private float deathSlowMoScale = 0.5f;
     [Export] private float deathTimerDuration = 3f;
 
+    [Export] private float minBetweenShots = 600;
+
     public int level = 1;
     public enum State { Spawn, Normal, Dash, Knockback }
     public State currentState;
@@ -333,15 +335,12 @@ public partial class Player : Entity
         Effect.BumpScale(sprite, baseSpriteScale);
         Effect.SquashStretch(sprite, baseSpriteScale, true, false, 0.8f, 1f);
 
-        float lSpreadRad = Mathf.DegToRad(lShotData.spreadAngle);
-        float lRandomAngle = GameManager.rand.RandfRange(-lSpreadRad, lSpreadRad);
-
         Shot lShot = Shot.Create(lShotData.shotScene, muzzle.GlobalPosition, Vector2.Right);
 
-        if (lShot is Movable lMovableShot)
-            lMovableShot.speed = lShotData.speed;
+        GameStats.shotsFired++;
 
-        lastShot = lShot;
+        if (IsInstanceValid(lShot))
+            lastShot = lShot;
     }
 
     private bool CanFire()
@@ -360,7 +359,7 @@ public partial class Player : Entity
         }
 
         float lDistance = lastShot.GlobalPosition.X - muzzle.GlobalPosition.X;
-        return lDistance > lShotData.minSpaceBetweenShots;
+        return lDistance > minBetweenShots;
     }
 
 
@@ -380,7 +379,7 @@ public partial class Player : Entity
     private void OutOfBound()
     {
         if (currentState == State.Spawn) return;
-        
+
         if (isDeath)
         {
             if (Utils.IsOutOfBound(Position, MARGIN))
@@ -394,16 +393,19 @@ public partial class Player : Entity
             return;
         }
 
-        Vector2 lClampedPosition = Utils.ClampToScreen(Position, MARGIN);
+        Vector2 lClamped = Utils.ClampToScreen(Position, MARGIN);
 
-        if (Position != lClampedPosition)
+        if (Position != lClamped)
         {
-            Vector2 lKnockbackDir = Utils.DirectionTo(Position, lClampedPosition);
+            Position = lClamped;
 
-            Position = lClampedPosition;
-
-            ApplyKnockback(backDash, lKnockbackDir);
-            HitCheckInvincible();
+            if (currentState == State.Dash || currentState == State.Knockback)
+            {
+                velocity = Vector2.Zero;
+                dashDirection = Vector2.Zero;
+                currentState = State.Normal;
+                movementTimer.Stop();
+            }
         }
     }
 
@@ -449,7 +451,7 @@ public partial class Player : Entity
         ScaleTime.SlowMotion();
     }
 
-    private void ToggleGodMode()
+    public void ToggleGodMode()
     {
         godMode = !godMode;
         collision.Disabled = godMode;
@@ -513,7 +515,8 @@ public partial class Player : Entity
         godMode = false;
         invincible = false;
 
-        if (invincibleTimer != null) invincibleTimer.Stop();
+        if (invincibleTimer != null) 
+            invincibleTimer.Stop();
         health = 0;
 
         HUD.GetInstance().UpdateHealth(health);
@@ -538,6 +541,7 @@ public partial class Player : Entity
         if (health <= 0) SetDeadState();
 
         LevelUp(false);
+        lastShot = null;
 
         HUD.GetInstance().UpdateHealth(health);
         StartInvincible(invincibleTime);
@@ -560,7 +564,7 @@ public partial class Player : Entity
     {
         isOutSide = true;
 
-        Particule.Create(popPlayerDeath, GlobalPosition);
+        Particule.Create(popPlayerDeath, Position);
 
         Timer lTimer = new Timer();
         lTimer.WaitTime = deathTimerDuration;
