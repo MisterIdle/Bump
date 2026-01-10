@@ -96,6 +96,7 @@ public partial class MainMenu : MenuBase
         AudioManager.GetInstance().Play(AudioManager.AudioType.UIStart);
         MenuManager.GetInstance().nextIsGame = true;
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
+        HUD.GetInstance().ResetHUD();
     }
 
     private void OnHelpPressed()
