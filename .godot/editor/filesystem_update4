@@ -1,5 +1,3 @@
-res://Assets/Localization/Translation.en.translation
-res://Assets/Localization/Translation.fr.translation
 res://Scenes/Entity/Enemy/KingKoops.tscn
 res://Assets/Shader/ColorSwap.tres
 res://Assets/Shader/Distortion.tres

@@ -94,11 +94,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alexy\\Desktop\\Bump\\Shmup.csproj",
+      "projectUniqueName": "C:\\USERS\\ALEXY\\DESKTOP\\HOUBLOUP_ALEXY_GDP1B_SHMUP\\BIN\\SUPASHMUP\\Shmup.csproj",
       "projectName": "Shmup",
-      "projectPath": "C:\\Users\\alexy\\Desktop\\Bump\\Shmup.csproj",
+      "projectPath": "C:\\USERS\\ALEXY\\DESKTOP\\HOUBLOUP_ALEXY_GDP1B_SHMUP\\BIN\\SUPASHMUP\\Shmup.csproj",
       "packagesPath": "C:\\Users\\alexy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alexy\\Desktop\\Bump\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "C:\\USERS\\ALEXY\\DESKTOP\\HOUBLOUP_ALEXY_GDP1B_SHMUP\\BIN\\SUPASHMUP\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
