@@ -61,3 +61,5 @@ res://Scripts/Utils/Effects/Wing.cs
 res://Scripts/Collectibles/HeartCollectible.cs
 res://Scripts/UI/StateMenu.cs
 res://Scripts/Entity/Enemy/Normal/Walsy.cs
+res://Scenes/MainScenes/InGame.tscn
+res://Scenes/UI/MainMenu.tscn
