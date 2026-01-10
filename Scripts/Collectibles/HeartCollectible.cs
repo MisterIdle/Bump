@@ -1,7 +1,7 @@
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
+using Godot;
+
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NManager;
-using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 

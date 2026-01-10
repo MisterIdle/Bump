@@ -1,5 +1,7 @@
 using Godot;
 
+using Com.IsartDigital.Shmup.NManager;
+
 namespace Com.IsartDigital.Shmup.NHUD;
 
 public partial class MenuBase : Control
@@ -11,6 +13,13 @@ public partial class MenuBase : Control
     [Export] protected float animInitialDelay = 0.2f;
 
     private Tween animationTween;
+
+    private const float HALF_DIVISOR = 2f;
+    private const float ALPHA_FADE_DURATION = 0.3f;
+    private const float EXIT_ALPHA_MULTIPLIER = 0.6f;
+    private const float ALPHA_OPAQUE = 1f;
+    private const float ALPHA_TRANSPARENT = 0f;
+    private const float NO_DELAY = 0f;
 
     // ========================================================================
     // UPDATE
@@ -38,8 +47,8 @@ public partial class MenuBase : Control
                 if (IsAnimatable(lControl))
                 {
                     lControl.Scale = Vector2.Zero;
-                    lControl.Modulate = new Color(1, 1, 1, 0);
-                    lControl.PivotOffset = lControl.Size / 2;
+                    lControl.Modulate = Colors.Transparent;
+                    lControl.PivotOffset = lControl.Size / HALF_DIVISOR;
                 }
 
                 if (lChild.GetChildCount() > 0)
@@ -50,7 +59,8 @@ public partial class MenuBase : Control
 
     protected void PlayGenericEntryAnimation()
     {
-        animationTween?.Kill();
+        if (animationTween != null && animationTween.IsValid()) animationTween.Kill();
+
         animationTween = CreateTween();
         animationTween.SetParallel(true);
 
@@ -68,10 +78,10 @@ public partial class MenuBase : Control
             {
                 if (IsAnimatable(lControl))
                 {
-                    pTween.TweenProperty(lControl, "modulate:a", 1f, 0.3f)
+                    pTween.TweenProperty(lControl, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, ALPHA_FADE_DURATION)
                         .SetDelay(pDelay);
 
-                    pTween.TweenProperty(lControl, "scale", Vector2.One, animDurationEnter)
+                    pTween.TweenProperty(lControl, (string)PropertyName.Scale, Vector2.One, animDurationEnter)
                         .SetDelay(pDelay)
                         .SetEase(Tween.EaseType.Out)
                         .SetTrans(Tween.TransitionType.Back);
@@ -87,12 +97,12 @@ public partial class MenuBase : Control
 
     public Tween PlayGenericExitAnimation()
     {
-        animationTween?.Kill();
+        if (animationTween != null && animationTween.IsValid()) animationTween.Kill();
 
         animationTween = CreateTween();
         animationTween.SetParallel(true);
 
-        float lDelay = 0f;
+        float lDelay = NO_DELAY;
         AnimateControlsExitRecursive(this, animationTween, lDelay);
 
         animationTween.Chain().TweenCallback(Callable.From(() => Visible = false));
@@ -108,10 +118,10 @@ public partial class MenuBase : Control
             {
                 if (IsAnimatable(lControl))
                 {
-                    pTween.TweenProperty(lControl, "modulate:a", 0f, animDurationExit * 0.6f)
+                    pTween.TweenProperty(lControl, (string)PropertyName.Modulate + ":a", ALPHA_TRANSPARENT, animDurationExit * EXIT_ALPHA_MULTIPLIER)
                         .SetDelay(pDelay);
 
-                    pTween.TweenProperty(lControl, "scale", Vector2.Zero, animDurationExit)
+                    pTween.TweenProperty(lControl, (string)PropertyName.Scale, Vector2.Zero, animDurationExit)
                         .SetDelay(pDelay)
                         .SetEase(Tween.EaseType.In)
                         .SetTrans(Tween.TransitionType.Back);
@@ -127,6 +137,11 @@ public partial class MenuBase : Control
 
     private bool IsAnimatable(Control pControl)
     {
-        return pControl is Button || pControl is Label || pControl is CheckBox || pControl is HSlider || pControl is TextureRect || pControl is ProgressBar;
+        return pControl is Button ||
+               pControl is Label ||
+               pControl is CheckBox ||
+               pControl is HSlider ||
+               pControl is TextureRect ||
+               pControl is ProgressBar;
     }
 }

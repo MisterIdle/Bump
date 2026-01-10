@@ -1,11 +1,10 @@
 using Godot;
+using System;
 
 namespace Com.IsartDigital.Shmup.NManager;
 
 public partial class AudioManager : Node
 {
-    private static AudioManager instance;
-
     public enum AudioType
     {
         None,
@@ -68,6 +67,18 @@ public partial class AudioManager : Node
 
     private AudioStreamPlayer musicPlayer;
 
+    private const string BUS_MUSIC = "Music";
+    private const string BUS_SFX = "SFX";
+
+    private const float DEFAULT_PITCH = 1.0f;
+    private const float VOLUME_MUTED_DB = -80.0f;
+    private const float VOLUME_NORMAL_DB = 0.0f;
+
+    private const float DEFAULT_FADE_TIME = 0.0f;
+    private const float STOP_MUSIC_FADE_TIME = 1f;
+    private const int FADE_TIME_DIVIDER = 2;
+
+    private static AudioManager instance;
     public static AudioManager GetInstance()
     {
         return instance;
@@ -91,7 +102,7 @@ public partial class AudioManager : Node
         }
 
         musicPlayer = new AudioStreamPlayer();
-        musicPlayer.Bus = "Music";
+        musicPlayer.Bus = BUS_MUSIC;
         AddChild(musicPlayer);
 
         musicPlayer.Finished += OnMusicFinished;
@@ -101,7 +112,7 @@ public partial class AudioManager : Node
     // SFX
     // ========================================================================
 
-    public void Play(AudioType pType, float pPitch = 1.0f)
+    public void Play(AudioType pType, float pPitch = DEFAULT_PITCH)
     {
         AudioStream lStream = ResolveStream(pType);
         if (lStream != null)
@@ -144,8 +155,8 @@ public partial class AudioManager : Node
 
     private AudioStream Pick(AudioStream[] pList)
     {
-        if (pList != null && pList.Length > 0)
-            return pList[GD.RandRange(0, pList.Length - 1)];
+        if (pList.Length > 0)
+            return pList[GameManager.rand.RandiRange(0, pList.Length - 1)];
         return null;
     }
 
@@ -153,9 +164,10 @@ public partial class AudioManager : Node
     {
         AudioStreamPlayer lAudio = new AudioStreamPlayer();
         lAudio.Stream = pStream;
-        lAudio.Bus = "SFX";
+        lAudio.Bus = BUS_SFX;
 
-        if (pPitch <= 0f) pPitch = 1.0f;
+        if (pPitch <= 0f)
+            pPitch = DEFAULT_PITCH;
 
         lAudio.PitchScale = pPitch;
 
@@ -168,15 +180,16 @@ public partial class AudioManager : Node
     // MUSIC
     // ========================================================================
 
-    public void PlayMusic(MusicType pType, float pFadeTime = 0.0f)
+    public void PlayMusic(MusicType pType, float pFadeTime = DEFAULT_FADE_TIME)
     {
         AudioStream lNewStream = ResolveMusic(pType);
 
         if (musicPlayer.Stream == lNewStream && musicPlayer.Playing) return;
 
         Tween lTween = CreateTween();
+        string lPropertyVolume = (string)AudioStreamPlayer.PropertyName.VolumeDb;
 
-        lTween.TweenProperty(musicPlayer, (string)AudioStreamPlayer.PropertyName.VolumeDb, -80.0f, pFadeTime / 2)
+        lTween.TweenProperty(musicPlayer, lPropertyVolume, VOLUME_MUTED_DB, pFadeTime / FADE_TIME_DIVIDER)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.In);
 
@@ -186,20 +199,20 @@ public partial class AudioManager : Node
             musicPlayer.Stream = lNewStream;
             if (lNewStream != null)
             {
-                musicPlayer.VolumeDb = -80.0f;
+                musicPlayer.VolumeDb = VOLUME_MUTED_DB;
                 musicPlayer.Play();
             }
         }));
 
         if (lNewStream != null)
         {
-            lTween.TweenProperty(musicPlayer, (string)AudioStreamPlayer.PropertyName.VolumeDb, 0.0f, pFadeTime / 2)
+            lTween.TweenProperty(musicPlayer, lPropertyVolume, VOLUME_NORMAL_DB, pFadeTime / FADE_TIME_DIVIDER)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.Out);
         }
     }
 
-    public void StopMusic(float pFadeTime = 1f)
+    public void StopMusic(float pFadeTime = STOP_MUSIC_FADE_TIME)
     {
         PlayMusic(MusicType.None, pFadeTime);
     }
@@ -213,19 +226,19 @@ public partial class AudioManager : Node
     {
         switch (pType)
         {
-            case MusicType.Menu: 
+            case MusicType.Menu:
                 return uiMusic;
-            case MusicType.Level: 
+            case MusicType.Level:
                 return levelMusic;
-            case MusicType.Boss: 
+            case MusicType.Boss:
                 return bossMusic;
-            default: return null;
+            default: 
+                return null;
         }
     }
 
     public void SetMusicPaused(bool pIsPaused)
     {
         musicPlayer.StreamPaused = pIsPaused;
-        GD.Print(musicPlayer.StreamPaused);
     }
 }

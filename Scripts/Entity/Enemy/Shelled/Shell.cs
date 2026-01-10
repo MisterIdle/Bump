@@ -1,5 +1,6 @@
-using Com.IsartDigital.Shmup.NManager;
 using Godot;
+
+using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
@@ -12,8 +13,8 @@ public partial class Shell : Sprite2D
     [Export] public float damageAnimAngle = 10f;
     [Export] public float damageAnimTime = 0.05f;
 
-    [Export] public float destructionDistance = 0.03f;
-    [Export] public float destructionPosTime = 0.2f;
+    [Export] public float destructionDistance = 10f;
+    [Export] public float destructionPosTime = 0.5f;
 
     [ExportGroup("Color Settings")]
     [Export] public float colorTransitionDuration = 0.2f;

@@ -28,7 +28,9 @@ public static class Utils
     public static bool IsOutOfBound(Vector2 pPos, float pMargin = 0, bool pCheckX = true, bool pCheckY = true)
     {
         Camera lCamera = Camera.GetInstance();
-        if (lCamera == null) return false;
+
+        if (lCamera == null) 
+            return false;
 
         Vector2 lCamPos = lCamera.GlobalPosition;
         Vector2 lSize = lCamera.GetViewportRect().Size;
@@ -47,7 +49,9 @@ public static class Utils
     public static Vector2 ClampToScreen(Vector2 pPos, float pMargin = 0)
     {
         Camera lCamera = Camera.GetInstance();
-        if (lCamera == null) return pPos;
+
+        if (lCamera == null) 
+            return pPos;
 
         Vector2 lCamPos = lCamera.GlobalPosition;
         Vector2 lSize = lCamera.GetViewportRect().Size;

@@ -1,9 +1,9 @@
 using Godot;
 using System.Collections.Generic;
-using Com.IsartDigital.Shmup.NManager;
-using Com.IsartDigital.Shmup.NToolsBox;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
@@ -47,6 +47,10 @@ public partial class ShelledEnemy : Enemy
     protected Vector2 playerDirection;
     protected Vector2 playerPos;
     protected bool faceLeft;
+
+    private const float ANGLE_START_RATIO = -1f / 6f;
+    private const float ANGLE_END_RATIO = -5f / 6f;
+    private const float SPIKE_SCALE_DURATION = 0.2f;
 
     // ========================================================================
     // INIT
@@ -106,8 +110,8 @@ public partial class ShelledEnemy : Enemy
         if (!useSpikes) return;
 
         CallDeferred(MethodName.SpawnSpikes);
-        
-        if (autoFire) 
+
+        if (autoFire)
             spikeFireTimer.Start(reloadTime);
     }
 
@@ -120,8 +124,8 @@ public partial class ShelledEnemy : Enemy
     {
         chargingSpikesList.Clear();
 
-        float lStartAngle = -Mathf.Pi / 6;
-        float lEndAngle = 5 * -Mathf.Pi / 6;
+        float lStartAngle = Mathf.Pi * ANGLE_START_RATIO;
+        float lEndAngle = Mathf.Pi * ANGLE_END_RATIO;
         float lAngleStep = 0;
 
         lAngleStep = (lEndAngle - lStartAngle) / (numSpikes - 1);
@@ -188,13 +192,13 @@ public partial class ShelledEnemy : Enemy
                 if (lAllFire)
                 {
                     SpawnSpikes();
-                    if (autoFire) 
+                    if (autoFire)
                         spikeFireTimer.Start(reloadTime);
                     return;
                 }
             }
 
-            if (autoFire) 
+            if (autoFire)
                 spikeFireTimer.Start(reloadTime);
             return;
         }
@@ -220,7 +224,7 @@ public partial class ShelledEnemy : Enemy
 
         FireSpike(spikesList[lSelectedSpikeIndex]);
 
-        if (autoFire) 
+        if (autoFire)
             spikeFireTimer.Start(fireRate);
     }
 
@@ -232,7 +236,7 @@ public partial class ShelledEnemy : Enemy
 
         Tween lFireTween = CreateTween();
 
-        lFireTween.TweenProperty(pSpike.sprite, (string)PropertyName.SelfModulate, spikeFlashColor, shotPreDelay)
+        lFireTween.TweenProperty(pSpike.sprite, (string)CanvasItem.PropertyName.SelfModulate, spikeFlashColor, shotPreDelay)
             .SetTrans(Tween.TransitionType.Quad)
             .SetEase(Tween.EaseType.In);
 
@@ -241,8 +245,6 @@ public partial class ShelledEnemy : Enemy
 
     private void LaunchSpike(Spike pSpike)
     {
-        float lTimeSpike = 0.2f;
-
         if (chargingSpikesList.Contains(pSpike))
             chargingSpikesList.Remove(pSpike);
 
@@ -267,7 +269,7 @@ public partial class ShelledEnemy : Enemy
         pSpike.collision.Disabled = false;
 
         Tween lTween = CreateTween();
-        lTween.TweenProperty(pSpike, (string)PropertyName.Scale, pSpike.Scale * spikeSizeMultiplier, lTimeSpike);
+        lTween.TweenProperty(pSpike, (string)PropertyName.Scale, pSpike.Scale * spikeSizeMultiplier, SPIKE_SCALE_DURATION);
     }
 
     // ========================================================================

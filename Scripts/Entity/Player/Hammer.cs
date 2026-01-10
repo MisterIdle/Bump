@@ -1,20 +1,15 @@
+using Godot;
+
 using Com.IsartDigital.Shmup.NData;
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NStats;
 using Com.IsartDigital.Shmup.NToolsBox;
-using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
-// Check
-
 public partial class Hammer : GameObject
 {
-    private const float BASE_PITCH = 1.0f;
-    private const float MIN_RATIO = 0.0f;
-    private const float MAX_RATIO = 1.0f;
-
     public bool isActif;
 
     [ExportGroup("References")]
@@ -65,8 +60,13 @@ public partial class Hammer : GameObject
     public enum State { Idle, Charging, Swing, Cooldown }
     public State currentState;
 
-    private static Hammer instance;
+    private const string BUS_SFX = "SFX";
+    private const float BASE_PITCH = 1.0f;
+    private const float MIN_RATIO = 0.0f;
+    private const float MAX_RATIO = 1.0f;
+    private const float DEFAULT_SCALE_MULTIPLIER = 1.0f;
 
+    private static Hammer instance;
     public static Hammer GetInstance()
     {
         return instance;
@@ -79,16 +79,14 @@ public partial class Hammer : GameObject
     public override void _Ready()
     {
         if (instance == null) instance = this;
-        else 
-        { 
-            QueueFree(); 
-            return; 
+        else
+        {
+            QueueFree();
+            return;
         }
 
-        string lBusSFX = "SFX";
-
         sfxPlayer = new AudioStreamPlayer();
-        sfxPlayer.Bus = lBusSFX;
+        sfxPlayer.Bus = BUS_SFX;
         AddChild(sfxPlayer);
 
         hideTimer = new Timer();
@@ -251,7 +249,7 @@ public partial class Hammer : GameObject
     {
         Color lStartColor;
 
-        if (currentPhaseIndex == 0) 
+        if (currentPhaseIndex == 0)
             lStartColor = colorDeadZone;
         else
             lStartColor = phases[currentPhaseIndex - 1].barColor;
@@ -304,7 +302,7 @@ public partial class Hammer : GameObject
         isActif = false;
         collision.Disabled = true;
 
-        float lBaseScaleMultiplier = phases.Length > 0 ? phases[0].scale : 1.0f;
+        float lBaseScaleMultiplier = phases.Length > 0 ? phases[0].scale : DEFAULT_SCALE_MULTIPLIER;
 
         SetScale(lBaseScaleMultiplier, returnToIdleDuration);
 
@@ -335,10 +333,10 @@ public partial class Hammer : GameObject
 
     public void ResetToIdle()
     {
-        if (sfxPlayer.Playing) 
+        if (sfxPlayer.Playing)
             sfxPlayer.Stop();
 
-        float lBaseScaleMultiplier = phases.Length > 0 ? phases[0].scale : 1.0f;
+        float lBaseScaleMultiplier = phases.Length > 0 ? phases[0].scale : DEFAULT_SCALE_MULTIPLIER;
 
         SetScale(lBaseScaleMultiplier, returnToIdleDuration);
 
@@ -360,9 +358,9 @@ public partial class Hammer : GameObject
     private float GetTotalMaxChargeTime()
     {
         float lTotal = minChargeDuration;
-        
-        foreach (HammerData phase in phases) 
-            lTotal += phase.duration;
+
+        foreach (HammerData lPhase in phases)
+            lTotal += lPhase.duration;
 
         return lTotal;
     }

@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Com.IsartDigital.Shmup.NManager.AudioManager" Collapsed="true">
+    <Position X="45.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAIeAQAAAQAQgmECFUQgJAUIFABAgAEAgIAAgAQCIoA=</HashCode>
+      <FileName>Scripts\Managers\AudioManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NManager.Camera" Collapsed="true">
+    <Position X="51" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEACAACCAAQAQAAAAAgAIRBABAIAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Managers\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NManager.GameManager" Collapsed="true">
+    <Position X="47.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAGAAIAAQCAAAIACAAAAAAACBABAAABgAAFAAAAAAAA=</HashCode>
+      <FileName>Scripts\Managers\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NManager.SceneManager" Collapsed="true">
+    <Position X="47.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAIAIAAACAAAIgAABiUgAQCBABQAAAAgggAAQAAAAA=</HashCode>
+      <FileName>Scripts\Managers\SceneManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NManager.Trigger" Collapsed="true">
+    <Position X="45.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Managers\Trigger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NDebug.Debug" Collapsed="true">
+    <Position X="52.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIIACAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Managers\Debug.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.GameObject" Collapsed="true">
+    <Position X="26.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oAQAAAAAAAAAAAAIAAAAAACEABAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Managers\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.Firebar" Collapsed="true">
+    <Position X="43.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Normal\Firebar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NStats.GameStats" Collapsed="true">
+    <Position X="49.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAQAAAABAAAAAAIAAAAAAAACAABAAAAAAAACAA=</HashCode>
+      <FileName>Scripts\Managers\GameStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Walsy" Collapsed="true">
+    <Position X="18.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAggAAAAggAAAIAACAAAAgAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Normal\Walsy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Enemy" Collapsed="true">
+    <Position X="23" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YgRAAAAAAkAAAABAAAAIABEAgAAAgAAAACAAAxCQAAI=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Shelled\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.KingKoops" Collapsed="true">
+    <Position X="23" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hkDQowoG0iH4EgiLIAgbEISAgSYSAkACCjGAVQBghIQ=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Shelled\KingKoops.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Koops" Collapsed="true">
+    <Position X="25.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAACAAAAhAEAAAAAAQAAAAIA=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Shelled\Koops.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Rushroops" Collapsed="true">
+    <Position X="27.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgggAhCgIEABAAEIAAIAAGAwQQBAgAABAAAgAAABAA=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Shelled\Rushroops.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Shell" Collapsed="true">
+    <Position X="49.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAhYVggAAAEAABAAAAAACCAAAAAAAAgBAgAAAABCAIA=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Shelled\Shell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.ShelledEnemy" Collapsed="true">
+    <Position X="24.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MIAAAYEQkkJEUACMAAAIAEiCAECgIFJCAGAAABAIChA=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Shelled\ShelledEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Sykoops" Collapsed="true">
+    <Position X="20.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAgAACAQAAAAAAAACAASAIAAAAAAACgAAAAAg=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Shelled\Sykoops.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer.Hammer" Collapsed="true">
+    <Position X="38.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAyCgQBiAUBZCAIDWKBAKBJIVEAAwDAAAMAjABQwE=</HashCode>
+      <FileName>Scripts\Entity\Player\Hammer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer.Player" Collapsed="true">
+    <Position X="29.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>e2YUhJnIgqMAiEAQogANAAqBhAfcQBKuQEABYAEYBT4=</HashCode>
+      <FileName>Scripts\Entity\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer.Pow" Collapsed="true">
+    <Position X="41" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCEAEAAAAAAAAAAAAZAAgoAAAAAAgEIIAAAAAEAAAEE=</HashCode>
+      <FileName>Scripts\Entity\Player\Pow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NData.HammerData" Collapsed="true">
+    <Position X="51" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAMAAEAAAQAAQAAAAAACAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Entity\Player\HammerData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NData.PlayerLevelData" Collapsed="true">
+    <Position X="49.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAACABAAAAAAAA=</HashCode>
+      <FileName>Scripts\Entity\Player\PlayerLevelData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NData.PlayerShotData" Collapsed="true">
+    <Position X="51" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Entity\Player\PlayerShotData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.Entity" Collapsed="true">
+    <Position X="24.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAgAAgoAAAAAQgAAYAACAEAAAAAAAAAAAAAAAAAo=</HashCode>
+      <FileName>Scripts\Entity\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.Movable" Collapsed="true">
+    <Position X="23" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAQAAIAAgAAAIAACEAAAAAQCAACQAQCBAAAA=</HashCode>
+      <FileName>Scripts\Entity\Movable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.BubbleScore" Collapsed="true">
+    <Position X="49.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEEAABAAAAADAAAAAIAAAAAAAAAEEAAAAAAAIAAAE=</HashCode>
+      <FileName>Scripts\UI\BubbleScore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.Credits" Collapsed="true">
+    <Position X="13" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\UI\Credits.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.HUD" Collapsed="true">
+    <Position X="17.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RIAADiEAoXAoAARQAIAAAAAoRCDSCABBVNEFowBgBBk=</HashCode>
+      <FileName>Scripts\UI\HUD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.MainMenu" Collapsed="true">
+    <Position X="19.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACABAAgQAEIBAIEgAAAAIAgDBEQCDBAAIoOAAAAAAA=</HashCode>
+      <FileName>Scripts\UI\MainMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.MenuBase" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAANACgAAAABABAICAABABAgAAAQAAAAEoAAAAAIEAA=</HashCode>
+      <FileName>Scripts\UI\MenuBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.MenuManager" Collapsed="true">
+    <Position X="52.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wACEAAAABCCIAIAAEIAAAAESBCjAAAAAgAAFAABAAAg=</HashCode>
+      <FileName>Scripts\UI\MenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.OptionsMenu" Collapsed="true">
+    <Position X="22" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEAAQIIACAGAAAAAAgBAAAAEAwAQgACAIIAQAghAgwA=</HashCode>
+      <FileName>Scripts\UI\OptionsMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.StateMenu" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QASQAIAAAAAAAAgAAQBEEIggAQGQACAAEIIAAQEAAAA=</HashCode>
+      <FileName>Scripts\UI\StateMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NHUD.Victory" Collapsed="true">
+    <Position X="10.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAohYICUAQCkaaFA2QAAARcmAAGBExykEsUACBssQwQ=</HashCode>
+      <FileName>Scripts\UI\Victory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Help" Collapsed="true">
+    <Position X="15.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\UI\Help.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Property" Collapsed="true">
+    <Position X="52.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAIAAIgAAMAAJhjACABAAQAAIAAEAAKgAA=</HashCode>
+      <FileName>Scripts\Utils\Property\Property.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.SwitchImage" Collapsed="true">
+    <Position X="51" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAAAAIAAAAABAQkACAAAEIAAAAAAAIAAAAQBAAAAAEA=</HashCode>
+      <FileName>Scripts\UI\SwitchImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.Biome" Collapsed="true">
+    <Position X="47.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAALAAAAAAAAqAAIIAAAEAAAAAAAAAAgAAAQAAIAA=</HashCode>
+      <FileName>Scripts\Utils\Effects\Biome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.Effect" Collapsed="true">
+    <Position X="45.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQACAACAAAAAAAAAAAAIAAAEAAAAgEAAgAAAg=</HashCode>
+      <FileName>Scripts\Utils\Effects\Effect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.Pall" Collapsed="true">
+    <Position X="45.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Utils\Effects\Pall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.Particule" Collapsed="true">
+    <Position X="47.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Utils\Effects\Particule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.ScaleTime" Collapsed="true">
+    <Position X="45.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAIwAADAABABAAAAAAAAEABAAAAAA=</HashCode>
+      <FileName>Scripts\Utils\Effects\ScaleTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.UpDown" Collapsed="true">
+    <Position X="47.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAAAAAAAAAAAAAAAAEAAAAAQAAAgAAAAAAAAI=</HashCode>
+      <FileName>Scripts\Utils\Effects\UpDown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.UpDownControl" Collapsed="true">
+    <Position X="49.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAAAAAAAAAAAAAAAAEAAAAAQAAAgAAAAAAAAI=</HashCode>
+      <FileName>Scripts\Utils\Effects\UpDownControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.Utils" Collapsed="true">
+    <Position X="51" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAACAEAAAAAAAAAAAAAAAAAABAAAAAAI=</HashCode>
+      <FileName>Scripts\Utils\Effects\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NToolsBox.Wing" Collapsed="true">
+    <Position X="52.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UABACABCgAAAACAAAgEEgAAAAAAAgAABIAAAAAAEAEA=</HashCode>
+      <FileName>Scripts\Utils\Effects\Wing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NMusic.TickEvent" Collapsed="true">
+    <Position X="52.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>xgABAQIAAAAAAAAAgAAAgAEAADAAAAABAhABQAAAgAA=</HashCode>
+      <FileName>Scripts\Utils\Audio\TickEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles.Projectiles" Collapsed="true">
+    <Position X="33.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAQABQAACAABCAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Scripts\Projectiles\Projectiles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles.Shot" Collapsed="true">
+    <Position X="32" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAAAAAAAAAAACAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Projectiles\Shot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles.Spike" Collapsed="true">
+    <Position X="34.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAgAAAAAIAAAAAIAgAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Projectiles\Spike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles.Spiko" Collapsed="true">
+    <Position X="34.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAADAAAAAQAAAAAAAACAICAAAAQAAAQAIAAAAAA=</HashCode>
+      <FileName>Scripts\Projectiles\Spiko.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles.Coin" Collapsed="true">
+    <Position X="11.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Collectibles\Coin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles.Collectibles" Collapsed="true">
+    <Position X="13" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAQAAAAgAAAAAACQAhAAAACAAAIgAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Scripts\Collectibles\Collectibles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles.FlowerCollectible" Collapsed="true">
+    <Position X="14" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAACAAAIAAAAAAACAAAgAAFABAAAAAABAAAA=</HashCode>
+      <FileName>Scripts\Collectibles\FlowerCollectible.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles.HeartCollectible" Collapsed="true">
+    <Position X="16.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Collectibles\HeartCollectible.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles.Mystery" Collapsed="true">
+    <Position X="36.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAAAgAAAAAAAIAAAAAAAAAAAAAAAAiAAAAARA=</HashCode>
+      <FileName>Scripts\Collectibles\Mystery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles.PowCollectible" Collapsed="true">
+    <Position X="9.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Collectibles\PowCollectible.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

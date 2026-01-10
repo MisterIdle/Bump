@@ -4,8 +4,12 @@ namespace Com.IsartDigital.Shmup.NManager;
 
 public partial class Camera : Camera2D
 {
-    [Export] public float scrollSpeed = 100.0f;
+    [Export] public float scrollSpeed = 200;
     public bool isScrolling = false;
+
+    private const float DEFAULT_OFFSET_MARGIN = 50f;
+    private const float SPAWN_PADDING_Y = 40.0f;
+    private const float HALF_DIVIDER = 2f;
 
     private static Camera instance;
     public static Camera GetInstance()
@@ -16,10 +20,10 @@ public partial class Camera : Camera2D
     public override void _Ready()
     {
         if (instance == null) instance = this;
-        else 
-        { 
-            QueueFree(); 
-            return; 
+        else
+        {
+            QueueFree();
+            return;
         }
     }
 
@@ -27,19 +31,19 @@ public partial class Camera : Camera2D
     {
         if (!isScrolling) return;
 
-        Position += new Vector2(scrollSpeed * (float)pDelta, 0);
+        float lDelta = (float)pDelta;
+
+        Position += Vector2.Right * (scrollSpeed * lDelta);
     }
 
-    public Vector2 GetRandomSpawnPositionRight(float pOffsetMargin = 50f)
+    public Vector2 GetRandomSpawnPositionRight(float pOffsetMargin = DEFAULT_OFFSET_MARGIN)
     {
         Rect2 lViewportRect = GetViewportRect();
 
-        float lPaddingY = 40.0f;
-
         float lSpawnX = GlobalPosition.X + lViewportRect.Size.X + pOffsetMargin;
 
-        float lMinY = GlobalPosition.Y + lPaddingY;
-        float lMaxY = GlobalPosition.Y + lViewportRect.Size.Y - lPaddingY;
+        float lMinY = GlobalPosition.Y + SPAWN_PADDING_Y;
+        float lMaxY = GlobalPosition.Y + lViewportRect.Size.Y - SPAWN_PADDING_Y;
 
         float lSpawnY = GameManager.rand.RandfRange(lMinY, lMaxY);
 
@@ -48,7 +52,7 @@ public partial class Camera : Camera2D
 
     public Vector2 GetScreenCenter()
     {
-        return GlobalPosition + (GetViewportRect().Size / 2f);
+        return GlobalPosition + (GetViewportRect().Size / HALF_DIVIDER);
     }
 
     public float GetTop()

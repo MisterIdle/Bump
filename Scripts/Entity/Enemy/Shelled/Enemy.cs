@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NHUD;
@@ -8,8 +7,6 @@ using Com.IsartDigital.Shmup.NStats;
 using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
-
-// CHECK
 
 public partial class Enemy : Entity
 {
@@ -24,11 +21,12 @@ public partial class Enemy : Entity
 
     [Export] private float squashStretchDuration = 0.4f;
 
-    [Export] private float flipCooldownDuration = 0.5f;
+    [Export] private float flipCooldownDuration = 0.3f;
     private Timer flipTimer;
 
     private int bossDamage = 20;
     private int clearAll = 9999;
+    protected const int DEFAULT_DAMAGE = 1;
 
     private bool killedByHammer;
 
@@ -103,10 +101,11 @@ public partial class Enemy : Entity
         if (!flipTimer.IsStopped()) return;
 
         float lCurrentDirection = Mathf.Sign(Scale.X);
-        float lTargetDirection = pFaceLeft ? 1 : -1;
-        if (lCurrentDirection == lTargetDirection) return;
 
         float lDirection = pFaceLeft ? 1 : -1;
+
+        if (lCurrentDirection == lDirection) return;
+
         Scale = new Vector2(Mathf.Abs(baseScale.X) * lDirection, baseScale.Y);
         baseScale = Scale;
 
@@ -157,7 +156,7 @@ public partial class Enemy : Entity
         else
         {
             killedByHammer = false;
-            EntityHit(1);
+            EntityHit(DEFAULT_DAMAGE);
         }
     }
 }

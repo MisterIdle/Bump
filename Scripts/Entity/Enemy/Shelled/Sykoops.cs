@@ -6,17 +6,17 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 public partial class Sykoops : ShelledEnemy
 {
-    private enum ChaseState { Patrolling, Approaching, Chasing, Abandoned }
-    private ChaseState chaseState = ChaseState.Patrolling;
-
-    [ExportCategory("Sykoops AI")]
+    [ExportCategory("Phases")]
     [Export] private int chaseDistance = 500;
-    [Export] private int approchDistance = 200;
+    [Export] private int approachDistance = 300;
+    [Export] private int patrolRange = 600;
+
+    [Export] private float maxBehindTime = 10f;
 
     private Timer behindTimer;
     private bool haveAbandoned;
-    private const float MAX_BEHIND_TIME = 10f;
-    private const float MARGIN = -75f;
+    private enum ChaseState { Patrolling, Approaching, Chasing, Abandoned }
+    private ChaseState chaseState = ChaseState.Patrolling;
 
     // ========================================================================
     // INIT
@@ -29,7 +29,7 @@ public partial class Sykoops : ShelledEnemy
         base.Initiate();
 
         behindTimer = new Timer();
-        behindTimer.WaitTime = MAX_BEHIND_TIME;
+        behindTimer.WaitTime = maxBehindTime;
         behindTimer.OneShot = true;
         behindTimer.Timeout += BehindStop;
         AddChild(behindTimer);
@@ -48,7 +48,7 @@ public partial class Sykoops : ShelledEnemy
         switch (chaseState)
         {
             case ChaseState.Patrolling:
-                if (globalPlayerDistance <= 600)
+                if (globalPlayerDistance <= patrolRange)
                 {
                     chaseState = ChaseState.Approaching;
                     Effect.BumpScale(this, baseScale);
@@ -58,7 +58,7 @@ public partial class Sykoops : ShelledEnemy
             case ChaseState.Approaching:
                 velocity = playerDirection;
                 StartSpike();
-                if (globalPlayerDistance <= approchDistance)
+                if (globalPlayerDistance <= approachDistance)
                 {
                     chaseState = ChaseState.Chasing;
                     Effect.BumpScale(this, baseScale);

@@ -1,7 +1,8 @@
-using Com.IsartDigital.Shmup.NHUD;
-using Com.IsartDigital.Shmup.NManager;
 using Godot;
 using System;
+
+using Com.IsartDigital.Shmup.NHUD;
+using Com.IsartDigital.Shmup.NManager;
 
 public partial class Help : MenuBase
 {

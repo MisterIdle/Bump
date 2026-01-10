@@ -9,8 +9,6 @@ namespace Com.IsartDigital.Shmup.NHUD;
 
 public partial class Victory : MenuBase
 {
-    private static Victory instance;
-
     [ExportCategory("UI References")]
     [Export] private Label titleLabel;
 
@@ -44,7 +42,7 @@ public partial class Victory : MenuBase
     [ExportGroup("Score Dynamic Timing")]
     [Export] private float scoreMinDuration = 0.5f;
     [Export] private float scoreMaxDuration = 3.0f;
-    [Export] private int scoreForMaxDuration = 999999999; 
+    [Export] private int scoreForMaxDuration = 999999999;
 
     [ExportCategory("Animation Scale & Juice")]
     [Export] private float statPopMultiplier = 1.1f;
@@ -74,10 +72,12 @@ public partial class Victory : MenuBase
 
     private Vector2 baseScaleRank;
 
+
     private const float ALPHA_TRANSPARENT = 0f;
     private const float ALPHA_OPAQUE = 1f;
 
     private const float PIVOT_CENTER_RATIO = 0.5f;
+    private const float HALF_MULTIPLIER = 0.5f;
 
     private const float SCALE_HIDDEN_MULT = 0.8f;
 
@@ -94,12 +94,16 @@ public partial class Victory : MenuBase
     private const float STAT_POP_DOWN_RATIO = 0.6f;
     private const float STAT_FLASH_IN_DURATION = 0.1f;
     private const float STAT_FLASH_OUT_DURATION = 0.15f;
+
     private const float COLOR_OVERBRIGHT_VAL = 1.2f;
 
-    public static Victory GetInstance()
-    {
-        return instance;
-    }
+    private const int DEFAULT_SCORE_MIN = 1;
+    private const int START_VALUE_ZERO = 0;
+    private const float CLAMP_MIN = 0f;
+    private const float CLAMP_MAX = 1f;
+
+    private const string DEFAULT_RANK_TITLE = "NULL";
+    private const string EMPTY_STRING = "";
 
     // ========================================================================
     // INIT
@@ -107,13 +111,6 @@ public partial class Victory : MenuBase
 
     public override void _Ready()
     {
-        if (instance == null) instance = this;
-        else
-        {
-            QueueFree();
-            return;
-        }
-
         baseScaleTitle = titleLabel.Scale;
 
         baseScaleKill = killCountLabel.Scale;
@@ -167,7 +164,9 @@ public partial class Victory : MenuBase
 
         HideAllElements();
         PlayVictory();
-        Player.GetInstance().invincible = true;
+
+        Player lPlayer = Player.GetInstance();
+        if (lPlayer != null) lPlayer.invincible = true;
     }
 
     // ========================================================================
@@ -194,7 +193,7 @@ public partial class Victory : MenuBase
         if (rankLabel != null)
         {
             rankLabel.Modulate = Colors.Transparent;
-            rankLabel.Text = "";
+            rankLabel.Text = EMPTY_STRING;
             rankLabel.Scale = new Vector2(rankStartScaleMultiplier, rankStartScaleMultiplier);
             rankLabel.PivotOffset = rankLabel.Size * PIVOT_CENTER_RATIO;
         }
@@ -235,11 +234,11 @@ public partial class Victory : MenuBase
 
         lVictoryTween.Parallel().TweenProperty(scoreText, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, scoreMinDuration);
 
-        lVictoryTween.Parallel().TweenProperty(scoreLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, scoreMinDuration * 0.5f);
+        lVictoryTween.Parallel().TweenProperty(scoreLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, scoreMinDuration * HALF_MULTIPLIER);
 
         float lDynamicDuration = CalculateScoreDuration(GameStats.currentScore);
 
-        lVictoryTween.Parallel().TweenMethod(Callable.From<int>(UpdateScoreVisuals), 0, GameStats.currentScore, lDynamicDuration)
+        lVictoryTween.Parallel().TweenMethod(Callable.From<int>(UpdateScoreVisuals), START_VALUE_ZERO, GameStats.currentScore, lDynamicDuration)
             .SetTrans(Tween.TransitionType.Expo)
             .SetEase(Tween.EaseType.Out);
 
@@ -285,7 +284,6 @@ public partial class Victory : MenuBase
             .SetEase(Tween.EaseType.Out);
 
         lVictoryTween.Finished += () => MenuManager.GetInstance().loading = false;
-
     }
 
     private void UpdateScoreVisuals(int pCurrentValue)
@@ -295,7 +293,7 @@ public partial class Victory : MenuBase
         scoreLabel.Text = pCurrentValue.ToString();
         scoreLabel.PivotOffset = scoreLabel.Size * PIVOT_CENTER_RATIO;
 
-        float lTargetScore = Math.Max(GameStats.currentScore, 1);
+        float lTargetScore = Math.Max(GameStats.currentScore, DEFAULT_SCORE_MIN);
         float lRatio = pCurrentValue / lTargetScore;
 
         scoreLabel.Modulate = Colors.White.Lerp(scoreHeatColor, lRatio);
@@ -305,8 +303,8 @@ public partial class Victory : MenuBase
 
     private float CalculateScoreDuration(int pScore)
     {
-        float lRatio = pScore / scoreForMaxDuration;
-        lRatio = Mathf.Clamp(lRatio, 0f, 1f);
+        float lRatio = pScore / (float)scoreForMaxDuration;
+        lRatio = Mathf.Clamp(lRatio, CLAMP_MIN, CLAMP_MAX);
 
         return scoreMinDuration + (scoreMaxDuration - scoreMinDuration) * lRatio;
     }
@@ -350,7 +348,7 @@ public partial class Victory : MenuBase
             {
                 pValueLabel.Text = pValue.ToString();
                 pValueLabel.PivotOffset = pValueLabel.Size * PIVOT_CENTER_RATIO;
-            }), 0, pTargetValue, statCountDuration
+            }), START_VALUE_ZERO, pTargetValue, statCountDuration
             ).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
 
             pSequenceTween.Parallel()
@@ -383,10 +381,10 @@ public partial class Victory : MenuBase
         if (rankScoreThresholds == null || rankScoreThresholds.Length == 0)
             return lResultIndex;
 
-        for (int lIndex = 0; lIndex < rankScoreThresholds.Length; lIndex++)
+        for (int i = 0; i < rankScoreThresholds.Length; i++)
         {
-            if (pScore >= rankScoreThresholds[lIndex])
-                lResultIndex = lIndex;
+            if (pScore >= rankScoreThresholds[i])
+                lResultIndex = i;
         }
 
         return lResultIndex;
@@ -395,7 +393,7 @@ public partial class Victory : MenuBase
     private string GetRankTitle(int pIndex)
     {
         if (rankTitles == null || pIndex < 0 || pIndex >= rankTitles.Length)
-            return "NULL";
+            return DEFAULT_RANK_TITLE;
 
         return rankTitles[pIndex];
     }
@@ -406,11 +404,5 @@ public partial class Victory : MenuBase
             return Colors.White;
 
         return rankColors[pIndex];
-    }
-
-    protected override void Dispose(bool pDisposing)
-    {
-        instance = null;
-        base.Dispose(pDisposing);
     }
 }

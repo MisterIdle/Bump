@@ -80,7 +80,6 @@ position = Vector2(1354, 977)
 scale = Vector2(0.616736, 0.509297)
 texture = ExtResource("5_vjew8")
 script = ExtResource("5_22u1i")
-amplitude = 1.0
 speed = 0.5
 
 [node name="Middle4" type="ParallaxLayer" parent="."]

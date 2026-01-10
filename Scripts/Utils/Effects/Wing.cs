@@ -20,16 +20,19 @@ public partial class Wing : Sprite2D
     private Tween rotationTween;
     private Tween skewTween;
 
+    private const float MIN_SPEED_SCALE = 0.1f;
+    private const float DOUBLE_SPEED_MULTIPLIER = 2.0f;
+
     // ========================================================================
     // INIT
     // ========================================================================
 
     public override void _Ready()
     {
-        if (speedScale <= 0) speedScale = 0.1f;
+        if (speedScale <= 0) 
+            speedScale = MIN_SPEED_SCALE;
         StartAnimations();
     }
-
 
     // ========================================================================
     // ANIMATION
@@ -43,46 +46,46 @@ public partial class Wing : Sprite2D
 
     private void StartAnimations()
     {
-        rotationTween?.Kill();
-        skewTween?.Kill();
+        if (rotationTween != null && rotationTween.IsValid()) rotationTween.Kill();
+        if (skewTween != null && skewTween.IsValid()) skewTween.Kill();
 
-        float finalDurationDown = baseDurationDown / speedScale;
-        float finalDurationUp = baseDurationUp / speedScale;
+        float lFinalDurationDown = baseDurationDown / speedScale;
+        float lFinalDurationUp = baseDurationUp / speedScale;
 
         if (speedDouble)
         {
-            finalDurationDown /= 2f;
-            finalDurationUp /= 2f;
+            lFinalDurationDown /= DOUBLE_SPEED_MULTIPLIER;
+            lFinalDurationUp /= DOUBLE_SPEED_MULTIPLIER;
         }
 
-        AnimateRotation(finalDurationDown, finalDurationUp);
-        AnimateSkew(finalDurationDown, finalDurationUp);
+        AnimateRotation(lFinalDurationDown, lFinalDurationUp);
+        AnimateSkew(lFinalDurationDown, lFinalDurationUp);
     }
 
-    private void AnimateRotation(float timeDown, float timeUp)
+    private void AnimateRotation(float pTimeDown, float pTimeUp)
     {
         rotationTween = CreateTween();
         rotationTween.SetLoops();
 
-        rotationTween.TweenProperty(this, (string)PropertyName.RotationDegrees, rotDown, timeDown)
+        rotationTween.TweenProperty(this, (string)PropertyName.RotationDegrees, rotDown, pTimeDown)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.Out);
 
-        rotationTween.TweenProperty(this, (string)PropertyName.RotationDegrees, rotUp, timeUp)
+        rotationTween.TweenProperty(this, (string)PropertyName.RotationDegrees, rotUp, pTimeUp)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.InOut);
     }
 
-    private void AnimateSkew(float timeDown, float timeUp)
+    private void AnimateSkew(float pTimeDown, float pTimeUp)
     {
         skewTween = CreateTween();
         skewTween.SetLoops();
 
-        skewTween.TweenProperty(this, (string)PropertyName.Skew, Mathf.DegToRad(skewDown), timeDown)
+        skewTween.TweenProperty(this, (string)PropertyName.Skew, Mathf.DegToRad(skewDown), pTimeDown)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.Out);
 
-        skewTween.TweenProperty(this, (string)PropertyName.Skew, Mathf.DegToRad(skewUp), timeUp)
+        skewTween.TweenProperty(this, (string)PropertyName.Skew, Mathf.DegToRad(skewUp), pTimeUp)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.InOut);
     }

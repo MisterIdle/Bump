@@ -20,6 +20,7 @@ redSpeed = 100.0
 greenSpeed = 200.0
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
+flipCooldownDuration = 1.0
 popScene = ExtResource("2_ba4au")
 direction = 1
 speed = 100.0

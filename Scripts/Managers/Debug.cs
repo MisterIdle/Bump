@@ -1,5 +1,6 @@
 using Godot;
 using System;
+
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NManager;
 
@@ -7,7 +8,10 @@ namespace Com.IsartDigital.Shmup.NDebug;
 
 public partial class Debug : Node2D
 {
-    [Export] private Marker2D tp;
+    [Export] private Marker2D tpMarker;
+
+    private const float HALF_DIVIDER = 2f;
+    private const float TELEPORT_DURATION = 1.0f;
 
     public override void _Input(InputEvent pEvent)
     {
@@ -23,11 +27,11 @@ public partial class Debug : Node2D
         lCam.isScrolling = false;
 
         Vector2 lScreenSize = lCam.GetViewportRect().Size;
-        Vector2 lTargetPos = tp.GlobalPosition - (lScreenSize / 2f);
+        Vector2 lTargetPos = tpMarker.GlobalPosition - (lScreenSize / HALF_DIVIDER);
 
         Tween lTween = CreateTween();
 
-        lTween.TweenProperty(lCam, (string)Node2D.PropertyName.GlobalPosition, lTargetPos, 1.0f)
+        lTween.TweenProperty(lCam, (string)Node2D.PropertyName.GlobalPosition, lTargetPos, TELEPORT_DURATION)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.InOut);
 

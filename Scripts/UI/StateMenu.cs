@@ -1,7 +1,8 @@
-﻿using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+﻿using Godot;
+
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NManager;
-using Godot;
 
 namespace Com.IsartDigital.Shmup.NHUD;
 
@@ -17,9 +18,18 @@ public partial class StateMenu : MenuBase
     [Export] private Button mainMenuButton;
 
     [ExportCategory("Background Settings")]
-    [Export] public Color pauseColor = new Color(1, 1, 1, 1);
-    [Export] public Color gameOverColor = new Color(0, 0, 0, 1);
-    [Export] public Color victoryColor = new Color(1, 1, 1, 1);
+    [Export] public Color pauseColor = Colors.White;
+    [Export] public Color gameOverColor = Colors.Black;
+    [Export] public Color victoryColor = Colors.White;
+
+    private const string TEXT_ID_PAUSE = "ID_PAUSE";
+    private const string TEXT_ID_GAMEOVER = "ID_GAMEOVER";
+
+    private const float ALPHA_TRANSPARENT = 0.0f;
+    private const float ALPHA_OPAQUE = 1.0f;
+    private const float ALPHA_THRESHOLD = 0.5f;
+
+    private const float FADE_DURATION = 0.4f;
 
     // ========================================================================
     // INIT
@@ -27,7 +37,7 @@ public partial class StateMenu : MenuBase
 
     public override void _Ready()
     {
-        panel.Modulate = new Color(1, 1, 1, 0);
+        panel.Modulate = Colors.Transparent;
 
         optionButton.Pressed += OnOptionPressed;
         resumeButton.Pressed += OnResume;
@@ -68,19 +78,19 @@ public partial class StateMenu : MenuBase
 
         lManager.previousMenuState = lManager.currentMenuState;
 
-        if (panel.Modulate.A < 0.5f)
+        if (panel.Modulate.A < ALPHA_THRESHOLD)
         {
-            panel.Modulate = new Color(1, 1, 1, 0);
-            CreateTween().TweenProperty(panel, "modulate:a", 1.0f, 0.4f);
+            panel.Modulate = Colors.Transparent;
+            CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, FADE_DURATION);
         }
         else
-            panel.Modulate = new Color(1, 1, 1, 1);
+            panel.Modulate = Colors.White;
 
         base.OnEnter();
 
-        if (resumeButton.Visible) 
+        if (resumeButton.Visible)
             resumeButton.GrabFocus();
-        else 
+        else
             restartButton.GrabFocus();
 
         AudioManager.GetInstance().SetMusicPaused(true);
@@ -91,7 +101,7 @@ public partial class StateMenu : MenuBase
         MenuManager lManager = MenuManager.GetInstance();
 
         if (lManager.previousMenuState == lManager.currentMenuState)
-            CreateTween().TweenProperty(panel, "modulate:a", 0.0f, 0.4f);
+            CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", ALPHA_TRANSPARENT, FADE_DURATION);
 
         PlayGenericExitAnimation();
         base.OnExit();
@@ -113,7 +123,7 @@ public partial class StateMenu : MenuBase
         switch (lState)
         {
             case MenuManager.MenuState.Pause:
-                titleLabel.Text = "ID_PAUSE";
+                titleLabel.Text = TEXT_ID_PAUSE;
                 resumeButton.Visible = true;
                 restartButton.Visible = true;
                 optionButton.Visible = true;
@@ -122,7 +132,7 @@ public partial class StateMenu : MenuBase
                 break;
 
             case MenuManager.MenuState.GameOver:
-                titleLabel.Text = "ID_GAMEOVER";
+                titleLabel.Text = TEXT_ID_GAMEOVER;
                 restartButton.Visible = true;
                 mainMenuButton.Visible = true;
                 panel.SelfModulate = gameOverColor;
@@ -137,7 +147,7 @@ public partial class StateMenu : MenuBase
     private void OnOptionPressed()
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Options);
-        CreateTween().TweenProperty(panel, "modulate:a", 1.0f, 0.4f);
+        CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, FADE_DURATION);
     }
 
     public void OnResume()
@@ -150,7 +160,7 @@ public partial class StateMenu : MenuBase
     {
         panel.MouseFilter = MouseFilterEnum.Ignore;
 
-        CreateTween().TweenProperty(panel, "modulate:a", 0.0f, 0.4f);
+        CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", ALPHA_TRANSPARENT, FADE_DURATION);
         Tween lTween = PlayGenericExitAnimation();
 
         Enemy.ClearAll(true, true);
@@ -171,7 +181,7 @@ public partial class StateMenu : MenuBase
 
     public void OnMainMenu()
     {
-        CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", 0.0f, 0.4f);
+        CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", ALPHA_TRANSPARENT, FADE_DURATION);
         Tween lTween = PlayGenericExitAnimation();
 
         Enemy.ClearAll(true, true);
@@ -180,6 +190,5 @@ public partial class StateMenu : MenuBase
         GetTree().Paused = false;
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
         SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
-        AudioManager.GetInstance().StopMusic();
     }
 }

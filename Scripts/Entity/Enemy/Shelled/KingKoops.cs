@@ -1,13 +1,13 @@
+using Godot;
+
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NMusic;
 using Com.IsartDigital.Shmup.NToolsBox;
-using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
-
 public partial class KingKoops : ShelledEnemy
 {
     [ExportCategory("References")]
@@ -79,6 +79,22 @@ public partial class KingKoops : ShelledEnemy
     private Timer animationTimer;
     private Timer spawnTimer;
 
+    private const float SCREEN_CLAMP_LIMIT = 150f;
+    private const int OUT_OF_BOUND_LIMIT = -150;
+    private const float VELOCITY_MOVE_X = 1f;
+
+    private const float TWEEN_OUTSIDE_RATIO = 0.6f;
+    private const float TWEEN_HEAD_DELAY = 0.1f;
+    private const float TWEEN_RETRACT_RATIO = 0.5f;
+    private const float TWEEN_SHELL_DELAY = 0.05f;
+    private const float TWEEN_SHELL_POP_TIME = 0.05f;
+    private const float TWEEN_SHELL_RETURN_TIME = 0.1f;
+    private const float SCALE_POP_FACTOR = 1.1f;
+
+    private const int BEAT_MODULO = 2;
+    private const float GROOVE_DIR_POSITIVE = 1f;
+    private const float GROOVE_DIR_NEGATIVE = -1f;
+
     public override void Initiate()
     {
         base.Initiate();
@@ -110,8 +126,8 @@ public partial class KingKoops : ShelledEnemy
             PhaseAction(pDelta);
 
         base.AliveUpdate(pDelta);
-        
-        Position = Utils.ClampToScreen(Position, 150f);
+
+        Position = Utils.ClampToScreen(Position, SCREEN_CLAMP_LIMIT);
     }
 
     private void StartDashSequence()
@@ -140,8 +156,8 @@ public partial class KingKoops : ShelledEnemy
         visualTween = CreateTween();
 
         visualTween.Parallel().TweenProperty(this, (string)PropertyName.GlobalPosition, lRecoilPos, preDashDuration)
-                      .SetTrans(Tween.TransitionType.Back)
-                      .SetEase(Tween.EaseType.Out);
+                  .SetTrans(Tween.TransitionType.Back)
+                  .SetEase(Tween.EaseType.Out);
 
         shell.SetShellColor(Colors.DarkRed);
     }
@@ -212,17 +228,17 @@ public partial class KingKoops : ShelledEnemy
         switch (currentPhase)
         {
             case PhaseState.Normal:
-                if (Utils.IsOutOfBound(Position, -150, true))
+                if (Utils.IsOutOfBound(Position, OUT_OF_BOUND_LIMIT, true))
                 {
                     if (Position.X < lCenter.X)
                     {
                         direction = MoveDirection.Right;
-                        velocity.X = 1;
+                        velocity.X = VELOCITY_MOVE_X;
                     }
                     else if (Position.X > lCenter.X)
                     {
                         direction = MoveDirection.Left;
-                        velocity.X = -1;
+                        velocity.X = -VELOCITY_MOVE_X;
                     }
                 }
                 break;
@@ -372,7 +388,7 @@ public partial class KingKoops : ShelledEnemy
     {
         currentState = pNewState;
         shellProjectileProtect = (currentState != EnemyState.Outside);
-        
+
         AnimateParts(currentState);
     }
 
@@ -389,49 +405,49 @@ public partial class KingKoops : ShelledEnemy
 
     private void AnimateToOutside()
     {
-        visualTween.TweenProperty(shell, (string)Node2D.PropertyName.Position, shellOutsidePos, transitionDuration * 0.6f)
+        visualTween.TweenProperty(shell, (string)PropertyName.Position, shellOutsidePos, transitionDuration * TWEEN_OUTSIDE_RATIO)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        visualTween.Parallel().TweenProperty(shell, (string)Node2D.PropertyName.RotationDegrees, shellOutsideRot, transitionDuration * 0.6f)
+        visualTween.Parallel().TweenProperty(shell, (string)PropertyName.RotationDegrees, shellOutsideRot, transitionDuration * TWEEN_OUTSIDE_RATIO)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
         head.Scale = headRetractedScale;
 
-        visualTween.Parallel().TweenProperty(head, (string)Node2D.PropertyName.Position, headOutsidePos, transitionDuration)
-            .SetDelay(0.1f)
+        visualTween.Parallel().TweenProperty(head, (string)PropertyName.Position, headOutsidePos, transitionDuration)
+            .SetDelay(TWEEN_HEAD_DELAY)
             .SetTrans(Tween.TransitionType.Elastic)
             .SetEase(Tween.EaseType.Out);
 
-        visualTween.Parallel().TweenProperty(head, (string)Node2D.PropertyName.Scale, headOutsideScale, transitionDuration)
-            .SetDelay(0.1f)
+        visualTween.Parallel().TweenProperty(head, (string)PropertyName.Scale, headOutsideScale, transitionDuration)
+            .SetDelay(TWEEN_HEAD_DELAY)
             .SetTrans(Tween.TransitionType.Elastic)
             .SetEase(Tween.EaseType.Out);
     }
 
     private void AnimateToProtected()
     {
-        visualTween.TweenProperty(head, (string)Node2D.PropertyName.Position, headRetractedPos, transitionDuration * 0.5f)
+        visualTween.TweenProperty(head, (string)PropertyName.Position, headRetractedPos, transitionDuration * TWEEN_RETRACT_RATIO)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.In);
 
-        visualTween.Parallel().TweenProperty(head, (string)Node2D.PropertyName.Scale, headRetractedScale, transitionDuration * 0.5f)
+        visualTween.Parallel().TweenProperty(head, (string)PropertyName.Scale, headRetractedScale, transitionDuration * TWEEN_RETRACT_RATIO)
             .SetTrans(Tween.TransitionType.Cubic)
             .SetEase(Tween.EaseType.In);
 
-        visualTween.Parallel().TweenProperty(shell, (string)Node2D.PropertyName.Position, shellRetractedPos, transitionDuration)
-            .SetDelay(0.05f)
+        visualTween.Parallel().TweenProperty(shell, (string)PropertyName.Position, shellRetractedPos, transitionDuration)
+            .SetDelay(TWEEN_SHELL_DELAY)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        visualTween.Parallel().TweenProperty(shell, (string)Node2D.PropertyName.RotationDegrees, shellRetractedRot, transitionDuration)
-            .SetDelay(0.05f)
+        visualTween.Parallel().TweenProperty(shell, (string)PropertyName.RotationDegrees, shellRetractedRot, transitionDuration)
+            .SetDelay(TWEEN_SHELL_DELAY)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
 
-        visualTween.Chain().TweenProperty(shell, (string)Node2D.PropertyName.Scale, Vector2.One * 1.1f, 0.05f);
-        visualTween.Chain().TweenProperty(shell, (string)Node2D.PropertyName.Scale, Vector2.One, 0.1f);
+        visualTween.Chain().TweenProperty(shell, (string)PropertyName.Scale, Vector2.One * SCALE_POP_FACTOR, TWEEN_SHELL_POP_TIME);
+        visualTween.Chain().TweenProperty(shell, (string)PropertyName.Scale, Vector2.One, TWEEN_SHELL_RETURN_TIME);
     }
 
     private void DoGrooveAnimation()
@@ -440,13 +456,16 @@ public partial class KingKoops : ShelledEnemy
         KillActiveTweens();
 
         beatCounter++;
-        float lDir = (beatCounter % 2 == 0) ? 1f : -1f;
+        float lDir = (beatCounter % BEAT_MODULO == 0) ? GROOVE_DIR_POSITIVE : GROOVE_DIR_NEGATIVE;
 
         visualTween = CreateTween();
         visualTween.SetParallel(true);
-        visualTween.TweenProperty(shell, (string)PropertyName.Position + ":y", shellRetractedPos.Y - grooveJumpHeight, grooveStepDuration).SetTrans(Tween.TransitionType.Quad);
+
+        string lPropertyY = (string)PropertyName.Position + ":y";
+
+        visualTween.TweenProperty(shell, lPropertyY, shellRetractedPos.Y - grooveJumpHeight, grooveStepDuration).SetTrans(Tween.TransitionType.Quad);
         visualTween.TweenProperty(shell, (string)PropertyName.RotationDegrees, shellRetractedRot + (grooveTiltAngle * lDir), grooveStepDuration);
-        visualTween.Chain().TweenProperty(shell, (string)PropertyName.Position + ":y", shellRetractedPos.Y, grooveStepDuration).SetTrans(Tween.TransitionType.Quad);
+        visualTween.Chain().TweenProperty(shell, lPropertyY, shellRetractedPos.Y, grooveStepDuration).SetTrans(Tween.TransitionType.Quad);
         visualTween.Parallel().TweenProperty(shell, (string)PropertyName.RotationDegrees, shellRetractedRot, grooveReturnDuration);
     }
 
@@ -466,8 +485,7 @@ public partial class KingKoops : ShelledEnemy
     {
         if (isInvincible || isDeath) return;
 
-        // Modif le 1 pour une baseDamage
-        int lDamage = (pArea.Owner is Hammer) ? Hammer.GetInstance().attackForce : 1;
+        int lDamage = (pArea.Owner is Hammer) ? Hammer.GetInstance().attackForce : DEFAULT_DAMAGE;
         EntityHit(lDamage);
         shell.ShellDamageAnimation();
     }
@@ -507,7 +525,5 @@ public partial class KingKoops : ShelledEnemy
 
         ClearAll(false, false);
         Projectiles.ClearAll();
-
-        GD.Print("CLEAN");
     }
 }

@@ -37,6 +37,7 @@ spikeSizeMultiplier = 2.2
 spikeFlashColor = Color(1, 0.755861, 0.238522, 1)
 hammerScore = 2000
 health = 10
+invincibleTime = 0.2
 popScene = ExtResource("3_uicja")
 score = 5000
 direction = 1

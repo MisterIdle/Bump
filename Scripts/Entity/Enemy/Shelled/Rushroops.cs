@@ -1,25 +1,23 @@
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
-using Com.IsartDigital.Shmup.NToolsBox;
 using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 public partial class Rushroops : ShelledEnemy
 {
-    [ExportGroup("Animation Settings")]
+    [ExportGroup("Animation")]
     [Export] private Node2D headVisuals;
     [Export] private float headHideOffset = 20f;
     [Export] private float headOutDuration = 0.4f;
     [Export] private float headInDuration = 0.3f;
 
-    [ExportGroup("State Timings")]
+    [ExportGroup("State Timing")]
     [Export] private float spawnDuration = 5.0f;
     [Export] private float shootDuration = 2.0f;
     [Export] private float preDashDuration = 0.8f;
     [Export] private float dashDuration = 0.4f;
     [Export] private float recoveryDuration = 1.0f;
 
-    [ExportGroup("Physics Settings")]
+    [ExportGroup("Dash Settings")]
     [Export] private float dashSpeed = 800f;
     [Export] private float recoilDistance = 50f;
     [Export] private float deceleration = 5f;
@@ -160,15 +158,17 @@ public partial class Rushroops : ShelledEnemy
         animationTween?.Kill();
         animationTween = CreateTween();
 
+        string lProperty = (string)Node2D.PropertyName.Position;
+
         if (pIsOut)
         {
-            animationTween.TweenProperty(shell, "position", shellPosOut, headOutDuration)
+            animationTween.TweenProperty(shell, lProperty, shellPosOut, headOutDuration)
                           .SetTrans(Tween.TransitionType.Back)
                           .SetEase(Tween.EaseType.Out);
         }
         else
         {
-            animationTween.TweenProperty(shell, "position", shellPosIn, headInDuration)
+            animationTween.TweenProperty(shell, lProperty, shellPosIn, headInDuration)
                           .SetTrans(Tween.TransitionType.Back)
                           .SetEase(Tween.EaseType.In);
         }
@@ -181,11 +181,11 @@ public partial class Rushroops : ShelledEnemy
         animationTween?.Kill();
         animationTween = CreateTween();
 
-        animationTween.Parallel().TweenProperty(this, "global_position", lRecoilPos, preDashDuration)
+        animationTween.Parallel().TweenProperty(this, (string)Node2D.PropertyName.GlobalPosition, lRecoilPos, preDashDuration)
                       .SetTrans(Tween.TransitionType.Back)
                       .SetEase(Tween.EaseType.Out);
 
-        animationTween.Parallel().TweenProperty(shell, "position", shellPosIn, preDashDuration)
+        animationTween.Parallel().TweenProperty(shell, (string)Node2D.PropertyName.Position, shellPosIn, preDashDuration)
                       .SetTrans(Tween.TransitionType.Back)
                       .SetEase(Tween.EaseType.Out);
     }

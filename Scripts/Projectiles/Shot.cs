@@ -1,7 +1,6 @@
 using Godot;
 
 using Com.IsartDigital.Shmup.NManager;
-using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
@@ -28,7 +27,6 @@ public partial class Shot : Projectiles
         GameManager.GetInstance().gameContainer.AddChild(lShot);
         lShot.GlobalPosition = pPos;
 
-        lShot.SetInitialMovement(pAngle, pWay);
         lShot.Initiate();
 
         return lShot;
@@ -37,14 +35,6 @@ public partial class Shot : Projectiles
     // ========================================================================
     // INIT
     // ========================================================================
-
-    private void SetInitialMovement(float pAngle, Vector2 pWay)
-    {
-        float lSpreadAngle = GameManager.rand.RandfRange(-pAngle, pAngle);
-        float lFinalAngle = pWay.Angle() + lSpreadAngle;
-        velocity = Vector2.FromAngle(lFinalAngle) * pWay.Length();
-        Rotation = lFinalAngle;
-    }
 
     protected override void OnCollide(Area2D pArea)
     {

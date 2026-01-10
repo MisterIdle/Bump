@@ -103,7 +103,7 @@ script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("7_bpus6")
 keyboardIconB = ExtResource("7_bpus6")
 controllerIconA = ExtResource("8_k8ekm")
-_controllerIconB = ExtResource("8_k8ekm")
+controllerIconB = ExtResource("8_k8ekm")
 
 [node name="Move" type="HBoxContainer" parent="Global/Back2"]
 layout_mode = 0
@@ -120,7 +120,7 @@ script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("10_tpwlp")
 keyboardIconB = ExtResource("11_eww3p")
 controllerIconA = ExtResource("12_lmleo")
-_controllerIconB = ExtResource("13_4jwms")
+controllerIconB = ExtResource("13_4jwms")
 
 [node name="Label" type="Label" parent="Global/Back2/Move"]
 layout_mode = 2
@@ -151,7 +151,7 @@ script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("15_3hapl")
 keyboardIconB = ExtResource("16_af6ip")
 controllerIconA = ExtResource("17_fxr4b")
-_controllerIconB = ExtResource("18_p7wyr")
+controllerIconB = ExtResource("18_p7wyr")
 
 [node name="Shot" type="HBoxContainer" parent="Global/Back2"]
 layout_mode = 0
@@ -168,7 +168,7 @@ script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("19_kbdt1")
 keyboardIconB = ExtResource("20_r3b8n")
 controllerIconA = ExtResource("5_ss55s")
-_controllerIconB = ExtResource("9_63pif")
+controllerIconB = ExtResource("9_63pif")
 
 [node name="Label" type="Label" parent="Global/Back2/Shot"]
 layout_mode = 2
@@ -199,7 +199,7 @@ script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("23_l20yd")
 keyboardIconB = ExtResource("24_pavdf")
 controllerIconA = ExtResource("25_cxdpa")
-_controllerIconB = ExtResource("26_twueu")
+controllerIconB = ExtResource("26_twueu")
 
 [node name="GodMod" type="HBoxContainer" parent="Global/Back2"]
 visible = false
@@ -224,4 +224,4 @@ script = ExtResource("6_krie2")
 keyboardIconA = ExtResource("27_wnshb")
 keyboardIconB = ExtResource("28_mnlsm")
 controllerIconA = ExtResource("29_psaxp")
-_controllerIconB = ExtResource("30_3i1f5")
+controllerIconB = ExtResource("30_3i1f5")

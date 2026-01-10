@@ -62,7 +62,6 @@ anchor_mode = 0
 position_smoothing_enabled = true
 editor_draw_drag_margin = true
 script = ExtResource("4_7q78q")
-scrollSpeed = 200.0
 
 [node name="Background" parent="." instance=ExtResource("2_ajko8")]
 

@@ -1,4 +1,5 @@
 using Godot;
+
 using Com.IsartDigital.Shmup.NGameObject;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 
@@ -11,7 +12,7 @@ public partial class GameManager : Node2D
 
     [ExportCategory("Collectibles")]
     [Export] public PackedScene healthScene;
-    [Export] public int healthPercent = 20;
+    [Export] public int healthPercent = 25;
 
     [ExportCategory("Self")]
     [Export] public Node2D gameContainer;
@@ -19,6 +20,10 @@ public partial class GameManager : Node2D
     [Export] public Node2D enemyContainer;
 
     public static RandomNumberGenerator rand = new RandomNumberGenerator();
+
+    private const int CHANCE_MIN = 0;
+    private const int CHANCE_MAX = 100;
+    private const int LOOP_MIN = 0;
 
     private static GameManager instance;
     public GameManager() : base() { }
@@ -41,7 +46,7 @@ public partial class GameManager : Node2D
             return;
         }
 
-        for (int i = forceEnable.Length - 1; i >= 0; i--)
+        for (int i = forceEnable.Length - 1; i >= LOOP_MIN; i--)
             if (!forceEnable[i].enable) forceEnable[i].Initiate();
     }
 
@@ -51,14 +56,12 @@ public partial class GameManager : Node2D
 
     public static void CreateHealthCollectible(Vector2 pPos)
     {
-        GameManager lSelf = GetInstance();
-        if (lSelf != null)
-            lSelf.CallDeferred(nameof(CallCreateHealthCollectible), pPos);
+        GetInstance().CallDeferred(MethodName.CallCreateHealthCollectible, pPos);
     }
 
     private void CallCreateHealthCollectible(Vector2 pPos)
     {
-        int lChance = rand.RandiRange(0, 100);
+        int lChance = rand.RandiRange(CHANCE_MIN, CHANCE_MAX);
 
         if (lChance < healthPercent)
         {

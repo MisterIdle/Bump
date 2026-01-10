@@ -19,9 +19,14 @@ public partial class OptionsMenu : MenuBase
     [Export] private HSlider musicSlider;
     [Export] private HSlider sfxSlider;
 
-    [ExportGroup("Lang")]
-    private const string FRANCE = "fr";
-    private const string USA = "en";
+    private const string LOCALE_FR = "fr";
+    private const string LOCALE_US = "en";
+
+    private const string BUS_MUSIC = "Music";
+    private const string BUS_SFX = "SFX";
+
+    private const float DEFAULT_VOLUME_LINEAR = 1.0f;
+    private const int INVALID_BUS_INDEX = -1;
 
     // ========================================================================
     // INIT
@@ -30,8 +35,8 @@ public partial class OptionsMenu : MenuBase
     public override void _Ready()
     {
         backButton.Pressed += OnBackPressed;
-        franceButton.Pressed += () => ChangeLocale(FRANCE);
-        englishButton.Pressed += () => ChangeLocale(USA);
+        franceButton.Pressed += () => ChangeLocale(LOCALE_FR);
+        englishButton.Pressed += () => ChangeLocale(LOCALE_US);
 
         SetupVideoSettings();
         SetupAudioSettings();
@@ -47,7 +52,7 @@ public partial class OptionsMenu : MenuBase
         backButton.GrabFocus();
     }
 
-    public override void OnExit() 
+    public override void OnExit()
     {
         base.OnExit();
         PlayGenericExitAnimation();
@@ -71,47 +76,49 @@ public partial class OptionsMenu : MenuBase
     {
         if (fullscreenCheck == null || vsyncCheck == null) return;
 
-        bool lIsFullscreen = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen || DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;
+        bool lIsFullscreen = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen ||
+                             DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;
+
         fullscreenCheck.ButtonPressed = lIsFullscreen;
         fullscreenCheck.Toggled += OnFullscreenToggled;
 
-        bool isVsync = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
-        vsyncCheck.ButtonPressed = isVsync;
+        bool lIsVsync = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
+        vsyncCheck.ButtonPressed = lIsVsync;
         vsyncCheck.Toggled += OnVsyncToggled;
     }
 
     private void SetupAudioSettings()
     {
-        musicSlider.Value = GetBusVolumeLinear("Music");
-        sfxSlider.Value = GetBusVolumeLinear("SFX");
+        musicSlider.Value = GetBusVolumeLinear(BUS_MUSIC);
+        sfxSlider.Value = GetBusVolumeLinear(BUS_SFX);
 
-        musicSlider.ValueChanged += (value) => OnVolumeSliderChanged(value, "Music");
-        sfxSlider.ValueChanged += (value) => OnVolumeSliderChanged(value, "SFX");
+        musicSlider.ValueChanged += (pValue) => OnVolumeSliderChanged(pValue, BUS_MUSIC);
+        sfxSlider.ValueChanged += (pValue) => OnVolumeSliderChanged(pValue, BUS_SFX);
     }
 
-    private void OnVolumeSliderChanged(double value, string busName)
+    private void OnVolumeSliderChanged(double pValue, string pBusName)
     {
-        float lDB = (float)Mathf.LinearToDb(value);
-        int lIndex = AudioServer.GetBusIndex(busName);
+        float lDB = (float)Mathf.LinearToDb(pValue);
+        int lIndex = AudioServer.GetBusIndex(pBusName);
 
-        if (lIndex != -1)
+        if (lIndex != INVALID_BUS_INDEX)
         {
             AudioServer.SetBusVolumeDb(lIndex, lDB);
-            AudioServer.SetBusMute(lIndex, value <= musicSlider.MinValue);
+            AudioServer.SetBusMute(lIndex, pValue <= musicSlider.MinValue);
         }
 
-        if (busName == "SFX")
+        if (pBusName == BUS_SFX)
             AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 
-    private float GetBusVolumeLinear(string busName)
+    private float GetBusVolumeLinear(string pBusName)
     {
-        int busIndex = AudioServer.GetBusIndex(busName);
-        if (busIndex != -1)
+        int lBusIndex = AudioServer.GetBusIndex(pBusName);
+        if (lBusIndex != INVALID_BUS_INDEX)
         {
-            return (float)Mathf.DbToLinear(AudioServer.GetBusVolumeDb(busIndex));
+            return (float)Mathf.DbToLinear(AudioServer.GetBusVolumeDb(lBusIndex));
         }
-        return 1.0f;
+        return DEFAULT_VOLUME_LINEAR;
     }
 
     private void OnFullscreenToggled(bool pIsCheck)
@@ -127,9 +134,9 @@ public partial class OptionsMenu : MenuBase
         DisplayServer.WindowSetVsyncMode(pIsCheck ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
     }
 
-    private void ChangeLocale(string lLocaleCode)
+    private void ChangeLocale(string pLocaleCode)
     {
-        TranslationServer.SetLocale(lLocaleCode);
+        TranslationServer.SetLocale(pLocaleCode);
     }
 
     private void OnBackPressed()

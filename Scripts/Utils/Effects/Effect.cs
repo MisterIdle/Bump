@@ -1,7 +1,6 @@
 ﻿using Godot;
 
 using Com.IsartDigital.Shmup.NManager;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
 
 namespace Com.IsartDigital.Shmup.NToolsBox;
 

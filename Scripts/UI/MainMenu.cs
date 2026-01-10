@@ -27,9 +27,14 @@ public partial class MainMenu : MenuBase
     [Export] private float waveFrequencyDelay = 0.1f;
     [Export] private float rotationAmplitude = 3f;
 
-    private List<Label> generatedLetterLabels = new List<Label>();
+    private List<Label> generatedLetterList = new List<Label>();
+    private List<Tween> waveTweensList = new List<Tween>();
     private Tween introTitleTween;
-    private List<Tween> waveTweens = new List<Tween>();
+
+    private const string THEME_FONT_NAME = "font";
+    private const int DEFAULT_WIDTH_LIMIT = -1;
+    private const float HALF_MULTIPLIER = 0.5f;
+    private const float ZERO_ROTATION = 0f;
 
     // ========================================================================
     // INIT
@@ -55,7 +60,6 @@ public partial class MainMenu : MenuBase
         base.OnEnter();
 
         ResetTitleVisuals();
-
         StartTitleWaveLoop();
 
         startButton.GrabFocus();
@@ -68,10 +72,11 @@ public partial class MainMenu : MenuBase
         base.OnExit();
         introTitleTween?.Kill();
 
-        foreach (Tween lTween in waveTweens)
-            lTween?.Kill();
+        foreach (Tween lTween in waveTweensList)
+            if (lTween != null && lTween.IsValid()) 
+                lTween.Kill();
 
-        waveTweens.Clear();
+        waveTweensList.Clear();
 
         PlayGenericExitAnimation();
     }
@@ -112,11 +117,11 @@ public partial class MainMenu : MenuBase
 
     private void ResetTitleVisuals()
     {
-        foreach (var lLabel in generatedLetterLabels)
+        foreach (Label lLabel in generatedLetterList)
         {
             lLabel.Scale = Vector2.Zero;
-            lLabel.Modulate = new Color(1, 1, 1, 0);
-            lLabel.RotationDegrees = 0;
+            lLabel.Modulate = Colors.Transparent;
+            lLabel.RotationDegrees = ZERO_ROTATION;
             lLabel.Position = new Vector2(lLabel.Position.X, 0);
         }
     }
@@ -127,7 +132,6 @@ public partial class MainMenu : MenuBase
 
         string lContent = title.Text;
         title.Visible = false;
-        string lFont = "font";
 
         HBoxContainer lContainer = new HBoxContainer();
         lContainer.Alignment = BoxContainer.AlignmentMode.Center;
@@ -144,12 +148,13 @@ public partial class MainMenu : MenuBase
 
             lLetterLabel.Text = lLetter.ToString();
             lLetterLabel.LabelSettings = title.LabelSettings;
-            lLetterLabel.Modulate = new Color(1, 1, 1, 0);
+            lLetterLabel.Modulate = Colors.Transparent;
 
-            var font = lLetterLabel.GetThemeFont(lFont);
-            if (font != null)
+            Font lFontResource = lLetterLabel.GetThemeFont(THEME_FONT_NAME);
+
+            if (lFontResource != null)
             {
-                Vector2 lCharSize = font.GetStringSize(lLetterLabel.Text, lLetterLabel.HorizontalAlignment, -1, lLetterLabel.LabelSettings.FontSize);
+                Vector2 lCharSize = lFontResource.GetStringSize(lLetterLabel.Text, lLetterLabel.HorizontalAlignment, DEFAULT_WIDTH_LIMIT, lLetterLabel.LabelSettings.FontSize);
                 lLetterLabel.PivotOffset = new Vector2(lCharSize.X / 2, lLetterLabel.LabelSettings.FontSize / 2);
                 Vector2 lWrapperSize = lCharSize * letterSpacing;
                 lWrapper.CustomMinimumSize = lWrapperSize;
@@ -157,40 +162,45 @@ public partial class MainMenu : MenuBase
 
             lWrapper.AddChild(lLetterLabel);
             lContainer.AddChild(lWrapper);
-            generatedLetterLabels.Add(lLetterLabel);
+            generatedLetterList.Add(lLetterLabel);
         }
     }
 
     private void StartTitleWaveLoop()
     {
-        foreach (var t in waveTweens) { if (t != null && t.IsValid()) t.Kill(); }
-        waveTweens.Clear();
-
-        for (int i = 0; i < generatedLetterLabels.Count; i++)
+        foreach (Tween lTween in waveTweensList)
         {
-            Label lLabel = generatedLetterLabels[i];
+            if (lTween != null && lTween.IsValid()) lTween.Kill();
+        }
+        waveTweensList.Clear();
+
+        for (int i = 0; i < generatedLetterList.Count; i++)
+        {
+            Label lLabel = generatedLetterList[i];
             float lDelayOffset = i * waveFrequencyDelay;
 
             Tween lWaveTween = CreateTween();
-            waveTweens.Add(lWaveTween);
+            waveTweensList.Add(lWaveTween);
 
             lWaveTween.SetLoops();
 
-            lWaveTween.TweenProperty(lLabel, (string)PropertyName.Position + ":y", -waveAmplitude, waveDuration * 0.5f)
+            float lHalfDuration = waveDuration * HALF_MULTIPLIER;
+
+            lWaveTween.TweenProperty(lLabel, (string)PropertyName.Position + ":y", -waveAmplitude, lHalfDuration)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.InOut)
                 .SetDelay(lDelayOffset);
 
-            lWaveTween.Parallel().TweenProperty(lLabel, (string)PropertyName.RotationDegrees, rotationAmplitude, waveDuration * 0.5f)
+            lWaveTween.Parallel().TweenProperty(lLabel, (string)PropertyName.RotationDegrees, rotationAmplitude, lHalfDuration)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.InOut)
                 .SetDelay(lDelayOffset);
 
-            lWaveTween.Chain().TweenProperty(lLabel, (string)PropertyName.Position + ":y", waveAmplitude, waveDuration * 0.5f)
+            lWaveTween.Chain().TweenProperty(lLabel, (string)PropertyName.Position + ":y", waveAmplitude, lHalfDuration)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.InOut);
 
-            lWaveTween.Parallel().TweenProperty(lLabel, (string)PropertyName.RotationDegrees, -rotationAmplitude, waveDuration * 0.5f)
+            lWaveTween.Parallel().TweenProperty(lLabel, (string)PropertyName.RotationDegrees, -rotationAmplitude, lHalfDuration)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.InOut);
         }

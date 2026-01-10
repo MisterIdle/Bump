@@ -13,9 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://c1u0rdsgn8dhl" path="res://Scenes/Entity/Enemy/Rushroops.tscn" id="10_gotfw"]
 [ext_resource type="PackedScene" uid="uid://1dl8asfcved8" path="res://Scenes/Entity/Enemy/Sykoops.tscn" id="11_r82cg"]
 
-[node name="Debug" type="Node2D" node_paths=PackedStringArray("tp")]
+[node name="Debug" type="Node2D"]
 script = ExtResource("1_8xsjn")
-tp = NodePath("GameContainer/TP")
 
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("forceEnable", "gameContainer", "projectilesContainer", "enemyContainer")]
 scale = Vector2(2.07197, 475.784)
@@ -47,15 +46,18 @@ scale = Vector2(0.39999, 1.72024)
 
 [node name="Koops" parent="GameContainer/EnemyContainer" instance=ExtResource("9_yih5p")]
 position = Vector2(2970, 495)
+flipCooldownDuration = 0.5
 
 [node name="Koops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
 position = Vector2(3522, 504)
 type = 1
+flipCooldownDuration = 0.5
 sprite = NodePath("../Koops/Sprite")
 
 [node name="Koops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
 position = Vector2(3968, 500)
 type = 2
+flipCooldownDuration = 0.5
 sprite = NodePath("../Koops/Sprite")
 
 [node name="Rushroops" parent="GameContainer/EnemyContainer" instance=ExtResource("10_gotfw")]

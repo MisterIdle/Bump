@@ -8,12 +8,6 @@ namespace Com.IsartDigital.Shmup.NManager;
 
 public partial class SceneManager : Node
 {
-    private static SceneManager instance;
-    public static SceneManager GetInstance()
-    {
-        return instance;
-    }
-
     [Export] private PackedScene gameScene;
     [Export] private PackedScene debugScene;
 
@@ -33,6 +27,16 @@ public partial class SceneManager : Node
     public Timer transitionTimer;
     public Tween transitionTween;
 
+    private static SceneManager instance;
+    public static SceneManager GetInstance()
+    {
+        return instance;
+    }
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
+
     public override void _Ready()
     {
         if (instance == null) instance = this;
@@ -51,33 +55,13 @@ public partial class SceneManager : Node
         AddChild(transitionTimer);
     }
 
+    // ========================================================================
+    // UPDATE
+    // ========================================================================
+
     public override void _Process(double pDelta)
     {
-        if (!debug.Visible) return;
-
-        string lText =
-            $"\n--- [ SYSTEM ] ---\n" +
-            $"Scene : {currentSceneType}\n" +
-            $"FPS : {Engine.GetFramesPerSecond()}\n" +
-            $"Time : {Engine.TimeScale:F2}s\n" +
-            $"Freeze Time : {ScaleTime.currentTimeScale:F2}s\n";
-
-        Player lPlayer = Player.GetInstance();
-        if (lPlayer != null)
-        {
-            lText += $"\n--- [ PLAYER ] ---\n" +
-                $"State : {lPlayer.currentState}\n";
-        }
-
-        Hammer lHammer = Hammer.GetInstance();
-        if (lHammer != null)
-        {
-            lText += $"Hammer ATK : {lHammer.attackForce}\n" +
-                $"Hammer State : {lHammer.currentState}\n" +
-                $"Hammer Attack : {lHammer.attackForce}\n";
-        }
-
-        debug.Text = lText;
+        Debug();
     }
 
     public override void _Input(InputEvent pInput)
@@ -91,6 +75,10 @@ public partial class SceneManager : Node
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
         }
     }
+
+    // ========================================================================
+    // SCENES
+    // ========================================================================
 
     public void ChangeGlobalScene(SceneType pNextScene)
     {
@@ -180,6 +168,39 @@ public partial class SceneManager : Node
                 lCam.isScrolling = true;
             }
         }
+    }
+
+    // ========================================================================
+    // DEBUG
+    // ========================================================================
+
+    private void Debug()
+    {
+        if (!debug.Visible) return;
+
+        string lText =
+            $"\n--- [ SYSTEM ] ---\n" +
+            $"Scene : {currentSceneType}\n" +
+            $"FPS : {Engine.GetFramesPerSecond()}\n" +
+            $"Time : {Engine.TimeScale:F2}s\n" +
+            $"Freeze Time : {ScaleTime.currentTimeScale:F2}s\n";
+
+        Player lPlayer = Player.GetInstance();
+        if (lPlayer != null)
+        {
+            lText += $"\n--- [ PLAYER ] ---\n" +
+                $"State : {lPlayer.currentState}\n";
+        }
+
+        Hammer lHammer = Hammer.GetInstance();
+        if (lHammer != null)
+        {
+            lText += $"Hammer ATK : {lHammer.attackForce}\n" +
+                $"Hammer State : {lHammer.currentState}\n" +
+                $"Hammer Attack : {lHammer.attackForce}\n";
+        }
+
+        debug.Text = lText;
     }
 
     protected override void Dispose(bool pDisposing)

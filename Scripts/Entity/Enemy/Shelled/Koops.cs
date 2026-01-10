@@ -1,5 +1,6 @@
-using Com.IsartDigital.Shmup.NManager;
 using Godot;
+
+using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 

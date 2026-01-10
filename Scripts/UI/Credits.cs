@@ -1,7 +1,5 @@
 using Godot;
 
-using Com.IsartDigital.Shmup.NManager;
-
 namespace Com.IsartDigital.Shmup.NHUD;
 
 public partial class Credits : MenuBase

@@ -4,11 +4,8 @@ using System;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NToolsBox;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
-
-// CHECK
 
 public partial class FlowerCollectible : Collectibles
 {

@@ -1,6 +1,7 @@
+using Godot;
+
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NManager;
-using Godot;
 
 namespace Com.IsartDigital.Shmup.NToolsBox;
 

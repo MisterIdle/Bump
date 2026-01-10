@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexy\\Desktop\\SupaShmup\\SupaShmup\\Shmup.csproj": {}
+    "C:\\Users\\alexy\\Desktop\\SupaShmup\\Shmup.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexy\\Desktop\\SupaShmup\\SupaShmup\\Shmup.csproj": {
+    "C:\\Users\\alexy\\Desktop\\SupaShmup\\Shmup.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexy\\Desktop\\SupaShmup\\SupaShmup\\Shmup.csproj",
+        "projectUniqueName": "C:\\Users\\alexy\\Desktop\\SupaShmup\\Shmup.csproj",
         "projectName": "Shmup",
-        "projectPath": "C:\\Users\\alexy\\Desktop\\SupaShmup\\SupaShmup\\Shmup.csproj",
+        "projectPath": "C:\\Users\\alexy\\Desktop\\SupaShmup\\Shmup.csproj",
         "packagesPath": "C:\\Users\\alexy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexy\\Desktop\\SupaShmup\\SupaShmup\\.godot\\mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\alexy\\Desktop\\SupaShmup\\.godot\\mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

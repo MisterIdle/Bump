@@ -5,8 +5,6 @@ using Com.IsartDigital.Shmup.NHUD;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 
-// CHECK
-
 public partial class Collectibles : Movable
 {
     [Export] private float finalAlpha = 0f;
@@ -34,11 +32,12 @@ public partial class Collectibles : Movable
         Effect.BumpScale(this, baseScale);
 
         animationTimer = new Timer();
+
         animationTimer.WaitTime = animationSec;
         animationTimer.OneShot = false;
         animationTimer.Autostart = true;
-
         animationTimer.Timeout += PlayAnimation;
+
         AddChild(animationTimer);
     }
 
@@ -84,6 +83,7 @@ public partial class Collectibles : Movable
     // ========================================================================
     // COLLIDE
     // ========================================================================
+
     protected override void OnCollide(Area2D pArea)
     {
         base.OnCollide(pArea);

@@ -1,7 +1,7 @@
+using Godot;
+
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NToolsBox;
-using Godot;
-using System.Collections.Generic;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
@@ -23,9 +23,11 @@ public partial class Projectiles : Movable
         base.Initiate();
 
         lifeTimer = new Timer();
+
         lifeTimer.WaitTime = lifeTime;
         lifeTimer.Autostart = true;
         lifeTimer.Timeout += Destory;
+
         AddChild(lifeTimer);
     }
 
@@ -38,21 +40,22 @@ public partial class Projectiles : Movable
         foreach (Projectiles lProjectiles in lGameManager.projectilesContainer.GetChildren())
         {
             if (IsInstanceValid(lProjectiles) && !lProjectiles.IsQueuedForDeletion())
-            {
                 lProjectiles.QueueFree();
-            }
         }
     }
 
-    public void Destory()
+    public void Destory() 
     {
-        if (!IsInstanceValid(this) || IsQueuedForDeletion()) return;
-
+        Particule.Create(popScene, Position);
         CallDeferred(MethodName.QueueFree);
     }
 
-    protected override void Dispose(bool disposing)
+    protected override void OnCollide(Area2D pArea)
     {
-        Particule.Create(popScene, GlobalPosition);
+        base.OnCollide(pArea);
+        
+        Particule.Create(popScene, Position);
+
+        QueueFree();
     }
 }

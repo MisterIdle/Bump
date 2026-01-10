@@ -10,8 +10,6 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
 public partial class Player : Entity
 {
-    private static Player instance;
-
     [ExportCategory("Components")]
     [Export] public CollisionShape2D collision;
     [Export] private Sprite2D nose;
@@ -57,7 +55,7 @@ public partial class Player : Entity
     [Export] private float deathSlowMoScale = 0.5f;
     [Export] private float deathTimerDuration = 3f;
 
-    [Export] private float minBetweenShots = 600;
+    [Export] private float minBetweenShots = 600f;
 
     public int level = 1;
     public enum State { Spawn, Normal, Dash, Knockback }
@@ -81,6 +79,11 @@ public partial class Player : Entity
     private Timer movementTimer;
 
     private const int MARGIN = -15;
+
+    private const float SHOT_SQUASH_X = 0.8f;
+    private const float SHOT_SQUASH_Y = 1f;
+
+    private static Player instance;
 
     public static Player GetInstance()
     {
@@ -158,7 +161,6 @@ public partial class Player : Entity
         Move(pDelta);
         UpdateRotation(pDelta);
 
-
         if (currentState != State.Spawn)
         {
             if (Input.IsActionJustPressed(Property.INPUT_SMARTBOMB))
@@ -197,7 +199,6 @@ public partial class Player : Entity
         if (Input.IsActionJustPressed(Property.INPUT_WIN))
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
     }
-
 
     private void AnimatedSpawn()
     {
@@ -286,13 +287,13 @@ public partial class Player : Entity
     private void Move(float pDelta)
     {
         PlayerLevelData lData = GetCurrentLevelData();
-        float currentSpeedMultiplier = lData != null ? lData.moveSpeedMultiplier : 1f;
+        float lCurrentSpeedMultiplier = lData != null ? lData.moveSpeedMultiplier : 1f;
 
         if (currentState == State.Dash || currentState == State.Knockback)
             velocity = dashDirection * dashMultiplier;
 
         else if (velocity != Vector2.Zero)
-            velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN) * currentSpeedMultiplier;
+            velocity = Input.GetVector(Property.INPUT_LEFT, Property.INPUT_RIGHT, Property.INPUT_UP, Property.INPUT_DOWN) * lCurrentSpeedMultiplier;
 
         else
             velocity.Y = angleY;
@@ -333,7 +334,7 @@ public partial class Player : Entity
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerShoot);
         Effect.BumpScale(sprite, baseSpriteScale);
-        Effect.SquashStretch(sprite, baseSpriteScale, true, false, 0.8f, 1f);
+        Effect.SquashStretch(sprite, baseSpriteScale, true, false, SHOT_SQUASH_X, SHOT_SQUASH_Y);
 
         Shot lShot = Shot.Create(lShotData.shotScene, muzzle.GlobalPosition, Vector2.Right);
 
@@ -481,12 +482,12 @@ public partial class Player : Entity
         float lTargetAngle = 0f;
 
         PlayerLevelData lData = GetCurrentLevelData();
-        float currentRotSpeed = lData.rotationSpeed;
+        float lCurrentRotSpeed = lData.rotationSpeed;
 
         if (velocity.X > 0)
-            lTargetAngle = currentRotSpeed;
+            lTargetAngle = lCurrentRotSpeed;
         else if (velocity.X < 0)
-            lTargetAngle = -currentRotSpeed;
+            lTargetAngle = -lCurrentRotSpeed;
 
         sprite.RotationDegrees = Mathf.Lerp(sprite.RotationDegrees, lTargetAngle, rotationLerpSpeed * pDelta);
     }
@@ -515,7 +516,7 @@ public partial class Player : Entity
         godMode = false;
         invincible = false;
 
-        if (invincibleTimer != null) 
+        if (invincibleTimer != null)
             invincibleTimer.Stop();
         health = 0;
 

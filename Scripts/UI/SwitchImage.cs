@@ -10,14 +10,21 @@ public partial class SwitchImage : TextureRect
 
     [ExportGroup("Controller Images")]
     [Export] private Texture2D controllerIconA;
-    [Export] private Texture2D _controllerIconB;
+    [Export] private Texture2D controllerIconB;
 
     [ExportGroup("Settings")]
-    [Export] private float blinkSpeed = 0.5f;
+    [Export] private float blinkSpeed = DEFAULT_BLINK_SPEED;
 
     private Timer blinkTimer;
     private bool isUsingController = false;
     private bool showFirstFrame = true;
+
+    private const float DEFAULT_BLINK_SPEED = 0.5f;
+    private const float JOYPAD_DEADZONE = 0.2f;
+
+    // ========================================================================
+    // INIT
+    // ========================================================================
 
     public override void _Ready()
     {
@@ -33,11 +40,9 @@ public partial class SwitchImage : TextureRect
         UpdateTexture();
     }
 
-    private void OnTimerTimeout()
-    {
-        showFirstFrame = !showFirstFrame;
-        UpdateTexture();
-    }
+    // ========================================================================
+    // INPUT
+    // ========================================================================
 
     public override void _Input(InputEvent pEvent)
     {
@@ -52,7 +57,7 @@ public partial class SwitchImage : TextureRect
         }
         else if (pEvent is InputEventJoypadButton || pEvent is InputEventJoypadMotion)
         {
-            if (pEvent is InputEventJoypadMotion lMotion && Mathf.Abs(lMotion.AxisValue) < 0.2f)
+            if (pEvent is InputEventJoypadMotion lMotion && Mathf.Abs(lMotion.AxisValue) < JOYPAD_DEADZONE)
                 return;
 
             if (!isUsingController)
@@ -63,6 +68,17 @@ public partial class SwitchImage : TextureRect
             }
         }
     }
+
+    // ========================================================================
+    // LOGIC
+    // ========================================================================
+
+    private void OnTimerTimeout()
+    {
+        showFirstFrame = !showFirstFrame;
+        UpdateTexture();
+    }
+
     private void ResetBlinkCycle()
     {
         showFirstFrame = true;
@@ -73,7 +89,7 @@ public partial class SwitchImage : TextureRect
     private void UpdateTexture()
     {
         if (isUsingController)
-            Texture = showFirstFrame ? controllerIconA : _controllerIconB;
+            Texture = showFirstFrame ? controllerIconA : controllerIconB;
         else
             Texture = showFirstFrame ? keyboardIconA : keyboardIconB;
     }

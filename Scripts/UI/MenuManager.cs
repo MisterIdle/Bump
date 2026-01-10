@@ -4,12 +4,6 @@ namespace Com.IsartDigital.Shmup.NHUD;
 
 public partial class MenuManager : Control
 {
-    private static MenuManager instance;
-    public static MenuManager GetInstance()
-    {
-        return instance;
-    }
-
     public enum MenuState
     {
         None,
@@ -45,6 +39,16 @@ public partial class MenuManager : Control
 
     private MenuBase currentMenu = null;
     private Tween flipTween;
+
+    private const float ROTATION_NORMAL = 0f;
+    private const float ROTATION_FLIPPED = 180f;
+    private const float MENU_TRANSITION_DELAY = 0.2f;
+
+    private static MenuManager instance;
+    public static MenuManager GetInstance()
+    {
+        return instance;
+    }
 
     // ========================================================================
     // INIT
@@ -85,7 +89,7 @@ public partial class MenuManager : Control
         currentMenu?.OnExit();
 
         MenuBase lNextMenuNode = null;
-        float lTargetRotation = 0f;
+        float lTargetRotation = ROTATION_NORMAL;
 
         switch (pNewState)
         {
@@ -95,7 +99,7 @@ public partial class MenuManager : Control
 
             case MenuState.Options:
                 lNextMenuNode = Options;
-                lTargetRotation = 180f;
+                lTargetRotation = ROTATION_FLIPPED;
                 break;
 
             case MenuState.Credits:
@@ -117,7 +121,7 @@ public partial class MenuManager : Control
             case MenuState.Pause:
             case MenuState.GameOver:
                 lNextMenuNode = StateMenu;
-                lTargetRotation = 0f;
+                lTargetRotation = ROTATION_NORMAL;
                 break;
         }
 
@@ -131,7 +135,7 @@ public partial class MenuManager : Control
             return;
         }
 
-        float lPrevTime = 0.2f;
+        float lPrevTime = MENU_TRANSITION_DELAY;
 
         Timer lTimer = new Timer();
         lTimer.OneShot = true;
@@ -164,7 +168,7 @@ public partial class MenuManager : Control
 
     public void Flip(float pDegrees)
     {
-        flipTween?.Kill();
+        if (flipTween != null && flipTween.IsValid()) flipTween.Kill();
 
         flipTween = CreateTween();
         flipTween.TweenProperty(pivot, (string)PropertyName.RotationDegrees, pDegrees, FlipDuration)

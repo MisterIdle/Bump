@@ -5,12 +5,11 @@ namespace Com.IsartDigital.Shmup.NToolsBox;
 
 public partial class UpDownControl : Control
 {
-    [Export] public float amplitude = 50f;
-    [Export] public float speed = 2f;
+    [Export] public float amplitude = 1f;
+    [Export] public float speed = 2;
 
     private Vector2 startPos;
-    private float time = 0f;
-
+    private float time = 0;
 
     // ========================================================================
     // INIT
@@ -28,6 +27,9 @@ public partial class UpDownControl : Control
     public override void _Process(double pDelta)
     {
         time += (float)pDelta;
-        Position = startPos + new Vector2(0, Mathf.Sin(time * speed) * amplitude);
+
+        float lYOffset = Mathf.Sin(time * speed) * amplitude;
+
+        Position = startPos + new Vector2(0, lYOffset);
     }
 }

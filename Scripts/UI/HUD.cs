@@ -9,12 +9,6 @@ namespace Com.IsartDigital.Shmup.NHUD;
 
 public partial class HUD : MenuBase
 {
-    private static HUD instance;
-    public static HUD GetInstance()
-    {
-        return instance;
-    }
-
     [Export] private PackedScene bubbleScore;
 
     [ExportCategory("References")]
@@ -27,10 +21,10 @@ public partial class HUD : MenuBase
     [Export] private ProgressBar bossTextureBar;
 
     [ExportCategory("Colors")]
-    [Export] public Color activeColor = new Color(1, 1, 1, 1.0f);
+    [Export] public Color activeColor = Colors.White;
     [Export] public Color inactiveColor = new Color(1, 1, 1, 0.2f);
     [Export] public Color bossDamageColor = new Color(1, 0.2f, 0.2f, 1.0f);
-    [Export] public Color invisibleColor = new Color(1, 1, 11, 0);
+    [Export] public Color invisibleColor = Colors.Transparent;
 
     [ExportCategory("Score")]
     [Export] public float popDuration = 0.25f;
@@ -64,6 +58,17 @@ public partial class HUD : MenuBase
     private float originalY;
     private float bossBarOriginalX;
     private float gameOverOriginalY;
+
+    private const float ALPHA_TRANSPARENT = 0f;
+    private const float ALPHA_OPAQUE = 1f;
+
+    private const float DEFAULT_BOSS_VAL = 0f;
+
+    private static HUD instance;
+    public static HUD GetInstance()
+    {
+        return instance;
+    }
 
     // ========================================================================
     // INIT
@@ -147,16 +152,14 @@ public partial class HUD : MenuBase
         if (bossTextureBar == null) return;
 
         bossTextureBar.MaxValue = pMaxHealth;
-        bossTextureBar.Value = 0;
-
-        float lDefault = 1;
+        bossTextureBar.Value = DEFAULT_BOSS_VAL;
 
         Tween lTween = CreateTween();
 
-        lTween.TweenProperty(bossTextureBar, (string)PropertyName.Modulate + ":a", lDefault, bossFadeDuration);
+        lTween.TweenProperty(bossTextureBar, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, bossFadeDuration);
         lTween.Parallel();
 
-        lTween.TweenProperty(bossLabel, (string)PropertyName.Modulate + ":a", lDefault, bossFadeDuration);
+        lTween.TweenProperty(bossLabel, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, bossFadeDuration);
 
         lTween.Chain().TweenProperty(bossTextureBar, (string)TextureProgressBar.PropertyName.Value, pMaxHealth, bossFillDuration)
             .SetTrans(Tween.TransitionType.Cubic)
@@ -166,8 +169,8 @@ public partial class HUD : MenuBase
     public void HideBossBattle()
     {
         bossTextureBar.Modulate = invisibleColor;
-        bossTextureBar.Value = 0;
-        bossLabel.Modulate = invisibleColor; 
+        bossTextureBar.Value = DEFAULT_BOSS_VAL;
+        bossLabel.Modulate = invisibleColor;
     }
 
     public void UpdateBossHealth(int pCurrentHealth)
@@ -182,7 +185,8 @@ public partial class HUD : MenuBase
             .SetEase(Tween.EaseType.Out);
 
         bossTextureBar.Modulate = bossDamageColor;
-        lTween.TweenProperty(bossTextureBar, (string)CanvasItem.PropertyName.Modulate, new Color(1, 1, 1, 1), bossColorReturnDuration);
+
+        lTween.TweenProperty(bossTextureBar, (string)CanvasItem.PropertyName.Modulate, Colors.White, bossColorReturnDuration);
 
         Effect.BumpHUD(bossTextureBar, originalScale);
     }
@@ -190,7 +194,6 @@ public partial class HUD : MenuBase
     // ========================================================================
     // ANIMATION HUD
     // ========================================================================
-
 
     public void AnimatedScore(int pNewScore)
     {
@@ -219,7 +222,7 @@ public partial class HUD : MenuBase
 
     public void PlayEntranceAnimation()
     {
-        Modulate = new Color(1, 1, 1, 0);
+        Modulate = Colors.Transparent;
         Position = new Vector2(Position.X, originalY - entranceOffsetY);
 
         healthContainer.Scale = Vector2.Zero;
@@ -229,7 +232,7 @@ public partial class HUD : MenuBase
         Tween lTween = CreateTween();
         lTween.SetParallel(true);
 
-        lTween.TweenProperty(this, (string)CanvasItem.PropertyName.Modulate + ":a", 1f, entranceFadeDuration);
+        lTween.TweenProperty(this, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, entranceFadeDuration);
         lTween.TweenProperty(this, (string)Node2D.PropertyName.Position + ":y", originalY, entranceMoveDuration)
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.Out);
@@ -261,7 +264,7 @@ public partial class HUD : MenuBase
             .SetTrans(Tween.TransitionType.Back)
             .SetEase(Tween.EaseType.In);
 
-        lTween.TweenProperty(this, (string)CanvasItem.PropertyName.Modulate + ":a", 0f, pDuration * exitModulateMult);
+        lTween.TweenProperty(this, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_TRANSPARENT, pDuration * exitModulateMult);
 
         lTween.Chain().TweenCallback(Callable.From(() => Visible = false));
     }
@@ -288,10 +291,10 @@ public partial class HUD : MenuBase
     public void PlayGameOver()
     {
         gameoverLabel.Visible = true;
-        gameoverLabel.Modulate = new Color(1, 1, 1, 1);
+        gameoverLabel.Modulate = Colors.White;
 
-        float startY = -gameoverLabel.Size.Y - gameOverStartOffsetY;
-        gameoverLabel.Position = new Vector2(gameoverLabel.Position.X, startY);
+        float lStartY = -gameoverLabel.Size.Y - gameOverStartOffsetY;
+        gameoverLabel.Position = new Vector2(gameoverLabel.Position.X, lStartY);
 
         Tween lTween = CreateTween();
 

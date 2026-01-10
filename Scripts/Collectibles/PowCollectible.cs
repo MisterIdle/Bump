@@ -1,12 +1,9 @@
 using Godot;
-using System;
 
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
-
-// CHECK
 
 public partial class PowCollectible : Collectibles
 {

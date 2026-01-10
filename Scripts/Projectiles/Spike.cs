@@ -1,9 +1,8 @@
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
-using Com.IsartDigital.Shmup.NManager;
-using Com.IsartDigital.Shmup.NToolsBox;
 using Godot;
+
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
@@ -69,11 +68,9 @@ public partial class Spike : Projectiles
             lPlayer.InstantDeath();
         }
 
-        base.OnCollide(pArea);
-
         if (!isActive)
             return;
 
-        QueueFree();
+        base.OnCollide(pArea);
     }
 }
