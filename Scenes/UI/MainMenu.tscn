@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bb7w5cthb6nj5"]
 
 [ext_resource type="Script" path="res://Scripts/UI/MainMenu.cs" id="1_as8bs"]
-[ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="2_2n6h4"]
+[ext_resource type="FontFile" uid="uid://exf65wxho6px" path="res://Assets/Visual/Steak Melt.otf" id="2_2n6h4"]
 [ext_resource type="Theme" uid="uid://bevkcx1prmt5q" path="res://Assets/Visual/Theme.tres" id="2_oxhg0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cd03x"]
