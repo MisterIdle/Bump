@@ -177,7 +177,7 @@ DEBUGSCENE={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Assets/Localization/translate.en.translation", "res://Assets/Localization/translate.fr.translation")
+locale/translations=PackedStringArray("res://Assets/Localization/Translation.fr.translation", "res://Assets/Localization/Translation.en.translation")
 
 [layer_names]
 

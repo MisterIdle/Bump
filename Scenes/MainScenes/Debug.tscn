@@ -39,548 +39,494 @@ health = 1
 [node name="ObstaclesContainer" type="Node2D" parent="GameContainer"]
 
 [node name="Obstacle" parent="GameContainer/ObstaclesContainer" instance=ExtResource("7_imcnq")]
-position = Vector2(4284, 489)
-scale = Vector2(0.39999, 1.72024)
+position = Vector2(4336, 297)
+scale = Vector2(0.5, 0.5)
+
+[node name="Obstacle2" parent="GameContainer/ObstaclesContainer" instance=ExtResource("7_imcnq")]
+position = Vector2(4336, 456)
+scale = Vector2(0.5, 0.5)
+
+[node name="Obstacle3" parent="GameContainer/ObstaclesContainer" instance=ExtResource("7_imcnq")]
+position = Vector2(4336, 603)
+scale = Vector2(0.5, 0.5)
+
+[node name="Obstacle4" parent="GameContainer/ObstaclesContainer" instance=ExtResource("7_imcnq")]
+position = Vector2(4336, 757)
+scale = Vector2(0.5, 0.5)
 
 [node name="EnemyContainer" type="Node2D" parent="GameContainer"]
 
 [node name="Koops" parent="GameContainer/EnemyContainer" instance=ExtResource("9_yih5p")]
-position = Vector2(2970, 495)
-flipCooldownDuration = 0.5
+position = Vector2(2364, 569)
 
 [node name="Koops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
-position = Vector2(3522, 504)
+position = Vector2(3125, 566)
 type = 1
-flipCooldownDuration = 0.5
 sprite = NodePath("../Koops/Sprite")
 
 [node name="Koops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("9_yih5p")]
-position = Vector2(3968, 500)
+position = Vector2(3772, 566)
 type = 2
-flipCooldownDuration = 0.5
 sprite = NodePath("../Koops/Sprite")
 
 [node name="Rushroops" parent="GameContainer/EnemyContainer" instance=ExtResource("10_gotfw")]
-position = Vector2(4765, 516)
+position = Vector2(5035, 550)
 
 [node name="Rushroops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite") instance=ExtResource("10_gotfw")]
-position = Vector2(5407, 507)
+position = Vector2(5892, 550)
 headVisuals = NodePath("../Rushroops/Sprite")
 spikeContainer = NodePath("../Rushroops/Shell/Spike")
 sprite = NodePath("../Rushroops/Sprite")
 
 [node name="Rushroops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite") instance=ExtResource("10_gotfw")]
-position = Vector2(6134, 512)
+position = Vector2(6696, 544)
 headVisuals = NodePath("../Rushroops/Sprite")
 spikeContainer = NodePath("../Rushroops/Shell/Spike")
 sprite = NodePath("../Rushroops/Sprite")
 
-[node name="Walsy" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(6609, 279)
-
-[node name="Walsy2" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(6609, 489)
-
-[node name="Walsy3" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(6609, 700)
-
-[node name="Walsy7" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(9566, 291)
-
-[node name="Walsy8" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(9566, 501)
-
-[node name="Walsy9" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(9566, 712)
-
 [node name="Sykoops" parent="GameContainer/EnemyContainer" instance=ExtResource("11_r82cg")]
-position = Vector2(7182, 475)
+position = Vector2(8003, 523)
 
 [node name="Sykoops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("spikeContainer", "sprite") instance=ExtResource("11_r82cg")]
-position = Vector2(8076, 483)
+position = Vector2(8974, 519)
 spikeContainer = NodePath("../Sykoops/Shell/Spike")
 sprite = NodePath("../Sykoops/Sprite")
 
 [node name="Sykoops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("spikeContainer", "sprite") instance=ExtResource("11_r82cg")]
-position = Vector2(9015, 483)
+position = Vector2(9909, 523)
 spikeContainer = NodePath("../Sykoops/Shell/Spike")
 sprite = NodePath("../Sykoops/Sprite")
 
 [node name="KingKoops" parent="GameContainer/EnemyContainer" instance=ExtResource("6_md5ow")]
-position = Vector2(11973, 503)
-
-[node name="Walsy4" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(9566, 291)
-
-[node name="Walsy5" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(9566, 501)
-
-[node name="Walsy6" parent="GameContainer/EnemyContainer" instance=ExtResource("8_3wkh7")]
-position = Vector2(9566, 712)
+position = Vector2(12203, 508)
 
 [node name="ProjectilesContainer" type="Node2D" parent="GameContainer"]
 
+[node name="HeartCollectible" parent="GameContainer" instance=ExtResource("2_uuxkw")]
+position = Vector2(1689, 70)
+
+[node name="HeartCollectible2" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(2091, 70)
+sprite = NodePath("../HeartCollectible/Sprite")
+
 [node name="FlowerCollectible" parent="GameContainer" instance=ExtResource("4_tur1x")]
-position = Vector2(1803, 986)
+position = Vector2(1689, 1058)
 
 [node name="FlowerCollectible2" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(2002, 986)
+position = Vector2(1893, 1068)
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible" parent="GameContainer" instance=ExtResource("5_cmled")]
-position = Vector2(2002, 96)
-
-[node name="HeartCollectible" parent="GameContainer" instance=ExtResource("2_uuxkw")]
-position = Vector2(1814, 98)
+position = Vector2(1893, 71)
 
 [node name="FlowerCollectible3" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(2184, 986)
+position = Vector2(2091, 1058)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible4" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(2383, 986)
+position = Vector2(2295, 1068)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible2" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(2383, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible2" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(2195, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="PowCollectible25" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(2002, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible25" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(1814, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="PowCollectible26" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(2383, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible26" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(2195, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible49" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(1044, 988)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible50" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(1243, 988)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible51" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(1425, 988)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible52" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(1624, 988)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible27" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(1243, 98)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible27" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(1055, 100)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="PowCollectible28" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(1624, 98)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible28" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(1436, 100)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible53" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(271, 988)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible54" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(470, 988)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible55" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(652, 988)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible56" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(851, 988)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible29" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(470, 98)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible29" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(282, 100)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="PowCollectible30" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(851, 98)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible30" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(663, 100)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible5" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(2572, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible6" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(2771, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible3" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(2771, 96)
+position = Vector2(2295, 71)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible3" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(2583, 98)
+position = Vector2(2493, 70)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible4" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(2895, 70)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible5" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(2493, 1058)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible6" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(2697, 1068)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible3" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(2697, 71)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible7" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(2957, 986)
+position = Vector2(2895, 1058)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible8" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(3156, 986)
+position = Vector2(3099, 1068)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible4" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(3156, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible4" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(2968, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible9" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(3338, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible10" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(3537, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible5" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(3537, 96)
+position = Vector2(3099, 71)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible5" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(3349, 98)
+position = Vector2(3297, 71)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible6" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(3699, 71)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible9" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(3297, 1059)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible10" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(3501, 1069)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible5" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(3501, 72)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible11" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(3726, 986)
+position = Vector2(3699, 1059)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible12" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(3925, 986)
+position = Vector2(3903, 1069)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible6" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(3925, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible6" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(3737, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible13" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(4124, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible14" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(4323, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible7" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(4323, 96)
+position = Vector2(3903, 72)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible7" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(4135, 98)
+position = Vector2(4085, 70)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible8" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(4487, 70)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible13" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(4085, 1058)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible14" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(4289, 1068)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible7" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(4289, 71)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible15" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(4505, 986)
+position = Vector2(4487, 1058)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible16" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(4704, 986)
+position = Vector2(4691, 1068)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible8" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(4704, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible8" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(4516, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible17" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(4893, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible18" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(5092, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible9" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(5092, 96)
+position = Vector2(4691, 71)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible9" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(4904, 98)
+position = Vector2(4884, 70)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible10" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(5286, 70)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible17" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(4884, 1058)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible18" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(5088, 1068)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible9" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(5088, 71)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible19" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(5278, 986)
+position = Vector2(5286, 1058)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible20" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(5477, 986)
+position = Vector2(5490, 1068)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible10" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(5477, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible10" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(5289, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible21" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(5659, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible22" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(5858, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible11" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(5858, 96)
+position = Vector2(5490, 71)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible11" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(5670, 98)
+position = Vector2(5688, 70)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible12" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(6090, 70)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible21" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(5688, 1058)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible22" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(5892, 1068)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible11" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(5892, 71)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible23" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(6047, 986)
+position = Vector2(6090, 1058)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible24" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(6246, 986)
+position = Vector2(6294, 1068)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible12" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(6246, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible12" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(6058, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible25" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(6430, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible26" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(6629, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible13" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(6629, 96)
+position = Vector2(6294, 71)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible13" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(6441, 98)
+position = Vector2(6492, 71)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible14" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(6894, 71)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible25" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(6492, 1059)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible26" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(6696, 1069)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible13" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(6696, 72)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible27" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(6811, 986)
+position = Vector2(6894, 1059)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible28" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(7010, 986)
+position = Vector2(7098, 1069)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible14" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(7010, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible14" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(6822, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible29" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(7199, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible30" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(7398, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible15" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(7398, 96)
+position = Vector2(7098, 72)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible15" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(7210, 98)
+position = Vector2(7280, 70)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible16" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(7682, 70)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible29" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(7280, 1058)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible30" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(7484, 1068)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible15" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(7484, 71)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible31" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(7584, 986)
+position = Vector2(7682, 1058)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible32" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(7783, 986)
+position = Vector2(7886, 1068)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible16" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(7783, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible16" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(7595, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible33" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(7965, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible34" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(8164, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible17" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(8164, 96)
+position = Vector2(7886, 71)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible17" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(7976, 98)
+position = Vector2(8097, 72)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible18" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(8499, 72)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible33" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(8097, 1060)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible34" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(8301, 1070)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible17" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(8301, 73)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible35" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(8353, 986)
+position = Vector2(8499, 1060)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible36" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(8552, 986)
+position = Vector2(8703, 1070)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible18" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(8552, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible18" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(8364, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible37" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(8751, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible38" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(8950, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible19" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(8950, 96)
+position = Vector2(8703, 73)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible19" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(8762, 98)
+position = Vector2(8901, 72)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible20" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(9303, 72)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible37" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(8901, 1060)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible38" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(9105, 1070)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible19" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(9105, 73)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible39" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(9132, 986)
+position = Vector2(9303, 1060)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible40" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(9331, 986)
+position = Vector2(9507, 1070)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible20" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(9331, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible20" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(9143, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible41" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(9520, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible42" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(9719, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible21" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(9719, 96)
+position = Vector2(9507, 73)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible21" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(9531, 98)
+position = Vector2(9705, 73)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible22" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(10107, 73)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible41" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(9705, 1061)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible42" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(9909, 1071)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible21" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(9909, 74)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible43" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(9905, 986)
+position = Vector2(10107, 1061)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible44" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(10104, 986)
+position = Vector2(10311, 1071)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible22" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(10104, 96)
-sprite = NodePath("../PowCollectible/Sprite2D")
-
-[node name="HeartCollectible22" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(9916, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
-
-[node name="FlowerCollectible45" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(10286, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="FlowerCollectible46" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(10485, 986)
-sprite = NodePath("../FlowerCollectible/Sprite")
-
-[node name="PowCollectible23" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(10485, 96)
+position = Vector2(10311, 74)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
 [node name="HeartCollectible23" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(10297, 98)
+position = Vector2(10493, 72)
 sprite = NodePath("../HeartCollectible/Sprite")
 
+[node name="HeartCollectible24" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
+position = Vector2(10895, 72)
+sprite = NodePath("../HeartCollectible/Sprite")
+
+[node name="FlowerCollectible45" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(10493, 1060)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="FlowerCollectible46" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
+position = Vector2(10697, 1070)
+sprite = NodePath("../FlowerCollectible/Sprite")
+
+[node name="PowCollectible23" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
+position = Vector2(10697, 73)
+sprite = NodePath("../PowCollectible/Sprite2D")
+
 [node name="FlowerCollectible47" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(10674, 986)
+position = Vector2(10895, 1060)
+spritePath = NodePath("../FlowerCollectible/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="FlowerCollectible48" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("4_tur1x")]
-position = Vector2(10873, 986)
+position = Vector2(11099, 1070)
+spritePath = NodePath("../FlowerCollectible2/Sprite/Head")
 sprite = NodePath("../FlowerCollectible/Sprite")
 
 [node name="PowCollectible24" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("5_cmled")]
-position = Vector2(10873, 96)
+position = Vector2(11099, 73)
 sprite = NodePath("../PowCollectible/Sprite2D")
 
-[node name="HeartCollectible24" parent="GameContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("2_uuxkw")]
-position = Vector2(10685, 98)
-sprite = NodePath("../HeartCollectible/Sprite")
+[node name="Walsy" parent="." instance=ExtResource("8_3wkh7")]
+position = Vector2(7409, 259)
 
-[node name="TP" type="Marker2D" parent="GameContainer"]
-position = Vector2(10616, 501)
-scale = Vector2(2.07197, 475.784)
+[node name="Walsy2" parent="." instance=ExtResource("8_3wkh7")]
+position = Vector2(7409, 432)
+
+[node name="Walsy3" parent="." instance=ExtResource("8_3wkh7")]
+position = Vector2(7409, 603)
+
+[node name="Walsy4" parent="." instance=ExtResource("8_3wkh7")]
+position = Vector2(7409, 787)
+
+[node name="Walsy5" parent="." instance=ExtResource("8_3wkh7")]
+position = Vector2(10493, 237)
+
+[node name="Walsy6" parent="." instance=ExtResource("8_3wkh7")]
+position = Vector2(10493, 410)
+
+[node name="Walsy7" parent="." instance=ExtResource("8_3wkh7")]
+position = Vector2(10493, 581)
+
+[node name="Walsy8" parent="." instance=ExtResource("8_3wkh7")]
+position = Vector2(10493, 765)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c16bdke1sxf5b"]
+[gd_scene load_steps=26 format=3 uid="uid://c16bdke1sxf5b"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Help.cs" id="1_ri3yv"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/UpDownControl.cs" id="2_nf2hw"]
@@ -24,10 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://tksjktpe4dqx" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_l_outline.png" id="24_pavdf"]
 [ext_resource type="Texture2D" uid="uid://bt7ec6ljmu018" path="res://Assets/Sprites/Xbox Series/xbox_button_color_x.png" id="25_cxdpa"]
 [ext_resource type="Texture2D" uid="uid://bbm6a4a1kdiw3" path="res://Assets/Sprites/Xbox Series/xbox_button_color_x_outline.png" id="26_twueu"]
-[ext_resource type="Texture2D" uid="uid://bscb1e5mwbf8r" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_g.png" id="27_wnshb"]
-[ext_resource type="Texture2D" uid="uid://bp7hkvj2o21fo" path="res://Assets/Sprites/Keyboard & Mouse/keyboard_g_outline.png" id="28_mnlsm"]
-[ext_resource type="Texture2D" uid="uid://cixgqyw012bdn" path="res://Assets/Sprites/Xbox Series/xbox_elite_paddle_top_right.png" id="29_psaxp"]
-[ext_resource type="Texture2D" uid="uid://c57dk8hwfad25" path="res://Assets/Sprites/Xbox Series/xbox_elite_paddle_top_right_outline.png" id="30_3i1f5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_btbue"]
 font = ExtResource("9_t4tf8")
@@ -124,7 +120,7 @@ controllerIconB = ExtResource("13_4jwms")
 
 [node name="Label" type="Label" parent="Global/Back2/Move"]
 layout_mode = 2
-text = "UD_TUTO_MOVE"
+text = "ID_TUTO_MOVE"
 label_settings = SubResource("LabelSettings_btbue")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -139,7 +135,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Global/Back2/Special"]
 layout_mode = 2
-text = "UD_TUTO_SPECIAL"
+text = "ID_TUTO_SPECIAL"
 label_settings = SubResource("LabelSettings_btbue")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -172,7 +168,7 @@ controllerIconB = ExtResource("9_63pif")
 
 [node name="Label" type="Label" parent="Global/Back2/Shot"]
 layout_mode = 2
-text = "UD_TUTO_SHOOT"
+text = "ID_TUTO_SHOOT"
 label_settings = SubResource("LabelSettings_btbue")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -187,7 +183,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Global/Back2/Bombe"]
 layout_mode = 2
-text = "UD_TUTO_POW"
+text = "ID_TUTO_POW"
 label_settings = SubResource("LabelSettings_btbue")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -200,28 +196,3 @@ keyboardIconA = ExtResource("23_l20yd")
 keyboardIconB = ExtResource("24_pavdf")
 controllerIconA = ExtResource("25_cxdpa")
 controllerIconB = ExtResource("26_twueu")
-
-[node name="GodMod" type="HBoxContainer" parent="Global/Back2"]
-visible = false
-layout_mode = 0
-offset_left = 1033.0
-offset_top = 809.0
-offset_right = 1619.0
-offset_bottom = 1037.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Global/Back2/GodMod"]
-layout_mode = 2
-text = "UD_TUTO_GODMOD"
-label_settings = SubResource("LabelSettings_btbue")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="Global/Back2/GodMod"]
-layout_mode = 2
-expand_mode = 3
-script = ExtResource("6_krie2")
-keyboardIconA = ExtResource("27_wnshb")
-keyboardIconB = ExtResource("28_mnlsm")
-controllerIconA = ExtResource("29_psaxp")
-controllerIconB = ExtResource("30_3i1f5")

@@ -107,6 +107,7 @@ position = Vector2(231, 731)
 texture = ExtResource("1_xxge3")
 flip_h = true
 script = ExtResource("5_22u1i")
+amplitude = 45.0
 speed = 0.5
 
 [node name="Pliiar4" type="Sprite2D" parent="PillarMiddle"]
@@ -115,7 +116,8 @@ position = Vector2(1541, 764)
 rotation = 0.101229
 texture = ExtResource("1_xxge3")
 script = ExtResource("5_22u1i")
-speed = 0.1
+amplitude = 10.0
+speed = 0.5
 
 [node name="Pliiar3" type="Sprite2D" parent="PillarMiddle"]
 material = SubResource("ShaderMaterial_ikq34")
@@ -124,7 +126,8 @@ rotation = -0.0698132
 scale = Vector2(0.640831, 0.617825)
 texture = ExtResource("1_xxge3")
 script = ExtResource("5_22u1i")
-speed = 0.2
+amplitude = 10.0
+speed = 0.9
 
 [node name="PillarMiddle2" type="ParallaxLayer" parent="."]
 z_index = 4096
@@ -139,7 +142,8 @@ scale = Vector2(0.640831, 0.617825)
 texture = ExtResource("1_xxge3")
 flip_h = true
 script = ExtResource("5_22u1i")
-speed = 0.2
+amplitude = 50.0
+speed = 0.3
 
 [node name="Pliiar5" type="Sprite2D" parent="PillarMiddle2"]
 material = SubResource("ShaderMaterial_wevyv")
@@ -148,7 +152,8 @@ rotation = 0.413643
 scale = Vector2(0.640831, 0.617825)
 texture = ExtResource("1_7pveb")
 script = ExtResource("5_22u1i")
-speed = 0.1
+amplitude = 15.0
+speed = 0.4
 
 [node name="Horizon2" type="ParallaxLayer" parent="."]
 z_index = 4096

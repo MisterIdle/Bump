@@ -127,20 +127,25 @@ public partial class OptionsMenu : MenuBase
             DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
         else
             DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized);
+
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 
     private void OnVsyncToggled(bool pIsCheck)
     {
         DisplayServer.WindowSetVsyncMode(pIsCheck ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 
     private void ChangeLocale(string pLocaleCode)
     {
         TranslationServer.SetLocale(pLocaleCode);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 
     private void OnBackPressed()
     {
         MenuManager.GetInstance().ReturnFromSubMenu();
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 }

@@ -111,7 +111,7 @@ offset_left = -72.0
 offset_top = 455.0
 offset_right = 1979.0
 offset_bottom = 1036.0
-theme_override_constants/separation = 85
+theme_override_constants/separation = 50
 alignment = 1
 
 [node name="GameDesign" type="VBoxContainer" parent="Other"]

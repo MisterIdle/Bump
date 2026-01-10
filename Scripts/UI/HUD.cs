@@ -4,6 +4,7 @@ using System;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NToolsBox;
 using Com.IsartDigital.Shmup.NStats;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 namespace Com.IsartDigital.Shmup.NHUD;
 
@@ -49,6 +50,7 @@ public partial class HUD : MenuBase
     [Export] public float bossFillDuration = 1.2f;
     [Export] public float bossHitDuration = 0.4f;
     [Export] public float bossColorReturnDuration = 0.3f;
+    private bool isBossActive = false;
 
     [ExportCategory("Game Over")]
     [Export] public float gameOverFallDuration = 1.0f;
@@ -116,8 +118,16 @@ public partial class HUD : MenuBase
     {
         Visible = true;
         gameoverLabel.Visible = false;
+
         PlayEntranceAnimation();
-        HideBossBattle();
+
+        if (isBossActive)
+        {
+            bossTextureBar.Modulate = Colors.White;
+            bossLabel.Modulate = Colors.White;
+        }
+        else
+            HideBossBattle();
 
         AudioManager.GetInstance().SetMusicPaused(false);
     }
@@ -149,7 +159,7 @@ public partial class HUD : MenuBase
 
     public void SetupBossBattle(int pMaxHealth)
     {
-        if (bossTextureBar == null) return;
+        isBossActive = true;
 
         bossTextureBar.MaxValue = pMaxHealth;
         bossTextureBar.Value = DEFAULT_BOSS_VAL;
@@ -166,8 +176,22 @@ public partial class HUD : MenuBase
             .SetEase(Tween.EaseType.Out);
     }
 
+    public void ShowBossBattle()
+    {
+        Tween lTween = CreateTween();
+        lTween.SetParallel(true);
+
+        bossTextureBar.Value = DEFAULT_BOSS_VAL;
+
+        lTween.TweenProperty(bossTextureBar, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, bossFadeDuration);
+        lTween.TweenProperty(bossLabel, (string)CanvasItem.PropertyName.Modulate + ":a", ALPHA_OPAQUE, bossFadeDuration);
+    }
+
+
     public void HideBossBattle()
     {
+        isBossActive = false;
+
         bossTextureBar.Modulate = invisibleColor;
         bossTextureBar.Value = DEFAULT_BOSS_VAL;
         bossLabel.Modulate = invisibleColor;
@@ -191,6 +215,15 @@ public partial class HUD : MenuBase
         Effect.BumpHUD(bossTextureBar, originalScale);
     }
 
+    public void ResetHUD()
+    {
+        isBossActive = false;
+        HideBossBattle();
+
+        scoreLabel.Text = "0";
+        scoreLabel.Scale = originalScale;
+    }
+
     // ========================================================================
     // ANIMATION HUD
     // ========================================================================
@@ -201,8 +234,6 @@ public partial class HUD : MenuBase
         int lTargetScore = lCurrentScore + pNewScore;
 
         GameStats.currentScore = lTargetScore;
-
-        GD.Print(GameStats.currentScore);
 
         Tween lTween = CreateTween();
         lTween.SetParallel(true);

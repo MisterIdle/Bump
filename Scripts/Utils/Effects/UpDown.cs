@@ -5,7 +5,7 @@ namespace Com.IsartDigital.Shmup.NToolsBox;
 
 public partial class UpDown : Sprite2D
 {
-    [Export] public float amplitude = 1f;
+    [Export] public float amplitude = 25f;
     [Export] public float speed = 2;
 
     private Vector2 startPos;

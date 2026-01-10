@@ -74,6 +74,8 @@ public partial class StateMenu : MenuBase
         Configure();
         GetTree().Paused = true;
 
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIPause);
+
         MenuManager lManager = MenuManager.GetInstance();
 
         lManager.previousMenuState = lManager.currentMenuState;
@@ -148,12 +150,14 @@ public partial class StateMenu : MenuBase
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Options);
         CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, FADE_DURATION);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 
     public void OnResume()
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
         GetTree().Paused = false;
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 
     public void OnRestart()
@@ -168,15 +172,20 @@ public partial class StateMenu : MenuBase
 
         lTween.Finished += RestartSwitch;
 
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
         AudioManager.GetInstance().StopMusic();
+
     }
 
     private void RestartSwitch()
     {
         GetTree().Paused = false;
+
+        HUD.GetInstance().ResetHUD();
         MenuManager.GetInstance().nextIsGame = true;
         SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 
     public void OnMainMenu()
@@ -190,5 +199,6 @@ public partial class StateMenu : MenuBase
         GetTree().Paused = false;
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
         SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
 }

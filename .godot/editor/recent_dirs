@@ -1,3 +1,4 @@
+res://Assets/Localization
 res://Scenes
 res://Scenes/LevelDesign
 res://Scripts/UI
@@ -13,7 +14,6 @@ res://Assets/Shader
 res://Scripts/Projectiles
 res://Scripts/Entity/Enemy
 res://Scenes/Entity/Enemy
-res://Assets/Localization
 res://Assets/Background
 res://Assets
 res://Scripts/Collectibles

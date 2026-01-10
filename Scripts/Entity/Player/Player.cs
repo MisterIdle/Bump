@@ -78,7 +78,8 @@ public partial class Player : Entity
     private Shot lastShot;
     private Timer movementTimer;
 
-    private const int MARGIN = -15;
+    private const int DEATH_MARGIN = -150;
+    private const int NOT_OUT_MARGIN = -35;
 
     private const float SHOT_SQUASH_X = 0.8f;
     private const float SHOT_SQUASH_Y = 1f;
@@ -383,7 +384,7 @@ public partial class Player : Entity
 
         if (isDeath)
         {
-            if (Utils.IsOutOfBound(Position, MARGIN))
+            if (Utils.IsOutOfBound(Position, DEATH_MARGIN))
             {
                 if (!isOutSide)
                 {
@@ -394,7 +395,7 @@ public partial class Player : Entity
             return;
         }
 
-        Vector2 lClamped = Utils.ClampToScreen(Position, MARGIN);
+        Vector2 lClamped = Utils.ClampToScreen(Position, NOT_OUT_MARGIN);
 
         if (Position != lClamped)
         {

@@ -147,7 +147,7 @@ offset_left = 1604.0
 offset_top = 997.0
 offset_right = 1882.0
 offset_bottom = 1058.0
-text = "GOD MODE"
+text = "ID_GODMOD"
 label_settings = SubResource("LabelSettings_on232")
 
 [node name="GameOver" type="Label" parent="."]

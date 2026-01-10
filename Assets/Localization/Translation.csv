@@ -1,0 +1,39 @@
+keys,en,fr
+ID_START,Start,Jouer
+ID_OPTION,Options,Options
+ID_HELP,Help,Aide
+ID_CREDITS,Credits,Crédits
+ID_QUIT,Quit,Quitter
+ID_RESUME,Resume,Reprendre
+ID_RESTART,Restart,Recommencer
+ID_MAIN_MENU,Main Menu,Menu Principal
+ID_GAMEOVER,Too Bad...,Dommage...
+ID_PAUSE,Pause,Pause
+ID_AUDIO,Audio,Audio
+ID_MUSIC_OPTION,Music,Musique
+ID_AUDIO_OPTION,Sound / Audio Options,Options Audio
+ID_LANG,Language,Langue
+ID_SCREEN,Screen,Affichage
+ID_FULLSCREEN,Fullscreen,Plein écran
+ID_VSYNC,VSync,VSync
+ID_BACK,Back,Retour
+ID_PROJECT_MANAGER,Project Manager,Chef de projet
+ID_GAME_DIRECTOR,Game Director,Directeur de jeu
+ID_GAME_DESIGNER,Lead Game Designer,Lead Concepteur de jeu
+ID_LEAD_UX,Lead UX,Lead UX
+ID_GAME_DESIGN_AND_PROGRAMMING,Game Design and Programming,Game Design et Programmation
+ID_ART_DIRECTOR,Art Director,Directeur Artistique
+ID_LEAD_SOUND_DESIGNER,Lead Sound Designer,Lead Sound Designer
+ID_MUSIC_AND_SOUND_DESIGNER,Music and Sound Designer,Compositeur et Sound Designer
+ID_TUTO_MOVE,Move,Se déplacer
+ID_TUTO_POW,Bomb,Bombe
+ID_TUTO_SHOOT,Shoot,Tirer
+ID_TUTO_SPECIAL,Hammer,Marteau
+ID_ENEMY_KILL,Enemy Killed,Ennemi tué
+ID_SHOT_SHOOTED,Shots Fired,Tirs effectués
+ID_SPECIAL_USE,Special Used,Spécial utilisé
+ID_POW_USE,Power Used,Pouvoir utilisé
+ID_SCORE,Score,Score
+ID_VICTORY_TEXT,Victory,Victoire
+ID_GODMOD,God Mode,Mode Dieu
+ID_KING,King Koops,Roi des Koops

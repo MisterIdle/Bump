@@ -129,7 +129,7 @@
   <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer.Player" Collapsed="true">
     <Position X="29.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>e2YUhJnIgqMAiEAQogANAAqBhAfcQBKuQEABYAEYBT4=</HashCode>
+      <HashCode>e2YUhJnIgqMAiEAQogAMAAqBhAfcQBKuQkABYAEYBT4=</HashCode>
       <FileName>Scripts\Entity\Player\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -192,7 +192,7 @@
   <Class Name="Com.IsartDigital.Shmup.NHUD.HUD" Collapsed="true">
     <Position X="17.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>RIAADiEAoXAoAARQAIAAAAAoRCDSCABBVNEFowBgBBk=</HashCode>
+      <HashCode>RYAADiEAoXAoAARQAIAAACAoRCDSCABBVNGFowBgBBk=</HashCode>
       <FileName>Scripts\UI\HUD.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -332,7 +332,7 @@
   <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles.Projectiles" Collapsed="true">
     <Position X="33.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAQABQAACAABCAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAQABQAACAABCAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>Scripts\Projectiles\Projectiles.cs</FileName>
     </TypeIdentifier>
   </Class>

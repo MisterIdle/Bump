@@ -1,7 +1,7 @@
-res://Scenes/MainScenes/InGame.tscn
-res://Assets/Shader/Distortion.tres
-res://Assets/Shader/Bubble.tres
+res://Scenes/Entity/Enemy/KingKoops.tscn
 res://Assets/Shader/ColorSwap.tres
+res://Assets/Shader/Bubble.tres
+res://Assets/Shader/Distortion.tres
 res://Scripts/Entity/Player/PlayerShotData.cs
 res://Scripts/Managers/GameObject.cs
 res://Scripts/Collectibles/PowCollectible.cs
@@ -54,4 +54,10 @@ res://Scripts/Utils/Effects/Wing.cs
 res://Scripts/Collectibles/HeartCollectible.cs
 res://Scripts/UI/StateMenu.cs
 res://Scripts/Entity/Enemy/Normal/Walsy.cs
-res://Scenes/Projectiles/Shot.tscn
+res://Assets/Background/BaseBackground.tres
+res://Assets/Background/MainMenuBackground.tres
+res://Assets/Background/SnowBackground.tres
+res://Assets/Visual/Theme.tres
+res://Scenes/MainScenes/Main.tscn
+res://Scenes/Trigger.tscn
+res://Scenes/UI/Parallax.tscn
