@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "orS1fssMDAg=",
+  "dgSpecHash": "5Eip8mUwi8Y=",
   "success": true,
-  "projectFilePath": "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\Bump\\Shmup.csproj",
+  "projectFilePath": "C:\\Users\\alexy\\Desktop\\Bump\\Shmup.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alexy\\.nuget\\packages\\godot.sourcegenerators\\4.2.2\\godot.sourcegenerators.4.2.2.nupkg.sha512",
     "C:\\Users\\alexy\\.nuget\\packages\\godotsharp\\4.2.2\\godotsharp.4.2.2.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\Bump\\Shmup.csproj": {}
+    "C:\\Users\\alexy\\Desktop\\Bump\\Shmup.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\Bump\\Shmup.csproj": {
+    "C:\\Users\\alexy\\Desktop\\Bump\\Shmup.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\Bump\\Shmup.csproj",
+        "projectUniqueName": "C:\\Users\\alexy\\Desktop\\Bump\\Shmup.csproj",
         "projectName": "Shmup",
-        "projectPath": "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\Bump\\Shmup.csproj",
+        "projectPath": "C:\\Users\\alexy\\Desktop\\Bump\\Shmup.csproj",
         "packagesPath": "C:\\Users\\alexy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\Bump\\.godot\\mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\alexy\\Desktop\\Bump\\.godot\\mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
