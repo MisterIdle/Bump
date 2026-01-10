@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "7OI+Jv3AS48=",
+  "dgSpecHash": "QrD/az+oaBw=",
   "success": true,
   "projectFilePath": "C:\\Users\\alexy\\Desktop\\SupaShmup\\Shmup.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alexy\\.nuget\\packages\\godot.sourcegenerators\\4.2.2\\godot.sourcegenerators.4.2.2.nupkg.sha512",
     "C:\\Users\\alexy\\.nuget\\packages\\godotsharp\\4.2.2\\godotsharp.4.2.2.nupkg.sha512",
-    "C:\\Users\\alexy\\.nuget\\packages\\godotsharpeditor\\4.2.2\\godotsharpeditor.4.2.2.nupkg.sha512"
+    "C:\\Users\\alexy\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.36\\microsoft.netcore.app.runtime.win-x64.6.0.36.nupkg.sha512",
+    "C:\\Users\\alexy\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.36\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.36.nupkg.sha512",
+    "C:\\Users\\alexy\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.36\\microsoft.aspnetcore.app.runtime.win-x64.6.0.36.nupkg.sha512"
   ],
   "logs": []
 }
