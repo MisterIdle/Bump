@@ -71,8 +71,9 @@ public partial class SceneManager : Node
 
         if (pInput.IsActionPressed(Property.INPUT_DEBUG_SCENE))
         {
-            SwitchScene(SceneType.Debug);
-            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
+            MenuManager.GetInstance().SetMenu(MenuManager.MenuState.None);
+            SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.Debug);
+            AudioManager.GetInstance().StopMusic();
         }
     }
 

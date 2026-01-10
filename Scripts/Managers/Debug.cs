@@ -1,8 +1,8 @@
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NHUD;
+using Com.IsartDigital.Shmup.NManager;
 using Godot;
 using System;
-
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
-using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NDebug;
 
@@ -12,6 +12,8 @@ public partial class Debug : Node2D
 
     private const float HALF_DIVIDER = 2f;
     private const float TELEPORT_DURATION = 1.0f;
+
+    public bool inPause;
 
     public override void _Input(InputEvent pEvent)
     {

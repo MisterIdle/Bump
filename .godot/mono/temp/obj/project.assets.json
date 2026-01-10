@@ -20,24 +20,19 @@
             "related": ".xml"
           }
         }
-      }
-    },
-    "net6.0/win-x64": {
-      "Godot.SourceGenerators/4.2.2": {
-        "type": "package",
-        "build": {
-          "build/Godot.SourceGenerators.props": {}
-        }
       },
-      "GodotSharp/4.2.2": {
+      "GodotSharpEditor/4.2.2": {
         "type": "package",
+        "dependencies": {
+          "GodotSharp": "4.2.2"
+        },
         "compile": {
-          "lib/net6.0/GodotSharp.dll": {
+          "lib/net6.0/GodotSharpEditor.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/GodotSharp.dll": {
+          "lib/net6.0/GodotSharpEditor.dll": {
             "related": ".xml"
           }
         }
@@ -70,12 +65,26 @@
         "lib/net6.0/GodotSharp.dll",
         "lib/net6.0/GodotSharp.xml"
       ]
+    },
+    "GodotSharpEditor/4.2.2": {
+      "sha512": "nNXntakfzSuH5AnQKBpznN8pF+3uYj9XmGIEMeR+6GOzg8gxx2b09bhVZm3q6onzldPEoo1YChBRL1zWWjOM6Q==",
+      "type": "package",
+      "path": "godotsharpeditor/4.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "godotsharpeditor.4.2.2.nupkg.sha512",
+        "godotsharpeditor.nuspec",
+        "lib/net6.0/GodotSharpEditor.dll",
+        "lib/net6.0/GodotSharpEditor.xml"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Godot.SourceGenerators >= 4.2.2",
-      "GodotSharp >= 4.2.2"
+      "GodotSharp >= 4.2.2",
+      "GodotSharpEditor >= 4.2.2"
     ]
   },
   "packageFolders": {
@@ -85,11 +94,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alexy\\Desktop\\SupaShmup\\Shmup.csproj",
+      "projectUniqueName": "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\SupaShmup\\Shmup.csproj",
       "projectName": "Shmup",
-      "projectPath": "C:\\Users\\alexy\\Desktop\\SupaShmup\\Shmup.csproj",
+      "projectPath": "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\SupaShmup\\Shmup.csproj",
       "packagesPath": "C:\\Users\\alexy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alexy\\Desktop\\SupaShmup\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "C:\\Users\\alexy\\Desktop\\HOUBLOUP_Alexy_GDP1B_SHMUP\\Bin\\SupaShmup\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -135,6 +144,10 @@
           "GodotSharp": {
             "target": "Package",
             "version": "[4.2.2, )"
+          },
+          "GodotSharpEditor": {
+            "target": "Package",
+            "version": "[4.2.2, )"
           }
         },
         "imports": [
@@ -148,31 +161,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[6.0.36, 6.0.36]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[6.0.36, 6.0.36]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[6.0.36, 6.0.36]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\RuntimeIdentifierGraph.json"
-      }
-    },
-    "runtimes": {
-      "win-x64": {
-        "#import": []
       }
     }
   }
