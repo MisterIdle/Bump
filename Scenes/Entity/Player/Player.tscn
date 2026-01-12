@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/Player/PlayerShotData.cs" id="3_8vhug"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="3_20icr"]
 [ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Entity/Player/Pow.tscn" id="4_0ve0x"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Circle.svg" id="6_1xct8"]
+[ext_resource type="Texture2D" uid="uid://bvo1opvv12pen" path="res://Assets/Sprites/Circle.svg" id="6_1xct8"]
 [ext_resource type="PackedScene" uid="uid://b5f4s4npvvkep" path="res://Scenes/Entity/Player/Hammer.tscn" id="6_n43dq"]
 [ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="8_8qn4a"]
 [ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="8_xd46q"]

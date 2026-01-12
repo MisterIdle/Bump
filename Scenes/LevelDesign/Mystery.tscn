@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Collectibles/Mystery.cs" id="1_0b4wq"]
 [ext_resource type="PackedScene" uid="uid://do2aw1mr5kjlj" path="res://Scenes/LevelDesign/Collectibles/FlowerCollectible.tscn" id="2_fna3a"]
 [ext_resource type="PackedScene" uid="uid://4wsw7s3qogxl" path="res://Scenes/LevelDesign/Collectibles/PowCollectible.tscn" id="3_ueqnq"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Mystery.png" id="4_72x6f"]
+[ext_resource type="Texture2D" uid="uid://caro3t320hwkp" path="res://Assets/Sprites/Mystery.png" id="4_72x6f"]
 [ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="5_oy7mm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4spx"]

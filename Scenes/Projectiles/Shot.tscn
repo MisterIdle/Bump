@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Projectiles/Shot.cs" id="1_23rss"]
 [ext_resource type="PackedScene" uid="uid://7710phv1wm7k" path="res://Scenes/Particules/PopShot.tscn" id="2_tdqh7"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Circle.svg" id="3_nw047"]
+[ext_resource type="Texture2D" uid="uid://bvo1opvv12pen" path="res://Assets/Sprites/Circle.svg" id="3_nw047"]
 
 [sub_resource type="Curve" id="Curve_l7nx8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.997696, 0.58101), 0.0, 0.0, 0, 0]

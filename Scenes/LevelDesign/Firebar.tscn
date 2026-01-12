@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Normal/Firebar.cs" id="1_bvk1m"]
 [ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="2_e4u5i"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Square.svg" id="3_0apq1"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Circle.svg" id="4_5bt0r"]
+[ext_resource type="Texture2D" uid="uid://dmxtp8wqxfkt5" path="res://Assets/Sprites/Square.svg" id="3_0apq1"]
+[ext_resource type="Texture2D" uid="uid://bvo1opvv12pen" path="res://Assets/Sprites/Circle.svg" id="4_5bt0r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8psp"]
 size = Vector2(44, 388.5)

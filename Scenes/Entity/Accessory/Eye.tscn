@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bev6b38a5whed"]
 
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Circle.svg" id="1_d1voy"]
+[ext_resource type="Texture2D" uid="uid://bvo1opvv12pen" path="res://Assets/Sprites/Circle.svg" id="1_d1voy"]
 
 [node name="Eye" type="Sprite2D"]
 self_modulate = Color(0, 0, 0, 1)

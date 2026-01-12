@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bhnuaia2dpuey"]
 
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Circle.svg" id="1_21i7s"]
+[ext_resource type="Texture2D" uid="uid://bvo1opvv12pen" path="res://Assets/Sprites/Circle.svg" id="1_21i7s"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Particule.cs" id="1_fwsfw"]
 
 [sub_resource type="Gradient" id="Gradient_aopg1"]

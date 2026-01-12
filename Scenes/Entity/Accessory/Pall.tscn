@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://o4ify3cehgll"]
 
-[ext_resource type="Texture2D" path="res://Assets/Sprites/StickHammer.svg" id="1_jmwg5"]
+[ext_resource type="Texture2D" uid="uid://b667oe3et1jtk" path="res://Assets/Sprites/StickHammer.svg" id="1_jmwg5"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Pall.cs" id="2_j7vsf"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Palll1.svg" id="2_jd1jw"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Palll2.svg" id="3_68jnj"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Palll3.svg" id="4_3tvsh"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Palll4.svg" id="5_c5b4o"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Circle.svg" id="7_n7bxl"]
+[ext_resource type="Texture2D" uid="uid://y228g8ppuag0" path="res://Assets/Sprites/Palll1.svg" id="2_jd1jw"]
+[ext_resource type="Texture2D" uid="uid://ixt6bl2ny8hi" path="res://Assets/Sprites/Palll2.svg" id="3_68jnj"]
+[ext_resource type="Texture2D" uid="uid://dwapyb6emtuqc" path="res://Assets/Sprites/Palll3.svg" id="4_3tvsh"]
+[ext_resource type="Texture2D" uid="uid://b3oe27gclm6sj" path="res://Assets/Sprites/Palll4.svg" id="5_c5b4o"]
+[ext_resource type="Texture2D" uid="uid://bvo1opvv12pen" path="res://Assets/Sprites/Circle.svg" id="7_n7bxl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nus37"]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Projectiles/Spiko.cs" id="1_7bbvd"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_2uapi"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Spike.svg" id="3_5a31k"]
+[ext_resource type="Texture2D" uid="uid://dir108ep0jsut" path="res://Assets/Sprites/Spike.svg" id="3_5a31k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_roco8"]
 size = Vector2(64, 68)

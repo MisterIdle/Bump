@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ceb8ljhl5g73k"]
 
 [ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="1_4k4cl"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Square.svg" id="1_cr6fp"]
+[ext_resource type="Texture2D" uid="uid://dmxtp8wqxfkt5" path="res://Assets/Sprites/Square.svg" id="1_cr6fp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imruh"]
 size = Vector2(240, 240)

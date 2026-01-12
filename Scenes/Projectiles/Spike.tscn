@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Projectiles/Spike.cs" id="1_mx0l8"]
 [ext_resource type="PackedScene" uid="uid://7710phv1wm7k" path="res://Scenes/Particules/PopShot.tscn" id="2_jkt41"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Spike.svg" id="3_pnn4c"]
+[ext_resource type="Texture2D" uid="uid://dir108ep0jsut" path="res://Assets/Sprites/Spike.svg" id="3_pnn4c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_roco8"]
 
