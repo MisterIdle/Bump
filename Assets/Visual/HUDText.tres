@@ -1,8 +1,0 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dmesrhypouudo"]
-
-[ext_resource type="FontFile" uid="uid://digqgcylu0nq1" path="res://Assets/Visual/Steak Melt.otf" id="1_rch73"]
-
-[resource]
-font = ExtResource("1_rch73")
-font_size = 180
-font_color = Color(1, 1, 0.203922, 1)
