@@ -1,3 +1,4 @@
+using Com.IsartDigital.Shmup.NToolsBox;
 using Godot;
 
 namespace Com.IsartDigital.Shmup.NManager;
@@ -33,7 +34,7 @@ public partial class Camera : Camera2D
 
         float lDelta = (float)pDelta;
 
-        Position += Vector2.Right * (scrollSpeed * lDelta);
+        Position += Vector2.Right * (scrollSpeed * ScaleTime.GetDelta(lDelta));
     }
 
     public Vector2 GetRandomSpawnPositionRight(float pOffsetMargin = DEFAULT_OFFSET_MARGIN)

@@ -14,10 +14,12 @@
 radius = 79.0569
 
 [node name="Sykoops" type="Area2D" node_paths=PackedStringArray("spikeContainer", "sprite")]
+z_index = 12
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_msbn5")
-chaseDistance = 400
+spawnDuration = 4.0
+maxBehindTime = 5.0
 shellProjectileProtect = true
 facePlayer = true
 shellPath = NodePath("Shell")
@@ -29,12 +31,13 @@ spikeContainer = NodePath("Shell/Spike")
 fireRate = 3.5
 reloadTime = 1.0
 spikeSizeMultiplier = 2.2
-health = 9
+health = 6
 invincibleTime = 0.3
 popScene = ExtResource("3_g7d3s")
 score = 10000
 direction = 1
 speed = 100.0
+affectedByScroll = false
 amplitude = 0.3
 sprite = NodePath("Sprite")
 

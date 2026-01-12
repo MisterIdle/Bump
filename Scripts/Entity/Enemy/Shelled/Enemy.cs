@@ -14,10 +14,10 @@ public partial class Enemy : Entity
 
     [Export] private int outOfBoundMargin = 250;
 
-    [Export] private float cameraShakeIntensity = 2f;
-    [Export] private float cameraShakeDuration = 0.2f;
-    [Export] private float cameraShakeFrequency = 1f;
-    [Export] private float cameraShakeRandomness = 2f;
+    private float cameraShakeIntensity = 4f;
+    private float cameraShakeDuration = 0.5f;
+    private float cameraShakeFrequency = 10f;
+    private float cameraShakeRandomness = 2f;
 
     [Export] private float squashStretchDuration = 0.4f;
 

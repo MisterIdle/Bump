@@ -1,5 +1,4 @@
 ﻿using Godot;
-
 using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
@@ -7,16 +6,17 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 public partial class Sykoops : ShelledEnemy
 {
     [ExportCategory("Phases")]
+    [Export] private float spawnDuration = 1.0f; // Temps d'attente au spawn
     [Export] private int chaseDistance = 500;
-    [Export] private int approachDistance = 300;
-    [Export] private int patrolRange = 600;
-
     [Export] private float maxBehindTime = 10f;
 
     private Timer behindTimer;
+    private Timer spawnTimer;
     private bool haveAbandoned;
-    private enum ChaseState { Patrolling, Approaching, Chasing, Abandoned }
-    private ChaseState chaseState = ChaseState.Patrolling;
+
+    // Ajout de l'état Spawn
+    private enum ChaseState { Spawn, Chasing, Abandoned }
+    private ChaseState chaseState = ChaseState.Spawn;
 
     // ========================================================================
     // INIT
@@ -28,13 +28,25 @@ public partial class Sykoops : ShelledEnemy
 
         base.Initiate();
 
+        // Timer pour l'abandon (si derrière le joueur)
         behindTimer = new Timer();
         behindTimer.WaitTime = maxBehindTime;
         behindTimer.OneShot = true;
         behindTimer.Timeout += BehindStop;
         AddChild(behindTimer);
 
+        // Timer pour le Spawn
+        spawnTimer = new Timer();
+        spawnTimer.WaitTime = spawnDuration;
+        spawnTimer.OneShot = true;
+        spawnTimer.Timeout += StartChasing;
+        AddChild(spawnTimer);
+
         shell.SetShellColor(Colors.Black);
+
+        // On commence en Spawn
+        chaseState = ChaseState.Spawn;
+        spawnTimer.Start();
     }
 
     // ========================================================================
@@ -47,23 +59,8 @@ public partial class Sykoops : ShelledEnemy
 
         switch (chaseState)
         {
-            case ChaseState.Patrolling:
-                if (globalPlayerDistance <= patrolRange)
-                {
-                    chaseState = ChaseState.Approaching;
-                    Effect.BumpScale(this, baseScale);
-                }
-                break;
-
-            case ChaseState.Approaching:
-                velocity = playerDirection;
-                StartSpike();
-                if (globalPlayerDistance <= approachDistance)
-                {
-                    chaseState = ChaseState.Chasing;
-                    Effect.BumpScale(this, baseScale);
-                    wing.SetSpeedDouble(true);
-                }
+            case ChaseState.Spawn:
+                velocity.X = angleX;
                 break;
 
             case ChaseState.Chasing:
@@ -71,11 +68,27 @@ public partial class Sykoops : ShelledEnemy
                 break;
 
             case ChaseState.Abandoned:
-                if (!haveAbandoned) Abandonned();
+                if (!haveAbandoned) 
+                    Abandonned();
                 break;
         }
 
         velocity.Y = angleX;
+    }
+
+    // ========================================================================
+    // TRANSITIONS
+    // ========================================================================
+
+    private void StartChasing()
+    {
+        if (isDeath) return;
+
+        affectedByScroll = true;
+        chaseState = ChaseState.Chasing;
+        StartSpike();
+        wing.SetSpeedDouble(true);
+        Effect.BumpScale(this, baseScale);
     }
 
     // ========================================================================
@@ -88,9 +101,13 @@ public partial class Sykoops : ShelledEnemy
         velocity = lTargetDirection;
 
         if (!faceLeft)
+        {
             if (behindTimer.IsStopped()) behindTimer.Start();
+        }
         else
+        {
             behindTimer.Stop();
+        }
     }
 
     // ========================================================================
@@ -111,5 +128,12 @@ public partial class Sykoops : ShelledEnemy
         Flip(true);
         direction = MoveDirection.Left;
         velocity.Y = angleY;
+    }
+
+    public override void EntityDeath()
+    {
+        spawnTimer?.Stop();
+        behindTimer?.Stop();
+        base.EntityDeath();
     }
 }

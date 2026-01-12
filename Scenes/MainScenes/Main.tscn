@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://xglysqus4mmt"]
+[gd_scene load_steps=11 format=3 uid="uid://xglysqus4mmt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
 [ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/UI/Parallax.tscn" id="2_ajko8"]
@@ -6,12 +6,12 @@
 [ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="4_7q78q"]
 [ext_resource type="PackedScene" uid="uid://y0p204y3sd1g" path="res://Scenes/LevelDesign/Menu.tscn" id="4_go1sy"]
 [ext_resource type="PackedScene" uid="uid://cotrqefqqlcm8" path="res://Scenes/MainScenes/AudioManager.tscn" id="6_atonb"]
+[ext_resource type="FontFile" uid="uid://eqhdq03jdpch" path="res://Assets/Visual/Steak Melt.otf" id="6_qh5su"]
 [ext_resource type="PackedScene" uid="uid://b26o5ieubh6fc" path="res://Scenes/MainScenes/Debug.tscn" id="8_l7wn5"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_sgn7q"]
-font_size = 25
-outline_size = 3
-outline_color = Color(1, 0, 0, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_agjuq"]
+font = ExtResource("6_qh5su")
+font_size = 20
 
 [sub_resource type="Environment" id="Environment_k772t"]
 background_mode = 3
@@ -25,33 +25,33 @@ adjustment_enabled = true
 adjustment_contrast = 1.05
 adjustment_saturation = 1.2
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("gameLayer", "debug")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("gameLayer", "debugLabel")]
 script = ExtResource("1_ij506")
 gameScene = ExtResource("2_ppwvp")
 debugScene = ExtResource("8_l7wn5")
 gameLayer = NodePath("Background/Game")
-debug = NodePath("Background/Info")
+debugLabel = NodePath("Background/Info")
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
 position_smoothing_enabled = true
 editor_draw_drag_margin = true
 script = ExtResource("4_7q78q")
+scrollSpeed = 300.0
 
 [node name="Background" parent="." instance=ExtResource("2_ajko8")]
 
 [node name="Info" type="Label" parent="Background"]
-visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = -279.0
-offset_right = 996.0
-offset_bottom = -238.0
+offset_left = 17.0
+offset_top = -547.0
+offset_right = 999.0
+offset_bottom = -506.0
 grow_vertical = 0
 text = "DEBUG MENU (IN GAME ONLY)"
-label_settings = SubResource("LabelSettings_sgn7q")
+label_settings = SubResource("LabelSettings_agjuq")
 vertical_alignment = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

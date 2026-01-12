@@ -95,6 +95,8 @@ public partial class Pow : GameObject
         Projectiles.ClearAll();
         Enemy.ClearAll(false, false);
 
+        Effect.JoyVibration(1, 1f, 1f);
+
         QueueFree();
     }
 }

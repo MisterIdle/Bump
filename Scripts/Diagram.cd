@@ -3,15 +3,8 @@
   <Class Name="Com.IsartDigital.Shmup.NManager.AudioManager" Collapsed="true">
     <Position X="45.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAIeAQAAAQAQgmECFUQgJAUIFABAgAEAgIAAgAQCIoA=</HashCode>
+      <HashCode>QAIaAQAAAQAQgmECFUQgJAUIFABAgAEAgIAAgAQCIoA=</HashCode>
       <FileName>Scripts\Managers\AudioManager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Com.IsartDigital.Shmup.NManager.Camera" Collapsed="true">
-    <Position X="51" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAEACAACCAAQAQAAAAAgAIRBABAIAAAAgAAAAAAAAA=</HashCode>
-      <FileName>Scripts\Managers\Camera.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Com.IsartDigital.Shmup.NManager.GameManager" Collapsed="true">
@@ -24,7 +17,7 @@
   <Class Name="Com.IsartDigital.Shmup.NManager.SceneManager" Collapsed="true">
     <Position X="47.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAIAIAAACAAAIgAABiUgAQCBABQAAAAgggAAQAAAAA=</HashCode>
+      <HashCode>QBEIAIBAACAAAAgAAhgQhAQCBABQAAAAAgACAQAAAAA=</HashCode>
       <FileName>Scripts\Managers\SceneManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -94,7 +87,7 @@
   <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Rushroops" Collapsed="true">
     <Position X="27.5" Y="10.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAgggAhCgIEABAAEIAAIAAGAwQQBAgAABAAAgAAABAA=</HashCode>
+      <HashCode>UAkggAhAgIAABAAEIAAIBAGAQQQBAAAABAAAgAAABAA=</HashCode>
       <FileName>Scripts\Entity\Enemy\Shelled\Rushroops.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -112,24 +105,17 @@
       <FileName>Scripts\Entity\Enemy\Shelled\ShelledEnemy.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Sykoops" Collapsed="true">
-    <Position X="20.75" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAgAACAQAAAAAAAACAASAIAAAAAAACgAAAAAg=</HashCode>
-      <FileName>Scripts\Entity\Enemy\Shelled\Sykoops.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer.Hammer" Collapsed="true">
     <Position X="38.75" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QgAAyCgQBiAUBZCAIDWKBAKBJIVEAAwDAAAMAjABQwE=</HashCode>
+      <HashCode>QhAAyCgQByAUBZCAIDWKBAKBJIVAAAwDAAAMAnABQwE=</HashCode>
       <FileName>Scripts\Entity\Player\Hammer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer.Player" Collapsed="true">
     <Position X="29.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>e2YUhJnIgqMAiEAQogAMAAqBhAfcQBKuQkABYAEYBT4=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Scripts\Entity\Player\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -143,7 +129,7 @@
   <Class Name="Com.IsartDigital.Shmup.NData.HammerData" Collapsed="true">
     <Position X="51" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAMAAEAAAQAAQAAAAAACAAAAAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAgAAAMAAEAAAQAAQAAAAAACAAAEAAAACAAAAAAAAAA=</HashCode>
       <FileName>Scripts\Entity\Player\HammerData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -397,6 +383,20 @@
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Scripts\Collectibles\PowCollectible.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NManager.Camera" Collapsed="true">
+    <Position X="51" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEACAACCAAQAQAAAAAgAIRBABAIAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Scripts\Managers\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy.Sykoops" Collapsed="true">
+    <Position X="20.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABCgAACAQAAAAAIAACAASAAAAAAAAECgAAAAAg=</HashCode>
+      <FileName>Scripts\Entity\Enemy\Shelled\Sykoops.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -1,4 +1,6 @@
 using Godot;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
+using Com.IsartDigital.Shmup.NToolsBox;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
@@ -6,30 +8,38 @@ public partial class Rushroops : ShelledEnemy
 {
     [ExportGroup("Animation")]
     [Export] private Node2D headVisuals;
-    [Export] private float headHideOffset = 20f;
     [Export] private float headOutDuration = 0.4f;
     [Export] private float headInDuration = 0.3f;
+    [Export] private Vector2 shellPosOut;
+    [Export] private Vector2 shellPosIn;
 
     [ExportGroup("State Timing")]
-    [Export] private float spawnDuration = 5.0f;
+    [Export] private float spawnDuration = 2.0f;
     [Export] private float shootDuration = 2.0f;
     [Export] private float preDashDuration = 0.8f;
-    [Export] private float dashDuration = 0.4f;
-    [Export] private float recoveryDuration = 1.0f;
 
     [ExportGroup("Dash Settings")]
     [Export] private float dashSpeed = 800f;
     [Export] private float recoilDistance = 50f;
-    [Export] private float deceleration = 5f;
+    [Export] private Vector2 escapeDirection = Vector2.Left;
 
-    private enum EnemyState { Spawn, Shooting, PreDash, Dashing, Recovery }
+    private enum EnemyState { Spawn, Shooting, PreDash, Dashing }
     private EnemyState currentState;
     private Timer stateTimer;
 
     private float defaultSpeed;
     private Tween animationTween;
-    [Export] private Vector2 shellPosOut;
-    [Export] private Vector2 shellPosIn;
+    private Vector2 targetDashDirection;
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        stateTimer = new Timer();
+        stateTimer.OneShot = true;
+        stateTimer.Timeout += OnStateTimerTimeout;
+        AddChild(stateTimer);
+    }
 
     public override void Initiate()
     {
@@ -38,11 +48,10 @@ public partial class Rushroops : ShelledEnemy
         baseScale = Scale;
 
         shell?.SetShellColor(Colors.Blue);
+        shell.Position = shellPosOut;
 
-        stateTimer = new Timer();
-        stateTimer.OneShot = true;
-        stateTimer.Timeout += OnStateTimerTimeout;
-        AddChild(stateTimer);
+        stateTimer.Stop();
+        animationTween?.Kill();
 
         ChangeState(EnemyState.Spawn);
     }
@@ -54,22 +63,15 @@ public partial class Rushroops : ShelledEnemy
         switch (currentState)
         {
             case EnemyState.Spawn:
-                velocity.X = angleX;
-                break;
-
             case EnemyState.Shooting:
                 velocity.X = angleX;
                 break;
 
             case EnemyState.PreDash:
-                velocity = Vector2.Zero;
+                velocity = new Vector2(angleX, angleY);
                 break;
 
             case EnemyState.Dashing:
-                break;
-
-            case EnemyState.Recovery:
-                velocity = velocity.Lerp(Vector2.Zero, deceleration * pDelta);
                 break;
         }
     }
@@ -83,19 +85,19 @@ public partial class Rushroops : ShelledEnemy
             case EnemyState.Spawn:
                 speed = defaultSpeed;
                 shellProjectileProtect = true;
-
-                shell.Position = shellPosOut;
-
+                AnimateHead(false);
                 stateTimer.Start(spawnDuration);
                 break;
 
             case EnemyState.Shooting:
-                speed = defaultSpeed;
+                speed = 0;
+                affectedByScroll = true;
                 shellProjectileProtect = false;
                 wing?.SetSpeedDouble(false);
 
                 AnimateHead(true);
                 StartSpike();
+
                 stateTimer.Start(shootDuration);
                 break;
 
@@ -104,23 +106,19 @@ public partial class Rushroops : ShelledEnemy
                 shellProjectileProtect = true;
                 shell?.SetShellColor(Colors.DarkBlue);
                 wing?.SetSpeedDouble(true);
+
+                targetDashDirection = Utils.DirectionTo(GlobalPosition, playerPos);
+
                 PerformChargeAnimation();
 
                 stateTimer.Start(preDashDuration);
                 break;
 
             case EnemyState.Dashing:
+                affectedByScroll = false;
                 speed = dashSpeed;
-                velocity = playerDirection.Normalized();
-
-                stateTimer.Start(dashDuration);
-                break;
-
-            case EnemyState.Recovery:
-                wing?.SetSpeedDouble(false);
-                shell?.SetShellColor(Colors.Blue);
-
-                stateTimer.Start(recoveryDuration);
+                velocity = targetDashDirection;
+                facePlayer = false;
                 break;
         }
     }
@@ -142,14 +140,6 @@ public partial class Rushroops : ShelledEnemy
             case EnemyState.PreDash:
                 ChangeState(EnemyState.Dashing);
                 break;
-
-            case EnemyState.Dashing:
-                ChangeState(EnemyState.Recovery);
-                break;
-
-            case EnemyState.Recovery:
-                ChangeState(EnemyState.Shooting);
-                break;
         }
     }
 
@@ -160,23 +150,19 @@ public partial class Rushroops : ShelledEnemy
 
         string lProperty = (string)Node2D.PropertyName.Position;
 
-        if (pIsOut)
-        {
-            animationTween.TweenProperty(shell, lProperty, shellPosOut, headOutDuration)
-                          .SetTrans(Tween.TransitionType.Back)
-                          .SetEase(Tween.EaseType.Out);
-        }
-        else
-        {
-            animationTween.TweenProperty(shell, lProperty, shellPosIn, headInDuration)
-                          .SetTrans(Tween.TransitionType.Back)
-                          .SetEase(Tween.EaseType.In);
-        }
+        Vector2 target = pIsOut ? shellPosOut : shellPosIn;
+        Tween.EaseType ease = pIsOut ? Tween.EaseType.Out : Tween.EaseType.In;
+        float duration = pIsOut ? headOutDuration : headInDuration;
+
+        animationTween.TweenProperty(shell, lProperty, target, duration)
+                      .SetTrans(Tween.TransitionType.Back)
+                      .SetEase(ease);
     }
 
     private void PerformChargeAnimation()
     {
-        Vector2 lRecoilPos = GlobalPosition - (playerDirection.Normalized() * recoilDistance);
+        Vector2 lRecoilDirection = -targetDashDirection;
+        Vector2 lRecoilPos = GlobalPosition + (lRecoilDirection * recoilDistance);
 
         animationTween?.Kill();
         animationTween = CreateTween();

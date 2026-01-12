@@ -1,5 +1,5 @@
 using Godot;
-
+using System;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NToolsBox;
@@ -8,33 +8,31 @@ namespace Com.IsartDigital.Shmup.NManager;
 
 public partial class SceneManager : Node
 {
+    private static SceneManager instance;
+    public static SceneManager GetInstance() => instance;
+
+    [ExportCategory("Scenes")]
     [Export] private PackedScene gameScene;
     [Export] private PackedScene debugScene;
 
+    [ExportCategory("References")]
     [Export] private ParallaxLayer gameLayer;
-
-    [Export] private Label debug;
-
-    private Node currentScene;
+    [Export] private Label debugLabel;
 
     public enum SceneType { MainMenu, Game, Debug }
     private SceneType currentSceneType;
     private SceneType sceneToLoad;
+    private Node currentScene;
 
     private bool isTransitioning = false;
-    private float loadTime = 0.4f;
+    private float loadDelay = 0.4f;
+    private double sceneDuration = 0;
 
-    public Timer transitionTimer;
-    public Tween transitionTween;
-
-    private static SceneManager instance;
-    public static SceneManager GetInstance()
-    {
-        return instance;
-    }
+    private Timer transitionTimer;
+    private Tween transitionTween;
 
     // ========================================================================
-    // INIT
+    // INIT & LIFECYCLE
     // ========================================================================
 
     public override void _Ready()
@@ -47,87 +45,84 @@ public partial class SceneManager : Node
         }
 
         transitionTimer = new Timer();
-
+        
         transitionTimer.Timeout += OnTransitionFinished;
         transitionTimer.OneShot = true;
-        transitionTimer.WaitTime = loadTime;
+        transitionTimer.WaitTime = loadDelay;
 
         AddChild(transitionTimer);
     }
 
     // ========================================================================
-    // UPDATE
+    // UPDATE LOOP
     // ========================================================================
 
-    public override void _Process(double pDelta)
+    public override void _Process(double delta)
     {
-        Debug();
+        if (!isTransitioning)
+            sceneDuration += delta;
+
+        UpdateDebugDisplay();
     }
 
-    public override void _Input(InputEvent pInput)
+    public override void _Input(InputEvent pInt)
     {
-        if (pInput.IsActionPressed(Property.INPUT_DEBUG))
-            debug.Visible = !debug.Visible;
+        if (pInt.IsActionPressed(Property.INPUT_DEBUG))
+            debugLabel.Visible = !debugLabel.Visible;
 
-        if (pInput.IsActionPressed(Property.INPUT_DEBUG_SCENE))
+        if (pInt.IsActionPressed(Property.INPUT_DEBUG_SCENE))
         {
             AudioManager.GetInstance().Play(AudioManager.AudioType.UIStart);
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.None);
+
+            HUD.GetInstance()?.ResetHUD();
             ChangeGlobalScene(SceneType.Debug);
-            HUD.GetInstance().ResetHUD();
         }
     }
 
     // ========================================================================
-    // SCENES
+    // SCENE MANAGEMENT
     // ========================================================================
 
-    public void ChangeGlobalScene(SceneType pNextScene)
+    public void ChangeGlobalScene(SceneType nextScene)
     {
         if (isTransitioning) return;
 
         isTransitioning = true;
-        float lDuration = 0.5f;
+        float duration = 0.5f;
 
-        Player lPlayer = Player.GetInstance();
-        if (lPlayer != null)
-            lPlayer.AnimatedDespawn(lDuration);
+        Player player = Player.GetInstance();
+        player?.AnimatedDespawn(duration);
 
-        Camera lCam = Camera.GetInstance();
-        if (lCam != null)
+        Camera cam = Camera.GetInstance();
+        if (cam != null)
         {
-            lCam.isScrolling = false;
+            cam.isScrolling = false;
 
             transitionTween?.Kill();
             transitionTween = CreateTween();
-
             transitionTween.SetPauseMode(Tween.TweenPauseMode.Process);
-            transitionTween.TweenProperty(lCam, (string)Node2D.PropertyName.GlobalPosition, Vector2.Zero, lDuration)
+
+            transitionTween.TweenProperty(cam, Node2D.PropertyName.GlobalPosition.ToString(), Vector2.Zero, duration)
                 .SetTrans(Tween.TransitionType.Cubic)
                 .SetEase(Tween.EaseType.InOut);
+
+            transitionTween.Finished += () => LoadSceneProcess(nextScene);
         }
-
-        SwitchScene(pNextScene);
-    }
-
-    private void SwitchScene(SceneType pSceneType)
-    {
-        sceneToLoad = pSceneType;
-
-        transitionTimer.Start();
-
-        if (currentScene != null)
+        else
         {
-            Camera lCam = Camera.GetInstance();
-
-            if (lCam != null)
-                transitionTween.Finished += RemoveScene;
-            else
-                RemoveScene();
+            LoadSceneProcess(nextScene);
         }
     }
 
-    private void RemoveScene()
+    private void LoadSceneProcess(SceneType sceneType)
+    {
+        sceneToLoad = sceneType;
+        RemoveCurrentScene();
+        transitionTimer.Start();
+    }
+
+    private void RemoveCurrentScene()
     {
         if (currentScene != null)
         {
@@ -139,75 +134,73 @@ public partial class SceneManager : Node
 
     private void OnTransitionFinished()
     {
-        PackedScene lTargetScene = null;
-
-        switch (sceneToLoad)
+        PackedScene targetScene = sceneToLoad switch
         {
-            case SceneType.Game:
-                lTargetScene = gameScene;
-                break;
-            case SceneType.Debug:
-                lTargetScene = debugScene;
-                break;
-        }
+            SceneType.Game => gameScene,
+            SceneType.Debug => debugScene,
+            _ => null
+        };
 
-        if (lTargetScene != null)
+        if (targetScene != null)
         {
-            currentScene = lTargetScene.Instantiate();
+            currentScene = targetScene.Instantiate();
             gameLayer.AddChild(currentScene);
         }
 
         currentSceneType = sceneToLoad;
 
         isTransitioning = false;
+        sceneDuration = 0;
 
         if (currentSceneType != SceneType.MainMenu)
         {
-            Camera lCam = Camera.GetInstance();
-            if (lCam != null)
+            Camera cam = Camera.GetInstance();
+            if (cam != null)
             {
-                lCam.ResetPosition();
-                lCam.isScrolling = true;
+                cam.ResetPosition();
+                cam.isScrolling = true;
             }
         }
     }
 
     // ========================================================================
-    // DEBUG
+    // DEBUG DISPLAY
     // ========================================================================
 
-    private void Debug()
+    private void UpdateDebugDisplay()
     {
-        if (!debug.Visible) return;
+        if (!debugLabel.Visible) return;
 
-        string lText =
-            $"\n--- [ SYSTEM ] ---\n" +
-            $"Scene : {currentSceneType}\n" +
-            $"FPS : {Engine.GetFramesPerSecond()}\n" +
-            $"Time : {Engine.TimeScale:F2}s\n" +
-            $"Freeze Time : {ScaleTime.currentTimeScale:F2}s\n";
+        TimeSpan t = TimeSpan.FromSeconds(sceneDuration);
+        string formattedTime = $"{t.Minutes:D2}:{t.Seconds:D2}";
 
-        Player lPlayer = Player.GetInstance();
-        if (lPlayer != null)
+        string text =
+            $"--- [ SYSTEM ] ---\n" +
+            $"Duration : {formattedTime}\n" +
+            $"Scene    : {currentSceneType}\n" +
+            $"FPS      : {Engine.GetFramesPerSecond()}\n" +
+            $"TimeScale: {Engine.TimeScale:F2}\n";
+
+        Player player = Player.GetInstance();
+        if (player != null)
         {
-            lText += $"\n--- [ PLAYER ] ---\n" +
-                $"State : {lPlayer.currentState}\n";
+            text += $"\n--- [ PLAYER ] ---\n" +
+                    $"State : {player.currentState}\n";
         }
 
-        Hammer lHammer = Hammer.GetInstance();
-        if (lHammer != null)
+        Hammer hammer = Hammer.GetInstance();
+        if (hammer != null)
         {
-            lText += $"Hammer ATK : {lHammer.attackForce}\n" +
-                $"Hammer State : {lHammer.currentState}\n" +
-                $"Hammer Attack : {lHammer.attackForce}\n";
+            text += $"Hammer ATK   : {hammer.attackForce}\n" +
+                    $"Hammer State : {hammer.currentState}\n";
         }
 
-        debug.Text = lText;
+        debugLabel.Text = text;
     }
 
     protected override void Dispose(bool pDisposing)
     {
-        if (instance == this) instance = null;
+        instance = null;
         base.Dispose(pDisposing);
     }
 }

@@ -22,7 +22,7 @@ public static class Utils
     }
 
     // ========================================================================
-    // SCREEN UTILS (FIXED TOP-LEFT)
+    // SCREEN UTILS (FIXED TOP-LEFT CAMERA)
     // ========================================================================
 
     public static bool IsOutOfBound(Vector2 pPos, float pMargin = 0, bool pCheckX = true, bool pCheckY = true)
@@ -57,11 +57,14 @@ public static class Utils
         Vector2 lCamPos = lCamera.GlobalPosition;
         Vector2 lSize = lCamera.GetViewportRect().Size;
 
-        float lMinX = lCamPos.X - pMargin;
-        float lMaxX = lCamPos.X + lSize.X + pMargin;
+        float lMinX = lCamPos.X + pMargin;
+        float lMaxX = lCamPos.X + lSize.X - pMargin;
 
-        float lMinY = lCamPos.Y - pMargin;
-        float lMaxY = lCamPos.Y + lSize.Y + pMargin;
+        float lMinY = lCamPos.Y + pMargin;
+        float lMaxY = lCamPos.Y + lSize.Y - pMargin;
+
+        if (lMinX > lMaxX) lMinX = lMaxX = lCamPos.X + lSize.X * 0.5f;
+        if (lMinY > lMaxY) lMinY = lMaxY = lCamPos.Y + lSize.Y * 0.5f;
 
         pPos.X = Mathf.Clamp(pPos.X, lMinX, lMaxX);
         pPos.Y = Mathf.Clamp(pPos.Y, lMinY, lMaxY);

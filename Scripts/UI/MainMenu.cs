@@ -1,7 +1,7 @@
+using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
 using Godot;
 using System.Collections.Generic;
-
-using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NHUD;
 

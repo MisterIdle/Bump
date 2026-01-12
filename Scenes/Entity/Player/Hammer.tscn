@@ -1,19 +1,23 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5f4s4npvvkep"]
+[gd_scene load_steps=15 format=3 uid="uid://b5f4s4npvvkep"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Hammer.cs" id="1_80qmo"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/HammerData.cs" id="2_1wbp7"]
 [ext_resource type="Texture2D" uid="uid://b667oe3et1jtk" path="res://Assets/Sprites/StickHammer.svg" id="2_f834b"]
 [ext_resource type="Texture2D" uid="uid://bvo1opvv12pen" path="res://Assets/Sprites/Circle.svg" id="3_5tcai"]
+[ext_resource type="AudioStream" uid="uid://bsvmvbqib3unu" path="res://Assets/Audio/SFX/air_hammer_01.wav" id="3_8f521"]
 [ext_resource type="Texture2D" uid="uid://d0b04s7ekemdq" path="res://Assets/Sprites/BaseHammer.svg" id="3_pvjp7"]
+[ext_resource type="AudioStream" uid="uid://dr1ff5u5ednyp" path="res://Assets/Audio/SFX/air_hammer_02.wav" id="4_tf5ns"]
 [ext_resource type="Texture2D" uid="uid://bflb0k3my6y5m" path="res://Assets/Sprites/Progress.svg" id="5_adeor"]
+[ext_resource type="AudioStream" uid="uid://5mm4x04vckhb" path="res://Assets/Audio/SFX/air_hammer_03.wav" id="5_bevhe"]
 
 [sub_resource type="Resource" id="Resource_x0oi6"]
 script = ExtResource("2_1wbp7")
 duration = 1.0
-targetChargeRotation = -60.0
+targetChargeRotation = -50.0
 targetSwingRotation = 130.0
 scale = 1.1
 barColor = Color(0.513678, 1, 0.48175, 1)
+sound = ExtResource("3_8f521")
 force = 3
 dashForce = 0.1
 swingDuration = 0.3
@@ -21,10 +25,11 @@ swingDuration = 0.3
 [sub_resource type="Resource" id="Resource_pdv40"]
 script = ExtResource("2_1wbp7")
 duration = 1.0
-targetChargeRotation = -100.0
+targetChargeRotation = -90.0
 targetSwingRotation = 240.0
 scale = 1.2
 barColor = Color(0.938101, 0.574789, 3.85046e-07, 1)
+sound = ExtResource("4_tf5ns")
 force = 6
 dashForce = 0.2
 swingDuration = 0.6
@@ -32,10 +37,11 @@ swingDuration = 0.6
 [sub_resource type="Resource" id="Resource_6rh66"]
 script = ExtResource("2_1wbp7")
 duration = 1.0
-targetChargeRotation = -150.0
+targetChargeRotation = -120.0
 targetSwingRotation = 480.0
 scale = 1.3
 barColor = Color(0.931066, 0, 0.116562, 1)
+sound = ExtResource("5_bevhe")
 force = 9
 dashForce = 0.3
 swingDuration = 1.0

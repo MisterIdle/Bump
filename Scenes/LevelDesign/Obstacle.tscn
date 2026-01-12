@@ -1,26 +1,27 @@
 [gd_scene load_steps=5 format=3 uid="uid://ceb8ljhl5g73k"]
 
 [ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="1_4k4cl"]
-[ext_resource type="Texture2D" uid="uid://dmxtp8wqxfkt5" path="res://Assets/Sprites/Square.svg" id="1_cr6fp"]
+[ext_resource type="Texture2D" uid="uid://cvrsf3iy0xnar" path="res://Assets/Sprites/Obstacle.svg" id="2_dcm2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imruh"]
 size = Vector2(240, 240)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bb832"]
 shader = ExtResource("1_4k4cl")
-shader_parameter/Frequency = 33.675
-shader_parameter/Speed = 10.315
-shader_parameter/Amplitude = -0.02
+shader_parameter/Frequency = 1.0
+shader_parameter/Speed = 2.0
+shader_parameter/Amplitude = 0.01
 
 [node name="Obstacle" type="Area2D"]
 z_index = -10
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_imruh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_bb832")
 position = Vector2(1, 0.499998)
-scale = Vector2(0.504167, 0.497917)
-texture = ExtResource("1_cr6fp")
+scale = Vector2(0.25, 0.247917)
+texture = ExtResource("2_dcm2h")

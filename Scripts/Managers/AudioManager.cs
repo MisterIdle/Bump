@@ -40,7 +40,6 @@ public partial class AudioManager : Node
 
     [ExportGroup("Hammer")]
     [Export] private AudioStream hammerCharge;
-    [Export] private AudioStream hammerSwing;
 
     [ExportGroup("PowerUps")]
     [Export] private AudioStream powerUpPow;
@@ -133,7 +132,6 @@ public partial class AudioManager : Node
             case AudioType.PlayerLostLife: return playerLostLife;
 
             case AudioType.HammerCharge: return hammerCharge;
-            case AudioType.HammerSwing: return hammerSwing;
 
             case AudioType.PowerUpPow: return powerUpPow;
             case AudioType.PowerLife: return powerLife;

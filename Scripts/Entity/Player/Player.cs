@@ -55,6 +55,12 @@ public partial class Player : Entity
     [Export] private float deathSlowMoScale = 0.5f;
     [Export] private float deathTimerDuration = 3f;
 
+    [ExportCategory("Positive Visuals")]
+    [Export] private float powerPulseSpeed = 0.1f;
+    [Export] private float powerScaleAmount = 1.2f;
+
+    private Tween powerTween;
+
     [Export] private float minBetweenShots = 600f;
 
     public int level = 1;
@@ -213,7 +219,7 @@ public partial class Player : Entity
             .SetEase(Tween.EaseType.Out);
 
         spawnTween.TweenProperty(this, (string)PropertyName.Position, finalSpawnPosition, dropDuration)
-            .SetTrans(Tween.TransitionType.Bounce)
+            .SetTrans(Tween.TransitionType.Circ)
             .SetEase(Tween.EaseType.In);
 
         spawnTween.Finished += OnSpawnFinished;
@@ -508,6 +514,52 @@ public partial class Player : Entity
         base.StartInvincible(pDuration);
         Effect.FlashColor(this, Colors.Red, flashTime);
         Blink();
+    }
+
+    public void SetPositiveInvincibility(bool pActive)
+    {
+        powerTween?.Kill();
+
+        if (pActive)
+        {
+            if (sprite.Modulate != Colors.White) sprite.Modulate = Colors.White;
+
+            powerTween = CreateTween();
+            powerTween.SetLoops();
+            powerTween.SetParallel(true);
+
+            powerTween.TweenProperty(sprite, "modulate", Colors.Cyan, powerPulseSpeed)
+                .SetTrans(Tween.TransitionType.Sine)
+                .SetEase(Tween.EaseType.InOut);
+
+            powerTween.TweenProperty(sprite, "scale", baseSpriteScale * powerScaleAmount, powerPulseSpeed)
+                .SetTrans(Tween.TransitionType.Sine)
+                .SetEase(Tween.EaseType.Out);
+
+            powerTween.Chain().TweenProperty(sprite, "modulate", Colors.White, powerPulseSpeed)
+                .SetTrans(Tween.TransitionType.Sine)
+                .SetEase(Tween.EaseType.InOut);
+
+            powerTween.Parallel().TweenProperty(sprite, "scale", baseSpriteScale, powerPulseSpeed)
+                .SetTrans(Tween.TransitionType.Sine)
+                .SetEase(Tween.EaseType.In);
+        }
+        else
+        {
+            powerTween = CreateTween();
+            powerTween.SetParallel(true);
+
+            float resetDuration = 0.15f;
+
+            powerTween.TweenProperty(sprite, "modulate", Colors.White, resetDuration)
+                .SetTrans(Tween.TransitionType.Sine)
+                .SetEase(Tween.EaseType.Out);
+
+            // Retour fluide à l'échelle de base
+            powerTween.TweenProperty(sprite, "scale", baseSpriteScale, resetDuration)
+                .SetTrans(Tween.TransitionType.Back)
+                .SetEase(Tween.EaseType.Out);
+        }
     }
 
     public void InstantDeath()

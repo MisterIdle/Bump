@@ -22,11 +22,12 @@ public partial class Hammer : GameObject
     [Export] private float minChargeDuration = 0.5f;
     [Export] private float idleRotation = 120f;
     [Export] private float hammerHideDelay = 0.2f;
+    [Export] private float cooldownExpFactor = 0.3f;
 
     [ExportGroup("Colors")]
     [Export] private Color colorDeadZone = Colors.LightSlateGray;
     [Export] private Color colorAttack = Colors.Red;
-    [Export] private Color colorCooldown = Colors.Cyan;
+    [Export] private Color colorCooldown = Colors.DarkBlue;
 
     [ExportGroup("Juice")]
     [Export] private float scaleElasticity = 0.2f;
@@ -56,6 +57,9 @@ public partial class Hammer : GameObject
 
     private int currentPhaseIndex = -1;
     private HammerData currentPhaseData;
+
+    private Vector2 initialProgressBarScale;
+    private Vector2 initialHudScale;
 
     public enum State { Idle, Charging, Swing, Cooldown }
     public State currentState;
@@ -88,6 +92,8 @@ public partial class Hammer : GameObject
         sfxPlayer = new AudioStreamPlayer();
         sfxPlayer.Bus = BUS_SFX;
         AddChild(sfxPlayer);
+
+        initialProgressBarScale = progressBar.Scale;
 
         hideTimer = new Timer();
 
@@ -229,7 +235,9 @@ public partial class Hammer : GameObject
         {
             ApplyPhase(lNewIndex);
 
-            Effect.BumpHUD(progressBar, progressBar.Scale, hudBumpChargeMult);
+            Effect.BumpHUD(progressBar, initialProgressBarScale, hudBumpChargeMult);
+
+            Effect.JoyVibration(attackImpactDuration, 0.5f, 1f);
 
             SetRotation(currentPhaseData.targetChargeRotation, currentPhaseData.duration);
             SetScale(currentPhaseData.scale, scaleElasticity);
@@ -281,13 +289,14 @@ public partial class Hammer : GameObject
         progressBar.TintProgress = colorAttack;
 
         player.Dash(currentPhaseData.dashForce, Vector2.Right, false);
+
+        player.SetPositiveInvincibility(true);
         player.invincible = true;
 
-        Effect.BumpHUD(progressBar, progressBar.Scale, hudBumpAttackMult);
-
+        Effect.BumpHUD(progressBar, initialProgressBarScale, hudBumpAttackMult);
         Effect.BumpHUD(HUD.GetInstance(), HUD.GetInstance().Scale, hudBumpAttackMult);
-
-        PlayHammerSoundDuration(AudioManager.AudioType.HammerSwing, currentPhaseData.swingDuration);
+        
+        PlayRawSound(currentPhaseData.sound);
 
         animationTween = SetRotation(currentPhaseData.targetSwingRotation, currentPhaseData.swingDuration);
         animationTween.Finished += FinishAttack;
@@ -295,6 +304,8 @@ public partial class Hammer : GameObject
         GameStats.specialUsed++;
 
         SetScale(currentPhaseData.scale * attackImpactScaleMult, attackImpactDuration);
+
+        Effect.JoyVibration(attackImpactDuration, 0.5f, 0.6f);
     }
 
     private void FinishAttack()
@@ -316,18 +327,25 @@ public partial class Hammer : GameObject
 
     private void UpdateCooldownLogic(float pDelta)
     {
-        cooldownTimer -= pDelta;
-        progressBar.Value = cooldownTimer;
+        float speed = Mathf.Exp(cooldownDuration * cooldownExpFactor);
+        cooldownTimer -= pDelta * speed;
 
+        progressBar.Value = cooldownTimer;
         isActif = false;
 
         if (cooldownTimer <= 0)
+        {
             ResetToIdle();
+            Effect.JoyVibration(0.2f);
+        }
     }
+
 
     private void FinishAttackAnimation()
     {
         sprite.Visible = false;
+        
+        player.SetPositiveInvincibility(false);
         player.invincible = false;
     }
 
@@ -415,19 +433,13 @@ public partial class Hammer : GameObject
         sfxPlayer.PitchScale = pPitch;
     }
 
-    private void PlayHammerSoundDuration(AudioManager.AudioType pType, float pTargetDuration)
+    private void PlayRawSound(AudioStream pStream)
     {
-        AudioStream lStream = AudioManager.GetInstance().GetStream(pType);
+        if (pStream == null) return;
 
         sfxPlayer.Stop();
-        sfxPlayer.Stream = lStream;
-
-        float lOriginalDuration = (float)lStream.GetLength();
-
-        if (lOriginalDuration > 0 && pTargetDuration > 0)
-            sfxPlayer.PitchScale = lOriginalDuration / pTargetDuration;
-        else
-            sfxPlayer.PitchScale = BASE_PITCH;
+        sfxPlayer.Stream = pStream;
+        sfxPlayer.PitchScale = 1.0f;
 
         sfxPlayer.Play();
     }

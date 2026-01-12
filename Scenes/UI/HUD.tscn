@@ -23,6 +23,8 @@ Label/fonts/font = ExtResource("6_uw21v")
 [sub_resource type="LabelSettings" id="LabelSettings_aj3we"]
 font = ExtResource("6_uw21v")
 font_size = 50
+outline_size = 30
+outline_color = Color(1, 1, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hpfmr"]
 font = ExtResource("6_ocj3e")
@@ -141,6 +143,7 @@ theme_override_fonts/font = ExtResource("6_uw21v")
 step = 1.0
 
 [node name="GodMode" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 1604.0
 offset_top = 997.0

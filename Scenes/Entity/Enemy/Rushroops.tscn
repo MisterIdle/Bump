@@ -14,14 +14,17 @@
 radius = 91.1661
 
 [node name="Rushroops" type="Area2D" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite")]
+z_index = 11
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_flvy1")
 headVisuals = NodePath("Sprite")
-dashDuration = 0.8
-recoilDistance = 200.0
 shellPosOut = Vector2(6, -40)
 shellPosIn = Vector2(6, -10)
+spawnDuration = 3.0
+shootDuration = 4.0
+dashSpeed = 400.0
+recoilDistance = 150.0
 facePlayer = true
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
@@ -30,18 +33,19 @@ useSpikes = true
 firePattern = 1
 spikeScene = ExtResource("2_m1mku")
 spikeContainer = NodePath("Shell/Spike")
-fireRate = 0.2
-reloadTime = 1.0
-shotPreDelay = 0.2
+numSpikes = 4
+fireRate = 1.0
+reloadTime = 0.5
 spikeSizeMultiplier = 2.2
 spikeFlashColor = Color(1, 0.755861, 0.238522, 1)
 hammerScore = 2000
-health = 10
+outOfBoundMargin = 400
+health = 3
 invincibleTime = 0.2
 popScene = ExtResource("3_uicja")
 score = 5000
-direction = 1
-speed = 100.0
+direction = 2
+speed = 25.0
 affectedByScroll = false
 sprite = NodePath("Sprite")
 

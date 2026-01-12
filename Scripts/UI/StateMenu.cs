@@ -1,8 +1,8 @@
-﻿using Godot;
-
-using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+﻿using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NToolsBox;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NHUD;
 
@@ -174,7 +174,6 @@ public partial class StateMenu : MenuBase
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
         AudioManager.GetInstance().StopMusic();
-
     }
 
     private void RestartSwitch()
