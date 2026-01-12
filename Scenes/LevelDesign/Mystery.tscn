@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://r5xghrumtfq"]
 
 [ext_resource type="Script" path="res://Scripts/Collectibles/Mystery.cs" id="1_0b4wq"]
-[ext_resource type="Texture2D" uid="uid://cuycq5227q0jd" path="res://Assets/Sprites/Mystery.svg" id="1_lqnu7"]
 [ext_resource type="PackedScene" uid="uid://do2aw1mr5kjlj" path="res://Scenes/LevelDesign/Collectibles/FlowerCollectible.tscn" id="2_fna3a"]
 [ext_resource type="PackedScene" uid="uid://4wsw7s3qogxl" path="res://Scenes/LevelDesign/Collectibles/PowCollectible.tscn" id="3_ueqnq"]
+[ext_resource type="Texture2D" uid="uid://esbaivdh046w" path="res://Assets/Sprites/Mystery.png" id="4_72x6f"]
 [ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="5_oy7mm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4spx"]
@@ -28,7 +28,7 @@ shape = SubResource("RectangleShape2D_m4spx")
 
 [node name="Mystery" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_lqnu7")
+texture = ExtResource("4_72x6f")
 
 [node name="Pall" parent="." instance=ExtResource("5_oy7mm")]
 position = Vector2(-0.0256664, -73.7813)

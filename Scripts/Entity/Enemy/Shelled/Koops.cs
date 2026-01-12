@@ -46,7 +46,7 @@ public partial class Koops : ShelledEnemy
         GameManager.GetInstance().enemyContainer.AddChild(lKoops);
 
         lKoops.Position = pPos;
-        lKoops.type = TypeEnum.Green;
+        lKoops.type = TypeEnum.Blue;
 
         return lKoops;
     }

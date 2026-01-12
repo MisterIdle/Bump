@@ -79,7 +79,7 @@ public partial class Player : Entity
     private Timer movementTimer;
 
     private const int DEATH_MARGIN = -150;
-    private const int NOT_OUT_MARGIN = -35;
+    private const int NOT_OUT_MARGIN = 30;
 
     private const float SHOT_SQUASH_X = 0.8f;
     private const float SHOT_SQUASH_Y = 1f;

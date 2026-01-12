@@ -342,6 +342,9 @@ public partial class KingKoops : ShelledEnemy
 
     private void EnterPhaseFinal()
     {
+        if (Player.GetInstance().isDeath) 
+            return;
+
         if (health <= 0)
         {
             EntityDeath();

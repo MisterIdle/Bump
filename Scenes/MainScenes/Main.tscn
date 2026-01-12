@@ -1,35 +1,12 @@
-[gd_scene load_steps=33 format=3 uid="uid://xglysqus4mmt"]
+[gd_scene load_steps=10 format=3 uid="uid://xglysqus4mmt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
 [ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/UI/Parallax.tscn" id="2_ajko8"]
 [ext_resource type="PackedScene" uid="uid://eijl1ptqfcr5" path="res://Scenes/MainScenes/InGame.tscn" id="2_ppwvp"]
 [ext_resource type="Script" path="res://Scripts/Managers/Camera.cs" id="4_7q78q"]
 [ext_resource type="PackedScene" uid="uid://y0p204y3sd1g" path="res://Scenes/LevelDesign/Menu.tscn" id="4_go1sy"]
-[ext_resource type="AudioStream" uid="uid://bvmjntnd08lwf" path="res://Assets/Audio/SFX/player_shoot0.wav" id="7_la2ig"]
-[ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="8_etrpp"]
+[ext_resource type="PackedScene" uid="uid://cotrqefqqlcm8" path="res://Scenes/MainScenes/AudioManager.tscn" id="6_atonb"]
 [ext_resource type="PackedScene" uid="uid://b26o5ieubh6fc" path="res://Scenes/MainScenes/Debug.tscn" id="8_l7wn5"]
-[ext_resource type="AudioStream" uid="uid://cxpnlotuxp8ht" path="res://Assets/Audio/SFX/player_shoot1.wav" id="8_xvn15"]
-[ext_resource type="AudioStream" uid="uid://dpbgke0mmcau" path="res://Assets/Audio/SFX/player_shoot2.wav" id="9_d7gbq"]
-[ext_resource type="AudioStream" uid="uid://titsm0m7i1ln" path="res://Assets/Audio/SFX/player_shoot3.wav" id="10_oj3ah"]
-[ext_resource type="AudioStream" uid="uid://nbevxrafauvm" path="res://Assets/Audio/SFX/player_explosion.wav" id="11_8xh7h"]
-[ext_resource type="AudioStream" uid="uid://com6n0v7y4jy2" path="res://Assets/Audio/SFX/loselife.wav" id="12_sl7fs"]
-[ext_resource type="AudioStream" uid="uid://cpxyhbnkg80nl" path="res://Assets/Audio/SFX/chargeswing_hammer.wav" id="13_rke3y"]
-[ext_resource type="AudioStream" uid="uid://cdnuu52kmlt14" path="res://Assets/Audio/SFX/air_hammer_01.wav" id="14_i35sn"]
-[ext_resource type="AudioStream" uid="uid://dm5l3r3upddpt" path="res://Assets/Audio/SFX/powerup_life.wav" id="15_ipo2c"]
-[ext_resource type="AudioStream" uid="uid://chjdbg3iqm7b7" path="res://Assets/Audio/SFX/enemy0_explosion0.wav" id="16_qld2u"]
-[ext_resource type="AudioStream" uid="uid://mvm4hgqkajac" path="res://Assets/Audio/SFX/enemy0_explosion1.wav" id="17_gulvp"]
-[ext_resource type="AudioStream" uid="uid://3gcduq1b215" path="res://Assets/Audio/SFX/enemy0_explosion2.wav" id="18_6cp24"]
-[ext_resource type="AudioStream" uid="uid://yev06uoa1qdr" path="res://Assets/Audio/SFX/enemy0_explosion3.wav" id="19_sj7ha"]
-[ext_resource type="AudioStream" uid="uid://dr2dmd81pln07" path="res://Assets/Audio/SFX/enemy_shoot.wav" id="20_kaucm"]
-[ext_resource type="AudioStream" uid="uid://cy2ipu6wdxnly" path="res://Assets/Audio/SFX/boss_shoot.wav" id="21_3ygs1"]
-[ext_resource type="AudioStream" uid="uid://d14waowv12vls" path="res://Assets/Audio/SFX/boss_pre_explosion.wav" id="22_tgeg3"]
-[ext_resource type="AudioStream" uid="uid://cbuuwdqbhsq4" path="res://Assets/Audio/SFX/boss_explosion.wav" id="23_lk5qg"]
-[ext_resource type="AudioStream" uid="uid://bj7ni3xx6gb8x" path="res://Assets/Audio/SFX/ui_click.wav" id="24_qqdce"]
-[ext_resource type="AudioStream" uid="uid://bdycl0fq6ntuw" path="res://Assets/Audio/SFX/ui_pause.wav" id="25_obnii"]
-[ext_resource type="AudioStream" uid="uid://dko6emthcl1ln" path="res://Assets/Audio/SFX/ui_start.wav" id="26_arrie"]
-[ext_resource type="AudioStream" uid="uid://74pfr128lq36" path="res://Assets/Audio/Musique/ui_loop.wav" id="27_426q4"]
-[ext_resource type="AudioStream" uid="uid://dxfcj5vch0fm4" path="res://Assets/Audio/Musique/level_loop.wav" id="28_17ni3"]
-[ext_resource type="AudioStream" uid="uid://bnuqksw53qqlw" path="res://Assets/Audio/Musique/boss_loop.wav" id="29_3t3vc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sgn7q"]
 font_size = 25
@@ -80,25 +57,6 @@ vertical_alignment = 1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k772t")
 
-[node name="AudioManager" type="Node" parent="."]
-script = ExtResource("8_etrpp")
-playerShoot = Array[AudioStream]([ExtResource("7_la2ig"), ExtResource("8_xvn15"), ExtResource("9_d7gbq"), ExtResource("10_oj3ah")])
-playerExplosion = ExtResource("11_8xh7h")
-playerLostLife = ExtResource("12_sl7fs")
-hammerCharge = ExtResource("13_rke3y")
-hammerSwing = ExtResource("14_i35sn")
-powerUpPow = ExtResource("15_ipo2c")
-powerLife = ExtResource("15_ipo2c")
-enemyExplosion = Array[AudioStream]([ExtResource("16_qld2u"), ExtResource("17_gulvp"), ExtResource("18_6cp24"), ExtResource("19_sj7ha")])
-enemyShoot = ExtResource("20_kaucm")
-bossShoot = ExtResource("21_3ygs1")
-bossPreExplosion = ExtResource("22_tgeg3")
-bossExplosion = ExtResource("23_lk5qg")
-uiClic = ExtResource("24_qqdce")
-uiPause = ExtResource("25_obnii")
-uiStart = ExtResource("26_arrie")
-uiMusic = ExtResource("27_426q4")
-levelMusic = ExtResource("28_17ni3")
-bossMusic = ExtResource("29_3t3vc")
+[node name="AudioManager" parent="." instance=ExtResource("6_atonb")]
 
 [node name="Menu" parent="." instance=ExtResource("4_go1sy")]

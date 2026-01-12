@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vhpnp1gjkj15"
-path="res://.godot/imported/LOGO-ISART_square_dark_150DPI_black.png-87b7a106e15f9805a1ec8778beb3547c.ctex"
+uid="uid://bjsrrgokesaxp"
+path="res://.godot/imported/Pow.png-f10442daf7d148ad4615411edf8fa508.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/LOGO-ISART_square_dark_150DPI_black.png"
-dest_files=["res://.godot/imported/LOGO-ISART_square_dark_150DPI_black.png-87b7a106e15f9805a1ec8778beb3547c.ctex"]
+source_file="res://Assets/Sprites/Pow.png"
+dest_files=["res://.godot/imported/Pow.png-f10442daf7d148ad4615411edf8fa508.ctex"]
 
 [params]
 

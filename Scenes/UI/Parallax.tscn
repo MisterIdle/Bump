@@ -1,17 +1,18 @@
-[gd_scene load_steps=20 format=3 uid="uid://dqrqjbxsydh3h"]
+[gd_scene load_steps=21 format=3 uid="uid://dqrqjbxsydh3h"]
 
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Biome.cs" id="1_1e1ru"]
-[ext_resource type="Texture2D" uid="uid://nhkrofxwlfpq" path="res://Assets/Sprites/Pliiar.svg" id="1_7pveb"]
+[ext_resource type="Texture2D" uid="uid://b531lpyf3pn3b" path="res://Assets/Sprites/Pliiar.svg" id="1_7pveb"]
 [ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="1_8bawd"]
 [ext_resource type="PackedScene" uid="uid://bx6ym2aov4wtf" path="res://Scenes/Trigger.tscn" id="1_kaqrw"]
-[ext_resource type="Texture2D" uid="uid://bbagq58qqbup0" path="res://Assets/Sprites/Cloud2.svg" id="1_wvi84"]
-[ext_resource type="Texture2D" uid="uid://dv714jfk7bdlo" path="res://Assets/Sprites/Pliiar2.svg" id="1_xxge3"]
+[ext_resource type="Texture2D" uid="uid://bu5ars2tpxkgr" path="res://Assets/Sprites/Cloud2.svg" id="1_wvi84"]
+[ext_resource type="Texture2D" uid="uid://bq2qntkvwj0ku" path="res://Assets/Sprites/Pliiar2.svg" id="1_xxge3"]
 [ext_resource type="Texture2D" uid="uid://bc4b332utdrr6" path="res://Assets/Background/BaseBackground.tres" id="2_l1edh"]
 [ext_resource type="Texture2D" uid="uid://n8m0k0lsm63f" path="res://Assets/Background/MainMenuBackground.tres" id="2_xhf8x"]
 [ext_resource type="Texture2D" uid="uid://drdspxyl7r0m7" path="res://Assets/Background/SnowBackground.tres" id="4_f21eg"]
 [ext_resource type="Shader" uid="uid://bne3w1ms8y0g6" path="res://Assets/Shader/ColorSwap.tres" id="4_u20jj"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/UpDown.cs" id="5_22u1i"]
-[ext_resource type="Texture2D" uid="uid://3d640qsi6dro" path="res://Assets/Sprites/Cloud3.svg" id="5_vjew8"]
+[ext_resource type="Texture2D" uid="uid://bm7vsvogkf7dq" path="res://Assets/Sprites/Cloud3.svg" id="5_vjew8"]
+[ext_resource type="Texture2D" uid="uid://dioelcsxjx878" path="res://Assets/Sprites/Cloud.svg" id="6_0ebss"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n0kl1"]
 texture = ExtResource("2_l1edh")
@@ -78,7 +79,7 @@ modulate = Color(0.807085, 0.936627, 1, 1)
 material = SubResource("ShaderMaterial_4wsax")
 position = Vector2(1354, 977)
 scale = Vector2(0.616736, 0.509297)
-texture = ExtResource("5_vjew8")
+texture = ExtResource("6_0ebss")
 script = ExtResource("5_22u1i")
 speed = 0.5
 
@@ -92,7 +93,7 @@ modulate = Color(0.807085, 0.936627, 1, 1)
 material = SubResource("ShaderMaterial_4wsax")
 position = Vector2(540, 1031)
 scale = Vector2(0.616736, 0.509297)
-texture = ExtResource("5_vjew8")
+texture = ExtResource("6_0ebss")
 script = ExtResource("5_22u1i")
 speed = 0.3
 
@@ -104,7 +105,7 @@ motion_mirroring = Vector2(1920, 0)
 [node name="Pliiar2" type="Sprite2D" parent="PillarMiddle"]
 material = SubResource("ShaderMaterial_e7rcv")
 position = Vector2(231, 731)
-texture = ExtResource("1_xxge3")
+texture = ExtResource("1_7pveb")
 flip_h = true
 script = ExtResource("5_22u1i")
 amplitude = 45.0
@@ -114,7 +115,7 @@ speed = 0.5
 material = SubResource("ShaderMaterial_umlv3")
 position = Vector2(1541, 764)
 rotation = 0.101229
-texture = ExtResource("1_xxge3")
+texture = ExtResource("1_7pveb")
 script = ExtResource("5_22u1i")
 amplitude = 10.0
 speed = 0.5
@@ -124,7 +125,7 @@ material = SubResource("ShaderMaterial_ikq34")
 position = Vector2(1111, 915)
 rotation = -0.0698132
 scale = Vector2(0.640831, 0.617825)
-texture = ExtResource("1_xxge3")
+texture = ExtResource("1_7pveb")
 script = ExtResource("5_22u1i")
 amplitude = 10.0
 speed = 0.9
@@ -139,7 +140,7 @@ material = SubResource("ShaderMaterial_wo4x6")
 position = Vector2(1814, 904)
 rotation = -0.207694
 scale = Vector2(0.640831, 0.617825)
-texture = ExtResource("1_xxge3")
+texture = ExtResource("1_7pveb")
 flip_h = true
 script = ExtResource("5_22u1i")
 amplitude = 50.0
@@ -150,7 +151,7 @@ material = SubResource("ShaderMaterial_wevyv")
 position = Vector2(685, 970)
 rotation = 0.413643
 scale = Vector2(0.640831, 0.617825)
-texture = ExtResource("1_7pveb")
+texture = ExtResource("1_xxge3")
 script = ExtResource("5_22u1i")
 amplitude = 15.0
 speed = 0.4
@@ -191,7 +192,7 @@ motion_mirroring = Vector2(1920, 0)
 material = SubResource("ShaderMaterial_4wsax")
 position = Vector2(507, 1072)
 scale = Vector2(0.929752, 0.902893)
-texture = ExtResource("1_wvi84")
+texture = ExtResource("6_0ebss")
 flip_h = true
 
 [node name="Panel2" type="Panel" parent="."]
