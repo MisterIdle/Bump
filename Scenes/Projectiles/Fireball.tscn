@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Projectiles/Shot.cs" id="1_tb7fp"]
 [ext_resource type="PackedScene" uid="uid://7710phv1wm7k" path="res://Scenes/Particules/PopShot.tscn" id="2_wc6pa"]
-[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="3_i3x5u"]
+[ext_resource type="Texture2D" uid="uid://bkbdolwyk3xse" path="res://Assets/Sprites/Circle.svg" id="3_i3x5u"]
 [ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="3_spn6e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3u186"]

@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Scripts/Entity/Enemy/Shelled/Koops.cs" id="1_8e6h4"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_ba4au"]
 [ext_resource type="PackedScene" uid="uid://dfpebwbwcjafa" path="res://Scenes/Entity/Accessory/Shell.tscn" id="2_ew2ps"]
-[ext_resource type="Texture2D" uid="uid://bryrgk6b60nqc" path="res://Assets/Sprites/Circle.svg" id="3_c5enl"]
+[ext_resource type="Texture2D" uid="uid://bkbdolwyk3xse" path="res://Assets/Sprites/Circle.svg" id="3_c5enl"]
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Accessory/Wing.tscn" id="4_5sc2o"]
 [ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="4_hns10"]
-[ext_resource type="Texture2D" uid="uid://6w6omdow8uui" path="res://Assets/Sprites/KoopsShell.svg" id="6_jm6e0"]
-[ext_resource type="Texture2D" uid="uid://ch56y4afitww2" path="res://Assets/Sprites/WingA.svg" id="8_b37dn"]
+[ext_resource type="Texture2D" uid="uid://nt260rx6q6hq" path="res://Assets/Sprites/KoopsShell.svg" id="6_jm6e0"]
+[ext_resource type="Texture2D" uid="uid://duklfy1fg82u0" path="res://Assets/Sprites/WingA.svg" id="8_b37dn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mxo1"]
 size = Vector2(56, 73)

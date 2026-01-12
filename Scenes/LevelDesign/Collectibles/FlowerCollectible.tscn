@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://do2aw1mr5kjlj"]
 
 [ext_resource type="Script" path="res://Scripts/Collectibles/FlowerCollectible.cs" id="1_d01ie"]
-[ext_resource type="Texture2D" uid="uid://5ivxp33pe70e" path="res://Assets/Sprites/FlowerUp.svg" id="2_umrgg"]
+[ext_resource type="Texture2D" uid="uid://cvu1rtm84502e" path="res://Assets/Sprites/FlowerUp.svg" id="2_umrgg"]
 [ext_resource type="Shader" uid="uid://bne3w1ms8y0g6" path="res://Assets/Shader/ColorSwap.tres" id="3_5y2pw"]
-[ext_resource type="Texture2D" uid="uid://w2q7lcnv04p2" path="res://Assets/Sprites/FlowerUpHead.svg" id="3_uv2nu"]
+[ext_resource type="Texture2D" uid="uid://5ccb24luoqsr" path="res://Assets/Sprites/FlowerUpHead.svg" id="3_uv2nu"]
 [ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="5_n12gh"]
 [ext_resource type="PackedScene" uid="uid://dihh2tvaur1gt" path="res://Scenes/LevelDesign/Collectibles/Bubble.tscn" id="6_bei6p"]
 

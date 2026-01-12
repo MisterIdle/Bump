@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://bevkcx1prmt5q"]
 
-[ext_resource type="FontFile" uid="uid://exf65wxho6px" path="res://Assets/Visual/Steak Melt.otf" id="1_ef7of"]
+[ext_resource type="FontFile" uid="uid://hsdk6pm0mykb" path="res://Assets/Visual/Steak Melt.otf" id="1_kafqs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixiro"]
 content_margin_left = 4.0
@@ -70,7 +70,6 @@ corner_detail = 5
 
 [resource]
 default_base_scale = 0.2
-default_font = ExtResource("1_ef7of")
 default_font_size = 50
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
@@ -80,6 +79,7 @@ Button/colors/font_pressed_color = Color(1, 1, 1, 1)
 Button/constants/h_separation = 0
 Button/constants/icon_max_width = 105
 Button/constants/outline_size = 0
+Button/fonts/font = ExtResource("1_kafqs")
 Button/styles/disabled = SubResource("StyleBoxFlat_ixiro")
 Button/styles/focus = SubResource("StyleBoxFlat_diid2")
 Button/styles/hover = SubResource("StyleBoxFlat_ehba2")
