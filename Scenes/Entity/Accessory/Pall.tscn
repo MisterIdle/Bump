@@ -1,63 +1,51 @@
 [gd_scene load_steps=10 format=3 uid="uid://o4ify3cehgll"]
 
-[ext_resource type="Texture2D" uid="uid://dyessquq8328f" path="res://Assets/Sprites/StickHammer.svg" id="1_xc1ta"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/StickHammer.svg" id="1_jmwg5"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Pall.cs" id="2_j7vsf"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Palll1.svg" id="2_jd1jw"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Palll2.svg" id="3_68jnj"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Palll3.svg" id="4_3tvsh"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Palll4.svg" id="5_c5b4o"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Circle.svg" id="7_n7bxl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nus37"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8aphh"]
-load_path = "res://.godot/imported/Palll1.svg-7616ce9b2837859fb4da2ec4a653fb4f.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p20ns"]
-load_path = "res://.godot/imported/Palll2.svg-f1b2a3cc279bc9a7511e288224c66ebf.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6v0cc"]
-load_path = "res://.godot/imported/Palll3.svg-d28524f5a832a5bad6ccc4507b39bbd3.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hy5m6"]
-load_path = "res://.godot/imported/Palll4.svg-bbbb346fae880e98e4c14c54a2b405fc.ctex"
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_w2oku"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_2j2pf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_8aphh")
+"texture": ExtResource("2_jd1jw")
 }, {
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_p20ns")
+"texture": ExtResource("3_68jnj")
 }, {
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_6v0cc")
+"texture": ExtResource("4_3tvsh")
 }, {
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_hy5m6")
+"texture": ExtResource("5_c5b4o")
 }],
 "loop": true,
-"name": &"fly",
-"speed": 30.0
+"name": &"default",
+"speed": 5.0
 }]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hm0rm"]
-load_path = "res://.godot/imported/Circle.svg-9e1229ca9802f1b78f9ab45de42056c4.ctex"
 
 [node name="Pall" type="Sprite2D"]
 self_modulate = Color(0.678431, 0.415686, 0.239216, 1)
 z_index = -1
 position = Vector2(1, -157)
 scale = Vector2(1.17257, 0.647289)
-texture = ExtResource("1_xc1ta")
+texture = ExtResource("1_jmwg5")
 
 [node name="Pall" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_nus37")
 position = Vector2(-3.03382e-05, -184.819)
 scale = Vector2(4.45737, 1.2222)
-sprite_frames = SubResource("SpriteFrames_w2oku")
-animation = &"fly"
-frame_progress = 0.499092
+sprite_frames = SubResource("SpriteFrames_2j2pf")
 script = ExtResource("2_j7vsf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.678431, 0.415686, 0.239216, 1)
 position = Vector2(-3.05176e-05, -225.572)
 scale = Vector2(0.128758, 0.248945)
-texture = SubResource("CompressedTexture2D_hm0rm")
+texture = ExtResource("7_n7bxl")

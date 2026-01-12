@@ -1,18 +1,18 @@
 [gd_scene load_steps=21 format=3 uid="uid://dqrqjbxsydh3h"]
 
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Biome.cs" id="1_1e1ru"]
-[ext_resource type="Texture2D" uid="uid://b531lpyf3pn3b" path="res://Assets/Sprites/Pliiar.svg" id="1_7pveb"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Pliiar.svg" id="1_7pveb"]
 [ext_resource type="Shader" uid="uid://bn7w6lp8rdhwm" path="res://Assets/Shader/Distortion.tres" id="1_8bawd"]
 [ext_resource type="PackedScene" uid="uid://bx6ym2aov4wtf" path="res://Scenes/Trigger.tscn" id="1_kaqrw"]
-[ext_resource type="Texture2D" uid="uid://bu5ars2tpxkgr" path="res://Assets/Sprites/Cloud2.svg" id="1_wvi84"]
-[ext_resource type="Texture2D" uid="uid://bq2qntkvwj0ku" path="res://Assets/Sprites/Pliiar2.svg" id="1_xxge3"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Cloud2.svg" id="1_wvi84"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Pliiar2.svg" id="1_xxge3"]
 [ext_resource type="Texture2D" uid="uid://bc4b332utdrr6" path="res://Assets/Background/BaseBackground.tres" id="2_l1edh"]
 [ext_resource type="Texture2D" uid="uid://n8m0k0lsm63f" path="res://Assets/Background/MainMenuBackground.tres" id="2_xhf8x"]
 [ext_resource type="Texture2D" uid="uid://drdspxyl7r0m7" path="res://Assets/Background/SnowBackground.tres" id="4_f21eg"]
 [ext_resource type="Shader" uid="uid://bne3w1ms8y0g6" path="res://Assets/Shader/ColorSwap.tres" id="4_u20jj"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/UpDown.cs" id="5_22u1i"]
-[ext_resource type="Texture2D" uid="uid://bm7vsvogkf7dq" path="res://Assets/Sprites/Cloud3.svg" id="5_vjew8"]
-[ext_resource type="Texture2D" uid="uid://dioelcsxjx878" path="res://Assets/Sprites/Cloud.svg" id="6_0ebss"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Cloud3.svg" id="5_vjew8"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Cloud.svg" id="6_0ebss"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n0kl1"]
 texture = ExtResource("2_l1edh")

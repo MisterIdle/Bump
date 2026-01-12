@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Hammer.cs" id="1_80qmo"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/HammerData.cs" id="2_1wbp7"]
-[ext_resource type="Texture2D" uid="uid://dyessquq8328f" path="res://Assets/Sprites/StickHammer.svg" id="2_f834b"]
-[ext_resource type="Texture2D" uid="uid://bh1oalaquv6g4" path="res://Assets/Sprites/Circle.svg" id="3_5tcai"]
-[ext_resource type="Texture2D" uid="uid://bfw8jlqjj57n3" path="res://Assets/Sprites/BaseHammer.svg" id="3_pvjp7"]
-[ext_resource type="Texture2D" uid="uid://byl4pif8evbdi" path="res://Assets/Sprites/Progress.svg" id="5_adeor"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/StickHammer.svg" id="2_f834b"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Circle.svg" id="3_5tcai"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/BaseHammer.svg" id="3_pvjp7"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Progress.svg" id="5_adeor"]
 
 [sub_resource type="Resource" id="Resource_x0oi6"]
 script = ExtResource("2_1wbp7")

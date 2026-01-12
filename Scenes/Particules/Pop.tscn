@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cu8fuy0ur81dn"]
 
-[ext_resource type="Texture2D" uid="uid://dcuf6ekbxae0w" path="res://Assets/Sprites/Walsy1.svg" id="1_kjfgq"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Walsy1.svg" id="1_kjfgq"]
 [ext_resource type="Script" path="res://Scripts/Utils/Effects/Particule.cs" id="1_lx4wv"]
 
 [sub_resource type="Gradient" id="Gradient_abm6w"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Projectiles/Spiko.cs" id="1_g25i0"]
 [ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_5aqwd"]
-[ext_resource type="Texture2D" uid="uid://q6p44jjv67ci" path="res://Assets/Sprites/Spike.svg" id="2_xq3wf"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Spike.svg" id="2_xq3wf"]
 
 [sub_resource type="Gradient" id="Gradient_8thpy"]
 colors = PackedColorArray(1, 0.756863, 0.239216, 1, 1, 1, 1, 1)
