@@ -140,7 +140,6 @@ modulate = Color(1, 0, 0, 1)
 layout_mode = 2
 theme = SubResource("Theme_1sn0v")
 theme_override_fonts/font = ExtResource("6_uw21v")
-step = 1.0
 
 [node name="GodMode" type="Label" parent="."]
 visible = false

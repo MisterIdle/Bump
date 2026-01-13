@@ -14,12 +14,12 @@ public partial class Enemy : Entity
 
     [Export] private int outOfBoundMargin = 250;
 
-    private float cameraShakeIntensity = 4f;
-    private float cameraShakeDuration = 0.5f;
-    private float cameraShakeFrequency = 10f;
-    private float cameraShakeRandomness = 2f;
+    public float cameraShakeIntensity = 4f;
+    public float cameraShakeDuration = 0.5f;
+    public float cameraShakeFrequency = 10f;
+    public float cameraShakeRandomness = 2f;
 
-    [Export] private float squashStretchDuration = 0.4f;
+    [Export] public float squashStretchDuration = 0.4f;
 
     [Export] private float flipCooldownDuration = 0.3f;
     private Timer flipTimer;
@@ -28,7 +28,7 @@ public partial class Enemy : Entity
     private int clearAll = 9999;
     protected const int DEFAULT_DAMAGE = 1;
 
-    private bool killedByHammer;
+    protected bool killedByHammer;
 
     protected float globalPlayerDistance;
 
@@ -124,6 +124,20 @@ public partial class Enemy : Entity
         StartInvincible(invincibleTime);
     }
 
+    protected override void StartInvincible(float pDuration)
+    {
+        base.StartInvincible(pDuration);
+        SetCollisionMaskValue(1, false);
+        SetCollisionMaskValue(9, false);
+    }
+
+    protected override void EndInvincible()
+    {
+        base.EndInvincible();
+        SetCollisionMaskValue(1, true);
+        SetCollisionMaskValue(9, true);
+    }
+
     public override void EntityDeath()
     {
         base.EntityDeath();
@@ -132,12 +146,7 @@ public partial class Enemy : Entity
 
         GameManager.CreateHealthCollectible(GlobalPosition);
 
-        if (killedByHammer)
-            Particule.Create(popScene, Position);
-
         int lFinalScore = killedByHammer ? score + hammerScore : score;
-
-        HUD.GetInstance().CreateBubbleScore(Position, lFinalScore);
     }
 
     protected override void OnCollide(Area2D pArea)
@@ -152,6 +161,8 @@ public partial class Enemy : Entity
             Effect.Shake(cameraShakeIntensity, cameraShakeDuration, cameraShakeFrequency, cameraShakeRandomness);
             ScaleTime.SlowMotion();
             Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
+
+            Particule.Create(popScene, Position);
         }
         else
         {

@@ -34,7 +34,6 @@ debugLabel = NodePath("Background/Info")
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
-position_smoothing_enabled = true
 editor_draw_drag_margin = true
 script = ExtResource("4_7q78q")
 scrollSpeed = 300.0

@@ -1,6 +1,6 @@
-using Godot;
-
+using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NToolsBox;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
@@ -65,5 +65,10 @@ public partial class Walsy : Enemy
     {
         base.EntityDeath();
         QueueFree();
+
+        if (killedByHammer)
+            HUD.GetInstance().CreateBubbleScore(Position, score + hammerScore, Colors.Wheat);
+        else
+            HUD.GetInstance().CreateBubbleScore(Position, score, Colors.Wheat);
     }
 }

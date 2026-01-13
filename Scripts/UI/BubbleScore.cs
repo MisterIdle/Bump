@@ -10,7 +10,7 @@ public partial class BubbleScore : Node2D
     public int score;
 
     [ExportGroup("Nodes")]
-    [Export] private Label label;
+    [Export] public Label label;
 
     [ExportGroup("Settings")]
     [Export] private float animationDuration = 1.0f;

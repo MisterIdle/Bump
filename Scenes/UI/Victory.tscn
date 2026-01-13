@@ -29,6 +29,8 @@ font_size = 50
 [sub_resource type="LabelSettings" id="LabelSettings_oqssl"]
 font = ExtResource("3_3apw6")
 font_size = 100
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Victory" type="Control" node_paths=PackedStringArray("titleLabel", "killCountText", "killCountLabel", "shotCountText", "shotCountLabel", "specialCountText", "specialCountLabel", "powCountText", "powCountLabel", "scoreText", "scoreLabel", "rankLabel")]
 layout_mode = 3

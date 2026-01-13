@@ -19,16 +19,16 @@
 [ext_resource type="PackedScene" uid="uid://bev6b38a5whed" path="res://Scenes/Entity/Accessory/Eye.tscn" id="9_ktwk4"]
 [ext_resource type="PackedScene" uid="uid://ct6reay04483s" path="res://Scenes/Entity/Accessory/Wing.tscn" id="10_khp5o"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6oho"]
-size = Vector2(386, 244)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_47bah"]
+size = Vector2(414, 168)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fe7lk"]
 shader = ExtResource("5_0q22y")
 shader_parameter/New = Color(0.988235, 0.788235, 0.0627451, 1)
 shader_parameter/Seuil = 0.1
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_527un"]
-size = Vector2(172, 170)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbu5w"]
+size = Vector2(292, 300)
 
 [node name="KingKoops" type="Area2D" node_paths=PackedStringArray("head", "spriteHead", "musicSync", "spikeContainer", "sprite")]
 z_index = 10
@@ -40,12 +40,12 @@ spriteHead = NodePath("Head/HeadSprite")
 musicSync = NodePath("Music")
 koopsScene = ExtResource("2_xtkh5")
 specialSpikeScene = ExtResource("3_ef5sv")
-preDashDurationB = 1.0
-dashDurationB = 1.0
-dashSpeed = 10.0
+dashSpeed = 6.0
+hammerKnockbackForce = 23.0
+knockbackDecay = 15.0
 headRetractedScale = Vector2(0, 0)
 shellRetractedPos = Vector2(1, -46)
-shellOutsidePos = Vector2(2, -55)
+shellOutsidePos = Vector2(4, -55)
 shellOutsideRot = 25.0
 facePlayer = true
 shellPath = NodePath("Shell")
@@ -60,12 +60,13 @@ spikeRadius = 155.0
 reloadTime = 1.0
 shotPreDelay = 0.45
 hammerScore = 10000
-health = 200
-invincibleTime = 0.4
+outOfBoundMargin = 1000
+health = 66
+invincibleTime = 0.5
 popScene = ExtResource("2_3do05")
 score = 15000
 direction = 1
-speed = 100.0
+speed = 200.0
 sprite = NodePath("Sprite")
 
 [node name="Music" type="Node2D" parent="."]
@@ -94,7 +95,7 @@ bus = &"TickPhase"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -30)
-shape = SubResource("RectangleShape2D_y6oho")
+shape = SubResource("RectangleShape2D_47bah")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(0.988235, 0.788235, 0.0627451, 1)
@@ -103,7 +104,6 @@ scale = Vector2(0.741736, 0.350844)
 texture = ExtResource("2_f62ti")
 
 [node name="Head" type="Area2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
 collision_layer = 2
 collision_mask = 257
 
@@ -119,8 +119,8 @@ position = Vector2(-780.089, -115.806)
 scale = Vector2(0.215688, 0.123592)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
-position = Vector2(-365, -1)
-shape = SubResource("RectangleShape2D_527un")
+position = Vector2(-315, -1)
+shape = SubResource("RectangleShape2D_kbu5w")
 
 [node name="Shell" parent="." instance=ExtResource("4_nei0q")]
 position = Vector2(1, -46)

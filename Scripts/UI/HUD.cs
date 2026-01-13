@@ -99,11 +99,12 @@ public partial class HUD : MenuBase
         Visible = false;
     }
 
-    public BubbleScore CreateBubbleScore(Vector2 pPos, int pScore)
+    public BubbleScore CreateBubbleScore(Vector2 pPos, int pScore, Color pColor)
     {
         BubbleScore lBubbleScore = (BubbleScore)bubbleScore.Instantiate();
         lBubbleScore.Position = pPos;
         lBubbleScore.score = pScore;
+        lBubbleScore.label.LabelSettings.FontColor = pColor;
 
         GameManager.GetInstance().gameContainer.AddChild(lBubbleScore);
 

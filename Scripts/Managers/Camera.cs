@@ -13,6 +13,10 @@ public partial class Camera : Camera2D
     private const float HALF_DIVIDER = 2f;
 
     private static Camera instance;
+
+    private bool fast;
+    private float baseScrollSpeed;
+
     public static Camera GetInstance()
     {
         return instance;
@@ -26,6 +30,14 @@ public partial class Camera : Camera2D
             QueueFree();
             return;
         }
+
+        baseScrollSpeed = scrollSpeed;
+    }
+
+    public void ImFast()
+    {
+        fast = !fast;
+        scrollSpeed = fast ? baseScrollSpeed * 3f : baseScrollSpeed;
     }
 
     public override void _Process(double pDelta)

@@ -78,6 +78,11 @@ public partial class Shell : Sprite2D
         ShellColor(baseColor, colorTransitionDuration);
     }
 
+    public Color GetShellColor()
+    {
+        return baseColor;
+    }
+
     public void ShellProtectAnimation()
     {
         float pPitch = 3.5f;

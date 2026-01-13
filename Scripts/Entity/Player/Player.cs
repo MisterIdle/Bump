@@ -84,7 +84,7 @@ public partial class Player : Entity
     private Shot lastShot;
     private Timer movementTimer;
 
-    private const int DEATH_MARGIN = -150;
+    private const int DEATH_MARGIN = 10;
     private const int NOT_OUT_MARGIN = 30;
 
     private const float SHOT_SQUASH_X = 0.8f;
@@ -205,6 +205,9 @@ public partial class Player : Entity
 
         if (Input.IsActionJustPressed(Property.INPUT_WIN))
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
+
+        if (Input.IsActionJustPressed(Property.INPUT_FAST))
+            Camera.GetInstance().ImFast();
     }
 
     private void AnimatedSpawn()
@@ -423,7 +426,6 @@ public partial class Player : Entity
         level = Mathf.Clamp(level, minLevel, maxLevel);
 
         UpdateLevelParameters();
-        ScaleTime.SlowMotion();
         Effect.BumpScale(this, baseScale);
     }
 
@@ -444,7 +446,6 @@ public partial class Player : Entity
         HUD.GetInstance().UpdateHealth(health);
         Effect.FlashColor(sprite, Colors.Green);
         Effect.BumpScale(this, baseScale);
-        ScaleTime.SlowMotion();
     }
 
     public void AddPow()
@@ -456,7 +457,6 @@ public partial class Player : Entity
 
         HUD.GetInstance().UpdatePow(powNum);
         Effect.BumpScale(this, baseScale);
-        ScaleTime.SlowMotion();
     }
 
     public void ToggleGodMode()
@@ -555,7 +555,6 @@ public partial class Player : Entity
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.Out);
 
-            // Retour fluide à l'échelle de base
             powerTween.TweenProperty(sprite, "scale", baseSpriteScale, resetDuration)
                 .SetTrans(Tween.TransitionType.Back)
                 .SetEase(Tween.EaseType.Out);

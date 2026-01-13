@@ -15,7 +15,12 @@ public partial class Hammer : GameObject
     [ExportGroup("References")]
     [Export] private TextureProgressBar progressBar;
     [Export] private CollisionShape2D collision;
+
+    [Export] private Area2D headHammer; 
+    [Export] private PackedScene popScene;
+    [Export] private Marker2D marker;
     private Player player;
+
 
     [ExportGroup("Configuration")]
     [Export] private HammerData[] phases;
@@ -88,6 +93,8 @@ public partial class Hammer : GameObject
             QueueFree();
             return;
         }
+
+        headHammer.AreaEntered += OnHeadCollide;
 
         sfxPlayer = new AudioStreamPlayer();
         sfxPlayer.Bus = BUS_SFX;
@@ -167,7 +174,7 @@ public partial class Hammer : GameObject
     // CHARGING LOGIC
     // ========================================================================
 
-    private void StartCharging()
+    public void StartCharging()
     {
         isActif = true;
         progressBar.Visible = true;
@@ -265,7 +272,7 @@ public partial class Hammer : GameObject
         progressBar.TintProgress = lStartColor.Lerp(currentPhaseData.barColor, pProgress);
     }
 
-    private void TryReleaseAttack()
+    public void TryReleaseAttack()
     {
         if (totalChargeTime < minChargeDuration)
         {
@@ -442,6 +449,11 @@ public partial class Hammer : GameObject
         sfxPlayer.PitchScale = 1.0f;
 
         sfxPlayer.Play();
+    }
+
+    public void OnHeadCollide(Area2D pArea)
+    {
+        GD.Print("PIJTJORTSHG£DSTG");
     }
 
     protected override void Dispose(bool pDisposing)

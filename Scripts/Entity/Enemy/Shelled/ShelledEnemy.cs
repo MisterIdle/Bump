@@ -1,9 +1,10 @@
-using Godot;
-using System.Collections.Generic;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NToolsBox;
+using Godot;
+using System.Collections.Generic;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
@@ -294,6 +295,11 @@ public partial class ShelledEnemy : Enemy
         StopSpike();
         fireTween?.Kill();
         chargingSpikesList.Clear();
+
+        if (killedByHammer)
+            HUD.GetInstance().CreateBubbleScore(Position, score + hammerScore, shell.GetShellColor());
+        else
+            HUD.GetInstance().CreateBubbleScore(Position, score, shell.GetShellColor());
     }
 
     protected override void OnCollide(Area2D pArea)

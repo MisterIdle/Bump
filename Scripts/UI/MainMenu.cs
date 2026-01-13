@@ -175,9 +175,8 @@ public partial class MainMenu : MenuBase
     private void StartTitleWaveLoop()
     {
         foreach (Tween lTween in waveTweensList)
-        {
-            if (lTween != null && lTween.IsValid()) lTween.Kill();
-        }
+            lTween?.Kill();
+        
         waveTweensList.Clear();
 
         for (int i = 0; i < generatedLetterList.Count; i++)

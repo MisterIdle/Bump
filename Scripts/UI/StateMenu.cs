@@ -96,6 +96,8 @@ public partial class StateMenu : MenuBase
             restartButton.GrabFocus();
 
         AudioManager.GetInstance().SetMusicPaused(true);
+
+        StartWaveLoop();
     }
 
     public override void OnExit()
@@ -199,5 +201,24 @@ public partial class StateMenu : MenuBase
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
         SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
         AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+    }
+
+    private void StartWaveLoop()
+    {
+        Tween lWaveTween = CreateTween();
+
+        lWaveTween.SetPauseMode(Tween.TweenPauseMode.Process);
+
+        lWaveTween.SetLoops();
+        
+        float lHalfDuration = 1;
+
+        lWaveTween.TweenProperty(titleLabel, (string)PropertyName.RotationDegrees, 2, lHalfDuration)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
+        
+        lWaveTween.TweenProperty(titleLabel, (string)PropertyName.RotationDegrees, -2, lHalfDuration)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
     }
 }

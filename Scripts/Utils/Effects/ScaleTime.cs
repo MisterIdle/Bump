@@ -10,7 +10,7 @@ public static class ScaleTime
     private const float DEFAULT_TIME_SCALE = 1f;
     private const float MAX_FRAME_TIME = 0.05f;
 
-    private const float DEFAULT_SLOWMO_FACTOR = 0.01f;
+    private const float DEFAULT_SLOWMO_FACTOR = 0.001f;
     private const float DEFAULT_SLOWMO_DURATION = 0.2f;
 
     private const float MIN_TIMESCALE = 0f;

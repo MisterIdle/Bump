@@ -66,7 +66,7 @@ public partial class Collectibles : Movable
     {
         CollisionMask = 0;
 
-        HUD.GetInstance().CreateBubbleScore(Position, score);
+        //HUD.GetInstance().CreateBubbleScore(Position, score, Colors.Green);
 
         Tween lRecoltTween = CreateTween();
 

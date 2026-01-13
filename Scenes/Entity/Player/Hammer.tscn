@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://b5f4s4npvvkep"]
+[gd_scene load_steps=16 format=3 uid="uid://b5f4s4npvvkep"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Hammer.cs" id="1_80qmo"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/HammerData.cs" id="2_1wbp7"]
 [ext_resource type="Texture2D" uid="uid://b667oe3et1jtk" path="res://Assets/Sprites/StickHammer.svg" id="2_f834b"]
+[ext_resource type="PackedScene" uid="uid://cu8fuy0ur81dn" path="res://Scenes/Particules/Pop.tscn" id="2_sd14d"]
 [ext_resource type="Texture2D" uid="uid://bvo1opvv12pen" path="res://Assets/Sprites/Circle.svg" id="3_5tcai"]
 [ext_resource type="AudioStream" uid="uid://bsvmvbqib3unu" path="res://Assets/Audio/SFX/air_hammer_01.wav" id="3_8f521"]
 [ext_resource type="Texture2D" uid="uid://d0b04s7ekemdq" path="res://Assets/Sprites/BaseHammer.svg" id="3_pvjp7"]
@@ -12,7 +13,7 @@
 
 [sub_resource type="Resource" id="Resource_x0oi6"]
 script = ExtResource("2_1wbp7")
-duration = 1.0
+duration = 0.7
 targetChargeRotation = -50.0
 targetSwingRotation = 130.0
 scale = 1.1
@@ -24,7 +25,7 @@ swingDuration = 0.3
 
 [sub_resource type="Resource" id="Resource_pdv40"]
 script = ExtResource("2_1wbp7")
-duration = 1.0
+duration = 1.2
 targetChargeRotation = -90.0
 targetSwingRotation = 240.0
 scale = 1.2
@@ -36,7 +37,7 @@ swingDuration = 0.6
 
 [sub_resource type="Resource" id="Resource_6rh66"]
 script = ExtResource("2_1wbp7")
-duration = 1.0
+duration = 1.7
 targetChargeRotation = -120.0
 targetSwingRotation = 480.0
 scale = 1.3
@@ -50,14 +51,17 @@ swingDuration = 1.0
 radius = 11.4018
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iyntb"]
-size = Vector2(262.716, 174.742)
+size = Vector2(227.325, 65.4434)
 
-[node name="Hammer" type="Area2D" node_paths=PackedStringArray("progressBar", "collision", "sprite")]
+[node name="Hammer" type="Area2D" node_paths=PackedStringArray("progressBar", "collision", "headHammer", "marker", "sprite")]
 script = ExtResource("1_80qmo")
 progressBar = NodePath("TextureProgressBar")
 collision = NodePath("Stick/Hammer/HammerCollision/CollisionShape2D")
+headHammer = NodePath("Stick/Hammer/HammerCollision")
+popScene = ExtResource("2_sd14d")
+marker = NodePath("Stick/Hammer/HammerCollision/Marker2D")
 phases = Array[Object]([SubResource("Resource_x0oi6"), SubResource("Resource_pdv40"), SubResource("Resource_6rh66")])
-minChargeDuration = 0.7
+minChargeDuration = 0.2
 colorCooldown = Color(0, 0, 0, 1)
 sprite = NodePath("Stick")
 
@@ -66,7 +70,6 @@ shape = SubResource("CircleShape2D_sisb5")
 disabled = true
 
 [node name="Stick" type="Sprite2D" parent="."]
-visible = false
 self_modulate = Color(1, 0.587438, 0.34091, 1)
 position = Vector2(-0.215406, -1.83105e-05)
 rotation = 2.0944
@@ -107,9 +110,15 @@ position = Vector2(-2.37824, 432.627)
 scale = Vector2(2.13333, 3.65714)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stick/Hammer/HammerCollision"]
-position = Vector2(1, -91.711)
+position = Vector2(-0.278494, -118.5)
 shape = SubResource("RectangleShape2D_iyntb")
 disabled = true
+
+[node name="Marker2D" type="Marker2D" parent="Stick/Hammer/HammerCollision"]
+position = Vector2(94.9125, -118.478)
+rotation = -2.35105
+scale = Vector2(0.666359, 0.856707)
+skew = 0.455389
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 visible = false

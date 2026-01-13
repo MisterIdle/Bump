@@ -33,4 +33,6 @@ public static class Property
 
     public static string INPUT_BOSSNORMAL = "BOSSNORMAL";
     public static string INPUT_BOSSPROTECTED = "BOSSPROTECTED";
+
+    public static string INPUT_FAST = "FAST";
 }
