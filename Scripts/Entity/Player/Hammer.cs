@@ -344,6 +344,8 @@ public partial class Hammer : GameObject
         progressBar.Value = cooldownTimer;
         isActif = false;
 
+        SetRotation(idleRotation, 0);
+
         if (cooldownTimer <= 0)
         {
             if (Input.IsActionPressed(Property.INPUT_SPECIAL))

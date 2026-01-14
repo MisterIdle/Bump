@@ -70,6 +70,22 @@ public partial class SceneManager : Node
         if (pInt.IsActionPressed(Property.INPUT_DEBUG))
             debugLabel.Visible = !debugLabel.Visible;
 
+        if (pInt.IsActionPressed(Property.INPUT_FULLSCREEN))
+        {
+            var mode = DisplayServer.WindowGetMode();
+
+            bool isFullscreen =
+                mode == DisplayServer.WindowMode.Fullscreen ||
+                mode == DisplayServer.WindowMode.ExclusiveFullscreen;
+
+            DisplayServer.WindowSetMode(
+                isFullscreen
+                    ? DisplayServer.WindowMode.Maximized
+                    : DisplayServer.WindowMode.Fullscreen
+            );
+        }
+
+
         if (pInt.IsActionPressed(Property.INPUT_DEBUG_SCENE))
         {
             AudioManager.GetInstance().Play(AudioManager.AudioType.UIStart);

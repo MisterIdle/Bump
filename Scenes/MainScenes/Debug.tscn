@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b26o5ieubh6fc"]
+[gd_scene load_steps=5 format=3 uid="uid://b26o5ieubh6fc"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="1_4ibid"]
 [ext_resource type="Script" path="res://Scripts/Managers/Debug.cs" id="1_8xsjn"]
 [ext_resource type="PackedScene" uid="uid://b37b3k3mvq3nd" path="res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn" id="2_uuxkw"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_jcu1k"]
-[ext_resource type="PackedScene" uid="uid://1dl8asfcved8" path="res://Scenes/Entity/Enemy/Sykoops.tscn" id="5_2sp4y"]
-[ext_resource type="PackedScene" uid="uid://c1u0rdsgn8dhl" path="res://Scenes/Entity/Enemy/Rushroops.tscn" id="6_g4pql"]
 
 [node name="Debug" type="Node2D"]
 script = ExtResource("1_8xsjn")
@@ -35,9 +33,3 @@ health = 1
 [node name="EnemyContainer" type="Node2D" parent="GameContainer"]
 
 [node name="ProjectilesContainer" type="Node2D" parent="GameContainer"]
-
-[node name="Sykoops" parent="." instance=ExtResource("5_2sp4y")]
-position = Vector2(4269, 544)
-
-[node name="Rushroops" parent="." instance=ExtResource("6_g4pql")]
-position = Vector2(3019, 544)

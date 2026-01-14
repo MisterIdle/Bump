@@ -50,6 +50,7 @@ public partial class OptionsMenu : MenuBase
     {
         base.OnEnter();
         backButton.GrabFocus();
+        RefreshVideoSettings();
     }
 
     public override void OnExit()
@@ -148,4 +149,17 @@ public partial class OptionsMenu : MenuBase
         MenuManager.GetInstance().ReturnFromSubMenu();
         AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
     }
+
+    private void RefreshVideoSettings()
+    {
+        bool isFullscreen =
+            DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen ||
+            DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen;
+
+        fullscreenCheck.ButtonPressed = isFullscreen;
+
+        bool isVsync = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
+        vsyncCheck.ButtonPressed = isVsync;
+    }
+
 }

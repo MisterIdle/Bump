@@ -1,5 +1,4 @@
 using Godot;
-
 using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NHUD;
@@ -9,8 +8,10 @@ public partial class MenuBase : Control
     [ExportCategory("Base Animation")]
     [Export] protected float animDurationEnter = 0.5f;
     [Export] protected float animDurationExit = 0.2f;
-    [Export] protected float animStagger = 0.08f;
-    [Export] protected float animInitialDelay = 0.2f;
+    [Export] protected float animStagger = 0.05f;
+    [Export] protected float animInitialDelay = 0.1f;
+
+    [Export] protected bool animateRootScale = false;
 
     private Tween animationTween;
 
@@ -19,23 +20,70 @@ public partial class MenuBase : Control
     private const float EXIT_ALPHA_MULTIPLIER = 0.6f;
     private const float ALPHA_OPAQUE = 1f;
     private const float ALPHA_TRANSPARENT = 0f;
-    private const float NO_DELAY = 0f;
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
 
     public virtual void OnEnter()
     {
         Visible = true;
+
+        ResetSingleControl(this);
         ResetControlsRecursive(this);
+
         PlayGenericEntryAnimation();
     }
 
     public virtual void OnExit() { }
 
     // ========================================================================
-    // ANIMATION
+    // LOGIQUE ATOMIQUE
+    // ========================================================================
+
+    private void ResetSingleControl(Control pControl)
+    {
+        if (!IsAnimatable(pControl)) return;
+
+        pControl.Modulate = Colors.Transparent;
+        pControl.PivotOffset = pControl.Size / HALF_DIVISOR;
+
+        if (pControl != this || animateRootScale)
+        {
+            pControl.Scale = Vector2.Zero;
+        }
+    }
+
+    private void AnimateSingleControlEntry(Control pControl, Tween pTween, float pDelay)
+    {
+        if (!IsAnimatable(pControl)) return;
+
+        pTween.TweenProperty(pControl, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, ALPHA_FADE_DURATION)
+              .SetDelay(pDelay);
+
+        if (pControl != this || animateRootScale)
+        {
+            pTween.TweenProperty(pControl, (string)PropertyName.Scale, Vector2.One, animDurationEnter)
+                  .SetDelay(pDelay)
+                  .SetEase(Tween.EaseType.Out)
+                  .SetTrans(Tween.TransitionType.Back);
+        }
+    }
+
+    private void AnimateSingleControlExit(Control pControl, Tween pTween, float pDelay)
+    {
+        if (!IsAnimatable(pControl)) return;
+
+        pTween.TweenProperty(pControl, (string)PropertyName.Modulate + ":a", ALPHA_TRANSPARENT, animDurationExit * EXIT_ALPHA_MULTIPLIER)
+              .SetDelay(pDelay);
+
+        if (pControl != this || animateRootScale)
+        {
+            pTween.TweenProperty(pControl, (string)PropertyName.Scale, Vector2.Zero, animDurationExit)
+                  .SetDelay(pDelay)
+                  .SetEase(Tween.EaseType.In)
+                  .SetTrans(Tween.TransitionType.Back);
+        }
+    }
+
+    // ========================================================================
+    // RECURSION
     // ========================================================================
 
     protected void ResetControlsRecursive(Node pNode)
@@ -44,15 +92,8 @@ public partial class MenuBase : Control
         {
             if (lChild is Control lControl)
             {
-                if (IsAnimatable(lControl))
-                {
-                    lControl.Scale = Vector2.Zero;
-                    lControl.Modulate = Colors.Transparent;
-                    lControl.PivotOffset = lControl.Size / HALF_DIVISOR;
-                }
-
-                if (lChild.GetChildCount() > 0)
-                    ResetControlsRecursive(lChild);
+                ResetSingleControl(lControl);
+                if (lChild.GetChildCount() > 0) ResetControlsRecursive(lChild);
             }
         }
     }
@@ -64,33 +105,31 @@ public partial class MenuBase : Control
         animationTween = CreateTween();
         animationTween.SetParallel(true);
 
-        float lDelay = animInitialDelay;
-        AnimateControlsRecursive(this, animationTween, lDelay);
+        AnimateSingleControlEntry(this, animationTween, 0);
+        AnimateControlsRecursive(this, animationTween, animInitialDelay);
 
         animationTween.Finished += () => MenuManager.GetInstance().loading = false;
     }
 
-    private void AnimateControlsRecursive(Node pNode, Tween pTween, float pDelay)
+    private void AnimateControlsRecursive(Node pNode, Tween pTween, float pCurrentBaseDelay)
     {
+        float lSiblingDelay = pCurrentBaseDelay;
+
         foreach (Node lChild in pNode.GetChildren())
         {
             if (lChild is Control lControl)
             {
                 if (IsAnimatable(lControl))
                 {
-                    pTween.TweenProperty(lControl, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, ALPHA_FADE_DURATION)
-                        .SetDelay(pDelay);
+                    AnimateSingleControlEntry(lControl, pTween, lSiblingDelay);
 
-                    pTween.TweenProperty(lControl, (string)PropertyName.Scale, Vector2.One, animDurationEnter)
-                        .SetDelay(pDelay)
-                        .SetEase(Tween.EaseType.Out)
-                        .SetTrans(Tween.TransitionType.Back);
-
-                    pDelay += animStagger;
+                    lSiblingDelay += animStagger;
                 }
 
                 if (lChild.GetChildCount() > 0)
-                    AnimateControlsRecursive(lChild, pTween, pDelay);
+                {
+                    AnimateControlsRecursive(lChild, pTween, lSiblingDelay);
+                }
             }
         }
     }
@@ -102,41 +141,37 @@ public partial class MenuBase : Control
         animationTween = CreateTween();
         animationTween.SetParallel(true);
 
-        float lDelay = NO_DELAY;
-        AnimateControlsExitRecursive(this, animationTween, lDelay);
+        AnimateControlsExitRecursive(this, animationTween, 0);
+        AnimateSingleControlExit(this, animationTween, 0);
 
         animationTween.Chain().TweenCallback(Callable.From(() => Visible = false));
-
         return animationTween;
     }
 
     private void AnimateControlsExitRecursive(Node pNode, Tween pTween, float pDelay)
     {
+        float lSiblingDelay = pDelay;
+
         foreach (Node lChild in pNode.GetChildren())
         {
             if (lChild is Control lControl)
             {
                 if (IsAnimatable(lControl))
                 {
-                    pTween.TweenProperty(lControl, (string)PropertyName.Modulate + ":a", ALPHA_TRANSPARENT, animDurationExit * EXIT_ALPHA_MULTIPLIER)
-                        .SetDelay(pDelay);
-
-                    pTween.TweenProperty(lControl, (string)PropertyName.Scale, Vector2.Zero, animDurationExit)
-                        .SetDelay(pDelay)
-                        .SetEase(Tween.EaseType.In)
-                        .SetTrans(Tween.TransitionType.Back);
-
-                    pDelay += animStagger;
+                    AnimateSingleControlExit(lControl, pTween, lSiblingDelay);
+                    lSiblingDelay += (animStagger / 2f);
                 }
 
                 if (lChild.GetChildCount() > 0)
-                    AnimateControlsExitRecursive(lChild, pTween, pDelay);
+                    AnimateControlsExitRecursive(lChild, pTween, lSiblingDelay);
             }
         }
     }
 
     private bool IsAnimatable(Control pControl)
     {
+        if (pControl == this) return true;
+
         return pControl is Button ||
                pControl is Label ||
                pControl is CheckBox ||

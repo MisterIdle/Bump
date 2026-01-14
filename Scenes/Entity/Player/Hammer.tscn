@@ -63,7 +63,7 @@ collision = NodePath("Stick/Hammer/HammerCollision/CollisionShape2D")
 headSprite = NodePath("Stick/Hammer")
 popScene = ExtResource("2_sd14d")
 phases = Array[Object]([SubResource("Resource_x0oi6"), SubResource("Resource_pdv40"), SubResource("Resource_6rh66")])
-minChargeDuration = 0.1
+minChargeDuration = 0.2
 colorCooldown = Color(0, 0, 0, 1)
 sprite = NodePath("Stick")
 
@@ -72,6 +72,7 @@ shape = SubResource("CircleShape2D_sisb5")
 disabled = true
 
 [node name="Stick" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 0.587438, 0.34091, 1)
 position = Vector2(-0.215406, -1.83105e-05)
 rotation = 2.0944

@@ -33,6 +33,8 @@ public partial class AudioManager : Node
         Boss
     }
 
+    [Export] private AudioStream ambiance;
+
     [ExportGroup("Player")]
     [Export] private AudioStream[] playerShoot;
     [Export] private AudioStream playerExplosion;
@@ -65,6 +67,7 @@ public partial class AudioManager : Node
     [Export] private AudioStream bossMusic;
 
     private AudioStreamPlayer musicPlayer;
+    private AudioStreamPlayer ambiancePlayer;
 
     private const string BUS_MUSIC = "Music";
     private const string BUS_SFX = "SFX";
@@ -100,11 +103,27 @@ public partial class AudioManager : Node
             return;
         }
 
+
         musicPlayer = new AudioStreamPlayer();
         musicPlayer.Bus = BUS_MUSIC;
         AddChild(musicPlayer);
-
         musicPlayer.Finished += OnMusicFinished;
+
+        if (ambiance != null)
+        {
+            ambiancePlayer = new AudioStreamPlayer();
+            ambiancePlayer.Stream = ambiance;
+
+            ambiancePlayer.Bus = BUS_SFX;
+
+            ambiancePlayer.Name = "AmbiancePlayer";
+
+            AddChild(ambiancePlayer);
+
+            ambiancePlayer.Finished += OnAmbianceFinished;
+
+            ambiancePlayer.Play();
+        }
     }
 
     // ========================================================================
@@ -238,5 +257,10 @@ public partial class AudioManager : Node
     public void SetMusicPaused(bool pIsPaused)
     {
         musicPlayer.StreamPaused = pIsPaused;
+    }
+
+    private void OnAmbianceFinished()
+    {
+        ambiancePlayer.Play();
     }
 }

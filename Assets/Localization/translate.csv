@@ -26,14 +26,15 @@ ID_ART_DIRECTOR,Art Director,Directeur Artistique
 ID_LEAD_SOUND_DESIGNER,Lead Sound Designer,Lead Sound Designer
 ID_MUSIC_AND_SOUND_DESIGNER,Music and Sound Designer,Compositeur et Sound Designer
 ID_TUTO_MOVE,Move,Se déplacer
-ID_TUTO_POW,Bomb,Bombe
+ID_TUTO_POW,Use Pow,Pour Pow
 ID_TUTO_SHOOT,Shoot,Tirer
-ID_TUTO_SPECIAL,Hammer,Marteau
+ID_TUTO_SPECIAL,To Bonk,Pour Bonk
 ID_ENEMY_KILL,Enemy Killed,Ennemi tué
 ID_SHOT_SHOOTED,Shots Fired,Tirs effectués
 ID_SPECIAL_USE,Special Used,Spécial utilisé
-ID_POW_USE,Power Used,Pouvoir utilisé
+ID_POW_USE,Pow Used,Pow utilisé
 ID_SCORE,Score,Score
 ID_VICTORY_TEXT,Victory,Victoire
-ID_GODMOD,God Mode,Mode Dieu
+ID_GODMOD,God Mode,Mode Divin
 ID_KING,King Koops,Roi des Koops
+ID_EXIT,Any Key to Exit,Touche pour sortir

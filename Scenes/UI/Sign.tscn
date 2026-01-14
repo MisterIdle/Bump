@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://7jkxc4pr6ou1"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Sign.cs" id="1_lredm"]
+[ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="2_2p4up"]
+[ext_resource type="FontFile" uid="uid://eqhdq03jdpch" path="res://Assets/Visual/Steak Melt.otf" id="3_nhjb8"]
+[ext_resource type="Texture2D" uid="uid://bpxlcthjptuvx" path="res://Assets/Sprites/Controller/A.png" id="4_l66yr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tm72o"]
+font = ExtResource("3_nhjb8")
+font_size = 46
+font_color = Color(0, 0, 0, 1)
+
+[node name="Sign" type="Control"]
+layout_mode = 3
+anchor_left = -0.078
+anchor_top = -0.067
+anchor_right = 0.08
+anchor_bottom = 0.063
+offset_left = -9.162
+offset_top = -7.573
+offset_right = 9.31999
+offset_bottom = 7.897
+script = ExtResource("1_lredm")
+keyboardTextures = Array[Texture2D]([])
+controllerTextures = Array[Texture2D]([])
+
+[node name="Back" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -92.0
+offset_top = -70.0
+offset_right = 413.0
+offset_bottom = 216.0
+color = Color(0.678431, 0.415686, 0.239216, 1)
+
+[node name="Font" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -78.0
+offset_top = -60.0
+offset_right = 396.0
+offset_bottom = 167.0
+
+[node name="Pall" parent="." instance=ExtResource("2_2p4up")]
+position = Vector2(-55, -92)
+rotation = -0.0872665
+scale = Vector2(0.267701, 0.162487)
+
+[node name="Pall2" parent="." instance=ExtResource("2_2p4up")]
+position = Vector2(360, -86)
+rotation = 0.122173
+scale = Vector2(0.267701, 0.162487)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -67.0
+offset_top = -39.0
+offset_right = 389.0
+offset_bottom = 193.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "ID_DEBUG"
+label_settings = SubResource("LabelSettings_tm72o")
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_l66yr")
+stretch_mode = 3

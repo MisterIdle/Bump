@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7tvjipthkfkw"]
+[gd_scene load_steps=11 format=3 uid="uid://c7tvjipthkfkw"]
 
 [ext_resource type="FontFile" uid="uid://dgffiubdmucjt" path="res://Assets/Visual/RetroMario-Regular.otf" id="1_dcoii"]
 [ext_resource type="Script" path="res://Scripts/UI/Victory.cs" id="1_it0n4"]
+[ext_resource type="PackedScene" uid="uid://bl7x7vetao23" path="res://Scenes/LevelDesign/SignExit.tscn" id="2_ftxk7"]
 [ext_resource type="FontFile" uid="uid://eqhdq03jdpch" path="res://Assets/Visual/Steak Melt.otf" id="3_3apw6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yc2yw"]
@@ -57,7 +58,7 @@ rankScoreThresholds = PackedInt32Array(0, 10000)
 rankTitles = PackedStringArray("F", "S++")
 rankColors = PackedColorArray(0, 0, 0, 1, 0.973093, 0.774373, 2.31028e-06, 1)
 statFadeDuration = 0.3
-statCountDuration = 0.7
+statCountDuration = 1.5
 scoreHeatColor = Color(1, 0.621042, 0.563658, 1)
 
 [node name="Label" type="Label" parent="."]
@@ -69,6 +70,13 @@ text = "ID_VICTORY_TEXT"
 label_settings = SubResource("LabelSettings_yc2yw")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Sign5" parent="Label" instance=ExtResource("2_ftxk7")]
+layout_mode = 1
+offset_left = 1857.76
+offset_top = 36.472
+offset_right = 1876.4
+offset_bottom = 188.392
 
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 2

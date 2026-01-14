@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://b63tvpsuuytgq"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Sign.cs" id="1_lwx08"]
+[ext_resource type="FontFile" uid="uid://eqhdq03jdpch" path="res://Assets/Visual/Steak Melt.otf" id="2_cpnim"]
+[ext_resource type="Texture2D" uid="uid://binxyibutwjdb" path="res://Assets/Sprites/Controller/Any.png" id="2_quwvy"]
+[ext_resource type="FontFile" uid="uid://dgffiubdmucjt" path="res://Assets/Visual/RetroMario-Regular.otf" id="3_bl3sj"]
+[ext_resource type="PackedScene" uid="uid://o4ify3cehgll" path="res://Scenes/Entity/Accessory/Pall.tscn" id="4_khu60"]
+[ext_resource type="Texture2D" uid="uid://bpxlcthjptuvx" path="res://Assets/Sprites/Controller/A.png" id="5_gs5sh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6fsa7"]
+font = ExtResource("2_cpnim")
+
+[sub_resource type="LabelSettings" id="LabelSettings_aoxnx"]
+font = ExtResource("3_bl3sj")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_tm72o"]
+font = ExtResource("2_cpnim")
+font_size = 45
+font_color = Color(0, 0, 0, 1)
+
+[node name="Sign" type="Control" node_paths=PackedStringArray("targetImage", "targetLabel")]
+layout_mode = 3
+anchor_left = -0.078
+anchor_top = -0.067
+anchor_right = 0.08
+anchor_bottom = 0.063
+offset_left = -9.162
+offset_top = -7.573
+offset_right = 9.31999
+offset_bottom = 7.897
+script = ExtResource("1_lwx08")
+targetImage = NodePath("TextureRect")
+targetLabel = NodePath("Text")
+idLabel = "ID_EXIT"
+keyboardTextures = Array[Texture2D]([ExtResource("2_quwvy")])
+controllerTextures = Array[Texture2D]([ExtResource("5_gs5sh")])
+
+[node name="Back" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -80.0
+offset_top = -109.0
+offset_right = 401.0
+offset_bottom = 214.0
+color = Color(0.678431, 0.415686, 0.239216, 1)
+
+[node name="Font" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -61.0
+offset_top = -93.0
+offset_right = 377.0
+offset_bottom = 178.0
+
+[node name="Label" type="Label" parent="Font"]
+layout_mode = 0
+offset_left = -4.07799
+offset_top = 274.933
+offset_right = 133.922
+offset_bottom = 303.933
+text = "Bump Company"
+label_settings = SubResource("LabelSettings_6fsa7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Font"]
+layout_mode = 0
+offset_left = 393.922
+offset_top = 272.933
+offset_right = 439.922
+offset_bottom = 314.933
+text = "17"
+label_settings = SubResource("LabelSettings_aoxnx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pall" parent="." instance=ExtResource("4_khu60")]
+position = Vector2(-59.078, -131.067)
+rotation = -0.0872665
+scale = Vector2(0.244009, 0.148831)
+
+[node name="Pall2" parent="." instance=ExtResource("4_khu60")]
+position = Vector2(370.922, -132.067)
+rotation = 0.237365
+scale = Vector2(0.244009, 0.148831)
+
+[node name="Text" type="Label" parent="."]
+layout_mode = 2
+offset_left = -128.0
+offset_top = -90.0
+offset_right = 443.0
+offset_bottom = -5.0
+text = "ID_EXIT"
+label_settings = SubResource("LabelSettings_tm72o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+anchor_left = -0.385
+anchor_right = 1.382
+anchor_bottom = 1.0
+offset_left = 186.831
+offset_top = -4.067
+offset_right = -189.864
+offset_bottom = 28.063
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_gs5sh")

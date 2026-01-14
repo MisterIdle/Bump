@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://eijl1ptqfcr5"]
+[gd_scene load_steps=13 format=3 uid="uid://eijl1ptqfcr5"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
 [ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Entity/Player/Pow.tscn" id="3_6tp5b"]
@@ -6,7 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://b37b3k3mvq3nd" path="res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn" id="3_lw5r1"]
 [ext_resource type="PackedScene" uid="uid://d2jsnu1okwcj1" path="res://Scenes/Entity/Enemy/KingKoops.tscn" id="4_iqkws"]
 [ext_resource type="PackedScene" uid="uid://do2aw1mr5kjlj" path="res://Scenes/LevelDesign/Collectibles/FlowerCollectible.tscn" id="4_kaa04"]
+[ext_resource type="PackedScene" uid="uid://c1u0rdsgn8dhl" path="res://Scenes/Entity/Enemy/Rushroops.tscn" id="8_2dl6v"]
 [ext_resource type="PackedScene" uid="uid://bpnv46wqjqrmf" path="res://Scenes/Entity/Enemy/Koops.tscn" id="8_idtoj"]
+[ext_resource type="PackedScene" uid="uid://bpu5tibhru26" path="res://Scenes/LevelDesign/SignInGame.tscn" id="9_87xyt"]
+[ext_resource type="Texture2D" uid="uid://d3yt5dgdh8gyf" path="res://Assets/Sprites/Controller/K.png" id="10_e5p5s"]
+[ext_resource type="Texture2D" uid="uid://cmr4hi2btldb4" path="res://Assets/Sprites/Controller/L.png" id="11_s8vu3"]
+[ext_resource type="Texture2D" uid="uid://b77akinjcfq01" path="res://Assets/Sprites/Controller/B.png" id="12_y672c"]
 
 [node name="InGame" type="Node2D"]
 
@@ -31,18 +36,32 @@ position = Vector2(950, 553)
 [node name="EnemyContainer" type="Node2D" parent="GameContainer"]
 
 [node name="KingKoops" parent="GameContainer/EnemyContainer" instance=ExtResource("4_iqkws")]
-position = Vector2(9580, 635)
+position = Vector2(13377, 535)
 health = 80
 
+[node name="TutuKoops" parent="GameContainer/EnemyContainer" instance=ExtResource("8_idtoj")]
+position = Vector2(2757, 652)
+
+[node name="Sign" parent="GameContainer/EnemyContainer/TutuKoops" instance=ExtResource("9_87xyt")]
+offset_left = -242.0
+offset_top = -340.0
+offset_right = 213.0
+offset_bottom = -66.0
+idLabel = "ID_TUTO_SHOOT"
+blinkSpeed = 0.1
+keyboardTextures = Array[Texture2D]([ExtResource("10_e5p5s")])
+
+[node name="TutoRushroops" parent="GameContainer/EnemyContainer" instance=ExtResource("8_2dl6v")]
+position = Vector2(5380, 633)
+
+[node name="Sign2" parent="GameContainer/EnemyContainer/TutoRushroops" instance=ExtResource("9_87xyt")]
+offset_left = -233.0
+offset_top = -381.0
+offset_right = 222.0
+offset_bottom = -107.0
+idLabel = "ID_TUTO_SPECIAL"
+blinkSpeed = 0.7
+keyboardTextures = Array[Texture2D]([ExtResource("11_s8vu3")])
+controllerTextures = Array[Texture2D]([ExtResource("12_y672c")])
+
 [node name="ProjectilesContainer" type="Node2D" parent="GameContainer"]
-
-[node name="Koops" parent="." instance=ExtResource("8_idtoj")]
-position = Vector2(2395, 523)
-
-[node name="Koops2" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
-position = Vector2(2651, 523)
-sprite = NodePath("../Koops/Sprite")
-
-[node name="Koops3" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
-position = Vector2(2934, 523)
-sprite = NodePath("../Koops/Sprite")
