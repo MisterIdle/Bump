@@ -64,7 +64,7 @@ outOfBoundMargin = 1000
 health = 66
 invincibleTime = 0.5
 popScene = ExtResource("2_3do05")
-score = 15000
+score = 2500
 direction = 1
 speed = 200.0
 sprite = NodePath("Sprite")
@@ -104,6 +104,7 @@ scale = Vector2(0.741736, 0.350844)
 texture = ExtResource("2_f62ti")
 
 [node name="Head" type="Area2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
 collision_layer = 2
 collision_mask = 257
 

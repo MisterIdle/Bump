@@ -17,8 +17,6 @@ public partial class MenuManager : Control
         Credits
     }
 
-    [Export] public Marker2D pivot;
-
     [ExportCategory("Menus")]
     [Export] public MenuBase MainMenu;
     [Export] public MenuBase Options;
@@ -40,8 +38,6 @@ public partial class MenuManager : Control
     private MenuBase currentMenu = null;
     private Tween flipTween;
 
-    private const float ROTATION_NORMAL = 0f;
-    private const float ROTATION_FLIPPED = 180f;
     private const float MENU_TRANSITION_DELAY = 0.2f;
 
     private static MenuManager instance;
@@ -89,7 +85,6 @@ public partial class MenuManager : Control
         currentMenu?.OnExit();
 
         MenuBase lNextMenuNode = null;
-        float lTargetRotation = ROTATION_NORMAL;
 
         switch (pNewState)
         {
@@ -99,7 +94,6 @@ public partial class MenuManager : Control
 
             case MenuState.Options:
                 lNextMenuNode = Options;
-                lTargetRotation = ROTATION_FLIPPED;
                 break;
 
             case MenuState.Credits:
@@ -121,12 +115,10 @@ public partial class MenuManager : Control
             case MenuState.Pause:
             case MenuState.GameOver:
                 lNextMenuNode = StateMenu;
-                lTargetRotation = ROTATION_NORMAL;
                 break;
         }
 
         currentMenuState = pNewState;
-        Flip(lTargetRotation);
 
         if (lNextMenuNode == null)
         {
@@ -165,15 +157,6 @@ public partial class MenuManager : Control
     // ========================================================================
     // ANIMATION
     // ========================================================================
-
-    public void Flip(float pDegrees)
-    {
-        if (flipTween != null && flipTween.IsValid()) flipTween.Kill();
-
-        flipTween = CreateTween();
-        flipTween.TweenProperty(pivot, (string)PropertyName.RotationDegrees, pDegrees, FlipDuration)
-            .SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Back);
-    }
 
     protected override void Dispose(bool pDisposing)
     {

@@ -15,9 +15,10 @@ load_path = "res://.godot/imported/Usa.png-301e5b683d6b729ac56663e2d41f96d4.ctex
 [node name="Options" type="Control" node_paths=PackedStringArray("backButton", "franceButton", "englishButton", "fullscreenCheck", "vsyncCheck", "musicSlider", "sfxSlider")]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1373.0
-offset_bottom = 693.0
-rotation = 3.14159
+offset_left = -515.0
+offset_top = -430.0
+offset_right = 559.0
+offset_bottom = 557.0
 script = ExtResource("1_vcxgg")
 backButton = NodePath("VBoxContainer2/Back")
 franceButton = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer3/VBoxContainer/France")

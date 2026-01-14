@@ -1,15 +1,22 @@
-using Godot;
-
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NPlayer;
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NStats;
 using Com.IsartDigital.Shmup.NToolsBox;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 public partial class Enemy : Entity
 {
+    public enum ItemType { None, Health, Flower, Pow }
+
+    [ExportCategory("Item")]
+    [Export] private ItemType itemType = ItemType.None;
+
+
+    [ExportCategory("Other")]
     [Export] protected int hammerScore = 1000;
 
     [Export] private int outOfBoundMargin = 250;
@@ -140,13 +147,20 @@ public partial class Enemy : Entity
 
     public override void EntityDeath()
     {
+        invincibleTimer.Stop();
+
+        EndInvincible();
+
         base.EntityDeath();
 
         GameStats.enemyKills++;
 
-        GameManager.CreateHealthCollectible(GlobalPosition);
+        GameManager.GetInstance().SpawnCollectible(itemType, GlobalPosition);
 
         int lFinalScore = killedByHammer ? score + hammerScore : score;
+
+        SetCollisionMaskValue(1, false);
+        SetCollisionMaskValue(9, false);
     }
 
     protected override void OnCollide(Area2D pArea)

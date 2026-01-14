@@ -1,7 +1,7 @@
-using Godot;
-
 using Com.IsartDigital.Shmup.NGameObject;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NCollectibles;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NManager;
 
@@ -12,7 +12,8 @@ public partial class GameManager : Node2D
 
     [ExportCategory("Collectibles")]
     [Export] public PackedScene healthScene;
-    [Export] public int healthPercent = 25;
+    [Export] public PackedScene powScene;
+    [Export] public PackedScene flowerScene;
 
     [ExportCategory("Self")]
     [Export] public Node2D gameContainer;
@@ -54,18 +55,32 @@ public partial class GameManager : Node2D
     // COLLECTIBLE
     // ========================================================================
 
-    public static void CreateHealthCollectible(Vector2 pPos)
+    public void SpawnCollectible(Enemy.ItemType pType, Vector2 pPos)
     {
-        GetInstance().CallDeferred(MethodName.CallCreateHealthCollectible, pPos);
+        CallDeferred(MethodName.DeferredSpawnCollectible, (int)pType, pPos);
     }
 
-    private void CallCreateHealthCollectible(Vector2 pPos)
+    private void DeferredSpawnCollectible(int pTypeInt, Vector2 pPos)
     {
-        int lChance = rand.RandiRange(CHANCE_MIN, CHANCE_MAX);
+        Enemy.ItemType pType = (Enemy.ItemType)pTypeInt;
 
-        if (lChance < healthPercent)
+        switch (pType)
         {
-            HeartCollectible.Create(healthScene, pPos);
+            case Enemy.ItemType.Health:
+                HeartCollectible.Create(healthScene, pPos);
+                break;
+
+            case Enemy.ItemType.Flower:
+                FlowerCollectible.Create(flowerScene, pPos);
+                break;
+
+            case Enemy.ItemType.Pow:
+                PowCollectible.Create(powScene, pPos);
+                break;
+
+            case Enemy.ItemType.None:
+            default:
+                break;
         }
     }
 

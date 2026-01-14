@@ -304,6 +304,8 @@ public partial class ShelledEnemy : Enemy
 
     protected override void OnCollide(Area2D pArea)
     {
+        if (isDeath) return;
+
         if (!shellProjectileProtect || pArea.Owner is Hammer)
         {
             base.OnCollide(pArea);

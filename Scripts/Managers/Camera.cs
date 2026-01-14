@@ -16,6 +16,7 @@ public partial class Camera : Camera2D
 
     private bool fast;
     private float baseScrollSpeed;
+    private Tween tween;
 
     public static Camera GetInstance()
     {
@@ -37,7 +38,7 @@ public partial class Camera : Camera2D
     public void ImFast()
     {
         fast = !fast;
-        scrollSpeed = fast ? baseScrollSpeed * 3f : baseScrollSpeed;
+        float lTargetSpeed = fast ? baseScrollSpeed * 3f : baseScrollSpeed;
     }
 
     public override void _Process(double pDelta)
@@ -85,6 +86,7 @@ public partial class Camera : Camera2D
 
     protected override void Dispose(bool disposing)
     {
+        if (tween != null && tween.IsValid()) tween.Kill();
         instance = null;
         base.Dispose(disposing);
     }

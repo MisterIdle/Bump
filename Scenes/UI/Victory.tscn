@@ -53,9 +53,11 @@ powCountLabel = NodePath("Stats/Pow/PowUseCount")
 scoreText = NodePath("RangLetter/Score/ScoreText")
 scoreLabel = NodePath("RangLetter/Score/ScoreCount")
 rankLabel = NodePath("RangLetter/Score/Rang")
-rankScoreThresholds = PackedInt32Array(10000)
-rankTitles = PackedStringArray("S++")
-rankColors = PackedColorArray(0.973093, 0.774373, 2.31028e-06, 1)
+rankScoreThresholds = PackedInt32Array(0, 10000)
+rankTitles = PackedStringArray("F", "S++")
+rankColors = PackedColorArray(0, 0, 0, 1, 0.973093, 0.774373, 2.31028e-06, 1)
+statFadeDuration = 0.3
+statCountDuration = 0.7
 scoreHeatColor = Color(1, 0.621042, 0.563658, 1)
 
 [node name="Label" type="Label" parent="."]

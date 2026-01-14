@@ -87,6 +87,8 @@ public partial class Pow : GameObject
 
         if (pop != null) Particule.Create(pop, Position);
 
+        Effect.JoyVibration(1, 1f, 1f);
+
         lExplosionTween.Finished += StartExplosionSequence;
     }
 
@@ -95,7 +97,6 @@ public partial class Pow : GameObject
         Projectiles.ClearAll();
         Enemy.ClearAll(false, false);
 
-        Effect.JoyVibration(1, 1f, 1f);
 
         QueueFree();
     }

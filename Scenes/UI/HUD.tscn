@@ -29,7 +29,7 @@ outline_color = Color(1, 1, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_hpfmr"]
 font = ExtResource("6_ocj3e")
 font_size = 150
-font_color = Color(1, 0.434811, 0.366139, 1)
+font_color = Color(0.982741, 8.97639e-05, 4.25476e-05, 1)
 outline_size = 30
 
 [node name="HUD" type="Control" node_paths=PackedStringArray("healthContainer", "powContainer", "scoreLabel", "godmodeLabel", "gameoverLabel", "bossLabel", "bossTextureBar")]

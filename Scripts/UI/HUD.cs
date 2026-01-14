@@ -104,7 +104,12 @@ public partial class HUD : MenuBase
         BubbleScore lBubbleScore = (BubbleScore)bubbleScore.Instantiate();
         lBubbleScore.Position = pPos;
         lBubbleScore.score = pScore;
-        lBubbleScore.label.LabelSettings.FontColor = pColor;
+
+        if (lBubbleScore.label.LabelSettings != null)
+        {
+            lBubbleScore.label.LabelSettings = (LabelSettings)lBubbleScore.label.LabelSettings.Duplicate();
+            lBubbleScore.label.LabelSettings.FontColor = pColor;
+        }
 
         GameManager.GetInstance().gameContainer.AddChild(lBubbleScore);
 

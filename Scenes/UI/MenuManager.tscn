@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c7tvjipthkfkw" path="res://Scenes/UI/Victory.tscn" id="6_c084v"]
 [ext_resource type="PackedScene" uid="uid://c16bdke1sxf5b" path="res://Scenes/UI/Help.tscn" id="7_cetiy"]
 
-[node name="MenuManager" type="Control" node_paths=PackedStringArray("pivot", "MainMenu", "Options", "Help", "StateMenu", "VictoryMenu", "Credits")]
+[node name="MenuManager" type="Control" node_paths=PackedStringArray("MainMenu", "Options", "Help", "StateMenu", "VictoryMenu", "Credits")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -21,11 +21,10 @@ offset_bottom = 162.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w1ayd")
-pivot = NodePath("Pivot")
-MainMenu = NodePath("Pivot/MainMenu")
-Options = NodePath("Pivot/Options")
+MainMenu = NodePath("MainMenu")
+Options = NodePath("Options")
 Help = NodePath("Help")
-StateMenu = NodePath("Pivot/StateMenu")
+StateMenu = NodePath("StateMenu")
 VictoryMenu = NodePath("Victory")
 Credits = NodePath("Credits")
 
@@ -41,32 +40,29 @@ offset_bottom = -162.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Pivot" type="Marker2D" parent="."]
-position = Vector2(0, -50)
-
-[node name="MainMenu" parent="Pivot" instance=ExtResource("3_ymd0j")]
+[node name="MainMenu" parent="." instance=ExtResource("3_ymd0j")]
 offset_left = -437.0
-offset_top = -740.0
+offset_top = -790.0
 offset_right = 393.0
-offset_bottom = -130.0
+offset_bottom = -180.0
 introLetterSpeed = 0.1
 letterSpacing = 1.0
 
-[node name="StateMenu" parent="Pivot" node_paths=PackedStringArray("panel") instance=ExtResource("4_6sv5t")]
+[node name="StateMenu" parent="." node_paths=PackedStringArray("panel") instance=ExtResource("4_6sv5t")]
 offset_left = -991.0
-offset_top = -1152.0
+offset_top = -1202.0
 offset_right = 929.0
-offset_bottom = -72.0
+offset_bottom = -122.0
 pivot_offset = Vector2(0, 0)
-panel = NodePath("../../Panel")
+panel = NodePath("../Panel")
 
-[node name="Options" parent="Pivot" node_paths=PackedStringArray("manager") instance=ExtResource("5_q768o")]
-offset_left = -320.0
-offset_top = 443.0
-offset_right = 698.0
-offset_bottom = 1459.0
+[node name="Options" parent="." node_paths=PackedStringArray("manager") instance=ExtResource("5_q768o")]
+offset_left = -516.0
+offset_top = -1178.0
+offset_right = 502.0
+offset_bottom = -162.0
 pivot_offset = Vector2(415, 346)
-manager = NodePath("../..")
+manager = NodePath("..")
 
 [node name="Credits" parent="." instance=ExtResource("6_1wp8b")]
 layout_mode = 1

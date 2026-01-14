@@ -115,6 +115,24 @@ texture = ExtResource("6_0ebss")
 script = ExtResource("5_22u1i")
 speed = 0.3
 
+[node name="Cloud5" type="Sprite2D" parent="Middle4"]
+modulate = Color(0.807085, 0.936627, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(894, 1073)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+speed = 0.3
+
+[node name="Cloud6" type="Sprite2D" parent="Middle4"]
+modulate = Color(0.807085, 0.936627, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(1718, 1102)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+speed = 0.3
+
 [node name="PillarMiddle" type="ParallaxLayer" parent="."]
 z_index = 4096
 motion_scale = Vector2(0.1, 0.1)
@@ -189,18 +207,6 @@ script = ExtResource("5_22u1i")
 amplitude = 15.0
 speed = 0.1
 
-[node name="Horizon" type="ParallaxLayer" parent="."]
-z_index = 4096
-motion_scale = Vector2(0.04, 0.04)
-motion_mirroring = Vector2(1920, 0)
-
-[node name="Cloud2" type="Sprite2D" parent="Horizon"]
-material = SubResource("ShaderMaterial_4wsax")
-position = Vector2(507, 1072)
-scale = Vector2(0.929752, 0.902893)
-texture = ExtResource("6_0ebss")
-flip_h = true
-
 [node name="Panel2" type="Panel" parent="."]
 modulate = Color(1, 1, 1, 0.392157)
 anchors_preset = 15
@@ -211,5 +217,31 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_n0kl1")
 
 [node name="Game" type="ParallaxLayer" parent="."]
+
+[node name="Horizon" type="ParallaxLayer" parent="."]
+z_index = 4096
+motion_scale = Vector2(2, 2)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Cloud6" type="Sprite2D" parent="Horizon"]
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(377.5, 1148.75)
+scale = Vector2(1.2407, 0.693182)
+texture = ExtResource("6_0ebss")
+flip_h = true
+
+[node name="Cloud4" type="Sprite2D" parent="Horizon"]
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(1074, 1159)
+scale = Vector2(0.961002, 0.693182)
+texture = ExtResource("6_0ebss")
+flip_h = true
+
+[node name="Cloud5" type="Sprite2D" parent="Horizon"]
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(1565, 1190)
+scale = Vector2(0.761622, 0.693182)
+texture = ExtResource("6_0ebss")
+flip_h = true
 
 [node name="Trigger" parent="." instance=ExtResource("1_kaqrw")]

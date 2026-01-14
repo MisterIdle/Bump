@@ -67,6 +67,8 @@ public partial class Player : Entity
     public enum State { Spawn, Normal, Dash, Knockback }
     public State currentState;
 
+    public bool IsGameWon { get; set; } = false;
+
     private int minPow = 1;
     private int maxPow = 3;
     private int minLevel = 1;
@@ -85,7 +87,7 @@ public partial class Player : Entity
     private Timer movementTimer;
 
     private const int DEATH_MARGIN = 10;
-    private const int NOT_OUT_MARGIN = 30;
+    private const int NOT_OUT_MARGIN = 75;
 
     private const float SHOT_SQUASH_X = 0.8f;
     private const float SHOT_SQUASH_Y = 1f;
@@ -145,6 +147,7 @@ public partial class Player : Entity
         UpdateLevelParameters();
 
         health = maxHealth;
+        IsGameWon = false;
 
         AnimatedSpawn();
 
@@ -516,51 +519,6 @@ public partial class Player : Entity
         Blink();
     }
 
-    public void SetPositiveInvincibility(bool pActive)
-    {
-        powerTween?.Kill();
-
-        if (pActive)
-        {
-            if (sprite.Modulate != Colors.White) sprite.Modulate = Colors.White;
-
-            powerTween = CreateTween();
-            powerTween.SetLoops();
-            powerTween.SetParallel(true);
-
-            powerTween.TweenProperty(sprite, "modulate", Colors.Cyan, powerPulseSpeed)
-                .SetTrans(Tween.TransitionType.Sine)
-                .SetEase(Tween.EaseType.InOut);
-
-            powerTween.TweenProperty(sprite, "scale", baseSpriteScale * powerScaleAmount, powerPulseSpeed)
-                .SetTrans(Tween.TransitionType.Sine)
-                .SetEase(Tween.EaseType.Out);
-
-            powerTween.Chain().TweenProperty(sprite, "modulate", Colors.White, powerPulseSpeed)
-                .SetTrans(Tween.TransitionType.Sine)
-                .SetEase(Tween.EaseType.InOut);
-
-            powerTween.Parallel().TweenProperty(sprite, "scale", baseSpriteScale, powerPulseSpeed)
-                .SetTrans(Tween.TransitionType.Sine)
-                .SetEase(Tween.EaseType.In);
-        }
-        else
-        {
-            powerTween = CreateTween();
-            powerTween.SetParallel(true);
-
-            float resetDuration = 0.15f;
-
-            powerTween.TweenProperty(sprite, "modulate", Colors.White, resetDuration)
-                .SetTrans(Tween.TransitionType.Sine)
-                .SetEase(Tween.EaseType.Out);
-
-            powerTween.TweenProperty(sprite, "scale", baseSpriteScale, resetDuration)
-                .SetTrans(Tween.TransitionType.Back)
-                .SetEase(Tween.EaseType.Out);
-        }
-    }
-
     public void InstantDeath()
     {
         if (isDeath) return;
@@ -587,7 +545,7 @@ public partial class Player : Entity
 
     public override void EntityHit(int pDamage = 1)
     {
-        if (godMode || currentState == State.Spawn) return;
+        if (godMode || currentState == State.Spawn || IsGameWon) return;
 
         base.EntityHit(pDamage);
 
@@ -615,6 +573,8 @@ public partial class Player : Entity
 
     private void TriggerGameOverSequence()
     {
+        if (IsGameWon) return;
+
         isOutSide = true;
 
         Particule.Create(popPlayerDeath, Position);
@@ -634,6 +594,8 @@ public partial class Player : Entity
 
     private void AfterDeath()
     {
+        if (IsGameWon) return;
+
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.GameOver);
     }
 

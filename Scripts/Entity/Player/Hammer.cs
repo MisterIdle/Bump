@@ -1,5 +1,4 @@
 using Godot;
-
 using Com.IsartDigital.Shmup.NData;
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NManager;
@@ -15,10 +14,9 @@ public partial class Hammer : GameObject
     [ExportGroup("References")]
     [Export] private TextureProgressBar progressBar;
     [Export] private CollisionShape2D collision;
+    [Export] private Sprite2D headSprite;
 
-    [Export] private Area2D headHammer; 
     [Export] private PackedScene popScene;
-    [Export] private Marker2D marker;
     private Player player;
 
 
@@ -33,6 +31,7 @@ public partial class Hammer : GameObject
     [Export] private Color colorDeadZone = Colors.LightSlateGray;
     [Export] private Color colorAttack = Colors.Red;
     [Export] private Color colorCooldown = Colors.DarkBlue;
+    [Export] private Color colorHeadDefault = Colors.White;
 
     [ExportGroup("Juice")]
     [Export] private float scaleElasticity = 0.2f;
@@ -94,8 +93,6 @@ public partial class Hammer : GameObject
             return;
         }
 
-        headHammer.AreaEntered += OnHeadCollide;
-
         sfxPlayer = new AudioStreamPlayer();
         sfxPlayer.Bus = BUS_SFX;
         AddChild(sfxPlayer);
@@ -131,6 +128,8 @@ public partial class Hammer : GameObject
         animationTween = null;
 
         SetRotation(idleRotation, 0);
+
+        if (headSprite != null) headSprite.Modulate = colorHeadDefault;
     }
 
     public void SetPlayer(Player pPlayer)
@@ -176,6 +175,8 @@ public partial class Hammer : GameObject
 
     public void StartCharging()
     {
+        hideTimer.Stop();
+
         isActif = true;
         progressBar.Visible = true;
         sprite.Visible = true;
@@ -190,6 +191,8 @@ public partial class Hammer : GameObject
         progressBar.MaxValue = totalMaxTimeCache;
         progressBar.Value = 0;
         progressBar.TintProgress = colorDeadZone;
+
+        if (headSprite != null) headSprite.Modulate = colorHeadDefault;
 
         Effect.SquashStretch(player.sprite, player.baseSpriteScale, false);
 
@@ -243,14 +246,16 @@ public partial class Hammer : GameObject
             ApplyPhase(lNewIndex);
 
             Effect.BumpHUD(progressBar, initialProgressBarScale, hudBumpChargeMult);
-
             Effect.JoyVibration(attackImpactDuration, 0.5f, 1f);
 
             SetRotation(currentPhaseData.targetChargeRotation, currentPhaseData.duration);
             SetScale(currentPhaseData.scale, scaleElasticity);
+
+            if (headSprite != null)
+                headSprite.Modulate = currentPhaseData.hammerColor;
         }
 
-        UpdateColorsOnly(lProgressInPhase);
+        UpdateBarColor(lProgressInPhase);
     }
 
     private void ApplyPhase(int pIndex)
@@ -260,7 +265,7 @@ public partial class Hammer : GameObject
         attackForce = currentPhaseData.force;
     }
 
-    private void UpdateColorsOnly(float pProgress)
+    private void UpdateBarColor(float pProgress)
     {
         Color lStartColor;
 
@@ -297,12 +302,11 @@ public partial class Hammer : GameObject
 
         player.Dash(currentPhaseData.dashForce, Vector2.Right, false);
 
-        player.SetPositiveInvincibility(true);
         player.invincible = true;
 
         Effect.BumpHUD(progressBar, initialProgressBarScale, hudBumpAttackMult);
         Effect.BumpHUD(HUD.GetInstance(), HUD.GetInstance().Scale, hudBumpAttackMult);
-        
+
         PlayRawSound(currentPhaseData.sound);
 
         animationTween = SetRotation(currentPhaseData.targetSwingRotation, currentPhaseData.swingDuration);
@@ -342,8 +346,15 @@ public partial class Hammer : GameObject
 
         if (cooldownTimer <= 0)
         {
-            ResetToIdle();
-            Effect.JoyVibration(0.2f);
+            if (Input.IsActionPressed(Property.INPUT_SPECIAL))
+            {
+                StartCharging();
+            }
+            else
+            {
+                ResetToIdle();
+                Effect.JoyVibration(0.2f);
+            }
         }
     }
 
@@ -351,8 +362,7 @@ public partial class Hammer : GameObject
     private void FinishAttackAnimation()
     {
         sprite.Visible = false;
-        
-        player.SetPositiveInvincibility(false);
+
         player.invincible = false;
     }
 
@@ -371,6 +381,8 @@ public partial class Hammer : GameObject
         sprite.Visible = false;
         isActif = false;
         attackForce = 0;
+
+        if (headSprite != null) headSprite.Modulate = colorHeadDefault;
 
         currentState = State.Idle;
         SetRotation(idleRotation, 0);
@@ -449,11 +461,6 @@ public partial class Hammer : GameObject
         sfxPlayer.PitchScale = 1.0f;
 
         sfxPlayer.Play();
-    }
-
-    public void OnHeadCollide(Area2D pArea)
-    {
-        GD.Print("PIJTJORTSHG£DSTG");
     }
 
     protected override void Dispose(bool pDisposing)

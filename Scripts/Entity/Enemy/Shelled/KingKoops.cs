@@ -327,6 +327,9 @@ public partial class KingKoops : ShelledEnemy
         animationTimer.WaitTime = introDuration;
         animationTimer.Timeout += OnIntroFinished;
 
+        Effect.Shake(3, 3);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.BossPreExplosion);
+
         GameManager.GetInstance().gameContainer.AddChild(animationTimer);
         animationTimer.Start();
     }
@@ -526,6 +529,25 @@ public partial class KingKoops : ShelledEnemy
         HUD.GetInstance().UpdateBossHealth(health);
     }
 
+    protected override void OnCollide(Area2D pArea)
+    {
+        base.OnCollide(pArea);
+    
+        bool lIsHammer = pArea.Owner is Hammer;
+    
+        if (lIsHammer)
+        {
+            currentKnockback = -dashDirection * hammerKnockbackForce;
+            SwitchState(EnemyState.Protected);
+    
+            Effect.Shake(cameraShakeIntensity, cameraShakeDuration, cameraShakeFrequency, cameraShakeRandomness);
+            ScaleTime.SlowMotion();
+            Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
+    
+            HUD.GetInstance().CreateBubbleScore(Position, score, Colors.Orange);
+        }
+    }
+
     public void OnHeadCollide(Area2D pArea)
     {
         if (isDeath || invincible) return;
@@ -564,7 +586,9 @@ public partial class KingKoops : ShelledEnemy
         musicSync.BeatDetected -= OnMusicBeat;
         CallDeferred(MethodName.CallDeathCleanup);
         AudioManager.GetInstance().StopMusic();
+
         Player.GetInstance().invincible = true;
+        Player.GetInstance().IsGameWon = true;
 
         animationTimer.WaitTime = deathDelayDuration;
         animationTimer.Timeout += OnDeathSequenceFinished;

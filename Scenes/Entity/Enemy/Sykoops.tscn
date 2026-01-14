@@ -32,11 +32,11 @@ fireRate = 3.5
 reloadTime = 1.0
 spikeSizeMultiplier = 2.2
 health = 6
-invincibleTime = 0.3
 popScene = ExtResource("3_g7d3s")
 score = 10000
-direction = 2
+direction = 1
 speed = 100.0
+affectedByScroll = false
 amplitude = 0.3
 sprite = NodePath("Sprite")
 

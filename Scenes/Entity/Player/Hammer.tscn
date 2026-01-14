@@ -18,6 +18,7 @@ targetChargeRotation = -50.0
 targetSwingRotation = 130.0
 scale = 1.1
 barColor = Color(0.513678, 1, 0.48175, 1)
+hammerColor = Color(1, 1, 1, 1)
 sound = ExtResource("3_8f521")
 force = 3
 dashForce = 0.1
@@ -30,6 +31,7 @@ targetChargeRotation = -90.0
 targetSwingRotation = 240.0
 scale = 1.2
 barColor = Color(0.938101, 0.574789, 3.85046e-07, 1)
+hammerColor = Color(1, 0.921565, 0.877739, 1)
 sound = ExtResource("4_tf5ns")
 force = 6
 dashForce = 0.2
@@ -42,6 +44,7 @@ targetChargeRotation = -120.0
 targetSwingRotation = 480.0
 scale = 1.3
 barColor = Color(0.931066, 0, 0.116562, 1)
+hammerColor = Color(1, 0.764247, 0.739533, 1)
 sound = ExtResource("5_bevhe")
 force = 9
 dashForce = 0.3
@@ -53,15 +56,14 @@ radius = 11.4018
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iyntb"]
 size = Vector2(227.325, 65.4434)
 
-[node name="Hammer" type="Area2D" node_paths=PackedStringArray("progressBar", "collision", "headHammer", "marker", "sprite")]
+[node name="Hammer" type="Area2D" node_paths=PackedStringArray("progressBar", "collision", "headSprite", "sprite")]
 script = ExtResource("1_80qmo")
 progressBar = NodePath("TextureProgressBar")
 collision = NodePath("Stick/Hammer/HammerCollision/CollisionShape2D")
-headHammer = NodePath("Stick/Hammer/HammerCollision")
+headSprite = NodePath("Stick/Hammer")
 popScene = ExtResource("2_sd14d")
-marker = NodePath("Stick/Hammer/HammerCollision/Marker2D")
 phases = Array[Object]([SubResource("Resource_x0oi6"), SubResource("Resource_pdv40"), SubResource("Resource_6rh66")])
-minChargeDuration = 0.2
+minChargeDuration = 0.1
 colorCooldown = Color(0, 0, 0, 1)
 sprite = NodePath("Stick")
 
@@ -100,7 +102,6 @@ scale = Vector2(0.22647, 0.0327743)
 texture = ExtResource("3_5tcai")
 
 [node name="Hammer" type="Sprite2D" parent="Stick"]
-self_modulate = Color(0.95158, 0.95158, 0.95158, 1)
 position = Vector2(0.629509, -360)
 scale = Vector2(1.46122, 0.833333)
 texture = ExtResource("3_pvjp7")
@@ -113,12 +114,6 @@ scale = Vector2(2.13333, 3.65714)
 position = Vector2(-0.278494, -118.5)
 shape = SubResource("RectangleShape2D_iyntb")
 disabled = true
-
-[node name="Marker2D" type="Marker2D" parent="Stick/Hammer/HammerCollision"]
-position = Vector2(94.9125, -118.478)
-rotation = -2.35105
-scale = Vector2(0.666359, 0.856707)
-skew = 0.455389
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 visible = false

@@ -12,6 +12,7 @@ public partial class HammerData : Resource
     [Export] public float targetSwingRotation = 0f;
     [Export] public float scale = 1.0f;
     [Export] public Color barColor = Colors.White;
+    [Export] public Color hammerColor = Colors.White;
     [Export] public AudioStream sound;
 
     [ExportGroup("Stats")]
