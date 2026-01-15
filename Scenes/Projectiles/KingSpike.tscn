@@ -30,12 +30,13 @@ process_mode = 1
 collision_layer = 2
 collision_mask = 257
 script = ExtResource("1_7bbvd")
-trackingTime = 2.5
+trackingTime = 3.0
+dashSpeedMultiplier = 2.0
 particles = NodePath("GPUParticles2D")
 collision = NodePath("CollisionShape2D")
 popScene = ExtResource("2_2uapi")
 rotationSpeed = 1.5
-speed = 900.0
+speed = 850.0
 affectedByScroll = false
 sprite = NodePath("Sprite2D")
 
