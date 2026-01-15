@@ -1,47 +1,58 @@
-[gd_scene load_steps=25 format=3 uid="uid://cotrqefqqlcm8"]
+[gd_scene load_steps=29 format=3 uid="uid://cotrqefqqlcm8"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="1_hhbw1"]
-[ext_resource type="AudioStream" uid="uid://dxxphvjqx20wq" path="res://Assets/Audio/Musique/ambience_loop.wav" id="2_miljg"]
-[ext_resource type="AudioStream" uid="uid://b2ihwt37emls1" path="res://Assets/Audio/SFX/player_shoot0.wav" id="2_v6u15"]
-[ext_resource type="AudioStream" uid="uid://dl00j7w5724ah" path="res://Assets/Audio/SFX/player_shoot1.wav" id="3_0o4qp"]
-[ext_resource type="AudioStream" uid="uid://c1j8aif4ddnjr" path="res://Assets/Audio/SFX/player_shoot2.wav" id="4_2lk3t"]
-[ext_resource type="AudioStream" uid="uid://cgy2v87if32be" path="res://Assets/Audio/SFX/player_shoot3.wav" id="5_x046c"]
-[ext_resource type="AudioStream" uid="uid://dogbx3qetnla6" path="res://Assets/Audio/SFX/player_explosion.wav" id="6_cbjgm"]
-[ext_resource type="AudioStream" uid="uid://b3weyhkbudfnw" path="res://Assets/Audio/SFX/loselife.wav" id="7_c0uwu"]
-[ext_resource type="AudioStream" uid="uid://b0rhqipme8pa4" path="res://Assets/Audio/SFX/chargeswing_hammer.wav" id="8_fhicw"]
-[ext_resource type="AudioStream" uid="uid://r0kqrjrrgpnm" path="res://Assets/Audio/SFX/powerup_life.wav" id="10_u5tbp"]
-[ext_resource type="AudioStream" uid="uid://ck4sl3440ow6y" path="res://Assets/Audio/SFX/enemy0_explosion0.wav" id="11_troxg"]
-[ext_resource type="AudioStream" uid="uid://b284uapsw8s1l" path="res://Assets/Audio/SFX/enemy0_explosion1.wav" id="12_kg2j0"]
-[ext_resource type="AudioStream" uid="uid://bpc3axc18v3gu" path="res://Assets/Audio/SFX/enemy0_explosion2.wav" id="13_tc8b1"]
-[ext_resource type="AudioStream" uid="uid://dixh0x6y58api" path="res://Assets/Audio/SFX/enemy0_explosion3.wav" id="14_48ymo"]
-[ext_resource type="AudioStream" uid="uid://d2ke0j7eggi5m" path="res://Assets/Audio/SFX/enemy_shoot.wav" id="15_ycafa"]
-[ext_resource type="AudioStream" uid="uid://bwu2rng78n6cx" path="res://Assets/Audio/SFX/boss_shoot.wav" id="16_2lycr"]
-[ext_resource type="AudioStream" uid="uid://cwg176u0qhgm0" path="res://Assets/Audio/SFX/boss_pre_explosion.wav" id="17_eqj1n"]
-[ext_resource type="AudioStream" uid="uid://iv8hiqvav3gi" path="res://Assets/Audio/SFX/boss_explosion.wav" id="18_h5w6q"]
-[ext_resource type="AudioStream" uid="uid://bsdq36vcflm5l" path="res://Assets/Audio/SFX/ui_click.wav" id="19_tyrg8"]
-[ext_resource type="AudioStream" uid="uid://b0cl11t81hpbx" path="res://Assets/Audio/SFX/ui_pause.wav" id="20_jxd1a"]
-[ext_resource type="AudioStream" uid="uid://bbfq24th4trw2" path="res://Assets/Audio/SFX/ui_start.wav" id="21_b1ftm"]
-[ext_resource type="AudioStream" uid="uid://bb0ggulnm4kkp" path="res://Assets/Audio/Musique/ui_loop.wav" id="22_650wo"]
-[ext_resource type="AudioStream" uid="uid://deirfaojdmu4s" path="res://Assets/Audio/Musique/level_loop.wav" id="23_i2v4t"]
-[ext_resource type="AudioStream" uid="uid://cevtbjbgwrgso" path="res://Assets/Audio/Musique/boss_loop.wav" id="24_6scnq"]
+[ext_resource type="AudioStream" uid="uid://824cwkf33muw" path="res://Audio/Audio/ambience_loop.wav" id="2_nddau"]
+[ext_resource type="AudioStream" uid="uid://c8hop7m4rsr0" path="res://Audio/Audio/player_shoot0.wav" id="3_2gy3p"]
+[ext_resource type="AudioStream" uid="uid://cafpdigiriqbx" path="res://Audio/Audio/player_shoot1.wav" id="4_xgp2h"]
+[ext_resource type="AudioStream" uid="uid://31we5jfalf3o" path="res://Audio/Audio/player_shoot2.wav" id="5_ckcci"]
+[ext_resource type="AudioStream" uid="uid://l3ct7w503d16" path="res://Audio/Audio/player_shoot3.wav" id="6_y3c10"]
+[ext_resource type="AudioStream" uid="uid://bloybu2033e0w" path="res://Audio/Audio/player_explosion.wav" id="7_xnxqe"]
+[ext_resource type="AudioStream" uid="uid://dbx24kv8iyjrm" path="res://Audio/Audio/bomb.wav" id="8_5dgjd"]
+[ext_resource type="AudioStream" uid="uid://ccodmm6fo2cit" path="res://Audio/Audio/loselife.wav" id="8_btyg8"]
+[ext_resource type="AudioStream" uid="uid://c101tek5qsbwb" path="res://Audio/Audio/Special/chargeswing_hammer.wav" id="9_3iyfn"]
+[ext_resource type="AudioStream" uid="uid://c6xfknxgb6ne2" path="res://Audio/Audio/powerup_bomb.wav" id="10_5ldut"]
+[ext_resource type="AudioStream" uid="uid://ei2hsdwh3nrd" path="res://Audio/Audio/powerup_life.wav" id="11_n7o7d"]
+[ext_resource type="AudioStream" uid="uid://henxwgg5swww" path="res://Audio/Audio/enemy_explosion.wav" id="12_ivbbq"]
+[ext_resource type="AudioStream" uid="uid://c5qeyn20cls64" path="res://Audio/Audio/enemy_shoot.wav" id="13_srfet"]
+[ext_resource type="AudioStream" uid="uid://dqn65slfgbpmb" path="res://Audio/Audio/boss_shoot.wav" id="14_6frry"]
+[ext_resource type="AudioStream" uid="uid://cmskdhus16yuv" path="res://Audio/Audio/enemy0_explosion0.wav" id="14_44uij"]
+[ext_resource type="AudioStream" uid="uid://cvxfxnit4q2eu" path="res://Audio/Audio/boss_pre_explosion.wav" id="15_fuquy"]
+[ext_resource type="AudioStream" uid="uid://dj5s5kboui0n" path="res://Audio/Audio/Obstacle_destruction.wav" id="16_61isg"]
+[ext_resource type="AudioStream" uid="uid://bhbc2nuuhpof1" path="res://Audio/Audio/Special/shell_ricochet.wav" id="16_dk6t4"]
+[ext_resource type="AudioStream" uid="uid://7s35qu5j542y" path="res://Audio/Audio/boss_explosion.wav" id="16_ywy76"]
+[ext_resource type="AudioStream" uid="uid://hemkev6qlkyq" path="res://Audio/Audio/ui_click.wav" id="17_se37h"]
+[ext_resource type="AudioStream" uid="uid://b2ocrccmcymw8" path="res://Audio/Audio/ui_pause.wav" id="18_ftnsa"]
+[ext_resource type="AudioStream" uid="uid://0yvkj0xtki64" path="res://Audio/Audio/ui_start.wav" id="19_ogsdg"]
+[ext_resource type="AudioStream" uid="uid://b2epd5c577aku" path="res://Audio/Audio/Music/ui_loop.wav" id="20_l3mau"]
+[ext_resource type="AudioStream" uid="uid://c002nebtexito" path="res://Audio/Audio/Music/level_loop.wav" id="21_77eya"]
+[ext_resource type="AudioStream" uid="uid://cdhfcewnwolp0" path="res://Audio/Audio/Music/win_jingle.wav" id="22_0oqcl"]
+[ext_resource type="AudioStream" uid="uid://c15v5yn7n6ekx" path="res://Audio/Audio/Music/boss_loop.wav" id="22_silpv"]
+[ext_resource type="AudioStream" uid="uid://m3nbrb1e48b3" path="res://Audio/Audio/Music/gameover_jingle.wav" id="23_6s7he"]
 
 [node name="AudioManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_hhbw1")
-ambiance = ExtResource("2_miljg")
-playerShoot = Array[AudioStream]([ExtResource("2_v6u15"), ExtResource("3_0o4qp"), ExtResource("4_2lk3t"), ExtResource("5_x046c")])
-playerExplosion = ExtResource("6_cbjgm")
-playerLostLife = ExtResource("7_c0uwu")
-hammerCharge = ExtResource("8_fhicw")
-powerUpPow = ExtResource("10_u5tbp")
-powerLife = ExtResource("10_u5tbp")
-enemyExplosion = Array[AudioStream]([ExtResource("11_troxg"), ExtResource("12_kg2j0"), ExtResource("13_tc8b1"), ExtResource("14_48ymo")])
-enemyShoot = ExtResource("15_ycafa")
-bossShoot = ExtResource("16_2lycr")
-bossPreExplosion = ExtResource("17_eqj1n")
-bossExplosion = ExtResource("18_h5w6q")
-uiClic = ExtResource("19_tyrg8")
-uiPause = ExtResource("20_jxd1a")
-uiStart = ExtResource("21_b1ftm")
-uiMusic = ExtResource("22_650wo")
-levelMusic = ExtResource("23_i2v4t")
-bossMusic = ExtResource("24_6scnq")
+ambiance = ExtResource("2_nddau")
+playerShoot = Array[AudioStream]([ExtResource("3_2gy3p"), ExtResource("4_xgp2h"), ExtResource("5_ckcci"), ExtResource("6_y3c10")])
+playerExplosion = ExtResource("7_xnxqe")
+playerBomb = ExtResource("8_5dgjd")
+playerLostLife = ExtResource("8_btyg8")
+hammerCharge = ExtResource("9_3iyfn")
+powerUpPow = ExtResource("10_5ldut")
+powerLife = ExtResource("11_n7o7d")
+enemyExplosion = Array[AudioStream]([ExtResource("12_ivbbq"), ExtResource("14_44uij")])
+enemyExplosionNonBug = ExtResource("12_ivbbq")
+enemyShoot = ExtResource("13_srfet")
+enemyShellBlock = ExtResource("16_dk6t4")
+bossShoot = ExtResource("14_6frry")
+bossPreExplosion = ExtResource("15_fuquy")
+bossExplosion = ExtResource("16_ywy76")
+obstacleDestruction = ExtResource("16_61isg")
+uiClic = ExtResource("17_se37h")
+uiPause = ExtResource("18_ftnsa")
+uiStart = ExtResource("19_ogsdg")
+uiMusic = ExtResource("20_l3mau")
+levelMusic = ExtResource("21_77eya")
+bossMusic = ExtResource("22_silpv")
+jingleWin = ExtResource("22_0oqcl")
+jingleLose = ExtResource("23_6s7he")

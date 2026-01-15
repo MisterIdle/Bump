@@ -36,11 +36,10 @@ position = Vector2(950, 553)
 [node name="EnemyContainer" type="Node2D" parent="GameContainer"]
 
 [node name="KingKoops" parent="GameContainer/EnemyContainer" instance=ExtResource("4_iqkws")]
-position = Vector2(13377, 535)
-health = 80
+position = Vector2(5152, 449)
 
 [node name="TutuKoops" parent="GameContainer/EnemyContainer" instance=ExtResource("8_idtoj")]
-position = Vector2(2757, 652)
+position = Vector2(3114, 553)
 
 [node name="Sign" parent="GameContainer/EnemyContainer/TutuKoops" instance=ExtResource("9_87xyt")]
 offset_left = -242.0
@@ -50,9 +49,10 @@ offset_bottom = -66.0
 idLabel = "ID_TUTO_SHOOT"
 blinkSpeed = 0.1
 keyboardTextures = Array[Texture2D]([ExtResource("10_e5p5s")])
+metadata/_edit_use_anchors_ = true
 
 [node name="TutoRushroops" parent="GameContainer/EnemyContainer" instance=ExtResource("8_2dl6v")]
-position = Vector2(5380, 633)
+position = Vector2(3958, 537)
 
 [node name="Sign2" parent="GameContainer/EnemyContainer/TutoRushroops" instance=ExtResource("9_87xyt")]
 offset_left = -233.0
@@ -63,5 +63,6 @@ idLabel = "ID_TUTO_SPECIAL"
 blinkSpeed = 0.7
 keyboardTextures = Array[Texture2D]([ExtResource("11_s8vu3")])
 controllerTextures = Array[Texture2D]([ExtResource("12_y672c")])
+metadata/_edit_use_anchors_ = true
 
 [node name="ProjectilesContainer" type="Node2D" parent="GameContainer"]

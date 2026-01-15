@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://tuj17od45vsb"]
+[gd_scene load_steps=28 format=3 uid="uid://tuj17od45vsb"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.cs" id="1_3gwtq"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/PlayerLevelData.cs" id="2_0fou4"]
@@ -16,35 +16,54 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p48nk"]
 
-[sub_resource type="Resource" id="Resource_g71o3"]
+[sub_resource type="Resource" id="Resource_cukej"]
 script = ExtResource("3_8vhug")
 shotScene = ExtResource("2_1sndv")
 
 [sub_resource type="Resource" id="Resource_brr4n"]
 script = ExtResource("2_0fou4")
-shot = SubResource("Resource_g71o3")
+shots = Array[Object]([SubResource("Resource_cukej")])
+angles = PackedFloat32Array(1)
 playerColor = Color(0.999999, 0.805603, 0.753092, 1)
 rotationSpeed = 5.0
 moveSpeedMultiplier = 1.0
 
-[sub_resource type="Resource" id="Resource_qw7va"]
+[sub_resource type="Resource" id="Resource_8ff6u"]
+script = ExtResource("3_8vhug")
+shotScene = ExtResource("2_1sndv")
+
+[sub_resource type="Resource" id="Resource_brv21"]
+script = ExtResource("3_8vhug")
+shotScene = ExtResource("2_1sndv")
+
+[sub_resource type="Resource" id="Resource_3qicd"]
 script = ExtResource("3_8vhug")
 shotScene = ExtResource("2_1sndv")
 
 [sub_resource type="Resource" id="Resource_3ucia"]
 script = ExtResource("2_0fou4")
-shot = SubResource("Resource_qw7va")
+shots = Array[Object]([SubResource("Resource_8ff6u"), SubResource("Resource_brv21"), SubResource("Resource_3qicd")])
+angles = PackedFloat32Array(0, 2, -2)
 playerColor = Color(0.869713, 0.606181, 0.367282, 1)
 rotationSpeed = 15.0
 moveSpeedMultiplier = 1.2
 
-[sub_resource type="Resource" id="Resource_ojgrv"]
+[sub_resource type="Resource" id="Resource_52uq2"]
 script = ExtResource("3_8vhug")
 shotScene = ExtResource("2_w6786")
 
+[sub_resource type="Resource" id="Resource_6gh32"]
+script = ExtResource("3_8vhug")
+shotScene = ExtResource("2_1sndv")
+
+[sub_resource type="Resource" id="Resource_sk4of"]
+script = ExtResource("3_8vhug")
+shotScene = ExtResource("2_1sndv")
+
 [sub_resource type="Resource" id="Resource_gky4d"]
 script = ExtResource("2_0fou4")
-shot = SubResource("Resource_ojgrv")
+shots = Array[Object]([SubResource("Resource_52uq2"), SubResource("Resource_6gh32"), SubResource("Resource_sk4of")])
+angles = PackedFloat32Array(0, -3, 3)
 playerColor = Color(1, 0.387565, 0.323131, 1)
 rotationSpeed = 20.0
 moveSpeedMultiplier = 1.3
@@ -75,7 +94,7 @@ spawnRotationAmplitude = 7.0
 spawnWaveDuration = 2.0
 powScene = ExtResource("4_0ve0x")
 popPlayerDeath = ExtResource("2_4m44y")
-minBetweenShots = 200.0
+minBetweenShots = 400.0
 health = 3
 invincibleTime = 2.0
 popScene = ExtResource("3_20icr")

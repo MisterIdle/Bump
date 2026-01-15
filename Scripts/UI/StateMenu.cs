@@ -31,10 +31,6 @@ public partial class StateMenu : MenuBase
 
     private const float FADE_DURATION = 0.4f;
 
-    // ========================================================================
-    // INIT
-    // ========================================================================
-
     public override void _Ready()
     {
         panel.Modulate = Colors.Transparent;
@@ -46,10 +42,6 @@ public partial class StateMenu : MenuBase
 
         Visible = false;
     }
-
-    // ========================================================================
-    // INPUT
-    // ========================================================================
 
     public override void _Input(InputEvent pEvent)
     {
@@ -65,16 +57,12 @@ public partial class StateMenu : MenuBase
         }
     }
 
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
-
     public override void OnEnter()
     {
         Configure();
         GetTree().Paused = true;
 
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIPause);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiPause);
 
         MenuManager lManager = MenuManager.GetInstance();
 
@@ -111,10 +99,6 @@ public partial class StateMenu : MenuBase
         base.OnExit();
     }
 
-    // ========================================================================
-    // STATE
-    // ========================================================================
-
     private void Configure()
     {
         MenuManager.MenuState lState = MenuManager.GetInstance().currentMenuState;
@@ -144,22 +128,18 @@ public partial class StateMenu : MenuBase
         }
     }
 
-    // ========================================================================
-    // ACTION
-    // ========================================================================
-
     private void OnOptionPressed()
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Options);
         CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", ALPHA_OPAQUE, FADE_DURATION);
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     public void OnResume()
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.HUD);
         GetTree().Paused = false;
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     public void OnRestart()
@@ -174,7 +154,7 @@ public partial class StateMenu : MenuBase
 
         lTween.Finished += RestartSwitch;
 
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
         AudioManager.GetInstance().StopMusic();
     }
 
@@ -184,9 +164,11 @@ public partial class StateMenu : MenuBase
 
         HUD.GetInstance().ResetHUD();
         MenuManager.GetInstance().nextIsGame = true;
-        SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
+
+        SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.Game);
+
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     public void OnMainMenu()
@@ -200,7 +182,7 @@ public partial class StateMenu : MenuBase
         GetTree().Paused = false;
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
         SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private void StartWaveLoop()
@@ -210,13 +192,13 @@ public partial class StateMenu : MenuBase
         lWaveTween.SetPauseMode(Tween.TweenPauseMode.Process);
 
         lWaveTween.SetLoops();
-        
+
         float lHalfDuration = 1;
 
         lWaveTween.TweenProperty(titleLabel, (string)PropertyName.RotationDegrees, 2, lHalfDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
-        
+
         lWaveTween.TweenProperty(titleLabel, (string)PropertyName.RotationDegrees, -2, lHalfDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);

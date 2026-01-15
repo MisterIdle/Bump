@@ -36,6 +36,11 @@ rotationSpeed = 100.0
 health = 3
 invincibleTime = 0.1
 popScene = ExtResource("2_1hute")
+direction = 1
+speed = 100.0
+affectedByScroll = false
+frequency = 0.0
+amplitude = 0.0
 
 [node name="SpriteAnimated" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

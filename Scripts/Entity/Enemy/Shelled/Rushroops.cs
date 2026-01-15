@@ -84,7 +84,6 @@ public partial class Rushroops : ShelledEnemy
         {
             case EnemyState.Spawn:
                 speed = defaultSpeed;
-                shellProjectileProtect = true;
                 AnimateHead(false);
                 stateTimer.Start(spawnDuration);
                 break;
@@ -92,7 +91,6 @@ public partial class Rushroops : ShelledEnemy
             case EnemyState.Shooting:
                 speed = 0;
                 affectedByScroll = true;
-                shellProjectileProtect = false;
                 wing?.SetSpeedDouble(false);
 
                 AnimateHead(true);
@@ -103,7 +101,6 @@ public partial class Rushroops : ShelledEnemy
 
             case EnemyState.PreDash:
                 StopSpike();
-                shellProjectileProtect = true;
                 shell?.SetShellColor(Colors.DarkBlue);
                 wing?.SetSpeedDouble(true);
 

@@ -31,19 +31,11 @@ public partial class Movable : GameObject
     protected Vector2 currentVelocity;
     protected Vector2 velocity;
 
-    // ========================================================================
-    // INIT
-    // ========================================================================
-
     public override void Initiate()
     {
         base.Initiate();
         velocity = GetDirectionVector();
     }
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
 
     protected override void Update(float pDelta)
     {
@@ -65,27 +57,18 @@ public partial class Movable : GameObject
         GlobalPosition += lMotion;
     }
 
-    // ========================================================================
-    // UTILS
-    // ========================================================================
-
     private Vector2 GetDirectionVector()
     {
         switch (direction)
         {
             case MoveDirection.Left:
-                velocity = Vector2.Left;
-                break;
+                return Vector2.Left.Rotated(Rotation);
             case MoveDirection.Right:
-                velocity = Vector2.Right;
-                break;
+                return Vector2.Right.Rotated(Rotation);
             case MoveDirection.None:
-                velocity = Vector2.Zero;
-                break;
+                return Vector2.Zero;
             default:
-                break;
+                return Vector2.Zero;
         }
-
-        return velocity;
     }
 }

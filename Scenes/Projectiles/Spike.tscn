@@ -33,8 +33,8 @@ particles = NodePath("GPUParticles2D")
 collision = NodePath("CollisionShape2D")
 lifeTime = 5.0
 popScene = ExtResource("2_jkt41")
-rotationSpeed = 1.0
-speed = 400.0
+rotationSpeed = 2.0
+speed = 800.0
 affectedByScroll = false
 sprite = NodePath("Sprite2D")
 

@@ -6,7 +6,7 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 public partial class Sykoops : ShelledEnemy
 {
     [ExportCategory("Phases")]
-    [Export] private float spawnDuration = 1.0f; // Temps d'attente au spawn
+    [Export] private float spawnDuration = 1.0f;
     [Export] private int chaseDistance = 500;
     [Export] private float maxBehindTime = 10f;
 
@@ -14,7 +14,6 @@ public partial class Sykoops : ShelledEnemy
     private Timer spawnTimer;
     private bool haveAbandoned;
 
-    // Ajout de l'état Spawn
     private enum ChaseState { Spawn, Chasing, Abandoned }
     private ChaseState chaseState = ChaseState.Spawn;
 

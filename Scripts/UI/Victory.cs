@@ -162,12 +162,24 @@ public partial class Victory : MenuBase
     {
         Visible = true;
 
+        Modulate = Colors.White;
+        Scale = Vector2.One;
+
         HideAllElements();
         PlayVictory();
 
         Player lPlayer = Player.GetInstance();
         if (lPlayer != null) lPlayer.invincible = true;
+
+        AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.JingleWin, false);
     }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        PlayGenericExitAnimation();
+    }
+
 
     // ========================================================================
     // ANIMATION RESET

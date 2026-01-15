@@ -20,10 +20,13 @@ script = ExtResource("1_8e6h4")
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
 flipCooldownDuration = 1.0
+deathGravity = 40.0
 popScene = ExtResource("2_ba4au")
 direction = 1
-speed = 50.0
+speed = 200.0
 affectedByScroll = false
+frequency = 0.2
+amplitude = 0.2
 sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]

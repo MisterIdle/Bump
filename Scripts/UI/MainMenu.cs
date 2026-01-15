@@ -88,12 +88,12 @@ public partial class MainMenu : MenuBase
     private void OnOptionPressed()
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Options);
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private void OnStartPressed()
     {
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIStart);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiStart);
         MenuManager.GetInstance().nextIsGame = true;
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
         HUD.GetInstance().ResetHUD();
@@ -102,19 +102,19 @@ public partial class MainMenu : MenuBase
     private void OnHelpPressed()
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private void OnCreditsPressed()
     {
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Credits);
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private void OnQuitPressed()
     {
         GetTree().Quit();
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     // ========================================================================

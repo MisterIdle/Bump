@@ -58,5 +58,6 @@ vertical_alignment = 1
 environment = SubResource("Environment_k772t")
 
 [node name="AudioManager" parent="." instance=ExtResource("6_atonb")]
+enemyExplosion = null
 
 [node name="Menu" parent="." instance=ExtResource("4_go1sy")]

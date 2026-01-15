@@ -167,6 +167,8 @@ public partial class Enemy : Entity
     {
         base.OnCollide(pArea);
 
+        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosionNonBug);
+
         if (pArea.Owner is Hammer)
         {
             killedByHammer = true;

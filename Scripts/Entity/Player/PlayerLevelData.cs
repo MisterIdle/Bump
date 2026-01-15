@@ -7,7 +7,8 @@ namespace Com.IsartDigital.Shmup.NData;
 public partial class PlayerLevelData : Resource
 {
     [ExportCategory("Weapon Configuration")]
-    [Export] public PlayerShotData shot;
+    [Export] public PlayerShotData[] shots;
+    [Export] public float[] angles;
 
     [ExportCategory("Player Visuals")]
     [Export] public Color playerColor = Colors.White;

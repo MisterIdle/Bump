@@ -109,7 +109,7 @@ public partial class OptionsMenu : MenuBase
         }
 
         if (pBusName == BUS_SFX)
-            AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+            AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private float GetBusVolumeLinear(string pBusName)
@@ -129,25 +129,25 @@ public partial class OptionsMenu : MenuBase
         else
             DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized);
 
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private void OnVsyncToggled(bool pIsCheck)
     {
         DisplayServer.WindowSetVsyncMode(pIsCheck ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private void ChangeLocale(string pLocaleCode)
     {
         TranslationServer.SetLocale(pLocaleCode);
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private void OnBackPressed()
     {
         MenuManager.GetInstance().ReturnFromSubMenu();
-        AudioManager.GetInstance().Play(AudioManager.AudioType.UIClic);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
     }
 
     private void RefreshVideoSettings()

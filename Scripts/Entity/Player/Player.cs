@@ -120,13 +120,6 @@ public partial class Player : Entity
         return levels[lIndex];
     }
 
-    private PlayerShotData GetCurrentShotData()
-    {
-        PlayerLevelData lData = GetCurrentLevelData();
-        if (lData == null) return null;
-        return lData.shot;
-    }
-
     public override void Initiate()
     {
         base.Initiate();
@@ -342,19 +335,27 @@ public partial class Player : Entity
 
     private void Fire()
     {
-        PlayerShotData lShotData = GetCurrentShotData();
-        if (lShotData == null) return;
+        PlayerLevelData lData = GetCurrentLevelData();
+        if (lData == null || lData.shots == null || lData.angles == null) return;
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerShoot);
         Effect.BumpScale(sprite, baseSpriteScale);
         Effect.SquashStretch(sprite, baseSpriteScale, true, false, SHOT_SQUASH_X, SHOT_SQUASH_Y);
 
-        Shot lShot = Shot.Create(lShotData.shotScene, muzzle.GlobalPosition, Vector2.Right);
+        int lCount = Mathf.Min(lData.shots.Length, lData.angles.Length);
 
-        GameStats.shotsFired++;
+        for (int i = 0; i < lCount; i++)
+        {
+            if (lData.shots[i] == null) continue;
 
-        if (IsInstanceValid(lShot))
-            lastShot = lShot;
+            Vector2 lDirection = Vector2.Right.Rotated(Mathf.DegToRad(lData.angles[i]));
+            Shot lShot = Shot.Create(lData.shots[i].shotScene, muzzle.GlobalPosition, lDirection);
+
+            GameStats.shotsFired++;
+
+            if (IsInstanceValid(lShot))
+                lastShot = lShot;
+        }
     }
 
     private bool CanFire()
@@ -362,8 +363,8 @@ public partial class Player : Entity
         if (!Input.IsActionPressed(Property.INPUT_SHOT) || hammer.isActif)
             return false;
 
-        PlayerShotData lShotData = GetCurrentShotData();
-        if (lShotData == null)
+        PlayerLevelData lData = GetCurrentLevelData();
+        if (lData == null || lData.shots == null || lData.shots.Length == 0)
             return false;
 
         if (!IsInstanceValid(lastShot) || !lastShot.IsInsideTree())
@@ -442,7 +443,7 @@ public partial class Player : Entity
     {
         if (health >= maxHealth) return;
 
-        AudioManager.GetInstance().Play(AudioManager.AudioType.PowerLife);
+        AudioManager.GetInstance().Play(AudioManager.AudioType.PowerUpLife);
 
         health = Mathf.Min(health + 1, maxHealth);
 
@@ -568,7 +569,6 @@ public partial class Player : Entity
         movementTimer.Stop();
 
         velocity = Vector2.Zero;
-        AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerExplosion);
     }
 
     private void TriggerGameOverSequence()
@@ -577,6 +577,7 @@ public partial class Player : Entity
 
         isOutSide = true;
 
+        AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.JingleLose, false);
         Particule.Create(popPlayerDeath, Position);
 
         Timer lTimer = new Timer();
@@ -589,7 +590,6 @@ public partial class Player : Entity
         ScaleTime.SlowMotion(deathSlowMoScale, (int)deathTimerDuration);
 
         HUD.GetInstance().PlayGameOver();
-        AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerExplosion);
     }
 
     private void AfterDeath()

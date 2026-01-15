@@ -224,21 +224,21 @@ motion_scale = Vector2(2, 2)
 motion_mirroring = Vector2(1920, 0)
 
 [node name="Cloud6" type="Sprite2D" parent="Horizon"]
-material = SubResource("ShaderMaterial_4wsax")
+modulate = Color(1, 1, 1, 0.615686)
 position = Vector2(377.5, 1148.75)
 scale = Vector2(1.2407, 0.693182)
 texture = ExtResource("6_0ebss")
 flip_h = true
 
 [node name="Cloud4" type="Sprite2D" parent="Horizon"]
-material = SubResource("ShaderMaterial_4wsax")
+modulate = Color(1, 1, 1, 0.615686)
 position = Vector2(1074, 1159)
 scale = Vector2(0.961002, 0.693182)
 texture = ExtResource("6_0ebss")
 flip_h = true
 
 [node name="Cloud5" type="Sprite2D" parent="Horizon"]
-material = SubResource("ShaderMaterial_4wsax")
+modulate = Color(1, 1, 1, 0.615686)
 position = Vector2(1565, 1190)
 scale = Vector2(0.761622, 0.693182)
 texture = ExtResource("6_0ebss")

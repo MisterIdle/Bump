@@ -85,8 +85,6 @@ public partial class Entity : Movable
     {
         if (invincible || isDeath) return;
 
-        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyExplosion);
-
         health -= pDamage;
 
         if (health <= 0)

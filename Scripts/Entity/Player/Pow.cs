@@ -62,6 +62,8 @@ public partial class Pow : GameObject
     {
         Tween lShowTween = CreateTween();
 
+        AudioManager.GetInstance().Play(AudioManager.AudioType.PlayerBomb);
+
         Vector2 lEntrancePos = targetPosition + new Vector2(0, entranceMore);
         string lPropertyPos = (string)PropertyName.Position;
 

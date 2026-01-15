@@ -314,12 +314,14 @@ public partial class ShelledEnemy : Enemy
 
         if (pArea is Projectiles)
         {
+            AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyShellBlock);
             shell?.ShellProtectAnimation();
             return;
         }
 
         if (pArea is Player lPlayer && lPlayer.invincible)
         {
+            AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyShellBlock);
             shell?.ShellProtectAnimation();
             return;
         }

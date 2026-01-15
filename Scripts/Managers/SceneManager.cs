@@ -25,15 +25,11 @@ public partial class SceneManager : Node
     private Node currentScene;
 
     private bool isTransitioning = false;
-    private float loadDelay = 0.4f;
-    private double sceneDuration = 0;
+    private float loadDelay = 1f;
+    private double sceneDuration = 0.2;
 
     private Timer transitionTimer;
     private Tween transitionTween;
-
-    // ========================================================================
-    // INIT & LIFECYCLE
-    // ========================================================================
 
     public override void _Ready()
     {
@@ -45,17 +41,13 @@ public partial class SceneManager : Node
         }
 
         transitionTimer = new Timer();
-        
+
         transitionTimer.Timeout += OnTransitionFinished;
         transitionTimer.OneShot = true;
         transitionTimer.WaitTime = loadDelay;
 
         AddChild(transitionTimer);
     }
-
-    // ========================================================================
-    // UPDATE LOOP
-    // ========================================================================
 
     public override void _Process(double delta)
     {
@@ -85,20 +77,15 @@ public partial class SceneManager : Node
             );
         }
 
-
         if (pInt.IsActionPressed(Property.INPUT_DEBUG_SCENE))
         {
-            AudioManager.GetInstance().Play(AudioManager.AudioType.UIStart);
+            AudioManager.GetInstance().Play(AudioManager.AudioType.uiStart);
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.None);
 
             HUD.GetInstance()?.ResetHUD();
             ChangeGlobalScene(SceneType.Debug);
         }
     }
-
-    // ========================================================================
-    // SCENE MANAGEMENT
-    // ========================================================================
 
     public void ChangeGlobalScene(SceneType nextScene)
     {
@@ -178,10 +165,6 @@ public partial class SceneManager : Node
             }
         }
     }
-
-    // ========================================================================
-    // DEBUG DISPLAY
-    // ========================================================================
 
     private void UpdateDebugDisplay()
     {

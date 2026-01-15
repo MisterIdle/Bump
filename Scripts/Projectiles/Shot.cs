@@ -1,5 +1,4 @@
 using Godot;
-
 using Com.IsartDigital.Shmup.NManager;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
@@ -7,10 +6,6 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 public partial class Shot : Projectiles
 {
     [Export] private bool rotation;
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
 
     protected override void Update(float pDelta)
     {
@@ -23,18 +18,15 @@ public partial class Shot : Projectiles
     public static Shot Create(PackedScene pScene, Vector2 pPos, Vector2 pWay, float pAngle = 0)
     {
         Shot lShot = (Shot)pScene.Instantiate();
-        
+
         GameManager.GetInstance().gameContainer.AddChild(lShot);
         lShot.GlobalPosition = pPos;
+        lShot.GlobalRotation = pWay.Angle();
 
         lShot.Initiate();
 
         return lShot;
     }
-
-    // ========================================================================
-    // INIT
-    // ========================================================================
 
     protected override void OnCollide(Area2D pArea)
     {

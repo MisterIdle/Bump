@@ -8,29 +8,43 @@ public partial class AudioManager : Node
     public enum AudioType
     {
         None,
+
+        PlayerBomb,
         PlayerShoot,
-        PlayerExplosion,
         PlayerLostLife,
-        HammerCharge,
-        HammerSwing,
+
         PowerUpPow,
-        PowerLife,
-        EnemyExplosion,
-        EnemyShoot,
-        BossShoot,
-        BossPreExplosion,
+        PowerUpLife,
+        PowerUpBomb,
+
+        HammerCharge,
+
         BossExplosion,
-        UIClic,
-        UIPause,
-        UIStart
+        BossPreExplosion,
+        BossShoot,
+
+        EnemyExplosion,
+        EnemyExplosionNonBug,
+        EnemyShoot,
+        EnemyShellBlock,
+
+        ObstacleDestruction,
+
+        uiClick,
+        uiPause,
+        uiStart
     }
 
     public enum MusicType
     {
         None,
+
         Menu,
         Level,
-        Boss
+        Boss,
+
+        JingleWin,
+        JingleLose
     }
 
     [Export] private AudioStream ambiance;
@@ -38,6 +52,7 @@ public partial class AudioManager : Node
     [ExportGroup("Player")]
     [Export] private AudioStream[] playerShoot;
     [Export] private AudioStream playerExplosion;
+    [Export] private AudioStream playerBomb;
     [Export] private AudioStream playerLostLife;
 
     [ExportGroup("Hammer")]
@@ -49,12 +64,17 @@ public partial class AudioManager : Node
 
     [ExportGroup("Enemy")]
     [Export] private AudioStream[] enemyExplosion;
+    [Export] private AudioStream enemyExplosionNonBug;
     [Export] private AudioStream enemyShoot;
+    [Export] private AudioStream enemyShellBlock;
 
     [ExportGroup("Boss")]
     [Export] private AudioStream bossShoot;
     [Export] private AudioStream bossPreExplosion;
     [Export] private AudioStream bossExplosion;
+
+    [ExportGroup("Obstacle")]
+    [Export] private AudioStream obstacleDestruction;
 
     [ExportGroup("UI")]
     [Export] private AudioStream uiClic;
@@ -65,9 +85,13 @@ public partial class AudioManager : Node
     [Export] private AudioStream uiMusic;
     [Export] private AudioStream levelMusic;
     [Export] private AudioStream bossMusic;
+    [Export] private AudioStream jingleWin;
+    [Export] private AudioStream jingleLose;
 
     private AudioStreamPlayer musicPlayer;
     private AudioStreamPlayer ambiancePlayer;
+
+    private Tween musicTween;
 
     private const string BUS_MUSIC = "Music";
     private const string BUS_SFX = "SFX";
@@ -80,15 +104,13 @@ public partial class AudioManager : Node
     private const float STOP_MUSIC_FADE_TIME = 1f;
     private const int FADE_TIME_DIVIDER = 2;
 
+    private bool isMusicLooping = true;
+
     private static AudioManager instance;
     public static AudioManager GetInstance()
     {
         return instance;
     }
-
-    // ========================================================================
-    // INIT
-    // ========================================================================
 
     public override void _Ready()
     {
@@ -103,7 +125,6 @@ public partial class AudioManager : Node
             return;
         }
 
-
         musicPlayer = new AudioStreamPlayer();
         musicPlayer.Bus = BUS_MUSIC;
         AddChild(musicPlayer);
@@ -113,22 +134,13 @@ public partial class AudioManager : Node
         {
             ambiancePlayer = new AudioStreamPlayer();
             ambiancePlayer.Stream = ambiance;
-
             ambiancePlayer.Bus = BUS_SFX;
-
             ambiancePlayer.Name = "AmbiancePlayer";
-
             AddChild(ambiancePlayer);
-
             ambiancePlayer.Finished += OnAmbianceFinished;
-
             ambiancePlayer.Play();
         }
     }
-
-    // ========================================================================
-    // SFX
-    // ========================================================================
 
     public void Play(AudioType pType, float pPitch = DEFAULT_PITCH)
     {
@@ -147,24 +159,27 @@ public partial class AudioManager : Node
         switch (pType)
         {
             case AudioType.PlayerShoot: return Pick(playerShoot);
-            case AudioType.PlayerExplosion: return playerExplosion;
+            case AudioType.PlayerBomb: return playerBomb;
             case AudioType.PlayerLostLife: return playerLostLife;
-
             case AudioType.HammerCharge: return hammerCharge;
 
             case AudioType.PowerUpPow: return powerUpPow;
-            case AudioType.PowerLife: return powerLife;
+            case AudioType.PowerUpLife: return powerLife;
 
             case AudioType.EnemyExplosion: return Pick(enemyExplosion);
+            case AudioType.EnemyExplosionNonBug: return enemyExplosionNonBug;
             case AudioType.EnemyShoot: return enemyShoot;
+            case AudioType.EnemyShellBlock: return enemyShellBlock;
 
             case AudioType.BossShoot: return bossShoot;
             case AudioType.BossPreExplosion: return bossPreExplosion;
             case AudioType.BossExplosion: return bossExplosion;
 
-            case AudioType.UIClic: return uiClic;
-            case AudioType.UIPause: return uiPause;
-            case AudioType.UIStart: return uiStart;
+            case AudioType.ObstacleDestruction: return obstacleDestruction;
+
+            case AudioType.uiClick: return uiClic;
+            case AudioType.uiPause: return uiPause;
+            case AudioType.uiStart: return uiStart;
 
             default: return null;
         }
@@ -193,24 +208,27 @@ public partial class AudioManager : Node
         lAudio.Play();
     }
 
-    // ========================================================================
-    // MUSIC
-    // ========================================================================
-
-    public void PlayMusic(MusicType pType, float pFadeTime = DEFAULT_FADE_TIME)
+    public void PlayMusic(MusicType pType, bool pLoop = true, float pFadeTime = DEFAULT_FADE_TIME)
     {
         AudioStream lNewStream = ResolveMusic(pType);
 
+        isMusicLooping = pLoop;
+
         if (musicPlayer.Stream == lNewStream && musicPlayer.Playing) return;
 
-        Tween lTween = CreateTween();
+        if (musicTween != null && musicTween.IsValid())
+        {
+            musicTween.Kill();
+        }
+
+        musicTween = CreateTween();
         string lPropertyVolume = (string)AudioStreamPlayer.PropertyName.VolumeDb;
 
-        lTween.TweenProperty(musicPlayer, lPropertyVolume, VOLUME_MUTED_DB, pFadeTime / FADE_TIME_DIVIDER)
+        musicTween.TweenProperty(musicPlayer, lPropertyVolume, VOLUME_MUTED_DB, pFadeTime / FADE_TIME_DIVIDER)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.In);
 
-        lTween.TweenCallback(Callable.From(() =>
+        musicTween.TweenCallback(Callable.From(() =>
         {
             musicPlayer.Stop();
             musicPlayer.Stream = lNewStream;
@@ -223,7 +241,7 @@ public partial class AudioManager : Node
 
         if (lNewStream != null)
         {
-            lTween.TweenProperty(musicPlayer, lPropertyVolume, VOLUME_NORMAL_DB, pFadeTime / FADE_TIME_DIVIDER)
+            musicTween.TweenProperty(musicPlayer, lPropertyVolume, VOLUME_NORMAL_DB, pFadeTime / FADE_TIME_DIVIDER)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.Out);
         }
@@ -231,12 +249,15 @@ public partial class AudioManager : Node
 
     public void StopMusic(float pFadeTime = STOP_MUSIC_FADE_TIME)
     {
-        PlayMusic(MusicType.None, pFadeTime);
+        PlayMusic(MusicType.None, false, pFadeTime);
     }
 
     private void OnMusicFinished()
     {
-        musicPlayer.Play();
+        if (isMusicLooping)
+        {
+            musicPlayer.Play();
+        }
     }
 
     private AudioStream ResolveMusic(MusicType pType)
@@ -249,7 +270,11 @@ public partial class AudioManager : Node
                 return levelMusic;
             case MusicType.Boss:
                 return bossMusic;
-            default: 
+            case MusicType.JingleWin:
+                return jingleWin;
+            case MusicType.JingleLose:
+                return jingleLose;
+            default:
                 return null;
         }
     }

@@ -73,7 +73,7 @@ public partial class KingKoops : ShelledEnemy
     private int beatCounter = 0;
 
     private Tween visualTween;
-    private Timer animationTimer;
+    private Timer introTimer; // Renommé pour éviter la confusion
     private Timer spawnTimer;
 
     private ulong lastPhaseChangeTime = 0;
@@ -315,6 +315,10 @@ public partial class KingKoops : ShelledEnemy
         }
     }
 
+    // ========================================================================
+    // LOGIQUE CORRIGÉE : INTRO ET MORT
+    // ========================================================================
+
     private void StartIntro()
     {
         AudioManager.GetInstance().StopMusic();
@@ -323,25 +327,98 @@ public partial class KingKoops : ShelledEnemy
         HUD.GetInstance().SetupBossBattle(health);
         SwitchState(EnemyState.Outside);
 
-        animationTimer = new Timer();
-        animationTimer.WaitTime = introDuration;
-        animationTimer.Timeout += OnIntroFinished;
+        // On nettoie l'ancien timer s'il existe pour éviter les fuites
+        if (introTimer != null && IsInstanceValid(introTimer))
+        {
+            introTimer.QueueFree();
+        }
+
+        introTimer = new Timer();
+        introTimer.WaitTime = introDuration;
+        introTimer.OneShot = true;
+        introTimer.Timeout += OnIntroFinished;
 
         Effect.Shake(3, 3);
         AudioManager.GetInstance().Play(AudioManager.AudioType.BossPreExplosion);
 
-        GameManager.GetInstance().gameContainer.AddChild(animationTimer);
-        animationTimer.Start();
+        // Ajout au GameContainer (attention, si le boss meurt avant, le timer reste)
+        GameManager.GetInstance().gameContainer.AddChild(introTimer);
+        introTimer.Start();
     }
 
     private void OnIntroFinished()
     {
-        animationTimer.Stop();
+        // Nettoyage immédiat
+        if (introTimer != null && IsInstanceValid(introTimer))
+        {
+            introTimer.Timeout -= OnIntroFinished;
+            introTimer.QueueFree();
+            introTimer = null;
+        }
+
         musicSync.PlayAll();
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.Boss);
 
         currentAction = ActionState.Idle;
     }
+
+    public override void EntityDeath()
+    {
+        // Sécurité critique : si déjà mort, on sort pour éviter les doubles appels
+        if (isDeath) return;
+
+        // Sécurité logique : on ne meurt qu'en phase finale
+        if (currentPhase != PhaseState.Final) return;
+
+        // Arrêt des systèmes
+        dashTimer?.Stop();
+        spawnTimer?.Stop();
+        KillActiveTweens();
+
+        musicSync.BeatDetected -= OnMusicBeat;
+        AudioManager.GetInstance().StopMusic();
+
+        EndEvent(AudioManager.AudioType.BossExplosion);
+        head.CollisionLayer = 0;
+
+        // Appel parent (déclenche isDeath = true)
+        base.EntityDeath();
+
+        // Gestion de la victoire joueur
+        Player p = Player.GetInstance();
+        if (p != null)
+        {
+            p.invincible = true;
+            p.IsGameWon = true;
+        }
+
+        // UTILISATION D'UN TWEEN AU LIEU D'UN TIMER RECYCLÉ
+        // C'est la méthode la plus sûre pour garantir l'exécution de la fin
+        Tween deathTween = CreateTween();
+        deathTween.TweenInterval(deathDelayDuration);
+        deathTween.Finished += OnDeathSequenceFinished;
+    }
+
+    private void OnDeathSequenceFinished()
+    {
+        CallDeferred(MethodName.CallDeathCleanup);
+    }
+
+    private void CallDeathCleanup()
+    {
+        // Cette ligne déclenche la victoire
+        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
+
+        ClearAll(false, false);
+        Projectiles.ClearAll();
+
+        // Destruction du boss
+        QueueFree();
+    }
+
+    // ========================================================================
+    // FIN LOGIQUE CORRIGÉE
+    // ========================================================================
 
     private void AdvancePhase()
     {
@@ -381,6 +458,8 @@ public partial class KingKoops : ShelledEnemy
 
     private void EnterPhaseFinal()
     {
+        AudioManager.GetInstance().StopMusic();
+
         if (Player.GetInstance().isDeath)
             return;
 
@@ -405,7 +484,6 @@ public partial class KingKoops : ShelledEnemy
     {
         invincible = true;
         AudioManager.GetInstance().Play(pSound);
-        AudioManager.GetInstance().StopMusic();
         KillActiveTweens();
     }
 
@@ -532,18 +610,18 @@ public partial class KingKoops : ShelledEnemy
     protected override void OnCollide(Area2D pArea)
     {
         base.OnCollide(pArea);
-    
+
         bool lIsHammer = pArea.Owner is Hammer;
-    
+
         if (lIsHammer)
         {
             currentKnockback = -dashDirection * hammerKnockbackForce;
             SwitchState(EnemyState.Protected);
-    
+
             Effect.Shake(cameraShakeIntensity, cameraShakeDuration, cameraShakeFrequency, cameraShakeRandomness);
             ScaleTime.SlowMotion();
             Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
-    
+
             HUD.GetInstance().CreateBubbleScore(Position, score, Colors.Orange);
         }
     }
@@ -572,29 +650,6 @@ public partial class KingKoops : ShelledEnemy
         shell.ShellDamageAnimation();
     }
 
-    public override void EntityDeath()
-    {
-        if (currentPhase != PhaseState.Final) return;
-
-        dashTimer?.Stop();
-        KillActiveTweens();
-
-        EndEvent(AudioManager.AudioType.BossExplosion);
-        head.CollisionLayer = 0;
-        base.EntityDeath();
-
-        musicSync.BeatDetected -= OnMusicBeat;
-        CallDeferred(MethodName.CallDeathCleanup);
-        AudioManager.GetInstance().StopMusic();
-
-        Player.GetInstance().invincible = true;
-        Player.GetInstance().IsGameWon = true;
-
-        animationTimer.WaitTime = deathDelayDuration;
-        animationTimer.Timeout += OnDeathSequenceFinished;
-        animationTimer.Start();
-    }
-
     protected override void StartInvincible(float pDuration)
     {
         base.StartInvincible(pDuration);
@@ -605,21 +660,5 @@ public partial class KingKoops : ShelledEnemy
     {
         base.EndInvincible();
         shell.SetShellColor(Colors.Black);
-    }
-
-    private void OnDeathSequenceFinished()
-    {
-        CallDeferred(MethodName.CallDeathCleanup);
-        animationTimer.Stop();
-        QueueFree();
-    }
-
-    private void CallDeathCleanup()
-    {
-        MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
-        AudioManager.GetInstance().StopMusic();
-
-        ClearAll(false, false);
-        Projectiles.ClearAll();
     }
 }
