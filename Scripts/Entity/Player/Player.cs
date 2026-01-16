@@ -67,7 +67,7 @@ public partial class Player : Entity
     public enum State { Spawn, Normal, Dash, Knockback }
     public State currentState;
 
-    public bool IsGameWon { get; set; } = false;
+    public bool isGameWon = false;
 
     private int minPow = 1;
     private int maxPow = 3;
@@ -140,7 +140,7 @@ public partial class Player : Entity
         UpdateLevelParameters();
 
         health = maxHealth;
-        IsGameWon = false;
+        isGameWon = false;
 
         AnimatedSpawn();
 
@@ -408,7 +408,7 @@ public partial class Player : Entity
             return;
         }
 
-        Vector2 lClamped = Utils.ClampToScreen(Position, NOT_OUT_MARGIN);
+        Vector2 lClamped = Utils.ClampToScreen(Position, NOT_OUT_MARGIN, 235);
 
         if (Position != lClamped)
         {
@@ -546,7 +546,7 @@ public partial class Player : Entity
 
     public override void EntityHit(int pDamage = 1)
     {
-        if (godMode || currentState == State.Spawn || IsGameWon) return;
+        if (godMode || currentState == State.Spawn || isGameWon) return;
 
         base.EntityHit(pDamage);
 
@@ -573,7 +573,7 @@ public partial class Player : Entity
 
     private void TriggerGameOverSequence()
     {
-        if (IsGameWon) return;
+        if (isGameWon) return;
 
         isOutSide = true;
 
@@ -594,7 +594,7 @@ public partial class Player : Entity
 
     private void AfterDeath()
     {
-        if (IsGameWon) return;
+        if (isGameWon) return;
 
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.GameOver);
     }

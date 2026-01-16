@@ -17,15 +17,24 @@ public partial class Shot : Projectiles
 
     public static Shot Create(PackedScene pScene, Vector2 pPos, Vector2 pWay, float pAngle = 0)
     {
-        Shot lShot = (Shot)pScene.Instantiate();
+        if (!IsInstanceValid(GameManager.GetInstance()))
+            return null;
 
-        GameManager.GetInstance().gameContainer.AddChild(lShot);
-        lShot.GlobalPosition = pPos;
-        lShot.GlobalRotation = pWay.Angle();
+        var gm = GameManager.GetInstance();
 
-        lShot.Initiate();
+        if (!IsInstanceValid(gm.gameContainer))
+            return null;
 
-        return lShot;
+        Shot shot = pScene.Instantiate<Shot>();
+
+        gm.gameContainer.AddChild(shot);
+
+        shot.GlobalPosition = pPos;
+        shot.GlobalRotation = pWay.Angle();
+
+        shot.Initiate();
+
+        return shot;
     }
 
     protected override void OnCollide(Area2D pArea)

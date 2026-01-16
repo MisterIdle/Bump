@@ -41,7 +41,6 @@ public partial class SceneManager : Node
         }
 
         transitionTimer = new Timer();
-
         transitionTimer.Timeout += OnTransitionFinished;
         transitionTimer.OneShot = true;
         transitionTimer.WaitTime = loadDelay;
@@ -65,10 +64,8 @@ public partial class SceneManager : Node
         if (pInt.IsActionPressed(Property.INPUT_FULLSCREEN))
         {
             var mode = DisplayServer.WindowGetMode();
-
-            bool isFullscreen =
-                mode == DisplayServer.WindowMode.Fullscreen ||
-                mode == DisplayServer.WindowMode.ExclusiveFullscreen;
+            bool isFullscreen = mode == DisplayServer.WindowMode.Fullscreen ||
+                                mode == DisplayServer.WindowMode.ExclusiveFullscreen;
 
             DisplayServer.WindowSetMode(
                 isFullscreen
@@ -106,7 +103,10 @@ public partial class SceneManager : Node
             transitionTween = CreateTween();
             transitionTween.SetPauseMode(Tween.TweenPauseMode.Process);
 
-            transitionTween.TweenProperty(cam, Node2D.PropertyName.GlobalPosition.ToString(), Vector2.Zero, duration)
+            // Important : On tween vers la StartPosition (960, 540) et non Zero (0,0)
+            Vector2 targetPos = cam.GetStartPosition();
+
+            transitionTween.TweenProperty(cam, Node2D.PropertyName.GlobalPosition.ToString(), targetPos, duration)
                 .SetTrans(Tween.TransitionType.Cubic)
                 .SetEase(Tween.EaseType.InOut);
 
@@ -151,7 +151,6 @@ public partial class SceneManager : Node
         }
 
         currentSceneType = sceneToLoad;
-
         isTransitioning = false;
         sceneDuration = 0;
 

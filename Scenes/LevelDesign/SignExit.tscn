@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bl7x7vetao23"]
+[gd_scene load_steps=7 format=3 uid="uid://bl7x7vetao23"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Sign.cs" id="1_qo61v"]
-[ext_resource type="Texture2D" uid="uid://binxyibutwjdb" path="res://Assets/Sprites/Controller/Any.png" id="2_ffmn3"]
+[ext_resource type="Texture2D" uid="uid://dkjymemxgr88x" path="res://Assets/Sprites/Controller/Start.png" id="2_8xkhp"]
 [ext_resource type="FontFile" uid="uid://eqhdq03jdpch" path="res://Assets/Visual/Steak Melt.otf" id="2_u5t73"]
+[ext_resource type="Texture2D" uid="uid://fmjibmtm5bdi" path="res://Assets/Sprites/Controller/Space.png" id="3_m7obl"]
 [ext_resource type="Texture2D" uid="uid://bpxlcthjptuvx" path="res://Assets/Sprites/Controller/A.png" id="5_mxqlg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tm72o"]
@@ -26,8 +27,8 @@ script = ExtResource("1_qo61v")
 targetImage = NodePath("TextureRect")
 targetLabel = NodePath("Text")
 idLabel = "ID_EXIT"
-keyboardTextures = Array[Texture2D]([ExtResource("2_ffmn3")])
-controllerTextures = Array[Texture2D]([ExtResource("5_mxqlg")])
+keyboardTextures = Array[Texture2D]([ExtResource("3_m7obl")])
+controllerTextures = Array[Texture2D]([ExtResource("2_8xkhp")])
 
 [node name="Text" type="Label" parent="."]
 layout_mode = 2

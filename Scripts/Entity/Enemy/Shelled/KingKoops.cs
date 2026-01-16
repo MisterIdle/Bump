@@ -146,7 +146,7 @@ public partial class KingKoops : ShelledEnemy
         }
 
         if (currentPhase != PhaseState.Intro)
-            Position = Utils.ClampToScreen(Position, SCREEN_CLAMP_LIMIT);
+            Position = Utils.ClampToScreen(Position, SCREEN_CLAMP_LIMIT, SCREEN_CLAMP_LIMIT, SCREEN_CLAMP_LIMIT);
     }
 
     private void StartDashSequence()
@@ -327,7 +327,6 @@ public partial class KingKoops : ShelledEnemy
         HUD.GetInstance().SetupBossBattle(health);
         SwitchState(EnemyState.Outside);
 
-        // On nettoie l'ancien timer s'il existe pour éviter les fuites
         if (introTimer != null && IsInstanceValid(introTimer))
         {
             introTimer.QueueFree();
@@ -341,14 +340,12 @@ public partial class KingKoops : ShelledEnemy
         Effect.Shake(3, 3);
         AudioManager.GetInstance().Play(AudioManager.AudioType.BossPreExplosion);
 
-        // Ajout au GameContainer (attention, si le boss meurt avant, le timer reste)
-        GameManager.GetInstance().gameContainer.AddChild(introTimer);
+        AddChild(introTimer);
         introTimer.Start();
     }
 
     private void OnIntroFinished()
     {
-        // Nettoyage immédiat
         if (introTimer != null && IsInstanceValid(introTimer))
         {
             introTimer.Timeout -= OnIntroFinished;
@@ -389,7 +386,7 @@ public partial class KingKoops : ShelledEnemy
         if (p != null)
         {
             p.invincible = true;
-            p.IsGameWon = true;
+            p.isGameWon = true;
         }
 
         // UTILISATION D'UN TWEEN AU LIEU D'UN TIMER RECYCLÉ

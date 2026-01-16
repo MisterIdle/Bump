@@ -21,14 +21,14 @@ shader_parameter/Frequency = 20.0
 shader_parameter/Speed = 0.5
 shader_parameter/Amplitude = 0.02
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7rcv"]
-shader = ExtResource("4_u20jj")
-shader_parameter/New = Color(0.45098, 0.658824, 0.517647, 1)
-shader_parameter/Seuil = 0.1
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_umlv3"]
 shader = ExtResource("4_u20jj")
 shader_parameter/New = Color(0.824708, 0.441688, 0.401484, 1)
+shader_parameter/Seuil = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7rcv"]
+shader = ExtResource("4_u20jj")
+shader_parameter/New = Color(0.549376, 0.758609, 0.614675, 1)
 shader_parameter/Seuil = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ikq34"]
@@ -80,6 +80,15 @@ texture = ExtResource("5_vjew8")
 flip_h = true
 script = ExtResource("5_22u1i")
 
+[node name="Cloud8" type="Sprite2D" parent="Horizon2"]
+modulate = Color(0.912289, 0.912289, 0.912289, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(243.469, 299)
+scale = Vector2(0.350271, 0.394628)
+texture = ExtResource("5_vjew8")
+flip_h = true
+script = ExtResource("5_22u1i")
+
 [node name="Cloud5" type="Sprite2D" parent="Horizon2"]
 modulate = Color(0.912289, 0.912289, 0.912289, 1)
 material = SubResource("ShaderMaterial_4wsax")
@@ -91,8 +100,55 @@ script = ExtResource("5_22u1i")
 
 [node name="Middle" type="ParallaxLayer" parent="."]
 z_index = 4096
-motion_scale = Vector2(0.4, 0.4)
+motion_scale = Vector2(0.1, 0.1)
 motion_mirroring = Vector2(1920, 0)
+
+[node name="Pliiar4" type="Sprite2D" parent="Middle"]
+material = SubResource("ShaderMaterial_umlv3")
+position = Vector2(1541, 764)
+rotation = 0.101229
+texture = ExtResource("1_7pveb")
+script = ExtResource("5_22u1i")
+
+[node name="Cloud7" type="Sprite2D" parent="Middle"]
+modulate = Color(0.725391, 0.910719, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(1805, 1031)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+
+[node name="Cloud10" type="Sprite2D" parent="Middle"]
+modulate = Color(0.725391, 0.910719, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(1376, 1018)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+
+[node name="Cloud11" type="Sprite2D" parent="Middle"]
+modulate = Color(0.725391, 0.910719, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(1010, 999)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+
+[node name="Cloud12" type="Sprite2D" parent="Middle"]
+modulate = Color(0.725391, 0.910719, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(601, 998)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+
+[node name="Cloud13" type="Sprite2D" parent="Middle"]
+modulate = Color(0.725391, 0.910719, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(177, 1026)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
 
 [node name="Cloud6" type="Sprite2D" parent="Middle"]
 modulate = Color(0.807085, 0.936627, 1, 1)
@@ -107,10 +163,34 @@ z_index = 4096
 motion_scale = Vector2(0.2, 0.2)
 motion_mirroring = Vector2(1920, 0)
 
+[node name="Cloud9" type="Sprite2D" parent="Middle4"]
+modulate = Color(0.807085, 0.936627, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(1747, 1101)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+
 [node name="Cloud4" type="Sprite2D" parent="Middle4"]
 modulate = Color(0.807085, 0.936627, 1, 1)
 material = SubResource("ShaderMaterial_4wsax")
 position = Vector2(540, 1031)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+
+[node name="Cloud7" type="Sprite2D" parent="Middle4"]
+modulate = Color(0.807085, 0.936627, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(37, 1097)
+scale = Vector2(0.616736, 0.509297)
+texture = ExtResource("6_0ebss")
+script = ExtResource("5_22u1i")
+
+[node name="Cloud8" type="Sprite2D" parent="Middle4"]
+modulate = Color(0.807085, 0.936627, 1, 1)
+material = SubResource("ShaderMaterial_4wsax")
+position = Vector2(1707, 1090)
 scale = Vector2(0.616736, 0.509297)
 texture = ExtResource("6_0ebss")
 script = ExtResource("5_22u1i")
@@ -123,14 +203,6 @@ scale = Vector2(0.616736, 0.509297)
 texture = ExtResource("6_0ebss")
 script = ExtResource("5_22u1i")
 
-[node name="Cloud6" type="Sprite2D" parent="Middle4"]
-modulate = Color(0.807085, 0.936627, 1, 1)
-material = SubResource("ShaderMaterial_4wsax")
-position = Vector2(1718, 1102)
-scale = Vector2(0.616736, 0.509297)
-texture = ExtResource("6_0ebss")
-script = ExtResource("5_22u1i")
-
 [node name="PillarMiddle" type="ParallaxLayer" parent="."]
 z_index = 4096
 motion_scale = Vector2(0.1, 0.1)
@@ -138,16 +210,9 @@ motion_mirroring = Vector2(1920, 0)
 
 [node name="Pliiar2" type="Sprite2D" parent="PillarMiddle"]
 material = SubResource("ShaderMaterial_e7rcv")
-position = Vector2(231, 731)
+position = Vector2(345, 825)
 texture = ExtResource("1_7pveb")
 flip_h = true
-script = ExtResource("5_22u1i")
-
-[node name="Pliiar4" type="Sprite2D" parent="PillarMiddle"]
-material = SubResource("ShaderMaterial_umlv3")
-position = Vector2(1541, 764)
-rotation = 0.101229
-texture = ExtResource("1_7pveb")
 script = ExtResource("5_22u1i")
 
 [node name="Pliiar3" type="Sprite2D" parent="PillarMiddle"]
@@ -210,21 +275,21 @@ motion_scale = Vector2(2, 2)
 motion_mirroring = Vector2(1920, 0)
 
 [node name="Cloud6" type="Sprite2D" parent="Horizon"]
-modulate = Color(1, 1, 1, 0.615686)
+modulate = Color(1, 1, 1, 0.737255)
 position = Vector2(377.5, 1148.75)
 scale = Vector2(1.2407, 0.693182)
 texture = ExtResource("6_0ebss")
 flip_h = true
 
 [node name="Cloud4" type="Sprite2D" parent="Horizon"]
-modulate = Color(1, 1, 1, 0.615686)
+modulate = Color(1, 1, 1, 0.737255)
 position = Vector2(1074, 1159)
 scale = Vector2(0.961002, 0.693182)
 texture = ExtResource("6_0ebss")
 flip_h = true
 
 [node name="Cloud5" type="Sprite2D" parent="Horizon"]
-modulate = Color(1, 1, 1, 0.615686)
+modulate = Color(1, 1, 1, 0.737255)
 position = Vector2(1565, 1190)
 scale = Vector2(0.761622, 0.693182)
 texture = ExtResource("6_0ebss")

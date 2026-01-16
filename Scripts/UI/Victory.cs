@@ -139,12 +139,7 @@ public partial class Victory : MenuBase
     {
         if (!Visible) return;
 
-        bool lIsAnyAction = pEvent.IsPressed() &&
-                           (pEvent is InputEventKey ||
-                            pEvent is InputEventMouseButton ||
-                            pEvent is InputEventJoypadButton);
-
-        if (lIsAnyAction && !MenuManager.GetInstance().loading)
+        if (pEvent.IsActionPressed(Property.INPUT_UI_PAUSE) && !MenuManager.GetInstance().loading)
         {
             GetViewport().SetInputAsHandled();
             PlayGenericExitAnimation();

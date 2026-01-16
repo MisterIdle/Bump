@@ -12,6 +12,7 @@
 HUD = NodePath("../HUD")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 z_index = 4096
 offset_left = -883.0
 offset_top = -562.0

@@ -33,10 +33,12 @@ gameLayer = NodePath("Background/Game")
 debugLabel = NodePath("Background/Info")
 
 [node name="Camera" type="Camera2D" parent="."]
-anchor_mode = 0
+position = Vector2(960, 540)
 editor_draw_drag_margin = true
 script = ExtResource("4_7q78q")
 scrollSpeed = 350.0
+verticalFollowSpeed = 0.1
+verticalLimitRatio = 0.95
 
 [node name="Background" parent="." instance=ExtResource("2_ajko8")]
 
@@ -58,6 +60,7 @@ vertical_alignment = 1
 environment = SubResource("Environment_k772t")
 
 [node name="AudioManager" parent="." instance=ExtResource("6_atonb")]
+process_mode = 0
 enemyExplosion = null
 
 [node name="Menu" parent="." instance=ExtResource("4_go1sy")]
