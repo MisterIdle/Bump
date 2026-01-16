@@ -50,6 +50,8 @@ public partial class OptionsMenu : MenuBase
     {
         base.OnEnter();
         backButton.GrabFocus();
+
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
     public override void OnExit()

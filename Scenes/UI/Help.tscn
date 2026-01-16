@@ -30,10 +30,10 @@ animDurationExit = 0.5
 
 [node name="Sign5" parent="." instance=ExtResource("3_y4wrc")]
 layout_mode = 1
-offset_left = 1889.76
-offset_top = 124.36
-offset_right = 1908.24
-offset_bottom = 139.83
+offset_left = 1020.76
+offset_top = 116.36
+offset_right = 1039.24
+offset_bottom = 131.83
 
 [node name="Global" type="Control" parent="."]
 layout_mode = 1

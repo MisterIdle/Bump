@@ -19,6 +19,7 @@ collision_mask = 257
 script = ExtResource("1_8e6h4")
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")
+hammerScore = 2000
 flipCooldownDuration = 1.0
 deathGravity = 40.0
 popScene = ExtResource("2_ba4au")

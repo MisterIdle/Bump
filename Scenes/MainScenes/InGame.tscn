@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://eijl1ptqfcr5"]
+[gd_scene load_steps=16 format=3 uid="uid://eijl1ptqfcr5"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="2_yp2vh"]
-[ext_resource type="PackedScene" uid="uid://808ccomvyg1" path="res://Scenes/Entity/Player/Pow.tscn" id="3_6tp5b"]
+[ext_resource type="PackedScene" uid="uid://4wsw7s3qogxl" path="res://Scenes/LevelDesign/Collectibles/PowCollectible.tscn" id="3_foxsx"]
 [ext_resource type="PackedScene" uid="uid://tuj17od45vsb" path="res://Scenes/Entity/Player/Player.tscn" id="3_l0emo"]
 [ext_resource type="PackedScene" uid="uid://b37b3k3mvq3nd" path="res://Scenes/LevelDesign/Collectibles/HeartCollectible.tscn" id="3_lw5r1"]
 [ext_resource type="PackedScene" uid="uid://d2jsnu1okwcj1" path="res://Scenes/Entity/Enemy/KingKoops.tscn" id="4_iqkws"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://d3yt5dgdh8gyf" path="res://Assets/Sprites/Controller/K.png" id="10_e5p5s"]
 [ext_resource type="Texture2D" uid="uid://cmr4hi2btldb4" path="res://Assets/Sprites/Controller/L.png" id="11_s8vu3"]
 [ext_resource type="Texture2D" uid="uid://b77akinjcfq01" path="res://Assets/Sprites/Controller/B.png" id="12_y672c"]
+[ext_resource type="PackedScene" uid="uid://d3hgpjemtaphm" path="res://Scenes/Entity/Enemy/Walsy.tscn" id="14_mc5co"]
+[ext_resource type="PackedScene" uid="uid://1dl8asfcved8" path="res://Scenes/Entity/Enemy/Sykoops.tscn" id="15_63oen"]
+[ext_resource type="Texture2D" uid="uid://dmxtp8wqxfkt5" path="res://Assets/Sprites/Square.svg" id="15_uyxnr"]
 
 [node name="InGame" type="Node2D"]
 
@@ -20,7 +23,7 @@ scale = Vector2(2.07197, 475.784)
 script = ExtResource("2_yp2vh")
 forceEnable = [NodePath("../GameContainer/Player")]
 healthScene = ExtResource("3_lw5r1")
-powScene = ExtResource("3_6tp5b")
+powScene = ExtResource("3_foxsx")
 flowerScene = ExtResource("4_kaa04")
 gameContainer = NodePath("../GameContainer")
 projectilesContainer = NodePath("../GameContainer/ProjectilesContainer")
@@ -30,16 +33,18 @@ enemyContainer = NodePath("../GameContainer/EnemyContainer")
 
 [node name="Player" parent="GameContainer" instance=ExtResource("3_l0emo")]
 position = Vector2(950, 553)
+flashTime = 0.3
+dropDuration = 1.3
 
 [node name="ObstaclesContainer" type="Node2D" parent="GameContainer"]
 
 [node name="EnemyContainer" type="Node2D" parent="GameContainer"]
 
 [node name="KingKoops" parent="GameContainer/EnemyContainer" instance=ExtResource("4_iqkws")]
-position = Vector2(26030, 521)
+position = Vector2(29199, 551)
 
 [node name="TutuKoops" parent="GameContainer/EnemyContainer" instance=ExtResource("8_idtoj")]
-position = Vector2(23992, 625)
+position = Vector2(2744, 563)
 
 [node name="Sign" parent="GameContainer/EnemyContainer/TutuKoops" instance=ExtResource("9_87xyt")]
 offset_left = -242.0
@@ -52,8 +57,9 @@ keyboardTextures = Array[Texture2D]([ExtResource("10_e5p5s")])
 metadata/_edit_use_anchors_ = true
 
 [node name="TutoRushroops" parent="GameContainer/EnemyContainer" instance=ExtResource("8_2dl6v")]
-position = Vector2(24836, 609)
+position = Vector2(6279, 608)
 facePlayer = false
+itemType = 1
 
 [node name="Sign2" parent="GameContainer/EnemyContainer/TutoRushroops" instance=ExtResource("9_87xyt")]
 offset_left = -233.0
@@ -66,4 +72,734 @@ keyboardTextures = Array[Texture2D]([ExtResource("11_s8vu3")])
 controllerTextures = Array[Texture2D]([ExtResource("12_y672c")])
 metadata/_edit_use_anchors_ = true
 
+[node name="Koops" parent="GameContainer/EnemyContainer" instance=ExtResource("8_idtoj")]
+position = Vector2(3238, 570)
+
+[node name="Koops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(3515, 572)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(3782, 572)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops4" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(4139, 842)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops5" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(4416, 844)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops6" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(4683, 844)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops30" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(17551, 1145)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops59" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(17701, 1210)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops61" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(17854, 1279)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops62" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(18005, 1358)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops42" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(11061, 925)
+rotation = 0.785397
+type = 2
+speed = 500.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops151" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(11211, 990)
+rotation = 0.785397
+type = 2
+speed = 500.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops152" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(11364, 1059)
+rotation = 0.785397
+type = 2
+speed = 500.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops153" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(11515, 1138)
+rotation = 0.785397
+type = 2
+speed = 500.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops63" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(18658, 1397)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops33" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(18194, 1164)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops64" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(18344, 1229)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops68" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(18497, 1298)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops31" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(18805, 1140)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops69" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(18955, 1205)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops70" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(19108, 1274)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops71" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(19259, 1353)
+rotation = 0.785397
+type = 2
+speed = 700.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops7" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(4896, 425)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops8" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(5173, 427)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops9" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(5440, 427)
+itemType = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops11" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(8520, 578)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops12" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(8420, 446)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops14" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(8420, 716)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops13" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(7169, 509)
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops15" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(7637, 506)
+type = 1
+itemType = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops19" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(10421, 863)
+type = 1
+itemType = 2
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops20" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(9806, 244)
+type = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops21" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(12334, 310)
+type = 1
+itemType = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops78" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24101, 319)
+type = 1
+amplitude = 1.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops79" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24235, 418)
+type = 1
+amplitude = 1.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops83" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24235, 418)
+type = 1
+frequency = 0.5
+amplitude = 0.5
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops98" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24235, 656)
+type = 1
+frequency = 0.5
+amplitude = 0.5
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops86" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24106, 764)
+type = 1
+frequency = 0.5
+amplitude = 0.5
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops80" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24834, 308)
+type = 1
+frequency = 0.5
+amplitude = 0.5
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops81" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24962, 419)
+type = 1
+frequency = 0.5
+amplitude = 0.5
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops99" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24962, 664)
+type = 1
+frequency = 0.5
+amplitude = 0.5
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops87" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24797, 753)
+type = 1
+frequency = 0.5
+amplitude = 0.5
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops82" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(25487, 308)
+amplitude = 1.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops90" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(25759, 542)
+amplitude = 1.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops91" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(25489, 753)
+amplitude = 1.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops97" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(24101, 319)
+type = 1
+frequency = 0.5
+amplitude = 0.5
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops22" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(12334, 680)
+type = 1
+itemType = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops35" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21231, 515)
+itemType = 2
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops36" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21436, 418)
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops38" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21617, 341)
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops37" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21436, 603)
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops39" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21617, 726)
+rotation = 0.000459184
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops40" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21617, 515)
+itemType = 1
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops50" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21822, 418)
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops51" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(22003, 341)
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops52" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21822, 603)
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops53" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(22003, 726)
+rotation = 0.000459184
+speed = 50.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops34" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21533, -10)
+rotation = -0.785397
+type = 2
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops49" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21994, -9)
+rotation = -0.785397
+type = 2
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops67" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21094, -6)
+rotation = -0.785397
+type = 2
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops60" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(22043, 1079)
+rotation = 0.785406
+type = 2
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops65" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21127, 1079)
+rotation = 0.785406
+type = 2
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops66" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(21588, 1080)
+rotation = 0.785406
+type = 2
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops134" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(20413, 594)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops135" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(20476, 731)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops136" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(20552, 591)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops137" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(20603, 737)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops122" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(19901, 240)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops123" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(19964, 377)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops124" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(20040, 237)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops125" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(20091, 383)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops126" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(19416, 505)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops127" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(19479, 642)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops128" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(19555, 502)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops129" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(19606, 648)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops75" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(15415, 280)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops106" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(15110, 437)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops107" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(14968, 504)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops108" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(15251, 358)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops109" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(15899, 603)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops110" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(15594, 760)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops111" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(15452, 827)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops113" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(15735, 681)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops85" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(27657, 516)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops95" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(27837, 409)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops96" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(27837, 636)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops100" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(29920, 530)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops101" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(30100, 423)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops102" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(30100, 650)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops103" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(31810, 524)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops104" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(31990, 417)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops105" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(31990, 644)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops121" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(33615, 505)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops130" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(33795, 398)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops131" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(33795, 625)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops139" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(35534, 514)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops140" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(35714, 407)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops145" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(35881, 275)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops141" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(35714, 634)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops146" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(35881, 779)
+type = 3
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops112" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(26399, 533)
+type = 1
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Walsy5" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(13826, 309)
+
+[node name="Walsy7" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(13601, 167)
+
+[node name="Walsy10" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(13377, 296)
+
+[node name="Walsy8" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(13826, 741)
+
+[node name="Walsy9" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(13601, 913)
+
+[node name="Walsy11" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(13377, 758)
+
+[node name="Walsy18" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(7637, 298)
+
+[node name="Walsy19" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(7405, 182)
+
+[node name="Walsy20" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(7188, 272)
+
+[node name="Walsy6" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(23278, 325)
+
+[node name="Walsy12" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(23076, 212)
+
+[node name="Walsy13" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(22853, 327)
+
+[node name="Walsy14" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(23278, 740)
+
+[node name="Walsy15" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(23076, 880)
+
+[node name="Walsy16" parent="GameContainer/EnemyContainer" instance=ExtResource("14_mc5co")]
+position = Vector2(22853, 725)
+
+[node name="Rushroops" parent="GameContainer/EnemyContainer" instance=ExtResource("8_2dl6v")]
+position = Vector2(9517, 248)
+itemType = 1
+
+[node name="Rushroops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite") instance=ExtResource("8_2dl6v")]
+position = Vector2(10144, 880)
+headVisuals = NodePath("../Rushroops/Sprite")
+spikeContainer = NodePath("../Rushroops/Shell/Spike")
+itemType = 1
+sprite = NodePath("../Rushroops/Sprite")
+
+[node name="Koops23" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(11422, 458)
+type = 1
+itemType = 2
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Rushroops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite") instance=ExtResource("8_2dl6v")]
+position = Vector2(11145, 475)
+headVisuals = NodePath("../Rushroops/Sprite")
+spikeContainer = NodePath("../Rushroops/Shell/Spike")
+itemType = 1
+sprite = NodePath("../Rushroops/Sprite")
+
+[node name="Sykoops" parent="GameContainer/EnemyContainer" instance=ExtResource("15_63oen")]
+position = Vector2(12405, 500)
+itemType = 2
+
+[node name="Sykoops2" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("spikeContainer", "sprite") instance=ExtResource("15_63oen")]
+position = Vector2(15952, 923)
+spikeContainer = NodePath("../Sykoops/Shell/Spike")
+sprite = NodePath("../Sykoops/Sprite")
+
+[node name="Koops76" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(16595, 237)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops114" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(16290, 394)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops115" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(16148, 461)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops116" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(16431, 315)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops117" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(17079, 560)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops118" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(16774, 717)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops119" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(16632, 784)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Koops120" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("sprite") instance=ExtResource("8_idtoj")]
+position = Vector2(16915, 638)
+speed = 300.0
+sprite = NodePath("../Koops/Sprite")
+
+[node name="Sykoops3" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("spikeContainer", "sprite") instance=ExtResource("15_63oen")]
+position = Vector2(22458, 517)
+spikeContainer = NodePath("../Sykoops/Shell/Spike")
+itemType = 3
+sprite = NodePath("../Sykoops/Sprite")
+
+[node name="Rushroops9" parent="GameContainer/EnemyContainer" instance=ExtResource("8_2dl6v")]
+position = Vector2(14509, 543)
+itemType = 1
+
+[node name="Rushroops10" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite") instance=ExtResource("8_2dl6v")]
+position = Vector2(18805, 564)
+headVisuals = NodePath("../Rushroops9/Sprite")
+spikeContainer = NodePath("../Rushroops9/Shell/Spike")
+itemType = 2
+sprite = NodePath("../Rushroops9/Sprite")
+
+[node name="Rushroops14" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite") instance=ExtResource("8_2dl6v")]
+position = Vector2(26437, 383)
+headVisuals = NodePath("../Rushroops9/Sprite")
+spikeContainer = NodePath("../Rushroops9/Shell/Spike")
+itemType = 1
+sprite = NodePath("../Rushroops9/Sprite")
+
+[node name="Rushroops16" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite") instance=ExtResource("8_2dl6v")]
+position = Vector2(26664, 536)
+headVisuals = NodePath("../Rushroops9/Sprite")
+spikeContainer = NodePath("../Rushroops9/Shell/Spike")
+itemType = 3
+sprite = NodePath("../Rushroops9/Sprite")
+
+[node name="Rushroops15" parent="GameContainer/EnemyContainer" node_paths=PackedStringArray("headVisuals", "spikeContainer", "sprite") instance=ExtResource("8_2dl6v")]
+position = Vector2(26436, 713)
+headVisuals = NodePath("../Rushroops9/Sprite")
+spikeContainer = NodePath("../Rushroops9/Shell/Spike")
+itemType = 2
+sprite = NodePath("../Rushroops9/Sprite")
+
 [node name="ProjectilesContainer" type="Node2D" parent="GameContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-67, -3)
+scale = Vector2(10000, 0.0291667)
+texture = ExtResource("15_uyxnr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-4.76837e-07, 1074)
+scale = Vector2(10000, 0.0291667)
+texture = ExtResource("15_uyxnr")

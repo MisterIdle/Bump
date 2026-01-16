@@ -65,6 +65,8 @@ public partial class MainMenu : MenuBase
         startButton.GrabFocus();
 
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.Menu);
+
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
     public override void OnExit()

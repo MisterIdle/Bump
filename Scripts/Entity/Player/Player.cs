@@ -351,8 +351,6 @@ public partial class Player : Entity
             Vector2 lDirection = Vector2.Right.Rotated(Mathf.DegToRad(lData.angles[i]));
             Shot lShot = Shot.Create(lData.shots[i].shotScene, muzzle.GlobalPosition, lDirection);
 
-            GameStats.shotsFired++;
-
             if (IsInstanceValid(lShot))
                 lastShot = lShot;
         }

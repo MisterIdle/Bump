@@ -62,6 +62,8 @@ public partial class StateMenu : MenuBase
         Configure();
         GetTree().Paused = true;
 
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+
         AudioManager.GetInstance().Play(AudioManager.AudioType.uiPause);
 
         MenuManager lManager = MenuManager.GetInstance();
@@ -94,6 +96,8 @@ public partial class StateMenu : MenuBase
 
         if (lManager.previousMenuState == lManager.currentMenuState)
             CreateTween().TweenProperty(panel, (string)PropertyName.Modulate + ":a", ALPHA_TRANSPARENT, FADE_DURATION);
+
+        Input.MouseMode = Input.MouseModeEnum.Hidden;
 
         PlayGenericExitAnimation();
         base.OnExit();

@@ -31,21 +31,17 @@ public partial class Rushroops : ShelledEnemy
     private Tween animationTween;
     private Vector2 targetDashDirection;
 
-    public override void _Ready()
-    {
-        base._Ready();
-
-        stateTimer = new Timer();
-        stateTimer.OneShot = true;
-        stateTimer.Timeout += OnStateTimerTimeout;
-        AddChild(stateTimer);
-    }
-
     public override void Initiate()
     {
         base.Initiate();
         defaultSpeed = speed;
         baseScale = Scale;
+
+
+        stateTimer = new Timer();
+        stateTimer.OneShot = true;
+        stateTimer.Timeout += OnStateTimerTimeout;
+        AddChild(stateTimer);
 
         shell?.SetShellColor(Colors.Blue);
         shell.Position = shellPosOut;

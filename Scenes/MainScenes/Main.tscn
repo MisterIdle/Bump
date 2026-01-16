@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://xglysqus4mmt"]
+[gd_scene load_steps=17 format=3 uid="uid://xglysqus4mmt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_ij506"]
 [ext_resource type="PackedScene" uid="uid://dqrqjbxsydh3h" path="res://Scenes/UI/Parallax.tscn" id="2_ajko8"]
@@ -7,7 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://y0p204y3sd1g" path="res://Scenes/LevelDesign/Menu.tscn" id="4_go1sy"]
 [ext_resource type="PackedScene" uid="uid://cotrqefqqlcm8" path="res://Scenes/MainScenes/AudioManager.tscn" id="6_atonb"]
 [ext_resource type="FontFile" uid="uid://eqhdq03jdpch" path="res://Assets/Visual/Steak Melt.otf" id="6_qh5su"]
+[ext_resource type="AudioStream" uid="uid://dbx24kv8iyjrm" path="res://Audio/Audio/bomb.wav" id="8_5ferf"]
 [ext_resource type="PackedScene" uid="uid://b26o5ieubh6fc" path="res://Scenes/MainScenes/Debug.tscn" id="8_l7wn5"]
+[ext_resource type="AudioStream" uid="uid://bhbc2nuuhpof1" path="res://Audio/Audio/Special/shell_ricochet.wav" id="8_ue6av"]
+[ext_resource type="AudioStream" uid="uid://dj5s5kboui0n" path="res://Audio/Audio/Obstacle_destruction.wav" id="9_m8rt4"]
+[ext_resource type="AudioStream" uid="uid://cmskdhus16yuv" path="res://Audio/Audio/enemy0_explosion0.wav" id="9_tbpaa"]
+[ext_resource type="AudioStream" uid="uid://cdhfcewnwolp0" path="res://Audio/Audio/Music/win_jingle.wav" id="10_1iauh"]
+[ext_resource type="AudioStream" uid="uid://m3nbrb1e48b3" path="res://Audio/Audio/Music/gameover_jingle.wav" id="11_dbkb2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_agjuq"]
 font = ExtResource("6_qh5su")
@@ -36,9 +42,8 @@ debugLabel = NodePath("Background/Info")
 position = Vector2(960, 540)
 editor_draw_drag_margin = true
 script = ExtResource("4_7q78q")
-scrollSpeed = 350.0
+scrollSpeed = 300.0
 verticalFollowSpeed = 0.1
-verticalLimitRatio = 0.95
 
 [node name="Background" parent="." instance=ExtResource("2_ajko8")]
 
@@ -61,6 +66,12 @@ environment = SubResource("Environment_k772t")
 
 [node name="AudioManager" parent="." instance=ExtResource("6_atonb")]
 process_mode = 0
-enemyExplosion = null
+playerBomb = ExtResource("8_5ferf")
+enemyExplosion = Array[AudioStream]([])
+enemyExplosionNonBug = ExtResource("9_tbpaa")
+enemyShellBlock = ExtResource("8_ue6av")
+obstacleDestruction = ExtResource("9_m8rt4")
+jingleWin = ExtResource("10_1iauh")
+jingleLose = ExtResource("11_dbkb2")
 
 [node name="Menu" parent="." instance=ExtResource("4_go1sy")]

@@ -6,7 +6,7 @@ namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 
 public partial class Koops : ShelledEnemy
 {
-    private enum TypeEnum { Green, Red, Blue }
+    private enum TypeEnum { Green, Red, Blue, Purple }
 
     [Export] private TypeEnum type;
 
@@ -27,6 +27,9 @@ public partial class Koops : ShelledEnemy
             case TypeEnum.Blue:
                 lTargetColor = Colors.Blue;
                 break;
+            case TypeEnum.Purple:
+                lTargetColor = Colors.Purple;
+                break;
         }
 
         shell.SetShellColor(lTargetColor);
@@ -39,7 +42,7 @@ public partial class Koops : ShelledEnemy
         GameManager.GetInstance().enemyContainer.AddChild(lKoops);
 
         lKoops.Position = pPos;
-        lKoops.type = TypeEnum.Blue;
+        lKoops.type = TypeEnum.Purple;
 
         return lKoops;
     }
@@ -56,7 +59,6 @@ public partial class Koops : ShelledEnemy
                 velocity.Y = angleY;
                 break;
             case TypeEnum.Blue:
-                velocity = playerDirection;
                 break;
             default:
                 break;

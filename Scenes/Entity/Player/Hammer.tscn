@@ -33,7 +33,7 @@ mix_rate = 48000
 
 [sub_resource type="Resource" id="Resource_pdv40"]
 script = ExtResource("2_1wbp7")
-duration = 1.2
+duration = 1.0
 targetChargeRotation = -90.0
 targetSwingRotation = 240.0
 scale = 1.2
@@ -75,8 +75,9 @@ collision = NodePath("Stick/Hammer/HammerCollision/CollisionShape2D")
 headSprite = NodePath("Stick/Hammer")
 popScene = ExtResource("2_sd14d")
 phases = Array[Object]([SubResource("Resource_x0oi6"), SubResource("Resource_pdv40"), SubResource("Resource_6rh66")])
-minChargeDuration = 0.2
+minChargeDuration = 0.0
 colorCooldown = Color(0, 0, 0, 1)
+scaleElasticity = 0.1
 sprite = NodePath("Stick")
 
 [node name="CollisionWave" type="CollisionShape2D" parent="."]

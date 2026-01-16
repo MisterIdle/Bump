@@ -2,24 +2,21 @@ using Godot;
 
 public partial class Fade : ColorRect
 {
-    [Export] public float Duration = 500f;
-    [Export] public Color FadeColor = Colors.Black;
+    [Export] public float duration = 0.5f;
+    [Export] public Color fadeColor = Colors.Black;
+
+    public override void _EnterTree()
+    {
+        Color = fadeColor;
+        Color = new Color(Color, 1f);
+        Visible = true;
+    }
 
     public override void _Ready()
     {
-        ZIndex = 4096;
+        var tween = CreateTween();
 
-        SetAnchorsPreset(LayoutPreset.FullRect);
-
-        MouseFilter = MouseFilterEnum.Ignore;
-
-        Color = FadeColor;
-
-        Visible = true;
-
-        Tween tween = CreateTween();
-
-        tween.TweenProperty(this, "color:a", 0.0f, Duration)
+        tween.TweenProperty(this, "color:a", 0f, duration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 

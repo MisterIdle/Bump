@@ -1,3 +1,4 @@
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NToolsBox;
 using Godot;
@@ -9,17 +10,19 @@ public partial class Walsy : Enemy
     private AnimatedSprite2D animatedSprite;
 
     [Export] private NodePath animatedSpritePath;
+    [Export] private Color angryColor = Colors.Red;
+    [Export] private bool angry;
+
     [Export] private float rotationSpeed;
     [Export] private float inverseRotationAmount = 15f;
     [Export] private float inverseRotationDuration = 0.2f;
 
-    // ========================================================================
-    // INIT
-    // ========================================================================
-
     public override void Initiate()
     {
         base.Initiate();
+
+        if (angry)
+            Modulate = angryColor;
 
         animatedSprite = (AnimatedSprite2D)GetNode(animatedSpritePath);
 
@@ -27,19 +30,11 @@ public partial class Walsy : Enemy
         health = animatedSprite.SpriteFrames.GetFrameCount(lAnim);
     }
 
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
-
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
         RotationDegrees += rotationSpeed * pDelta;
     }
-
-    // ========================================================================
-    // ANIMATION
-    // ========================================================================
 
     private void InverseRotation()
     {
@@ -47,15 +42,12 @@ public partial class Walsy : Enemy
         lInverseTween.TweenProperty(this, (string)PropertyName.RotationDegrees, RotationDegrees - inverseRotationAmount, inverseRotationDuration);
     }
 
-    // ========================================================================
-    // COLLIDE
-    // ========================================================================
-
     public override void EntityHit(int pDamage = 1)
     {
         base.EntityHit(pDamage);
 
-        animatedSprite.Frame++;
+        if (!angry)
+            animatedSprite.Frame++;
 
         Effect.BumpScale(this, baseScale);
         InverseRotation();
@@ -66,9 +58,16 @@ public partial class Walsy : Enemy
         base.EntityDeath();
         QueueFree();
 
-        if (killedByHammer)
-            HUD.GetInstance().CreateBubbleScore(Position, score + hammerScore, Colors.Wheat);
-        else
-            HUD.GetInstance().CreateBubbleScore(Position, score, Colors.Wheat);
+        int lFinalScore = GetScoreWithCombo(killedByHammer ? score + hammerScore : score);
+
+        HUD.GetInstance().CreateBubbleScore(Position, lFinalScore, Colors.Wheat);
+    }
+
+    protected override void OnCollide(Area2D pArea)
+    {
+        if (pArea is Projectiles lProjectiles && angry)
+            return;
+
+        base.OnCollide(pArea);
     }
 }

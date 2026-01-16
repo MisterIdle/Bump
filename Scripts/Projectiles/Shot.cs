@@ -1,5 +1,6 @@
-using Godot;
 using Com.IsartDigital.Shmup.NManager;
+using Com.IsartDigital.Shmup.NStats;
+using Godot;
 
 namespace Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
 
@@ -20,21 +21,23 @@ public partial class Shot : Projectiles
         if (!IsInstanceValid(GameManager.GetInstance()))
             return null;
 
-        var gm = GameManager.GetInstance();
+        GameManager lGameManager = GameManager.GetInstance();
 
-        if (!IsInstanceValid(gm.gameContainer))
+        if (!IsInstanceValid(lGameManager.gameContainer))
             return null;
 
-        Shot shot = pScene.Instantiate<Shot>();
+        Shot lShot = pScene.Instantiate<Shot>();
 
-        gm.gameContainer.AddChild(shot);
+        lGameManager.gameContainer.AddChild(lShot);
 
-        shot.GlobalPosition = pPos;
-        shot.GlobalRotation = pWay.Angle();
+        lShot.GlobalPosition = pPos;
+        lShot.GlobalRotation = pWay.Angle();
 
-        shot.Initiate();
+        lShot.Initiate();
 
-        return shot;
+        GameStats.shotsFired++;
+
+        return lShot;
     }
 
     protected override void OnCollide(Area2D pArea)

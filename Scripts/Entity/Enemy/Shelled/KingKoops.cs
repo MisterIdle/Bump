@@ -73,7 +73,7 @@ public partial class KingKoops : ShelledEnemy
     private int beatCounter = 0;
 
     private Tween visualTween;
-    private Timer introTimer; // Renommé pour éviter la confusion
+    private Timer introTimer;
     private Timer spawnTimer;
 
     private ulong lastPhaseChangeTime = 0;
@@ -315,10 +315,6 @@ public partial class KingKoops : ShelledEnemy
         }
     }
 
-    // ========================================================================
-    // LOGIQUE CORRIGÉE : INTRO ET MORT
-    // ========================================================================
-
     private void StartIntro()
     {
         AudioManager.GetInstance().StopMusic();
@@ -361,13 +357,10 @@ public partial class KingKoops : ShelledEnemy
 
     public override void EntityDeath()
     {
-        // Sécurité critique : si déjà mort, on sort pour éviter les doubles appels
         if (isDeath) return;
 
-        // Sécurité logique : on ne meurt qu'en phase finale
         if (currentPhase != PhaseState.Final) return;
 
-        // Arrêt des systèmes
         dashTimer?.Stop();
         spawnTimer?.Stop();
         KillActiveTweens();
@@ -378,19 +371,15 @@ public partial class KingKoops : ShelledEnemy
         EndEvent(AudioManager.AudioType.BossExplosion);
         head.CollisionLayer = 0;
 
-        // Appel parent (déclenche isDeath = true)
         base.EntityDeath();
 
-        // Gestion de la victoire joueur
-        Player p = Player.GetInstance();
-        if (p != null)
+        Player lPlayer = Player.GetInstance();
+        if (lPlayer != null)
         {
-            p.invincible = true;
-            p.isGameWon = true;
+            lPlayer.invincible = true;
+            lPlayer.isGameWon = true;
         }
 
-        // UTILISATION D'UN TWEEN AU LIEU D'UN TIMER RECYCLÉ
-        // C'est la méthode la plus sûre pour garantir l'exécution de la fin
         Tween deathTween = CreateTween();
         deathTween.TweenInterval(deathDelayDuration);
         deathTween.Finished += OnDeathSequenceFinished;
@@ -403,19 +392,13 @@ public partial class KingKoops : ShelledEnemy
 
     private void CallDeathCleanup()
     {
-        // Cette ligne déclenche la victoire
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
 
         ClearAll(false, false);
         Projectiles.ClearAll();
 
-        // Destruction du boss
         QueueFree();
     }
-
-    // ========================================================================
-    // FIN LOGIQUE CORRIGÉE
-    // ========================================================================
 
     private void AdvancePhase()
     {
@@ -463,6 +446,8 @@ public partial class KingKoops : ShelledEnemy
         if (health <= 0)
         {
             EntityDeath();
+            int lFinalScore = GetScoreWithCombo(score);
+            HUD.GetInstance().CreateBubbleScore(Position, lFinalScore, Colors.DarkOrange);
             return;
         }
 
@@ -619,7 +604,7 @@ public partial class KingKoops : ShelledEnemy
             ScaleTime.SlowMotion();
             Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
 
-            HUD.GetInstance().CreateBubbleScore(Position, score, Colors.Orange);
+            HUD.GetInstance().CreateBubbleScore(Position, GetScoreWithCombo(score), Colors.Orange);
         }
     }
 
@@ -638,7 +623,7 @@ public partial class KingKoops : ShelledEnemy
             ScaleTime.SlowMotion();
             Effect.SquashStretch(this, baseScale, false, false, squashStretchDuration);
 
-            HUD.GetInstance().CreateBubbleScore(Position, scoreHead, Colors.Red);
+            HUD.GetInstance().CreateBubbleScore(Position, GetScoreWithCombo(scoreHead), Colors.Red);
         }
 
         int lDamage = lIsHammer ? Hammer.GetInstance().attackForce : DEFAULT_DAMAGE;

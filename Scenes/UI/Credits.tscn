@@ -226,7 +226,7 @@ vertical_alignment = 1
 
 [node name="Sign5" parent="." instance=ExtResource("3_hkvm7")]
 layout_mode = 1
-offset_left = 1890.84
-offset_top = 125.427
-offset_right = 1909.32
-offset_bottom = 140.897
+offset_left = 1815.76
+offset_top = 173.293
+offset_right = 1834.24
+offset_bottom = 188.763

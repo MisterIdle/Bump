@@ -15,7 +15,6 @@ public partial class AudioManager : Node
 
         PowerUpPow,
         PowerUpLife,
-        PowerUpBomb,
 
         HammerCharge,
 

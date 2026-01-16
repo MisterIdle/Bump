@@ -66,8 +66,6 @@ public partial class Collectibles : Movable
     {
         CollisionMask = 0;
 
-        //HUD.GetInstance().CreateBubbleScore(Position, score, Colors.Green);
-
         Tween lRecoltTween = CreateTween();
 
         lRecoltTween.TweenProperty(this, (string)PropertyName.GlobalPosition + ":y", GlobalPosition.Y - recoltHeight,recoltDuration * moveUpRatio)

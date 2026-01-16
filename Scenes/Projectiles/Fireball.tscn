@@ -35,7 +35,7 @@ script = ExtResource("1_tb7fp")
 popScene = ExtResource("2_wc6pa")
 score = 0
 direction = 2
-speed = 1500.0
+speed = 2000.0
 lerpFactor = 1.0
 sprite = NodePath("Sprite2D2/Sprite2D")
 
@@ -44,6 +44,7 @@ shape = SubResource("CircleShape2D_3u186")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-22, -1)
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_q8xao")
 texture = ExtResource("3_i3x5u")
 lifetime = 0.8

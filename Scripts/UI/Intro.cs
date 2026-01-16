@@ -23,6 +23,8 @@ public partial class Intro : Control
 
     public override void _Ready()
     {
+        Input.MouseMode = Input.MouseModeEnum.Hidden;
+
         Vector2 viewportSize = GetViewportRect().Size;
         Vector2 centerPos = (viewportSize / 2) - (LogoDisplay.Size / 2);
         Vector2 startPos = new Vector2(centerPos.X, -LogoDisplay.Size.Y - DropHeightOffset);

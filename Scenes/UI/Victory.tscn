@@ -54,9 +54,9 @@ powCountLabel = NodePath("Stats/Pow/PowUseCount")
 scoreText = NodePath("RangLetter/Score/ScoreText")
 scoreLabel = NodePath("RangLetter/Score/ScoreCount")
 rankLabel = NodePath("RangLetter/Score/Rang")
-rankScoreThresholds = PackedInt32Array(0, 10000)
-rankTitles = PackedStringArray("F", "S++")
-rankColors = PackedColorArray(0, 0, 0, 1, 0.973093, 0.774373, 2.31028e-06, 1)
+rankScoreThresholds = PackedInt32Array(100000, 200000, 300000, 400000, 600000, 800000, 1000000)
+rankTitles = PackedStringArray("D", "C", "B", "A", "S", "S+", "S++")
+rankColors = PackedColorArray(0, 0, 0, 1, 0.973093, 0.774373, 2.31028e-06, 1, 0.972549, 0.772549, 0, 1, 0.972549, 0.772549, 0, 1, 0.972549, 0.772549, 0, 1, 0.972549, 0.772549, 0, 1, 0.972549, 0.772549, 0, 1)
 statFadeDuration = 0.3
 statCountDuration = 1.5
 scoreHeatColor = Color(1, 0.621042, 0.563658, 1)
@@ -74,9 +74,9 @@ vertical_alignment = 1
 [node name="Sign5" parent="Label" instance=ExtResource("2_ftxk7")]
 layout_mode = 1
 offset_left = 1857.76
-offset_top = 36.472
+offset_top = 941.472
 offset_right = 1876.4
-offset_bottom = 188.392
+offset_bottom = 1093.39
 
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 2

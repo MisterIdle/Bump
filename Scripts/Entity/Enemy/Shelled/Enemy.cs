@@ -15,7 +15,6 @@ public partial class Enemy : Entity
     [ExportCategory("Item")]
     [Export] private ItemType itemType = ItemType.None;
 
-
     [ExportCategory("Other")]
     [Export] protected int hammerScore = 1000;
 
@@ -36,8 +35,11 @@ public partial class Enemy : Entity
     protected const int DEFAULT_DAMAGE = 1;
 
     protected bool killedByHammer;
-
     protected float globalPlayerDistance;
+
+    private static ulong lastKillTimeMsec;
+    private static int comboMultiplier = 1;
+    private const double COMBO_WINDOW_MSEC = 800.0;
 
     public override void _Ready()
     {
@@ -47,10 +49,6 @@ public partial class Enemy : Entity
         flipTimer.OneShot = true;
         AddChild(flipTimer);
     }
-
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
 
     protected override void Update(float pDelta)
     {
@@ -64,10 +62,6 @@ public partial class Enemy : Entity
             QueueFree();
         }
     }
-
-    // ========================================================================
-    // STATIC CLEAR
-    // ========================================================================
 
     public static void ClearAll(bool pBossOneShot, bool pTotalClear)
     {
@@ -99,10 +93,6 @@ public partial class Enemy : Entity
         }
     }
 
-    // ========================================================================
-    // ANIMATION
-    // ========================================================================
-
     protected void Flip(bool pFaceLeft)
     {
         if (!flipTimer.IsStopped()) return;
@@ -120,10 +110,6 @@ public partial class Enemy : Entity
 
         flipTimer.Start(flipCooldownDuration);
     }
-
-    // ========================================================================
-    // COLLIDE
-    // ========================================================================
 
     public override void EntityHit(int pDamage)
     {
@@ -145,6 +131,20 @@ public partial class Enemy : Entity
         SetCollisionMaskValue(9, true);
     }
 
+    protected int GetScoreWithCombo(int pBaseScore)
+    {
+        ulong lCurrentTime = Time.GetTicksMsec();
+
+        if (lCurrentTime - lastKillTimeMsec <= COMBO_WINDOW_MSEC)
+            comboMultiplier++;
+        else
+            comboMultiplier = 1;
+
+        lastKillTimeMsec = lCurrentTime;
+
+        return pBaseScore * comboMultiplier;
+    }
+
     public override void EntityDeath()
     {
         invincibleTimer.Stop();
@@ -156,8 +156,6 @@ public partial class Enemy : Entity
         GameStats.enemyKills++;
 
         GameManager.GetInstance().SpawnCollectible(itemType, GlobalPosition);
-
-        int lFinalScore = killedByHammer ? score + hammerScore : score;
 
         SetCollisionMaskValue(1, false);
         SetCollisionMaskValue(9, false);

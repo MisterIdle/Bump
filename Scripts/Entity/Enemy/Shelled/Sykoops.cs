@@ -27,14 +27,12 @@ public partial class Sykoops : ShelledEnemy
 
         base.Initiate();
 
-        // Timer pour l'abandon (si derrière le joueur)
         behindTimer = new Timer();
         behindTimer.WaitTime = maxBehindTime;
         behindTimer.OneShot = true;
         behindTimer.Timeout += BehindStop;
         AddChild(behindTimer);
 
-        // Timer pour le Spawn
         spawnTimer = new Timer();
         spawnTimer.WaitTime = spawnDuration;
         spawnTimer.OneShot = true;
@@ -43,7 +41,6 @@ public partial class Sykoops : ShelledEnemy
 
         shell.SetShellColor(Colors.Black);
 
-        // On commence en Spawn
         chaseState = ChaseState.Spawn;
         spawnTimer.Start();
     }

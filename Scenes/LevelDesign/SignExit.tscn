@@ -8,9 +8,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_tm72o"]
 font = ExtResource("2_u5t73")
-font_size = 35
-font_color = Color(0.821911, 1.85303e-06, 7.70092e-07, 1)
-outline_size = 10
+font_size = 46
 
 [node name="Sign" type="Control" node_paths=PackedStringArray("targetImage", "targetLabel")]
 layout_mode = 3
@@ -32,10 +30,10 @@ controllerTextures = Array[Texture2D]([ExtResource("2_8xkhp")])
 
 [node name="Text" type="Label" parent="."]
 layout_mode = 2
-offset_left = -61.5384
-offset_top = -92.3077
-offset_right = 375.462
-offset_bottom = -7.30766
+offset_left = -121.0
+offset_top = -92.0
+offset_right = 435.0
+offset_bottom = -7.0
 text = "ID_DEBUG"
 label_settings = SubResource("LabelSettings_tm72o")
 horizontal_alignment = 1

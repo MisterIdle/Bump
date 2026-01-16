@@ -90,6 +90,8 @@ public partial class Shell : Sprite2D
         lProtectTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation + protectAnimAngle, protectAnimTime);
         lProtectTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation - protectAnimAngle, protectAnimTime);
         lProtectTween.TweenProperty(this, (string)PropertyName.RotationDegrees, baseShellRotation, protectAnimTime);
+
+        AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyShellBlock);
     }
 
     public void ShellDamageAnimation()

@@ -53,10 +53,6 @@ public partial class ShelledEnemy : Enemy
     private const float ANGLE_END_RATIO = -5f / 6f;
     private const float SPIKE_SCALE_DURATION = 0.2f;
 
-    // ========================================================================
-    // INIT
-    // ========================================================================
-
     public override void Initiate()
     {
         base.Initiate();
@@ -80,10 +76,6 @@ public partial class ShelledEnemy : Enemy
         AddChild(spikeFireTimer);
     }
 
-    // ========================================================================
-    // UPDATE
-    // ========================================================================
-
     protected override void AliveUpdate(float pDelta)
     {
         base.AliveUpdate(pDelta);
@@ -101,10 +93,6 @@ public partial class ShelledEnemy : Enemy
             }
         }
     }
-
-    // ========================================================================
-    // ATTACK
-    // ========================================================================
 
     public void StartSpike()
     {
@@ -273,10 +261,6 @@ public partial class ShelledEnemy : Enemy
         lTween.TweenProperty(pSpike, (string)PropertyName.Scale, pSpike.Scale * spikeSizeMultiplier, SPIKE_SCALE_DURATION);
     }
 
-    // ========================================================================
-    // COLLIDE
-    // ========================================================================
-
     public override void EntityHit(int pDamage)
     {
         base.EntityHit(pDamage);
@@ -296,10 +280,9 @@ public partial class ShelledEnemy : Enemy
         fireTween?.Kill();
         chargingSpikesList.Clear();
 
-        if (killedByHammer)
-            HUD.GetInstance().CreateBubbleScore(Position, score + hammerScore, shell.GetShellColor());
-        else
-            HUD.GetInstance().CreateBubbleScore(Position, score, shell.GetShellColor());
+        int lFinalScore = GetScoreWithCombo(killedByHammer ? score + hammerScore : score);
+
+        HUD.GetInstance().CreateBubbleScore(Position, lFinalScore, shell.GetShellColor());
     }
 
     protected override void OnCollide(Area2D pArea)
@@ -310,18 +293,17 @@ public partial class ShelledEnemy : Enemy
         {
             base.OnCollide(pArea);
             shell?.ShellDamageAnimation();
+            return;
         }
 
         if (pArea is Projectiles)
         {
-            AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyShellBlock);
             shell?.ShellProtectAnimation();
             return;
         }
 
         if (pArea is Player lPlayer && lPlayer.invincible)
         {
-            AudioManager.GetInstance().Play(AudioManager.AudioType.EnemyShellBlock);
             shell?.ShellProtectAnimation();
             return;
         }
