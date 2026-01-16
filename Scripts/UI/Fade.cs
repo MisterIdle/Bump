@@ -8,7 +8,11 @@ public partial class Fade : ColorRect
     public override void _EnterTree()
     {
         Color = fadeColor;
-        Color = new Color(Color, 1f);
+
+        Color newColor = Color;
+        newColor.A = 1.0f;
+        Color = newColor;
+
         Visible = true;
     }
 

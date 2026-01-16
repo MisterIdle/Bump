@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pmbbh")
 LogoDisplay = NodePath("TextureRect")
-LogoList = Array[Texture2D]([ExtResource("2_1dxv2"), ExtResource("3_sx8e3")])
+LogoList = Array[Texture2D]([ExtResource("3_sx8e3")])
 GameScene = ExtResource("4_2k2ro")
 
 [node name="ColorRect" type="ColorRect" parent="."]

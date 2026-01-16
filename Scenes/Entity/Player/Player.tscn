@@ -43,7 +43,7 @@ shotScene = ExtResource("2_1sndv")
 [sub_resource type="Resource" id="Resource_3ucia"]
 script = ExtResource("2_0fou4")
 shots = Array[Object]([SubResource("Resource_gm88d"), SubResource("Resource_koack"), SubResource("Resource_fwtgt")])
-angles = PackedFloat32Array(0, 8, -8)
+angles = PackedFloat32Array(0, 3, -3)
 playerColor = Color(0.869713, 0.606181, 0.367282, 1)
 rotationSpeed = 15.0
 moveSpeedMultiplier = 1.2
@@ -63,7 +63,7 @@ shotScene = ExtResource("2_1sndv")
 [sub_resource type="Resource" id="Resource_gky4d"]
 script = ExtResource("2_0fou4")
 shots = Array[Object]([SubResource("Resource_oofe2"), SubResource("Resource_twi2q"), SubResource("Resource_5l5rc")])
-angles = PackedFloat32Array(0, 10, -10)
+angles = PackedFloat32Array(0, 6, -6)
 playerColor = Color(1, 0.387565, 0.323131, 1)
 rotationSpeed = 20.0
 moveSpeedMultiplier = 1.3

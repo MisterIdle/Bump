@@ -131,6 +131,16 @@ public partial class KingKoops : ShelledEnemy
                 CallDeferred(MethodName.CallDeathCleanup);
             }
         }
+
+        if (isDeath)
+        {
+            float lBottomLimit = GetViewportRect().Size.Y + 200;
+
+            if (GlobalPosition.Y > lBottomLimit)
+            {
+                QueueFree();
+            }
+        }
     }
 
     protected override void AliveUpdate(float pDelta)
@@ -343,9 +353,7 @@ public partial class KingKoops : ShelledEnemy
         SwitchState(EnemyState.Outside);
 
         if (introTimer != null && IsInstanceValid(introTimer))
-        {
             introTimer.QueueFree();
-        }
 
         introTimer = new Timer();
         introTimer.WaitTime = introDuration;
@@ -420,8 +428,6 @@ public partial class KingKoops : ShelledEnemy
 
         ClearAll(false, false);
         Projectiles.ClearAll();
-
-        QueueFree();
     }
 
     private void AdvancePhase()
