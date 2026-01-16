@@ -160,6 +160,10 @@ public partial class StateMenu : MenuBase
 
         AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
         AudioManager.GetInstance().StopMusic();
+
+        Blackbar.GetInstance().Hide();
+
+        Parallax.GetInstance().SetBossMode(false);
     }
 
     private void RestartSwitch()
@@ -173,6 +177,10 @@ public partial class StateMenu : MenuBase
 
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Help);
         AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
+
+        Blackbar.GetInstance().Hide();
+
+        Parallax.GetInstance().SetBossMode(false);
     }
 
     public void OnMainMenu()
@@ -187,6 +195,10 @@ public partial class StateMenu : MenuBase
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.MainMenu);
         SceneManager.GetInstance().ChangeGlobalScene(SceneManager.SceneType.MainMenu);
         AudioManager.GetInstance().Play(AudioManager.AudioType.uiClick);
+
+        Blackbar.GetInstance().Hide();
+
+        Parallax.GetInstance().SetBossMode(false);
     }
 
     private void StartWaveLoop()

@@ -42,10 +42,12 @@ debugLabel = NodePath("Background/Info")
 position = Vector2(960, 540)
 editor_draw_drag_margin = true
 script = ExtResource("4_7q78q")
-scrollSpeed = 300.0
 verticalFollowSpeed = 0.1
 
 [node name="Background" parent="." instance=ExtResource("2_ajko8")]
+SpawnY = 1500.0
+Duration = 1.5
+Stagger = 0.2
 
 [node name="Info" type="Label" parent="Background"]
 visible = false

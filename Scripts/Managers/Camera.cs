@@ -7,7 +7,7 @@ namespace Com.IsartDigital.Shmup.NManager;
 public partial class Camera : Camera2D
 {
     [ExportCategory("Scrolling Settings")]
-    [Export] public float scrollSpeed = 200;
+    public float scrollSpeed = 300;
     [Export] public float accel = 3f;
 
     [ExportCategory("Vertical Follow Settings")]

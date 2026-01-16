@@ -1,11 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://y0p204y3sd1g"]
+[gd_scene load_steps=4 format=3 uid="uid://y0p204y3sd1g"]
 
 [ext_resource type="PackedScene" uid="uid://dhloh05yspq3y" path="res://Scenes/UI/HUD.tscn" id="1_e7rsg"]
+[ext_resource type="Script" path="res://Scenes/LevelDesign/Blackbar.cs" id="3_is34u"]
 [ext_resource type="PackedScene" uid="uid://csry3yy5ta171" path="res://Scenes/UI/MenuManager.tscn" id="7_8k05n"]
 
 [node name="Menu" type="CanvasLayer"]
 
 [node name="HUD" parent="." instance=ExtResource("1_e7rsg")]
+
+[node name="Blackbar" type="Control" parent="." node_paths=PackedStringArray("topBar", "bottomBar")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 53.0
+offset_bottom = 47.0
+script = ExtResource("3_is34u")
+topBar = NodePath("ColorRect")
+bottomBar = NodePath("ColorRect2")
+barHeightRatio = 0.11
+
+[node name="ColorRect" type="ColorRect" parent="Blackbar"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -48.0
+offset_right = 1922.0
+offset_bottom = 73.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Blackbar"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 994.0
+offset_right = 1918.0
+offset_bottom = 1114.0
+color = Color(0, 0, 0, 1)
 
 [node name="MenuManager" parent="." node_paths=PackedStringArray("HUD") instance=ExtResource("7_8k05n")]
 HUD = NodePath("../HUD")

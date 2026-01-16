@@ -166,6 +166,8 @@ public partial class Victory : MenuBase
         Player lPlayer = Player.GetInstance();
         if (lPlayer != null) lPlayer.invincible = true;
 
+        Parallax.GetInstance().SetBossMode(false);
+
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.JingleWin, false);
     }
 

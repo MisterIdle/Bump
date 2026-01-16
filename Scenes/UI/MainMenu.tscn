@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bb7w5cthb6nj5"]
+[gd_scene load_steps=8 format=3 uid="uid://bb7w5cthb6nj5"]
 
 [ext_resource type="Script" path="res://Scripts/UI/MainMenu.cs" id="1_as8bs"]
 [ext_resource type="FontFile" uid="uid://eqhdq03jdpch" path="res://Assets/Visual/Steak Melt.otf" id="2_664q7"]
@@ -13,6 +13,12 @@ bg_color = Color(1, 0.262745, 0.180392, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukxmc"]
 bg_color = Color(1, 0.261999, 0.181151, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tr3lw"]
+font = ExtResource("2_664q7")
+font_size = 25
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("title", "startButton", "optionButton", "helpButton", "creditsButton", "quitButton")]
 layout_mode = 3
@@ -109,3 +115,14 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_ukxmc")
 text = "ID_QUIT"
 icon_alignment = 1
 vertical_icon_alignment = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 882.0
+offset_top = -401.0
+offset_right = 1343.0
+offset_bottom = -336.0
+text = "ISART MILESTONE 
+1.0.0"
+label_settings = SubResource("LabelSettings_tr3lw")
+horizontal_alignment = 2

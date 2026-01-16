@@ -287,4 +287,9 @@ public partial class AudioManager : Node
     {
         ambiancePlayer.Play();
     }
+
+    public bool IsMusicPlaying()
+    {
+        return musicPlayer != null && musicPlayer.Playing;
+    }
 }

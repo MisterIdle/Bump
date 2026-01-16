@@ -51,11 +51,12 @@ shader = ExtResource("4_u20jj")
 shader_parameter/New = Color(0.099239, 0.822241, 0.942755, 1)
 shader_parameter/Seuil = 0.1
 
-[node name="Background" type="ParallaxBackground"]
+[node name="Background" type="ParallaxBackground" node_paths=PackedStringArray("panel")]
 script = ExtResource("1_h6ea3")
-SpawnY = -400.0
-Duration = 2.0
-Stagger = 500.0
+panel = NodePath("Panel")
+SpawnY = 800.0
+Duration = 3.0
+Stagger = 1.0
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15

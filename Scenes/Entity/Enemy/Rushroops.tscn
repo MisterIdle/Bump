@@ -23,6 +23,7 @@ shellPosOut = Vector2(6, -40)
 shellPosIn = Vector2(6, -10)
 dashSpeed = 600.0
 recoilDistance = 150.0
+shellProjectileProtect = true
 facePlayer = true
 shellPath = NodePath("Shell")
 wingPath = NodePath("Shell/Wing")

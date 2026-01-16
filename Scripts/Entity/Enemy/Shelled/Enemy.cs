@@ -17,6 +17,7 @@ public partial class Enemy : Entity
 
     [ExportCategory("Other")]
     [Export] protected int hammerScore = 1000;
+    [Export] protected bool destroyOnOutOfBounds = true;
 
     [Export] private int outOfBoundMargin = 250;
 

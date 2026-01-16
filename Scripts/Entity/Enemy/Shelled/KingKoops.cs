@@ -97,6 +97,8 @@ public partial class KingKoops : ShelledEnemy
 
     [Export] private int scoreHead = 5000;
 
+    private bool victoryTriggered = false;
+
     public override void Initiate()
     {
         base.Initiate();
@@ -116,6 +118,19 @@ public partial class KingKoops : ShelledEnemy
         AddChild(spawnTimer);
 
         StartIntro();
+    }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+        if (isDeath && !victoryTriggered)
+        {
+            if (!AudioManager.GetInstance().IsMusicPlaying())
+            {
+                CallDeferred(MethodName.CallDeathCleanup);
+            }
+        }
     }
 
     protected override void AliveUpdate(float pDelta)
@@ -320,6 +335,10 @@ public partial class KingKoops : ShelledEnemy
         AudioManager.GetInstance().StopMusic();
         currentState = EnemyState.Intro;
 
+        Blackbar.GetInstance().Show();
+
+        Parallax.GetInstance().SetBossMode(true);
+
         HUD.GetInstance().SetupBossBattle(health);
         SwitchState(EnemyState.Outside);
 
@@ -353,6 +372,8 @@ public partial class KingKoops : ShelledEnemy
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.Boss);
 
         currentAction = ActionState.Idle;
+
+        Blackbar.GetInstance().Hide();
     }
 
     public override void EntityDeath()
@@ -392,6 +413,9 @@ public partial class KingKoops : ShelledEnemy
 
     private void CallDeathCleanup()
     {
+        if (victoryTriggered) return;
+        victoryTriggered = true;
+
         MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
 
         ClearAll(false, false);
