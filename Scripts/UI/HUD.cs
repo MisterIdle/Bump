@@ -66,6 +66,13 @@ public partial class HUD : MenuBase
 
     private const float DEFAULT_BOSS_VAL = 0f;
 
+    [ExportCategory("Score Heat Effect")]
+    [Export] public float heatDecay = 2.0f;
+    [Export] public float heatGainPerPoint = 0.005f;
+    [Export] public float maxHeat = 1.0f;
+
+    private float currentHeat = 0f;
+
     private static HUD instance;
     public static HUD GetInstance()
     {

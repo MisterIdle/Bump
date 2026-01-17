@@ -48,6 +48,8 @@ godmodeLabel = NodePath("GodMode")
 gameoverLabel = NodePath("GameOver")
 bossLabel = NodePath("Boss/BossLife")
 bossTextureBar = NodePath("Boss/TextureProgressBar")
+heatGainPerPoint = 0.001
+maxHeat = 0.55
 
 [node name="Health" type="HBoxContainer" parent="."]
 layout_mode = 0
