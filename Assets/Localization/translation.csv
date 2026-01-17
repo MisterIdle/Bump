@@ -11,7 +11,7 @@ ID_GAMEOVER,Too Bad...,Dommage...
 ID_PAUSE,Pause,Pause
 ID_AUDIO,Audio,Audio
 ID_MUSIC_OPTION,Music,Musique
-ID_AUDIO_OPTION,Sound / Audio Options,Options Audio
+ID_AUDIO_OPTION,SFX,Effets
 ID_LANG,Language,Langue
 ID_SCREEN,Screen,Affichage
 ID_FULLSCREEN,Fullscreen,Plein écran
@@ -23,18 +23,18 @@ ID_GAME_DESIGNER,Lead Game Designer,Lead Concepteur de jeu
 ID_LEAD_UX,Lead UX,Lead UX
 ID_GAME_DESIGN_AND_PROGRAMMING,Game Design and Programming,Game Design et Programmation
 ID_ART_DIRECTOR,Art Director,Directeur Artistique
-ID_LEAD_SOUND_DESIGNER,Lead Sound Designer,Lead Sound Designer
+ID_LEAD_SOUND_DESIGNER,Lead Sound Designer,Chef Sound Designer
 ID_MUSIC_AND_SOUND_DESIGNER,Music and Sound Designer,Compositeur et Sound Designer
 ID_TUTO_MOVE,Move,Se déplacer
 ID_TUTO_POW,Use Pow,Pour Pow
 ID_TUTO_SHOOT,Shoot,Tirer
-ID_TUTO_SPECIAL,To Bonk,Pour Bonk
-ID_ENEMY_KILL,Enemy Killed,Ennemi tué
-ID_SHOT_SHOOTED,Shots Fired,Tirs effectués
+ID_TUTO_SPECIAL,To Bonk,Pour Marteler
+ID_ENEMY_KILL,Enemies Killed,Ennemis tués
+ID_SHOT_SHOOTED,Shots Fired,Tirs tirés
 ID_SPECIAL_USE,Special Used,Spécial utilisé
 ID_POW_USE,Pow Used,Pow utilisé
 ID_SCORE,Score,Score
 ID_VICTORY_TEXT,Victory,Victoire
 ID_GODMOD,God Mode,Mode Divin
 ID_KING,King Koops,Roi des Koops
-ID_EXIT,Any Key to Exit,Touche pour sortir
+ID_EXIT,To exit,Pour sortir

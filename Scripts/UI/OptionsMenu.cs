@@ -78,10 +78,8 @@ public partial class OptionsMenu : MenuBase
     {
         if (fullscreenCheck == null || vsyncCheck == null) return;
 
-        bool lIsFullscreen = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen ||
-                             DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;
-
-        fullscreenCheck.ButtonPressed = lIsFullscreen;
+        DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
+        fullscreenCheck.ButtonPressed = true;
         fullscreenCheck.Toggled += OnFullscreenToggled;
 
         bool lIsVsync = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;

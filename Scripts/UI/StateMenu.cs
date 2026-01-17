@@ -117,7 +117,6 @@ public partial class StateMenu : MenuBase
             case MenuManager.MenuState.Pause:
                 titleLabel.Text = TEXT_ID_PAUSE;
                 resumeButton.Visible = true;
-                restartButton.Visible = true;
                 optionButton.Visible = true;
                 mainMenuButton.Visible = true;
                 panel.SelfModulate = pauseColor;

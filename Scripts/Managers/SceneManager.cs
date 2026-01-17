@@ -67,10 +67,12 @@ public partial class SceneManager : Node
             bool isFullscreen = mode == DisplayServer.WindowMode.Fullscreen ||
                                 mode == DisplayServer.WindowMode.ExclusiveFullscreen;
 
+            bool newFullscreen = !isFullscreen;
+
             DisplayServer.WindowSetMode(
-                isFullscreen
-                    ? DisplayServer.WindowMode.Maximized
-                    : DisplayServer.WindowMode.Fullscreen
+                newFullscreen
+                    ? DisplayServer.WindowMode.Fullscreen
+                    : DisplayServer.WindowMode.Maximized
             );
         }
 
