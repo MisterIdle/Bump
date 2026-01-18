@@ -979,7 +979,7 @@ sprite = NodePath("../Rushroops9/Sprite")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-67, -3)
+position = Vector2(-58, 137)
 scale = Vector2(10000, 0.0291667)
 texture = ExtResource("15_uyxnr")
 
