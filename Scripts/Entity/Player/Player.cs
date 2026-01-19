@@ -1,6 +1,8 @@
 using Godot;
 using Com.IsartDigital.Shmup.NData;
 using Com.IsartDigital.Shmup.NGameObject.NMovable.NProjectiles;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
+using Com.IsartDigital.Shmup.NGameObject.NMovable.NEntity.NEnemy;
 using Com.IsartDigital.Shmup.NHUD;
 using Com.IsartDigital.Shmup.NManager;
 using Com.IsartDigital.Shmup.NStats;
@@ -200,7 +202,12 @@ public partial class Player : Entity
             HitCheckInvincible();
 
         if (Input.IsActionJustPressed(Property.INPUT_WIN))
+        {
             MenuManager.GetInstance().SetMenu(MenuManager.MenuState.Victory);
+
+            Enemy.ClearAll(true, true);
+            Projectiles.ClearAll();
+        }
 
         if (Input.IsActionJustPressed(Property.INPUT_FAST))
             Camera.GetInstance().ImFast();
