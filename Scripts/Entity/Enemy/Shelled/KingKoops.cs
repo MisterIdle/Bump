@@ -24,7 +24,6 @@ public partial class KingKoops : ShelledEnemy
     [ExportCategory("Combat Stats")]
     [Export] private float introDuration = 3.0f;
     [Export] private float transitionDuration = 0.4f;
-    [Export] private float deathDelayDuration = 3.0f;
 
     [ExportCategory("Dash Behavior")]
     [Export] private float preDashDuration = 0.5f;
@@ -76,9 +75,6 @@ public partial class KingKoops : ShelledEnemy
     private Timer introTimer;
     private Timer spawnTimer;
 
-    private ulong lastPhaseChangeTime = 0;
-    private const ulong PHASE_COOLDOWN_MS = 2000;
-
     private const float SCREEN_CLAMP_LIMIT = 150f;
     private const int OUT_OF_BOUND_LIMIT = -150;
     private const float VELOCITY_MOVE_X = 1f;
@@ -124,14 +120,7 @@ public partial class KingKoops : ShelledEnemy
     {
         base._Process(delta);
 
-        if (isDeath && !victoryTriggered)
-        {
-            if (!AudioManager.GetInstance().IsMusicPlaying())
-            {
-                CallDeferred(MethodName.CallDeathCleanup);
-            }
-        }
-
+        // Cette sécurité reste utile au cas où le boss sort de l'écran après sa mort
         if (isDeath)
         {
             float lBottomLimit = GetViewportRect().Size.Y + 200;
@@ -384,11 +373,10 @@ public partial class KingKoops : ShelledEnemy
         Blackbar.GetInstance().Hide();
     }
 
+    // MORT ET VICTOIRE DIRECTE
     public override void EntityDeath()
     {
         if (isDeath) return;
-
-        if (currentPhase != PhaseState.Final) return;
 
         dashTimer?.Stop();
         spawnTimer?.Stop();
@@ -409,14 +397,8 @@ public partial class KingKoops : ShelledEnemy
             lPlayer.isGameWon = true;
         }
 
-        Tween deathTween = CreateTween();
-        deathTween.TweenInterval(deathDelayDuration);
-        deathTween.Finished += OnDeathSequenceFinished;
-    }
-
-    private void OnDeathSequenceFinished()
-    {
-        CallDeferred(MethodName.CallDeathCleanup);
+        // Appel direct au lieu d'attendre un Tween
+        CallDeathCleanup();
     }
 
     private void CallDeathCleanup()
@@ -430,17 +412,9 @@ public partial class KingKoops : ShelledEnemy
         Projectiles.ClearAll();
     }
 
+    // SUPPRESSION DES MILLISECONDES
     private void AdvancePhase()
     {
-        ulong currentTick = Time.GetTicksMsec();
-
-        if (currentTick - lastPhaseChangeTime < PHASE_COOLDOWN_MS)
-        {
-            return;
-        }
-
-        lastPhaseChangeTime = currentTick;
-
         if (currentPhase < PhaseState.Final)
             currentPhase++;
 

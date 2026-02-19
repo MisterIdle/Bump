@@ -240,3 +240,7 @@ locale/translations=PackedStringArray("res://Assets/Localization/translation.en.
 2d_physics/layer_4="Collectible"
 2d_physics/layer_9="Player Projectile"
 2d_physics/layer_16="Trigger"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
